@@ -6,9 +6,14 @@
   "author": "Yoshihide Shiono <shiono.yoshihide@gmail.com>",
   "main": "app/background.js",
   "scripts": {
-    "dev": "nextron",
-    "build": "nextron build",
-    "postinstall": "electron-builder install-app-deps"
+    "clean": "rimraf dist main renderer/out renderer/.next",
+    "next-build": "next build renderer",
+    "build-renderer": "next build renderer",
+    "next-dev": "next dev renderer",
+    "nextron-dev": "nextron",
+    "nextron-build": "nextron build",
+    "postinstall": "electron-builder install-app-deps",
+    "type-check": "tsc"
   },
   "dependencies": {
     "electron-serve": "^1.1.0",
