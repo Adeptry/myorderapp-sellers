@@ -1,38 +1,22 @@
 {
+  "name": "moa-merchants-frontend",
+  "version": "0.1.0",
   "private": true,
-  "name": "my-nextron-app",
-  "description": "My application description",
-  "version": "1.0.0",
-  "author": "Yoshihide Shiono <shiono.yoshihide@gmail.com>",
-  "main": "app/background.js",
   "scripts": {
-    "clean": "rimraf dist main renderer/out renderer/.next",
-    "next-build": "next build renderer",
-    "build-renderer": "next build renderer",
-    "next-dev": "next dev renderer",
-    "nextron-dev": "nextron",
-    "nextron-build": "nextron build",
-    "postinstall": "electron-builder install-app-deps",
-    "type-check": "tsc"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "electron-serve": "^1.1.0",
-    "electron-store": "^8.1.0"
-  },
-  "devDependencies": {
-    "@emotion/cache": "^11.10.3",
-    "@emotion/react": "^11.10.4",
-    "@emotion/server": "^11.10.0",
-    "@emotion/styled": "^11.10.4",
-    "@mui/material": "^5.10.8",
-    "@types/node": "^18.11.18",
-    "@types/react": "^18.0.26",
-    "electron": "^21.3.3",
-    "electron-builder": "^23.6.0",
-    "next": "^12.3.4",
-    "nextron": "^8.5.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "typescript": "^4.9.4"
+    "@types/node": "20.4.2",
+    "@types/react": "18.2.15",
+    "@types/react-dom": "18.2.7",
+    "eslint": "8.45.0",
+    "eslint-config-next": "13.4.10",
+    "next": "13.4.10",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "typescript": "5.1.6"
   }
 }
