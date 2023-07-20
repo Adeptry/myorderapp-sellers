@@ -1,16 +1,18 @@
 "use client";
 
-import useAccessToken from "@/utils/useAccessToken";
+import globalAxios from "axios";
 import {
   AuthApi,
   CatalogsApi,
   ConfigsApi,
   Configuration,
   LocationsApi,
+  LoginResponseType,
   MerchantsApi,
   SquareApi,
 } from "moa-merchants-ts-axios";
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { useLocalStorage } from "usehooks-ts";
 
 export type NetworkingContextType = {
   auth: AuthApi;
@@ -19,6 +21,8 @@ export type NetworkingContextType = {
   locations: LocationsApi;
   merchants: MerchantsApi;
   square: SquareApi;
+  session: LoginResponseType | null;
+  setSession: (value: LoginResponseType | null) => void;
 };
 
 const NetworkingContext = createContext<NetworkingContextType | undefined>(
@@ -30,21 +34,38 @@ export function NetworkingProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [accessToken] = useAccessToken();
-  console.log("accessToken", accessToken);
-
+  const [session, setSession] = useLocalStorage<LoginResponseType | null>(
+    "session",
+    null
+  );
   const configuration = new Configuration({
-    accessToken: accessToken ?? undefined,
+    accessToken: session?.token,
+  });
+  const basePath = process.env.NEXT_PUBLIC_BACKEND_DOMAIN;
+
+  const [apiContext, setApiContext] = useState<NetworkingContextType>({
+    auth: new AuthApi(configuration, basePath, globalAxios),
+    catalogs: new CatalogsApi(configuration, basePath, globalAxios),
+    configs: new ConfigsApi(configuration, basePath, globalAxios),
+    locations: new LocationsApi(configuration, basePath, globalAxios),
+    merchants: new MerchantsApi(configuration, basePath, globalAxios),
+    square: new SquareApi(configuration, basePath, globalAxios),
+    session,
+    setSession,
   });
 
-  const apiContext: NetworkingContextType = {
-    auth: new AuthApi(configuration),
-    catalogs: new CatalogsApi(configuration),
-    configs: new ConfigsApi(configuration),
-    locations: new LocationsApi(configuration),
-    merchants: new MerchantsApi(configuration),
-    square: new SquareApi(configuration),
-  };
+  useEffect(() => {
+    setApiContext({
+      auth: new AuthApi(configuration, basePath, globalAxios),
+      catalogs: new CatalogsApi(configuration, basePath, globalAxios),
+      configs: new ConfigsApi(configuration, basePath, globalAxios),
+      locations: new LocationsApi(configuration, basePath, globalAxios),
+      merchants: new MerchantsApi(configuration, basePath, globalAxios),
+      square: new SquareApi(configuration, basePath, globalAxios),
+      session,
+      setSession,
+    });
+  }, [session]);
 
   return (
     <NetworkingContext.Provider value={apiContext}>

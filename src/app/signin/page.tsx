@@ -2,8 +2,7 @@
 
 import { routes } from "@/app/routes";
 import { useNetworkingContext } from "@/components/NetworkingProvider";
-import useAccessToken from "@/utils/useAccessToken";
-import useRefreshToken from "@/utils/useRefreshToken";
+
 import useRequestState from "@/utils/useRequestState";
 import { yupResolver } from "@hookform/resolvers/yup";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -20,13 +19,14 @@ import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { AuthEmailLoginDto, LoginResponseType } from "moa-merchants-ts-axios";
 import { default as NextLink } from "next/link";
+import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 
 export default function Page() {
-  const { auth } = useNetworkingContext();
-  const [, setAccessToken] = useAccessToken();
-  const [, setRefreshToken] = useRefreshToken();
+  const { push } = useRouter();
+  const { auth, setSession } = useNetworkingContext();
+
   const [{ loading, error }, setRequestState] =
     useRequestState<LoginResponseType>();
   const {
@@ -55,13 +55,17 @@ export default function Page() {
       const response = await auth.createSession({
         authEmailLoginDto,
       });
+      const data = response?.data;
+      if (!data) {
+        throw new Error("No access token");
+      }
+      setSession(data);
+      push(routes.configurator);
       setRequestState({
         data: response?.data,
         loading: false,
         error: undefined,
       });
-      setAccessToken(response?.data?.token ?? null);
-      setRefreshToken(response?.data?.refreshToken ?? null);
     } catch (error) {
       setRequestState({
         data: undefined,

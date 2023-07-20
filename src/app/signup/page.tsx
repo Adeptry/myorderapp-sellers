@@ -2,8 +2,6 @@
 
 import { routes } from "@/app/routes";
 import { useNetworkingContext } from "@/components/NetworkingProvider";
-import useAccessToken from "@/utils/useAccessToken";
-import useRefreshToken from "@/utils/useRefreshToken";
 import useRequestState from "@/utils/useRequestState";
 import { yupResolver } from "@hookform/resolvers/yup";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -29,9 +27,8 @@ import * as yup from "yup";
 export default function Page() {
   const { push } = useRouter();
 
-  const { auth, merchants } = useNetworkingContext();
-  const [, setAccessToken] = useAccessToken();
-  const [, setRefreshToken] = useRefreshToken();
+  const { auth, merchants, setSession } = useNetworkingContext();
+
   const [{ loading, error }, setRegisterRequestState] =
     useRequestState<LoginResponseType>();
   const {
@@ -75,15 +72,14 @@ export default function Page() {
         loading: false,
         error: undefined,
       });
-      const accessToken = registerResponse?.data?.token;
-      if (!accessToken) {
+      const data = registerResponse?.data;
+      if (!data) {
         throw new Error("No access token");
       }
-      setAccessToken(accessToken ?? null);
-      setRefreshToken(registerResponse?.data?.refreshToken ?? null);
+      setSession(data);
       const merchantResponse = await merchants.createMerchant({
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${data.token}`,
         },
       });
       if (merchantResponse?.data !== undefined) {
