@@ -12,7 +12,7 @@ import {
 } from "moa-merchants-ts-axios";
 import React, { createContext, useContext } from "react";
 
-export type NetworkingContext = {
+export type NetworkingContextType = {
   auth: AuthApi;
   catalogs: CatalogsApi;
   config: ConfigApi;
@@ -21,7 +21,7 @@ export type NetworkingContext = {
   square: SquareApi;
 };
 
-const NetworkingContext = createContext<NetworkingContext | undefined>(
+const NetworkingContext = createContext<NetworkingContextType | undefined>(
   undefined
 );
 
@@ -31,12 +31,13 @@ export function NetworkingProvider({
   children: React.ReactNode;
 }) {
   const [accessToken] = useAccessToken();
+  console.log("accessToken", accessToken);
 
   const configuration = new Configuration({
     accessToken: accessToken ?? undefined,
   });
 
-  const apiContext: NetworkingContext = {
+  const apiContext: NetworkingContextType = {
     auth: new AuthApi(configuration),
     catalogs: new CatalogsApi(configuration),
     config: new ConfigApi(configuration),
@@ -52,4 +53,14 @@ export function NetworkingProvider({
   );
 }
 
-export const useNetworkingContext = () => useContext(NetworkingContext);
+export const useNetworkingContext = () => {
+  const context = useContext(NetworkingContext);
+
+  if (context === undefined) {
+    throw new Error(
+      "useNetworkingContext must be used within a NetworkingProvider"
+    );
+  }
+
+  return context;
+};

@@ -3,8 +3,8 @@
 import { routes } from "@/app/routes";
 import { useNetworkingContext } from "@/components/NetworkingProvider";
 import useAccessToken from "@/utils/useAccessToken";
-import useNetworkState from "@/utils/useNetworkState";
 import useRefreshToken from "@/utils/useRefreshToken";
+import useRequestState from "@/utils/useRequestState";
 import { yupResolver } from "@hookform/resolvers/yup";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { LoadingButton } from "@mui/lab";
@@ -22,20 +22,29 @@ import {
   LoginResponseType,
 } from "moa-merchants-ts-axios";
 import { default as NextLink } from "next/link";
+import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 
 export default function Page() {
-  const networkingContext = useNetworkingContext();
+  const { push } = useRouter();
+
+  const { auth, merchants } = useNetworkingContext();
   const [, setAccessToken] = useAccessToken();
   const [, setRefreshToken] = useRefreshToken();
-  const [{ loading, error }, setRequestState] =
-    useNetworkState<LoginResponseType>();
+  const [{ loading, error }, setRegisterRequestState] =
+    useRequestState<LoginResponseType>();
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<AuthRegisterLoginDto>({
+    defaultValues: {
+      email: "",
+      password: "",
+      firstName: "",
+      lastName: "",
+    },
     resolver: yupResolver(
       yup
         .object<AuthRegisterLoginDto>()
@@ -53,23 +62,37 @@ export default function Page() {
     authRegisterLoginDto: AuthRegisterLoginDto
   ) {
     try {
-      setRequestState({
+      setRegisterRequestState({
         data: undefined,
         loading: true,
         error: undefined,
       });
-      const response = await networkingContext?.auth.register({
+      const registerResponse = await auth.register({
         authRegisterLoginDto,
       });
-      setRequestState({
-        data: response?.data,
+      setRegisterRequestState({
+        data: registerResponse?.data,
         loading: false,
         error: undefined,
       });
-      setAccessToken(response?.data?.token ?? null);
-      setRefreshToken(response?.data?.refreshToken ?? null);
+      const accessToken = registerResponse?.data?.token;
+      if (!accessToken) {
+        throw new Error("No access token");
+      }
+      setAccessToken(accessToken ?? null);
+      setRefreshToken(registerResponse?.data?.refreshToken ?? null);
+      const merchantResponse = await merchants.createMerchant({
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      if (merchantResponse?.data !== undefined) {
+        push(routes.configurator);
+      } else {
+        throw new Error("No merchant response");
+      }
     } catch (error) {
-      setRequestState({
+      setRegisterRequestState({
         data: undefined,
         loading: false,
         error: axios.isAxiosError(error) ? error : undefined,

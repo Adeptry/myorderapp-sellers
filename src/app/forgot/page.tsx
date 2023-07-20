@@ -2,7 +2,7 @@
 
 import { routes } from "@/app/routes";
 import { useNetworkingContext } from "@/components/NetworkingProvider";
-import useNetworkState from "@/utils/useNetworkState";
+import useRequestState from "@/utils/useRequestState";
 import { yupResolver } from "@hookform/resolvers/yup";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { LoadingButton } from "@mui/lab";
@@ -21,9 +21,9 @@ import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 
 export default function Page() {
-  const networkingContext = useNetworkingContext();
+  const { auth } = useNetworkingContext();
 
-  const [{ data, loading, error }, setRequestState] = useNetworkState<void>();
+  const [{ data, loading, error }, setRequestState] = useRequestState<void>();
   const {
     control,
     handleSubmit,
@@ -48,7 +48,7 @@ export default function Page() {
         loading: true,
         error: undefined,
       });
-      const response = await networkingContext?.auth.forgotPassword({
+      const response = await auth.forgotPassword({
         authForgotPasswordDto,
       });
       setRequestState({

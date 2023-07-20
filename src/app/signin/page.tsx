@@ -3,8 +3,8 @@
 import { routes } from "@/app/routes";
 import { useNetworkingContext } from "@/components/NetworkingProvider";
 import useAccessToken from "@/utils/useAccessToken";
-import useNetworkState from "@/utils/useNetworkState";
 import useRefreshToken from "@/utils/useRefreshToken";
+import useRequestState from "@/utils/useRequestState";
 import { yupResolver } from "@hookform/resolvers/yup";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { LoadingButton } from "@mui/lab";
@@ -24,11 +24,11 @@ import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 
 export default function Page() {
-  const networkingContext = useNetworkingContext();
+  const { auth } = useNetworkingContext();
   const [, setAccessToken] = useAccessToken();
   const [, setRefreshToken] = useRefreshToken();
   const [{ loading, error }, setRequestState] =
-    useNetworkState<LoginResponseType>();
+    useRequestState<LoginResponseType>();
   const {
     control,
     handleSubmit,
@@ -52,7 +52,7 @@ export default function Page() {
         loading: true,
         error: undefined,
       });
-      const response = await networkingContext?.auth.login({
+      const response = await auth.login({
         authEmailLoginDto,
       });
       setRequestState({

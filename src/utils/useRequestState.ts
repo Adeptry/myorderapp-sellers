@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { useState } from "react";
 
-export default function useNetworkState<S>() {
+export default function useRequestState<S>() {
   return useState<{
     data: S | undefined;
     error: AxiosError | undefined;

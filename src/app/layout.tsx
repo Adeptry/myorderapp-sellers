@@ -1,3 +1,4 @@
+import { CurrentMerchantProvider } from "@/components/CurrentMerchantProvider";
 import { NetworkingProvider } from "@/components/NetworkingProvider";
 import ThemeRegistry from "@/components/ThemeRegistry/ThemeRegistry";
 import TopBar from "@/components/TopBar";
@@ -19,18 +20,20 @@ export default function RootLayout({
       <body>
         <ThemeRegistry>
           <NetworkingProvider>
-            <TopBar />
-            <Box
-              component="main"
-              sx={{
-                flexGrow: 1,
-                bgcolor: "background.default",
-                mt: ["48px", "56px", "64px"],
-                p: 3,
-              }}
-            >
-              {children}
-            </Box>
+            <CurrentMerchantProvider>
+              <TopBar />
+              <Box
+                component="main"
+                sx={{
+                  flexGrow: 1,
+                  bgcolor: "background.default",
+                  mt: ["48px", "56px", "64px"],
+                  p: 3,
+                }}
+              >
+                {children}
+              </Box>
+            </CurrentMerchantProvider>
           </NetworkingProvider>
         </ThemeRegistry>
       </body>

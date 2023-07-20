@@ -28,3 +28,5 @@ export function useNetwork<O, I = void>(
   return { data, loading, error };
 }
 ```
+
+https://www.npmjs.com/package/react-cookie
