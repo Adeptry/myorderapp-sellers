@@ -35,7 +35,7 @@ export function CurrentMerchantProvider({
           loading: true,
           error: undefined,
         });
-        const response = await merchants.getMyMerchant();
+        const response = await merchants.getCurrentMerchant();
         setRequestState({
           data: response.data,
           loading: false,

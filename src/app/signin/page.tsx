@@ -52,7 +52,7 @@ export default function Page() {
         loading: true,
         error: undefined,
       });
-      const response = await auth.login({
+      const response = await auth.createSession({
         authEmailLoginDto,
       });
       setRequestState({

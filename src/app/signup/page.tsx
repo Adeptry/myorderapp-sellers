@@ -67,7 +67,7 @@ export default function Page() {
         loading: true,
         error: undefined,
       });
-      const registerResponse = await auth.register({
+      const registerResponse = await auth.createUser({
         authRegisterLoginDto,
       });
       setRegisterRequestState({
@@ -138,6 +138,7 @@ export default function Page() {
                     label="First Name"
                     autoComplete="given-name"
                     error={errors.firstName ? true : false}
+                    autoFocus
                   />
                 )}
               />
@@ -174,7 +175,6 @@ export default function Page() {
                     required
                     label="Email"
                     fullWidth
-                    autoFocus
                     error={errors.email ? true : false}
                   />
                 )}

@@ -4,10 +4,10 @@ import useAccessToken from "@/utils/useAccessToken";
 import {
   AuthApi,
   CatalogsApi,
-  ConfigApi,
+  ConfigsApi,
   Configuration,
   LocationsApi,
-  MerchantApi,
+  MerchantsApi,
   SquareApi,
 } from "moa-merchants-ts-axios";
 import React, { createContext, useContext } from "react";
@@ -15,9 +15,9 @@ import React, { createContext, useContext } from "react";
 export type NetworkingContextType = {
   auth: AuthApi;
   catalogs: CatalogsApi;
-  config: ConfigApi;
+  configs: ConfigsApi;
   locations: LocationsApi;
-  merchants: MerchantApi;
+  merchants: MerchantsApi;
   square: SquareApi;
 };
 
@@ -40,9 +40,9 @@ export function NetworkingProvider({
   const apiContext: NetworkingContextType = {
     auth: new AuthApi(configuration),
     catalogs: new CatalogsApi(configuration),
-    config: new ConfigApi(configuration),
+    configs: new ConfigsApi(configuration),
     locations: new LocationsApi(configuration),
-    merchants: new MerchantApi(configuration),
+    merchants: new MerchantsApi(configuration),
     square: new SquareApi(configuration),
   };
 
