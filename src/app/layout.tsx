@@ -1,3 +1,5 @@
+"use client";
+
 import { NetworkingProvider } from "@/components/NetworkingProvider";
 import ThemeRegistry from "@/components/ThemeRegistry/ThemeRegistry";
 import TopBar from "@/components/TopBar";

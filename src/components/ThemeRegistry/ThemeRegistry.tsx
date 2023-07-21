@@ -3,8 +3,16 @@
 import { useMediaQuery } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { Roboto } from "next/font/google";
 import * as React from "react";
 import NextAppDirEmotionCacheProvider from "./EmotionCache";
+
+export const roboto = Roboto({
+  weight: ["300", "400", "500", "700"],
+  subsets: ["latin"],
+  display: "swap",
+  fallback: ["Helvetica", "Arial", "sans-serif"],
+});
 
 export default function ThemeRegistry({
   children,
@@ -17,8 +25,7 @@ export default function ThemeRegistry({
     () =>
       createTheme({
         typography: {
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
+          fontFamily: roboto.style.fontFamily,
         },
         palette: {
           mode: prefersDarkMode ? "dark" : "light",

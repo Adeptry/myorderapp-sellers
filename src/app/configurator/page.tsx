@@ -2,9 +2,10 @@
 
 import { useNetworkingContext } from "@/components/NetworkingProvider";
 import useRequestState from "@/utils/useRequestState";
+import { Button, Grid, TextField } from "@mui/material";
 import axios from "axios";
 import { Merchant } from "moa-merchants-ts-axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Page() {
   const { merchants } = useNetworkingContext();
@@ -12,6 +13,8 @@ export default function Page() {
   const [{ data, loading, error }, setRequestState] = useRequestState<Merchant>(
     { loading: true }
   );
+
+  const [testState, setTestState] = useState("test");
 
   useEffect(() => {
     async function fetch() {
@@ -42,5 +45,35 @@ export default function Page() {
     return <div>Error: {JSON.stringify(error)}</div>;
   }
 
-  return <div>Hello, {data?.user?.firstName}</div>;
+  return (
+    <Grid container sx={{ minHeight: "90vh" }}>
+      <Grid xs={4} item>
+        <TextField
+          id="outlined-controlled"
+          label="Controlled"
+          value={testState}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            setTestState(event.target.value);
+          }}
+        />
+        <Button
+          onClick={() => {
+            const iframe = document.getElementById(
+              "flutter-iframe"
+            ) as HTMLIFrameElement;
+            iframe.contentWindow!.postMessage({ index: testState }, "*");
+          }}
+        >
+          Test
+        </Button>
+      </Grid>
+      <Grid xs={8} item>
+        <iframe
+          id="flutter-iframe"
+          src="https://moa-cafe.web.app/"
+          style={{ width: "100%", height: "100%" }}
+        />
+      </Grid>
+    </Grid>
+  );
 }
