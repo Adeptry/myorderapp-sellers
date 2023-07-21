@@ -11,7 +11,6 @@ import { Alert } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import { default as MuiLink } from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
@@ -77,7 +76,6 @@ export default function Page() {
 
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
       <Box
         sx={{
           marginTop: 8,

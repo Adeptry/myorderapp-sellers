@@ -17,6 +17,8 @@
     "@mui/icons-material": "latest",
     "@mui/lab": "^5.0.0-alpha.137",
     "@mui/material": "latest",
+    "@stripe/react-stripe-js": "^2.1.1",
+    "@stripe/stripe-js": "^1.54.1",
     "axios": "^0.26.1",
     "moa-merchants-ts-axios": "github:Adeptry/moa-merchants-ts-axios",
     "next": "13.x",
