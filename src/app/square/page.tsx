@@ -66,7 +66,11 @@ export default function Page() {
 
   return (
     <Container component="main">
-      <Button href={buildSquareUrl(data?.id || "")} component={NextLink}>
+      <Button
+        href={buildSquareUrl(data?.id || "")}
+        component={NextLink}
+        variant="contained"
+      >
         Authorize Square
       </Button>
     </Container>

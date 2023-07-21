@@ -112,7 +112,7 @@ export default function Page() {
               <FormControlLabel value="8" control={<Radio />} label="Pink" />
             </RadioGroup>
           </FormControl>
-          <Button href={routes.square} component={NextLink}>
+          <Button href={routes.square} component={NextLink} variant="contained">
             Done
           </Button>
         </Stack>

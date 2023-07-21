@@ -54,6 +54,7 @@ export default function Page() {
 
   return (
     <Button
+      variant="contained"
       onClick={async () => {
         const stripe = await loadStripe(
           process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!

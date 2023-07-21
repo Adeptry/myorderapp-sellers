@@ -3,11 +3,11 @@
 import { useMediaQuery } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { Roboto } from "next/font/google";
+import { Public_Sans } from "next/font/google";
 import * as React from "react";
 import NextAppDirEmotionCacheProvider from "./EmotionCache";
 
-export const roboto = Roboto({
+export const fontFamily = Public_Sans({
   weight: ["300", "400", "500", "700"],
   subsets: ["latin"],
   display: "swap",
@@ -25,10 +25,16 @@ export default function ThemeRegistry({
     () =>
       createTheme({
         typography: {
-          fontFamily: roboto.style.fontFamily,
+          fontFamily: fontFamily.style.fontFamily,
         },
         palette: {
           mode: prefersDarkMode ? "dark" : "light",
+          primary: {
+            main: "#000000",
+          },
+          secondary: {
+            main: "#F5F5F5",
+          },
         },
       }),
     [prefersDarkMode]
