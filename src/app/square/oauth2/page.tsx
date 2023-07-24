@@ -1,8 +1,8 @@
 "use client";
 
 import { routes } from "@/app/routes";
-import { useNetworkingContext } from "@/components/NetworkingProvider";
-import useRequestState from "@/utils/useRequestState";
+import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
+import { useRequestState } from "@/components/networking/useRequestState";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";

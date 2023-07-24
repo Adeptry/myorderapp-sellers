@@ -6,6 +6,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Public_Sans } from "next/font/google";
 import * as React from "react";
 import NextAppDirEmotionCacheProvider from "./EmotionCache";
+import { ReactNode, useMemo } from "react";
 
 export const fontFamily = Public_Sans({
   weight: ["300", "400", "500", "700"],
@@ -17,24 +18,23 @@ export const fontFamily = Public_Sans({
 export default function ThemeRegistry({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
-  const theme = React.useMemo(
+  const theme = useMemo(
     () =>
       createTheme({
         typography: {
           fontFamily: fontFamily.style.fontFamily,
         },
         palette: {
-          mode: prefersDarkMode ? "dark" : "light",
           primary: {
             main: "#000000",
           },
-          secondary: {
-            main: "#F5F5F5",
-          },
+          // secondary: {
+          //   main: "#F5F5F5",
+          // },
         },
       }),
     [prefersDarkMode]

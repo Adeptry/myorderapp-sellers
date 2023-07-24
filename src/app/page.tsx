@@ -1,235 +1,142 @@
 "use client";
 
-import { routes } from "@/app/routes";
-import { useNetworkingContext } from "@/components/NetworkingProvider";
-import useRequestState from "@/utils/useRequestState";
-import { yupResolver } from "@hookform/resolvers/yup";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { LoadingButton } from "@mui/lab";
-import { Alert } from "@mui/material";
-import Avatar from "@mui/material/Avatar";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import { default as MuiLink } from "@mui/material/Link";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
-import axios from "axios";
-import {
-  AuthRegisterLoginDto,
-  LoginResponseType,
-} from "moa-merchants-ts-axios";
-import { default as NextLink } from "next/link";
-import { useRouter } from "next/navigation";
-import { Controller, useForm } from "react-hook-form";
-import * as yup from "yup";
+import { Configurator } from "@/components/Configurator";
+import { SignUpLayout } from "@/components/layouts/SignUpLayout";
+import SquareOauthButton from "@/components/SquareOauthButton";
+import { mapEnum } from "@/utils/mapEnum";
+import { Box, Button, Container } from "@mui/material";
+import Step from "@mui/material/Step";
+import StepButton from "@mui/material/StepButton";
+import Stepper from "@mui/material/Stepper";
+import Grid from "@mui/material/Unstable_Grid2";
+import { Merchant } from "moa-merchants-ts-axios";
+import * as React from "react";
+import { useState } from "react";
+
+enum Steps {
+  signUp = 0,
+  configure,
+  square,
+  checkout,
+}
+
+const StepsTitles: { [key in Steps]: string } = {
+  [Steps.signUp]: "Sign Up",
+  [Steps.configure]: "Create your App",
+  [Steps.square]: "Sync your Catalog",
+  [Steps.checkout]: "Subscribe to Publish",
+};
 
 export default function Page() {
-  const { push } = useRouter();
-
-  const { auth, merchants, setSession } = useNetworkingContext();
-
-  const [{ loading, error }, setRegisterRequestState] =
-    useRequestState<LoginResponseType>();
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<AuthRegisterLoginDto>({
-    defaultValues: {
-      email: "",
-      password: "",
-      firstName: "",
-      lastName: "",
-    },
-    resolver: yupResolver(
-      yup
-        .object<AuthRegisterLoginDto>()
-        .shape({
-          email: yup.string().label("Email").required(),
-          password: yup.string().label("Password").required(),
-          firstName: yup.string().label("First name").required(),
-          lastName: yup.string().label("Last name").required(),
-        })
-        .required()
-    ),
+  const [activeStepState, setActiveStepState] = useState(Steps.signUp);
+  const [completedState, setCompletedState] = useState<Record<Steps, boolean>>({
+    [Steps.signUp]: false,
+    [Steps.configure]: false,
+    [Steps.square]: false,
+    [Steps.checkout]: false,
   });
+  const [merchantState, setMerchantState] = useState<Merchant | undefined>(
+    undefined
+  );
 
-  async function handleOnValidSubmit(
-    authRegisterLoginDto: AuthRegisterLoginDto
-  ) {
-    try {
-      setRegisterRequestState({
-        data: undefined,
-        loading: true,
-        error: undefined,
-      });
-      const registerResponse = await auth.createUser({
-        authRegisterLoginDto,
-      });
-      setRegisterRequestState({
-        data: registerResponse?.data,
-        loading: false,
-        error: undefined,
-      });
-      const data = registerResponse?.data;
-      if (!data) {
-        throw new Error("No access token");
-      }
-      setSession(data);
-      const merchantResponse = await merchants.createMerchant({
-        headers: {
-          Authorization: `Bearer ${data.token}`,
-        },
-      });
-      if (merchantResponse?.data !== undefined) {
-        push(routes.configurator);
-      } else {
-        throw new Error("No merchant response");
-      }
-    } catch (error) {
-      setRegisterRequestState({
-        data: undefined,
-        loading: false,
-        error: axios.isAxiosError(error) ? error : undefined,
-      });
+  const totalSteps = () => {
+    return Object.keys(Steps).length / 2;
+  };
+
+  const completedSteps = () => {
+    return Object.keys(completedState).length;
+  };
+
+  const isLastStep = () => {
+    return activeStepState === totalSteps() - 1;
+  };
+
+  const allStepsCompleted = () => {
+    return completedSteps() === totalSteps();
+  };
+
+  const handleNext = () => {
+    setActiveStepState(activeStepState + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStepState((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleStep = (step: number) => () => {
+    if (step === Steps.signUp) {
+      return;
     }
-  }
+    setActiveStepState(step);
+  };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Box
-        sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Avatar sx={{ m: 1 }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
-        {error && (
-          <Alert severity="error">{JSON.stringify(error.response?.data)}</Alert>
-        )}
-        <Box
-          component="form"
-          noValidate
-          onSubmit={handleSubmit(handleOnValidSubmit)}
-          sx={{ mt: 3 }}
-        >
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <Controller
-                name="firstName"
-                control={control}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    required
-                    fullWidth
-                    label="First Name"
-                    autoComplete="given-name"
-                    error={errors.firstName ? true : false}
-                    autoFocus
-                  />
-                )}
-              />
-              <Typography variant="inherit" color="error">
-                {errors.firstName?.message}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Controller
-                name="lastName"
-                control={control}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    required
-                    fullWidth
-                    label="Last Name"
-                    autoComplete="family-name"
-                    error={errors.lastName ? true : false}
-                  />
-                )}
-              />
-              <Typography variant="inherit" color="error">
-                {errors.lastName?.message}
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Controller
-                name="email"
-                control={control}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    required
-                    label="Email"
-                    fullWidth
-                    error={errors.email ? true : false}
-                  />
-                )}
-              />
-              <Typography variant="inherit" color="error">
-                {errors.email?.message}
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Controller
-                name="password"
-                control={control}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    required
-                    label="Password"
-                    fullWidth
-                    autoComplete="current-password"
-                    error={errors.password ? true : false}
-                  />
-                )}
-              />
-              <Typography variant="inherit" color="error">
-                {errors.password?.message}
-              </Typography>
-            </Grid>
-          </Grid>
-          <LoadingButton
-            loading={loading}
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign Up
-          </LoadingButton>
-          <Grid container justifyContent="flex-end">
-            <Grid item xs>
-              <MuiLink
-                href={routes.forgot}
-                component={NextLink}
-                variant="body2"
-              >
-                Forgot password?
-              </MuiLink>
-            </Grid>
-            <Grid item>
-              <MuiLink
-                href={routes.signin}
-                component={NextLink}
-                variant="body2"
-              >
-                Already have an account? Sign in
-              </MuiLink>
-            </Grid>
-          </Grid>
-        </Box>
+    <Container>
+      <Box pb={3}>
+        <Stepper nonLinear activeStep={activeStepState}>
+          {mapEnum(Steps, (step: Steps) => {
+            return (
+              <Step key={step} completed={completedState[step]}>
+                <StepButton color="inherit" onClick={() => handleStep(step)}>
+                  {StepsTitles[step]}
+                </StepButton>
+              </Step>
+            );
+          })}
+        </Stepper>
       </Box>
+
+      <div>
+        {activeStepState === Steps.signUp && (
+          <Grid container mt={3}>
+            <Grid sm={8} smOffset={2} md={6} mdOffset={3} lg={4} lgOffset={4}>
+              <SignUpLayout
+                onSuccess={function (merchant: Merchant): void {
+                  setMerchantState(merchant);
+                  handleNext();
+                }}
+              />
+            </Grid>
+          </Grid>
+        )}
+        {activeStepState === Steps.configure && (
+          <Container disableGutters>
+            <Configurator
+              autoFocus={true}
+              onSuccess={() => {
+                handleNext();
+              }}
+            />
+          </Container>
+        )}
+        {activeStepState === Steps.square && (
+          <Container sx={{ marginTop: 3 }} disableGutters>
+            <SquareOauthButton state={merchantState?.id ?? ""} />
+          </Container>
+        )}
+        {!allStepsCompleted() && (
+          <React.Fragment>
+            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+              {activeStepState > 1 && (
+                <Button
+                  color="inherit"
+                  disabled={activeStepState === 0}
+                  onClick={handleBack}
+                  sx={{ mr: 1 }}
+                >
+                  Back
+                </Button>
+              )}
+              <Box sx={{ flex: "1 1 auto" }} />
+              {activeStepState > 0 && (
+                <Button onClick={handleNext} sx={{ mr: 1 }}>
+                  Next
+                </Button>
+              )}
+            </Box>
+          </React.Fragment>
+        )}
+      </div>
     </Container>
   );
 }

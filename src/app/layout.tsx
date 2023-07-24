@@ -1,8 +1,8 @@
 "use client";
 
-import { NetworkingProvider } from "@/components/NetworkingProvider";
-import ThemeRegistry from "@/components/ThemeRegistry/ThemeRegistry";
-import TopBar from "@/components/TopBar";
+import AppBarLayout from "@/components/layouts/AppBarLayout";
+import { NetworkingProvider } from "@/components/networking/NetworkingProvider";
+import ThemeRegistry from "@/components/theme/ThemeRegistry";
 import { Box } from "@mui/material";
 import * as React from "react";
 
@@ -16,7 +16,7 @@ export default function RootLayout({
       <body>
         <ThemeRegistry>
           <NetworkingProvider>
-            <TopBar />
+            <AppBarLayout />
             <Box
               component="main"
               sx={{

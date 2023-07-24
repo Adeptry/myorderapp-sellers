@@ -1,7 +1,7 @@
 "use client";
 
-import { useNetworkingContext } from "@/components/NetworkingProvider";
-import useRequestState from "@/utils/useRequestState";
+import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
+import { useRequestState } from "@/components/networking/useRequestState";
 import { Button } from "@mui/material";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";

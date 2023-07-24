@@ -29,4 +29,4 @@ export function useNetwork<O, I = void>(
 }
 ```
 
-https://www.npmjs.com/package/react-cookie
+https://github.com/MomenSherif/react-oauth

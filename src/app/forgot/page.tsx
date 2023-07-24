@@ -1,8 +1,8 @@
 "use client";
 
 import { routes } from "@/app/routes";
-import { useNetworkingContext } from "@/components/NetworkingProvider";
-import useRequestState from "@/utils/useRequestState";
+import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
+import useRequestState from "@/components/networking/useRequestState";
 import { yupResolver } from "@hookform/resolvers/yup";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { LoadingButton } from "@mui/lab";
@@ -75,7 +75,7 @@ export default function Page() {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+        <Avatar sx={{ m: 1 }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">

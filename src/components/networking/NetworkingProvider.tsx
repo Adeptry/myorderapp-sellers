@@ -11,23 +11,9 @@ import {
   MerchantsApi,
   SquareApi,
 } from "moa-merchants-ts-axios";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
-
-export type NetworkingContextType = {
-  auth: AuthApi;
-  catalogs: CatalogsApi;
-  configs: ConfigsApi;
-  locations: LocationsApi;
-  merchants: MerchantsApi;
-  square: SquareApi;
-  session: LoginResponseType | null;
-  setSession: (value: LoginResponseType | null) => void;
-};
-
-const NetworkingContext = createContext<NetworkingContextType | undefined>(
-  undefined
-);
+import { NetworkingContext, NetworkingContextType } from "./NetworkingContext";
 
 export function NetworkingProvider({
   children,
@@ -73,15 +59,3 @@ export function NetworkingProvider({
     </NetworkingContext.Provider>
   );
 }
-
-export const useNetworkingContext = () => {
-  const context = useContext(NetworkingContext);
-
-  if (context === undefined) {
-    throw new Error(
-      "useNetworkingContext must be used within a NetworkingProvider"
-    );
-  }
-
-  return context;
-};
