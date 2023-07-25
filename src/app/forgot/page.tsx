@@ -1,149 +1,50 @@
 "use client";
 
-import { routes } from "@/app/routes";
-import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
-import { useRequestState } from "@/components/networking/useRequestState";
-import { yupResolver } from "@hookform/resolvers/yup";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { LoadingButton } from "@mui/lab";
-import { Alert } from "@mui/material";
-import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import { default as MuiLink } from "@mui/material/Link";
-import TextField from "@mui/material/TextField";
+
+import { ForgotPasswordForm } from "@/components/forms/ForgotPasswordForm";
+import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
+import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
 import Typography from "@mui/material/Typography";
-import axios from "axios";
-import { AuthForgotPasswordDto } from "moa-merchants-ts-axios";
-import { default as NextLink } from "next/link";
-import { Controller, useForm } from "react-hook-form";
-import * as yup from "yup";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { routes } from "../routes";
 
 export default function Page() {
-  const { auth } = useNetworkingContext();
+  const { push } = useRouter();
+  const { merchants } = useNetworkingContext();
+  const [{ loading }, invoke] = useNetworkingFunction(
+    merchants.getCurrentMerchant.bind(merchants),
+    true
+  );
 
-  const [{ data, loading, error }, setRequestState] = useRequestState<void>();
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<AuthForgotPasswordDto>({
-    resolver: yupResolver(
-      yup
-        .object<AuthForgotPasswordDto>()
-        .shape({
-          email: yup.string().label("Email").required(),
-        })
-        .required()
-    ),
-  });
-
-  async function handleOnValidSubmit(
-    authForgotPasswordDto: AuthForgotPasswordDto
-  ) {
-    try {
-      setRequestState({
-        data: undefined,
-        loading: true,
-        error: undefined,
-      });
-      const response = await auth.forgotPassword({
-        authForgotPasswordDto,
-      });
-      setRequestState({
-        data: response?.data,
-        loading: false,
-        error: undefined,
-      });
-    } catch (error) {
-      setRequestState({
-        data: undefined,
-        loading: false,
-        error: axios.isAxiosError(error) ? error : undefined,
-      });
+  useEffect(() => {
+    async function fetch() {
+      try {
+        const response = await invoke({});
+        if (response.data) {
+          push(routes.home);
+        }
+      } catch (error) {}
     }
-  }
+
+    fetch();
+  }, []);
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container maxWidth="xs">
       <Box
         sx={{
-          marginTop: 8,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1 }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h5" py={3}>
           Reset Password
         </Typography>
-        {error && (
-          <Alert severity="error">{JSON.stringify(error.response?.data)}</Alert>
-        )}
-        {data !== undefined && (
-          <Alert severity="success">Check your email!</Alert>
-        )}
-        <Box
-          component="form"
-          noValidate
-          onSubmit={handleSubmit(handleOnValidSubmit)}
-          sx={{ mt: 3 }}
-        >
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Controller
-                name="email"
-                control={control}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    required
-                    label="Email"
-                    fullWidth
-                    autoFocus
-                    error={errors.email ? true : false}
-                  />
-                )}
-              />
-              <Typography variant="inherit" color="error">
-                {errors.email?.message}
-              </Typography>
-            </Grid>
-          </Grid>
-          <LoadingButton
-            loading={loading}
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Reset Password
-          </LoadingButton>
-          <Grid container justifyContent="flex-end">
-            <Grid item xs>
-              <MuiLink
-                href={routes.signin}
-                component={NextLink}
-                variant="body2"
-              >
-                Back to sign in
-              </MuiLink>
-            </Grid>
-            <Grid item>
-              <MuiLink
-                href={routes.signup}
-                component={NextLink}
-                variant="body2"
-              >
-                New here? Sign up
-              </MuiLink>
-            </Grid>
-          </Grid>
-        </Box>
+        <ForgotPasswordForm preloading={loading} />
       </Box>
     </Container>
   );

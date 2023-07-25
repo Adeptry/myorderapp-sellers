@@ -2,6 +2,7 @@ export const routes = {
   signin: "/signin",
   signup: "/",
   forgot: "/forgot",
+  home: "/home",
   configurator: "/configurator",
   square: "/square",
   squareOauth2: "/square/oauth2",

@@ -3,38 +3,29 @@
 import { useMediaQuery } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { Public_Sans } from "next/font/google";
-import * as React from "react";
-import NextAppDirEmotionCacheProvider from "./EmotionCache";
 import { ReactNode, useMemo } from "react";
+import NextAppDirEmotionCacheProvider from "./EmotionCache";
 
-export const fontFamily = Public_Sans({
-  weight: ["300", "400", "500", "700"],
-  subsets: ["latin"],
-  display: "swap",
-  fallback: ["Helvetica", "Arial", "sans-serif"],
-});
-
-export default function ThemeRegistry({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export default function ThemeRegistry({ children }: { children: ReactNode }) {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
   const theme = useMemo(
     () =>
       createTheme({
         typography: {
-          fontFamily: fontFamily.style.fontFamily,
+          fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+          "Helvetica Neue", sans-serif`,
         },
         palette: {
           primary: {
             main: "#000000",
           },
-          // secondary: {
-          //   main: "#F5F5F5",
-          // },
+          secondary: {
+            main: "#1976d2",
+            dark: "#1565c0",
+            light: "#42a5f5",
+          },
         },
       }),
     [prefersDarkMode]

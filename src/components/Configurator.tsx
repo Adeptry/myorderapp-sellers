@@ -1,20 +1,20 @@
 import { AppConfigForm } from "@/components/forms/AppConfigForm";
 import { Box, Grid } from "@mui/material";
 import { Root } from "@radix-ui/react-aspect-ratio";
-import { AppConfig } from "moa-merchants-ts-axios";
-import { useState } from "react";
+import { AppConfig, ConfigUpdateDto } from "moa-merchants-ts-axios";
 import { DeviceFrameset } from "react-device-frameset";
 import "react-device-frameset/styles/marvel-devices.min.css";
 
 export function Configurator(props: {
-  autoFocus?: boolean;
+  shouldAutoFocus?: boolean;
   onSuccess: (appConfig: AppConfig) => void;
+  submitText: string;
+  preloading?: boolean;
+  defaultValues?: ConfigUpdateDto;
 }) {
-  const [value, setValue] = useState(0);
+  const { shouldAutoFocus, submitText, onSuccess, preloading, defaultValues } =
+    props;
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
   return (
     <Box>
       <Grid container spacing={2}>
@@ -26,7 +26,11 @@ export function Configurator(props: {
               ) as HTMLIFrameElement;
               iframe.contentWindow!.postMessage({ [field]: value }, "*");
             }}
-            onSuccess={props.onSuccess}
+            preloading={preloading}
+            submitText={submitText}
+            onSuccess={onSuccess}
+            shouldAutoFocus={shouldAutoFocus}
+            defaultValues={defaultValues}
           />
         </Grid>
         <Grid item xs={6}>

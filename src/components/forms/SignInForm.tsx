@@ -4,9 +4,9 @@ import { routes } from "@/app/routes";
 import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
 import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Check, Email } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
-import { Alert } from "@mui/material";
-import Box from "@mui/material/Box";
+import { Alert, Box, Skeleton } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { default as MuiLink } from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
@@ -15,10 +15,15 @@ import { AuthEmailLoginDto } from "moa-merchants-ts-axios";
 import { default as NextLink } from "next/link";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
+import AuthServices from "../layouts/AuthServices";
 
-export function SignInForm(props: { onSuccess: () => void }) {
+export function SignInForm(props: {
+  onSuccess: () => void;
+  preloading?: boolean;
+}) {
+  const { onSuccess, preloading } = props;
   const { auth, setSession } = useNetworkingContext();
-  const [{ loading, error }, invoke] = useNetworkingFunction(
+  const [{ data, loading, error }, invoke] = useNetworkingFunction(
     auth.createSession.bind(auth)
   );
 
@@ -27,6 +32,10 @@ export function SignInForm(props: { onSuccess: () => void }) {
     handleSubmit,
     formState: { errors },
   } = useForm<AuthEmailLoginDto>({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
     resolver: yupResolver(
       yup
         .object<AuthEmailLoginDto>()
@@ -46,7 +55,7 @@ export function SignInForm(props: { onSuccess: () => void }) {
         throw new Error("No access token");
       }
       setSession(data);
-      props.onSuccess();
+      onSuccess();
     } catch (error) {
       console.log(error);
     }
@@ -54,29 +63,41 @@ export function SignInForm(props: { onSuccess: () => void }) {
 
   return (
     <Box
-      component="form"
       onSubmit={handleSubmit(handleOnValidSubmit)}
+      sx={{ width: "100%" }}
+      component="form"
       noValidate
-      sx={{ mt: 3 }}
     >
-      {error && (
-        <Alert severity="error">{JSON.stringify(error.response?.data)}</Alert>
-      )}
-      <Grid container spacing={2}>
+      <Grid
+        container
+        columnSpacing={preloading ? 1 : 2}
+        rowSpacing={preloading ? 0 : 2}
+      >
+        {error && (
+          <Grid item xs={12}>
+            <Alert severity="error" style={{ width: "100%" }}>
+              {error.response?.data.message}
+            </Alert>
+          </Grid>
+        )}
         <Grid item xs={12}>
           <Controller
             name="email"
             control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                required
-                label="Email"
-                fullWidth
-                autoFocus
-                error={errors.email ? true : false}
-              />
-            )}
+            render={({ field }) => {
+              return preloading ? (
+                <Skeleton height="56px" />
+              ) : (
+                <TextField
+                  {...field}
+                  required
+                  label="Email"
+                  fullWidth
+                  autoFocus
+                  error={errors.email ? true : false}
+                />
+              );
+            }}
           />
           <Typography variant="inherit" color="error">
             {errors.email?.message}
@@ -86,41 +107,79 @@ export function SignInForm(props: { onSuccess: () => void }) {
           <Controller
             name="password"
             control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                required
-                label="Password"
-                fullWidth
-                autoComplete="current-password"
-                error={errors.password ? true : false}
-              />
-            )}
+            render={({ field }) => {
+              return preloading ? (
+                <Skeleton height="56px" />
+              ) : (
+                <TextField
+                  {...field}
+                  required
+                  label="Password"
+                  type="password"
+                  fullWidth
+                  autoComplete="current-password"
+                  error={errors.password ? true : false}
+                />
+              );
+            }}
           />
           <Typography variant="inherit" color="error">
             {errors.password?.message}
           </Typography>
         </Grid>
-      </Grid>
-      <LoadingButton
-        loading={loading}
-        type="submit"
-        fullWidth
-        variant="contained"
-        sx={{ mt: 3, mb: 2 }}
-      >
-        Sign In
-      </LoadingButton>
-      <Grid container>
-        <Grid item xs>
-          <MuiLink href={routes.forgot} component={NextLink} variant="body2">
-            Forgot password?
-          </MuiLink>
+        <Grid item xs={12}>
+          {preloading ? (
+            <Skeleton height="56px" />
+          ) : (
+            <LoadingButton
+              loading={loading}
+              disabled={data != null}
+              size="large"
+              type="submit"
+              fullWidth
+              variant="contained"
+              startIcon={data != null ? <Check /> : <Email />}
+            >
+              Sign In with Email
+            </LoadingButton>
+          )}
+        </Grid>
+        <Grid item xs={12}>
+          <Grid container columnSpacing={1}>
+            <Grid
+              item
+              xs={6}
+              display="flex"
+              justifyContent="start"
+              alignItems="center"
+            >
+              {preloading ? (
+                <Skeleton component={"a"} />
+              ) : (
+                <MuiLink href={routes.forgot} component={NextLink}>
+                  Forgot password?
+                </MuiLink>
+              )}
+            </Grid>
+            <Grid
+              item
+              xs={6}
+              display="flex"
+              justifyContent="end"
+              alignItems="center"
+            >
+              {preloading ? (
+                <Skeleton component={"a"} />
+              ) : (
+                <MuiLink href={routes.signup} component={NextLink}>
+                  Need an account? Sign up
+                </MuiLink>
+              )}
+            </Grid>
+          </Grid>
         </Grid>
         <Grid item>
-          <MuiLink href={routes.signup} component={NextLink} variant="body2">
-            Don't have an account? Sign up
-          </MuiLink>
+          <AuthServices preloading={preloading} />
         </Grid>
       </Grid>
     </Box>

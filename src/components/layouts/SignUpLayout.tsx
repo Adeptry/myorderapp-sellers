@@ -7,7 +7,9 @@ import { SignUpForm } from "../forms/SignUpForm";
 
 export function SignUpLayout(props: {
   onSuccess: (merchant: Merchant) => void;
+  preloading?: boolean;
 }) {
+  const { preloading, onSuccess } = props;
   return (
     <Box
       sx={{
@@ -16,10 +18,10 @@ export function SignUpLayout(props: {
         alignItems: "center",
       }}
     >
-      <Typography component="h1" variant="h5">
+      <Typography component="h1" variant="h5" py={3}>
         Sign up
       </Typography>
-      <SignUpForm onSuccess={props.onSuccess} />
+      <SignUpForm onSuccess={onSuccess} preloading={preloading} />
     </Box>
   );
 }

@@ -4,8 +4,9 @@ import { routes } from "@/app/routes";
 import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
 import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Check, Email } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
-import { Alert, Stack } from "@mui/material";
+import { Alert, Box, Skeleton } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { default as MuiLink } from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
@@ -14,13 +15,28 @@ import { AuthRegisterLoginDto, Merchant } from "moa-merchants-ts-axios";
 import { default as NextLink } from "next/link";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
+import AuthServices from "../layouts/AuthServices";
 
-export function SignUpForm(props: { onSuccess: (merchant: Merchant) => void }) {
+export function SignUpForm(props: {
+  onSuccess: (merchant: Merchant) => void;
+  preloading?: boolean;
+}) {
+  const { preloading, onSuccess } = props;
   const { auth, merchants, setSession } = useNetworkingContext();
-  const [{ loading: createUserLoading, error: createUserError }, createUser] =
-    useNetworkingFunction(auth.createUser.bind(auth));
   const [
-    { loading: createMerchantLoading, error: createMerchantError },
+    {
+      data: createUserData,
+      loading: createUserLoading,
+      error: createUserError,
+    },
+    createUser,
+  ] = useNetworkingFunction(auth.createUser.bind(auth));
+  const [
+    {
+      data: createMerchantData,
+      loading: createMerchantLoading,
+      error: createMerchantError,
+    },
     createMerchant,
   ] = useNetworkingFunction(merchants.createMerchant.bind(merchants));
 
@@ -66,7 +82,7 @@ export function SignUpForm(props: { onSuccess: (merchant: Merchant) => void }) {
         },
       });
       if (merchantResponse?.data !== undefined) {
-        props.onSuccess(merchantResponse.data);
+        onSuccess(merchantResponse.data);
       } else {
         throw new Error("No merchant response");
       }
@@ -77,38 +93,46 @@ export function SignUpForm(props: { onSuccess: (merchant: Merchant) => void }) {
 
   const error = createUserError || createMerchantError;
   const loading = createUserLoading || createMerchantLoading;
+  const datas = !!(createUserData || createMerchantData);
 
   return (
-    <Stack
-      direction="column"
-      justifyContent="flex-start"
-      alignItems="center"
-      mt={3}
-      spacing={2}
+    <Box
+      sx={{ width: "100%" }}
       component="form"
       noValidate
       onSubmit={handleSubmit(handleOnValidSubmit)}
     >
-      {error && (
-        <Alert severity="error">{JSON.stringify(error.response?.data)}</Alert>
-      )}
-      <Grid container spacing={2}>
+      <Grid
+        container
+        columnSpacing={preloading ? 1 : 2}
+        rowSpacing={preloading ? 0 : 2}
+      >
+        {error && (
+          <Grid item xs={12}>
+            <Alert severity="error" style={{ width: "100%" }}>
+              {error.response?.data.message}
+            </Alert>
+          </Grid>
+        )}
         <Grid item xs={12} sm={6}>
           <Controller
             name="firstName"
             control={control}
-            render={({ field }) => (
-              <TextField
-                id="firstName"
-                {...field}
-                required
-                fullWidth
-                label="First Name"
-                autoComplete="given-name"
-                error={errors.firstName ? true : false}
-                autoFocus
-              />
-            )}
+            render={({ field }) => {
+              return preloading ? (
+                <Skeleton height="56px" />
+              ) : (
+                <TextField
+                  {...field}
+                  required
+                  fullWidth
+                  label="First Name"
+                  autoComplete="given-name"
+                  error={errors.firstName ? true : false}
+                  autoFocus
+                />
+              );
+            }}
           />
           <Typography variant="inherit" color="error">
             {errors.firstName?.message}
@@ -118,17 +142,20 @@ export function SignUpForm(props: { onSuccess: (merchant: Merchant) => void }) {
           <Controller
             name="lastName"
             control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                required
-                id="lastName"
-                fullWidth
-                label="Last Name"
-                autoComplete="family-name"
-                error={errors.lastName ? true : false}
-              />
-            )}
+            render={({ field }) => {
+              return preloading ? (
+                <Skeleton height="56px" />
+              ) : (
+                <TextField
+                  {...field}
+                  required
+                  fullWidth
+                  label="Last Name"
+                  autoComplete="family-name"
+                  error={errors.lastName ? true : false}
+                />
+              );
+            }}
           />
           <Typography variant="inherit" color="error">
             {errors.lastName?.message}
@@ -138,16 +165,19 @@ export function SignUpForm(props: { onSuccess: (merchant: Merchant) => void }) {
           <Controller
             name="email"
             control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                required
-                id="email"
-                label="Email"
-                fullWidth
-                error={errors.email ? true : false}
-              />
-            )}
+            render={({ field }) => {
+              return preloading ? (
+                <Skeleton height="56px" />
+              ) : (
+                <TextField
+                  {...field}
+                  required
+                  label="Email"
+                  fullWidth
+                  error={errors.email ? true : false}
+                />
+              );
+            }}
           />
           <Typography variant="inherit" color="error">
             {errors.email?.message}
@@ -157,44 +187,80 @@ export function SignUpForm(props: { onSuccess: (merchant: Merchant) => void }) {
           <Controller
             name="password"
             control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                required
-                id="password"
-                label="Password"
-                fullWidth
-                autoComplete="current-password"
-                error={errors.password ? true : false}
-              />
-            )}
+            render={({ field }) => {
+              return preloading ? (
+                <Skeleton height="56px" />
+              ) : (
+                <TextField
+                  {...field}
+                  required
+                  label="Password"
+                  type="password"
+                  fullWidth
+                  error={errors.password ? true : false}
+                />
+              );
+            }}
           />
           <Typography variant="inherit" color="error">
             {errors.password?.message}
           </Typography>
         </Grid>
-      </Grid>
-      <LoadingButton
-        id="sign-up-button"
-        loading={loading}
-        type="submit"
-        variant="contained"
-        sx={{ mt: 3, mb: 2 }}
-      >
-        Sign Up
-      </LoadingButton>
-      <Grid container justifyContent="flex-end">
-        <Grid item xs>
-          <MuiLink href={routes.forgot} component={NextLink} variant="body2">
-            Forgot password?
-          </MuiLink>
+        <Grid item xs={12}>
+          {preloading ? (
+            <Skeleton height="56px" width="100%" />
+          ) : (
+            <LoadingButton
+              loading={loading}
+              disabled={datas}
+              size="large"
+              type="submit"
+              fullWidth
+              variant="contained"
+              startIcon={datas ? <Check /> : <Email />}
+            >
+              Sign Up with Email
+            </LoadingButton>
+          )}
         </Grid>
-        <Grid item>
-          <MuiLink href={routes.signin} component={NextLink} variant="body2">
-            Already have an account? Sign in
-          </MuiLink>
+        <Grid item xs={12}>
+          <Grid container columnSpacing={1}>
+            <Grid
+              item
+              xs={6}
+              display="flex"
+              justifyContent="start"
+              alignItems="center"
+            >
+              {preloading ? (
+                <Skeleton component={"a"} width={"100%"} />
+              ) : (
+                <MuiLink href={routes.forgot} component={NextLink}>
+                  Forgot password?
+                </MuiLink>
+              )}
+            </Grid>
+            <Grid
+              item
+              xs={6}
+              display="flex"
+              justifyContent="end"
+              alignItems="center"
+            >
+              {preloading ? (
+                <Skeleton component={"a"} width={"100%"} />
+              ) : (
+                <MuiLink href={routes.signin} component={NextLink}>
+                  Have an account? Sign in
+                </MuiLink>
+              )}
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <AuthServices preloading={preloading} />
         </Grid>
       </Grid>
-    </Stack>
+    </Box>
   );
 }

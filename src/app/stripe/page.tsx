@@ -1,72 +1,65 @@
 "use client";
 
+import OnboardingStepper, {
+  OnboardingSteps,
+} from "@/components/OnboardingStepper";
 import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
-import { useRequestState } from "@/components/networking/useRequestState";
-import { Button } from "@mui/material";
+import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
+import { Container } from "@mui/material";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
-import { StripeCheckoutDto } from "moa-merchants-ts-axios";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Page() {
+  const { push } = useRouter();
+
   const { merchants } = useNetworkingContext();
-
-  const [{ data, loading, error }, setRequestState] =
-    useRequestState<StripeCheckoutDto>({ loading: true });
-
-  const frontEndDomain = process.env.NEXT_PUBLIC_FRONTEND_DOMAIN;
+  const [{ data, loading, error }, invoke] = useNetworkingFunction(
+    merchants.startStripeCheckout.bind(merchants),
+    true
+  );
 
   useEffect(() => {
     async function fetch() {
       try {
-        const response = await merchants.startStripeCheckout({
+        const stripe = await loadStripe(
+          process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+        );
+        const frontEndDomain = process.env.NEXT_PUBLIC_FRONTEND_DOMAIN;
+        const response = await invoke({
           stripeCheckoutCreateDto: {
             successUrl: `${frontEndDomain}/stripe/success`,
             cancelUrl: `${frontEndDomain}/stripe/cancel`,
           },
         });
-        setRequestState({
-          data: response?.data,
-          loading: false,
-          error: undefined,
-        });
+        if (stripe && response.data.checkoutSessionId) {
+          stripe.redirectToCheckout({
+            sessionId: response.data.checkoutSessionId,
+          });
+        }
       } catch (error) {
-        setRequestState({
-          data: undefined,
-          loading: false,
-          error: axios.isAxiosError(error) ? error.response?.data : error,
-        });
+        if (axios.isAxiosError(error) && error.response?.status == 401) {
+          push("/signin");
+          return;
+        }
       }
     }
 
     fetch();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const sessionId = data?.checkoutSessionId;
 
   if (error) {
     return <div>Error: {JSON.stringify(error)}</div>;
   }
 
-  const sessionId = data?.checkoutSessionId;
-
   return (
-    <Button
-      variant="contained"
-      onClick={async () => {
-        const stripe = await loadStripe(
-          process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-        );
-        if (stripe && sessionId) {
-          stripe.redirectToCheckout({
-            sessionId,
-          });
-        }
-      }}
-    >
-      Checkout with Stripe
-    </Button>
+    <>
+      <Container maxWidth="md">
+        <OnboardingStepper activeStep={OnboardingSteps.checkout} />
+      </Container>
+    </>
   );
 }

@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { useCallback } from "react";
 import { NetworkingFunction } from "./NetworkingFunction";
 import { useRequestState } from "./useRequestState";
@@ -6,17 +6,18 @@ import { useRequestState } from "./useRequestState";
 type UseNetworkingHookResponse<R> = {
   data: R | undefined;
   loading: boolean;
-  error: any;
+  error?: AxiosError;
 };
 
 export const useNetworkingFunction = <T, R>(
-  networkingFunction: NetworkingFunction<T, R>
+  networkingFunction: NetworkingFunction<T, R>,
+  initialLoading?: boolean
 ): [
   UseNetworkingHookResponse<R>,
   (requestParameters: T) => Promise<AxiosResponse<R, any>>
 ] => {
   const [requestState, setRequestState] = useRequestState<R>({
-    loading: false,
+    loading: initialLoading ?? false,
   });
 
   const invoke = useCallback(

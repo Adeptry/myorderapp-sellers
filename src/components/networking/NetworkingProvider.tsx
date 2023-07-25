@@ -12,7 +12,7 @@ import {
   SquareApi,
 } from "moa-merchants-ts-axios";
 import React, { useEffect, useState } from "react";
-import { useLocalStorage } from "usehooks-ts";
+import { useIsClient, useLocalStorage } from "usehooks-ts";
 import { NetworkingContext, NetworkingContextType } from "./NetworkingContext";
 
 export function NetworkingProvider({
@@ -24,8 +24,11 @@ export function NetworkingProvider({
     "session",
     null
   );
+  const isClient = useIsClient();
+
   const configuration = new Configuration({
     accessToken: session?.token,
+    apiKey: process.env.NEXT_PUBLIC_BACKEND_API_KEY,
   });
   const basePath = process.env.NEXT_PUBLIC_BACKEND_DOMAIN;
 
@@ -36,7 +39,7 @@ export function NetworkingProvider({
     locations: new LocationsApi(configuration, basePath, globalAxios),
     merchants: new MerchantsApi(configuration, basePath, globalAxios),
     square: new SquareApi(configuration, basePath, globalAxios),
-    session,
+    session: isClient ? session : null,
     setSession,
   });
 
@@ -48,7 +51,7 @@ export function NetworkingProvider({
       locations: new LocationsApi(configuration, basePath, globalAxios),
       merchants: new MerchantsApi(configuration, basePath, globalAxios),
       square: new SquareApi(configuration, basePath, globalAxios),
-      session,
+      session: isClient ? session : null,
       setSession,
     });
   }, [session]);
