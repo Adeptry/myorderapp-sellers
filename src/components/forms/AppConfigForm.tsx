@@ -2,14 +2,13 @@
 
 import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
 import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
-import { fonts } from "@/data/fonts";
+import { fontNames } from "@/data/fontNames";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LoadingButton } from "@mui/lab";
 import {
+  Autocomplete,
   FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
+  FormHelperText,
   Skeleton,
 } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -21,7 +20,7 @@ import axios from "axios";
 import { AppConfig, ConfigUpdateDto } from "moa-merchants-ts-axios";
 import { MuiColorInput } from "mui-color-input";
 import { default as NextLink } from "next/link";
-import { useEffect } from "react";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 
@@ -44,16 +43,6 @@ export function AppConfigForm(props: {
     defaultValues,
   } = props;
   const { configs } = useNetworkingContext();
-
-  useEffect(() => {
-    fonts.forEach((font) => {
-      const fontFace = new FontFace(font.fontFamily, `url(${font.regularUrl})`);
-      console.log(`loading ${font.fontFamily}`);
-      fontFace.load().then((loadedFace) => {
-        document.fonts.add(loadedFace);
-      });
-    });
-  }, []);
 
   const [{ loading }, invoke] = useNetworkingFunction(
     configs.updateConfig.bind(configs)
@@ -114,6 +103,8 @@ export function AppConfigForm(props: {
         .required()
     ),
   });
+
+  const [fontInputState, setFontInputState] = useState("");
 
   async function handleOnValidSubmit(configUpdateDto: ConfigUpdateDto) {
     try {
@@ -219,32 +210,41 @@ export function AppConfigForm(props: {
                 <Skeleton height="92px" />
               ) : (
                 <FormControl fullWidth>
-                  <InputLabel id="font-family-select-label">
-                    {labels.fontFamily}
-                  </InputLabel>
-                  <Select
-                    labelId="font-family-select-label"
+                  <Autocomplete
+                    disablePortal
                     {...field}
-                    onChange={(event) => {
-                      onChange("fontFamily", event.target.value);
-                      field.onChange(event);
+                    onChange={(event: any, newValue: string | null) => {
+                      if (newValue) {
+                        onChange("fontFamily", newValue);
+                        field.onChange({
+                          target: {
+                            value: newValue,
+                          },
+                        });
+                      }
                     }}
-                    label={labels.fontFamily}
+                    inputValue={fontInputState}
+                    onInputChange={(event, newInputValue) => {
+                      setFontInputState(newInputValue);
+                    }}
                     fullWidth
-                    required
-                    error={errors.fontFamily ? true : false}
-                  >
-                    {fonts.map((font) => {
-                      return (
-                        <MenuItem
-                          value={font.fontFamily}
-                          style={{ fontFamily: font.fontFamily }}
-                        >
-                          {font.fontFamily}
-                        </MenuItem>
-                      );
-                    })}
-                  </Select>
+                    options={fontNames}
+                    renderInput={(params) => (
+                      <TextField {...params} label="Font" />
+                    )}
+                  />
+                  <FormHelperText>
+                    From{" "}
+                    <MuiLink
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href={"https://fonts.google.com"}
+                      component={NextLink}
+                    >
+                      Google Fonts
+                    </MuiLink>
+                    .
+                  </FormHelperText>
                 </FormControl>
               );
             }}
@@ -265,7 +265,8 @@ export function AppConfigForm(props: {
                   {...field}
                   required
                   helperText={
-                    !errors.shortDescription?.message && "Product page subtitle"
+                    !errors.shortDescription?.message &&
+                    "Product page subtitle, <30 characters"
                   }
                   label={labels.shortDescription}
                   fullWidth
@@ -292,32 +293,8 @@ export function AppConfigForm(props: {
                   required
                   rows={4}
                   helperText={
-                    !errors.fullDescription?.message && (
-                      <>
-                        Some info from{" "}
-                        <MuiLink
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          href={
-                            "https://developer.apple.com/app-store/product-page/"
-                          }
-                          component={NextLink}
-                        >
-                          Apple
-                        </MuiLink>{" "}
-                        &{" "}
-                        <MuiLink
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          href={
-                            "https://support.google.com/googleplay/android-developer/answer/9898842"
-                          }
-                          component={NextLink}
-                        >
-                          Google
-                        </MuiLink>
-                      </>
-                    )
+                    !errors.fullDescription?.message &&
+                    "Longer store detail text, up to 4000 characters"
                   }
                   label={labels.fullDescription}
                   fullWidth
@@ -340,7 +317,10 @@ export function AppConfigForm(props: {
               ) : (
                 <TextField
                   {...field}
-                  helperText={!errors.keywords?.message && "Comma separated"}
+                  helperText={
+                    !errors.keywords?.message &&
+                    "Comma separated, used for search"
+                  }
                   label={labels.keywords}
                   required
                   fullWidth

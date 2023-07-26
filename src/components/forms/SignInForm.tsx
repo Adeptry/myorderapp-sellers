@@ -172,7 +172,7 @@ export function SignInForm(props: {
               alignItems="center"
             >
               {preloading ? (
-                <Skeleton component={"a"} />
+                <Skeleton component={"a"} width={"100%"} />
               ) : (
                 <MuiLink href={routes.forgot} component={NextLink}>
                   Forgot password?
@@ -187,7 +187,7 @@ export function SignInForm(props: {
               alignItems="center"
             >
               {preloading ? (
-                <Skeleton component={"a"} />
+                <Skeleton component={"a"} width={"100%"} />
               ) : (
                 <MuiLink href={routes.signup} component={NextLink}>
                   Need an account? Sign up
@@ -196,7 +196,7 @@ export function SignInForm(props: {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item>
+        <Grid item xs={12}>
           <AuthServices preloading={preloading} />
         </Grid>
       </Grid>

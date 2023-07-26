@@ -1,5 +1,6 @@
 "use client";
 
+import { Skeleton } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { SignInForm } from "../forms/SignInForm";
@@ -17,9 +18,13 @@ export function SignInLayout(props: {
         alignItems: "center",
       }}
     >
-      <Typography component="h1" variant="h5" py={3}>
-        Sign in
-      </Typography>
+      {preloading ? (
+        <Skeleton component={"h5"} width={"50px"} sx={{ py: 3 }} />
+      ) : (
+        <Typography component="h1" variant="h5" py={3}>
+          Sign in
+        </Typography>
+      )}
       <SignInForm onSuccess={props.onSuccess} preloading={preloading} />
     </Box>
   );

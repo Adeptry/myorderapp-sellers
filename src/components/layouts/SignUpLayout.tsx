@@ -1,5 +1,6 @@
 "use client";
 
+import { Skeleton } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Merchant } from "moa-merchants-ts-axios";
@@ -18,9 +19,13 @@ export function SignUpLayout(props: {
         alignItems: "center",
       }}
     >
-      <Typography component="h1" variant="h5" py={3}>
-        Sign up
-      </Typography>
+      {preloading ? (
+        <Skeleton component={"h5"} width={"32px"} sx={{ py: 3 }} />
+      ) : (
+        <Typography component="h1" variant="h5" py={3}>
+          Sign up
+        </Typography>
+      )}
       <SignUpForm onSuccess={onSuccess} preloading={preloading} />
     </Box>
   );

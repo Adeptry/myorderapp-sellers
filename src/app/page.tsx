@@ -11,7 +11,7 @@ import { useEffect } from "react";
 
 export default function Page() {
   const { push } = useRouter();
-  const { merchants } = useNetworkingContext();
+  const { merchants, session } = useNetworkingContext();
   const [{ loading }, invoke] = useNetworkingFunction(
     merchants.getCurrentMerchant.bind(merchants),
     true
@@ -33,9 +33,8 @@ export default function Page() {
   return (
     <Container maxWidth="xs">
       <SignUpLayout
-        preloading={loading}
+        preloading={loading || session != null}
         onSuccess={function (merchant: Merchant): void {
-          console.log("wtrfasdsadas");
           push(routes.configurator);
         }}
       />

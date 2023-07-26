@@ -7,12 +7,10 @@ import { useNetworkingFunction } from "@/components/networking/useNetworkingFunc
 import Container from "@mui/material/Container";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useIsClient } from "usehooks-ts";
 
 export default function Page() {
-  const { session, merchants } = useNetworkingContext();
-  const isClient = useIsClient();
   const { push } = useRouter();
+  const { merchants, session } = useNetworkingContext();
   const [{ loading }, invoke] = useNetworkingFunction(
     merchants.getCurrentMerchant.bind(merchants),
     true
@@ -34,7 +32,7 @@ export default function Page() {
   return (
     <Container component="main" maxWidth="xs">
       <SignInLayout
-        preloading={loading}
+        preloading={loading || session != null}
         onSuccess={() => {
           push(routes.configurator);
         }}
