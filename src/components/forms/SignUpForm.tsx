@@ -148,6 +148,11 @@ export function SignUpForm(props: {
                   fullWidth
                   label="First Name"
                   autoComplete="given-name"
+                  inputProps={{
+                    autocapitalize: "none",
+                    autocorrect: "none",
+                    spellCheck: false,
+                  }}
                   error={errors.firstName ? true : false}
                   autoFocus
                 />
@@ -172,6 +177,11 @@ export function SignUpForm(props: {
                   fullWidth
                   label="Last Name"
                   autoComplete="family-name"
+                  inputProps={{
+                    autocapitalize: "none",
+                    autocorrect: "none",
+                    spellCheck: false,
+                  }}
                   error={errors.lastName ? true : false}
                 />
               );
@@ -193,6 +203,11 @@ export function SignUpForm(props: {
                   {...field}
                   required
                   label="Email"
+                  inputProps={{
+                    autocapitalize: "none",
+                    autocorrect: "none",
+                    spellCheck: false,
+                  }}
                   fullWidth
                   error={errors.email ? true : false}
                 />
@@ -216,6 +231,11 @@ export function SignUpForm(props: {
                   required
                   label="Password"
                   type="password"
+                  inputProps={{
+                    autocapitalize: "none",
+                    autocorrect: "none",
+                    spellCheck: false,
+                  }}
                   fullWidth
                   error={errors.password ? true : false}
                 />

@@ -110,6 +110,12 @@ export function SignInForm(props: {
                   {...field}
                   required
                   label="Email"
+                  autoComplete="email"
+                  inputProps={{
+                    autocapitalize: "none",
+                    autocorrect: "none",
+                    spellCheck: false,
+                  }}
                   fullWidth
                   autoFocus
                   error={errors.email ? true : false}
@@ -134,6 +140,11 @@ export function SignInForm(props: {
                   required
                   label="Password"
                   type="password"
+                  inputProps={{
+                    autocapitalize: "none",
+                    autocorrect: "none",
+                    spellCheck: false,
+                  }}
                   fullWidth
                   autoComplete="current-password"
                   error={errors.password ? true : false}

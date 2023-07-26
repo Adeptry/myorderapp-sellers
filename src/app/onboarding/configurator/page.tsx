@@ -7,7 +7,7 @@ import OnboardingStepper, {
 } from "@/components/OnboardingStepper";
 import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
 import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
-import { Container, Skeleton, Stack } from "@mui/material";
+import { Skeleton, Stack, useMediaQuery, useTheme } from "@mui/material";
 import axios from "axios";
 import { ConfigUpdateDto } from "moa-merchants-ts-axios";
 import { useRouter } from "next/navigation";
@@ -20,6 +20,8 @@ export default function Page() {
     configs.getConfig.bind(configs),
     true
   );
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   useEffect(() => {
     async function fetch() {
@@ -37,25 +39,21 @@ export default function Page() {
   }, []);
 
   return (
-    <>
-      <Container maxWidth="md">
-        <Stack spacing={3}>
-          {loading ? (
-            <Skeleton height={"24px"} />
-          ) : (
-            <OnboardingStepper activeStep={OnboardingSteps.configure} />
-          )}
-          <Configurator
-            onSuccess={() => {
-              push(routes.square);
-            }}
-            submitText={"Create your app"}
-            preloading={loading}
-            shouldAutoFocus={data == null}
-            defaultValues={data as ConfigUpdateDto}
-          />
-        </Stack>
-      </Container>
-    </>
+    <Stack spacing={3} py={3}>
+      {loading ? (
+        <Skeleton height={"24px"} />
+      ) : (
+        <OnboardingStepper activeStep={OnboardingSteps.configure} />
+      )}
+      <Configurator
+        onSuccess={() => {
+          push(routes.square);
+        }}
+        submitText={"Create your app"}
+        preloading={loading}
+        shouldAutoFocus={data == null}
+        defaultValues={data as ConfigUpdateDto}
+      />
+    </Stack>
   );
 }

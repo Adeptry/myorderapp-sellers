@@ -19,7 +19,7 @@ export default function AppBarLayout() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   return (
-    <AppBar position="fixed">
+    <AppBar position="sticky">
       <Toolbar>
         <IconButton size="large" edge="start" color="inherit">
           <TouchAppIcon />

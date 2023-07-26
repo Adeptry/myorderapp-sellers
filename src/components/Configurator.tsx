@@ -1,7 +1,8 @@
 import { AppConfigForm } from "@/components/forms/AppConfigForm";
-import { Box, Grid } from "@mui/material";
-import { Root } from "@radix-ui/react-aspect-ratio";
+import { TabContext, TabList } from "@mui/lab";
+import { Box, Grid, Stack, Tab, useMediaQuery, useTheme } from "@mui/material";
 import { AppConfig, ConfigUpdateDto } from "moa-merchants-ts-axios";
+import { useState } from "react";
 import { DeviceFrameset } from "react-device-frameset";
 import "react-device-frameset/styles/marvel-devices.min.css";
 
@@ -14,19 +15,39 @@ export function Configurator(props: {
 }) {
   const { shouldAutoFocus, submitText, onSuccess, preloading, defaultValues } =
     props;
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down(780));
+  const [value, setValue] = useState("0");
 
   return (
-    <Box>
+    <Stack>
+      <Box display={isSmallScreen ? "block" : "none"}>
+        <TabContext value={value}>
+          <TabList
+            sx={{ pb: 3 }}
+            variant="fullWidth"
+            onChange={(e, v) => setValue(v)}
+            aria-label="lab API tabs example"
+          >
+            <Tab label="Options" value="0" />
+            <Tab label="Preview" value="1" />
+          </TabList>
+        </TabContext>
+      </Box>
+
       <Grid container spacing={2}>
-        <Grid item xs={6}>
+        <Grid
+          item
+          xs={isSmallScreen ? 12 : 6}
+          display={isSmallScreen ? (value !== "0" ? "none" : "flex") : "flex"}
+          justifyContent="center"
+        >
           <AppConfigForm
             onChange={(field, value) => {
               const iframe = document.getElementById(
                 "flutter-iframe"
               ) as HTMLIFrameElement;
-              const message = { [field]: value };
-              console.log(message);
-              iframe.contentWindow!.postMessage(message, "*");
+              iframe.contentWindow!.postMessage({ [field]: value }, "*");
             }}
             preloading={preloading}
             submitText={submitText}
@@ -35,25 +56,28 @@ export function Configurator(props: {
             defaultValues={defaultValues}
           />
         </Grid>
-        <Grid item xs={6}>
-          <Root ratio={9 / 16} style={{ width: "100%" }}>
-            <DeviceFrameset
-              device="Nexus 5"
-              color="gold"
-              // @ts-ignore
-              width="100%"
-              // @ts-ignore
-              height="100%"
-            >
-              <iframe
-                id="flutter-iframe"
-                src="https://moa-cafe.web.app/"
-                style={{ width: "100%", height: "100%", border: 0 }}
-              />
-            </DeviceFrameset>
-          </Root>
+        <Grid
+          item
+          xs={isSmallScreen ? 12 : 6}
+          display={isSmallScreen ? (value !== "1" ? "none" : "flex") : "flex"}
+          justifyContent="center"
+        >
+          <DeviceFrameset
+            device="HTC One"
+            color="black"
+            // // @ts-ignore
+            // width="100%"
+            // // @ts-ignore
+            // height="100%"
+          >
+            <iframe
+              id="flutter-iframe"
+              src="https://moa-cafe.web.app/"
+              style={{ width: "100%", height: "100%", border: 0 }}
+            />
+          </DeviceFrameset>
         </Grid>
       </Grid>
-    </Box>
+    </Stack>
   );
 }

@@ -1,11 +1,9 @@
 "use client";
 
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-
 import { ForgotPasswordForm } from "@/components/forms/ForgotPasswordForm";
 import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
 import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
+import { Box, Grid, Skeleton } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -13,7 +11,7 @@ import { routes } from "../routes";
 
 export default function Page() {
   const { push } = useRouter();
-  const { merchants } = useNetworkingContext();
+  const { merchants, session } = useNetworkingContext();
   const [{ loading }, invoke] = useNetworkingFunction(
     merchants.getCurrentMerchant.bind(merchants),
     true
@@ -32,20 +30,22 @@ export default function Page() {
     fetch();
   }, []);
 
+  const preloading = loading || session != null;
+
   return (
-    <Container maxWidth="xs">
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Typography component="h1" variant="h5" py={3}>
-          Reset Password
-        </Typography>
+    <Grid container justifyContent="center">
+      <Grid item xs={12} sm={8} md={6}>
+        <Box display="flex" justifyContent="center">
+          {preloading ? (
+            <Skeleton component={"h5"} width={"50px"} sx={{ py: 3 }} />
+          ) : (
+            <Typography component="h1" variant="h5" py={3}>
+              Reset Password
+            </Typography>
+          )}
+        </Box>
         <ForgotPasswordForm preloading={loading} />
-      </Box>
-    </Container>
+      </Grid>
+    </Grid>
   );
 }

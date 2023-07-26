@@ -57,6 +57,33 @@ export function AppConfigForm(props: {
     url: "URL",
   };
 
+  const yupSchema = yup
+    .object<ConfigUpdateDto>()
+    .shape({
+      name: yup.string().min(3).label(labels.name).required(),
+      seedColor: yup
+        .string()
+        .matches(/^#(?:[0-9a-fA-F]{3}){1,2}$/)
+        .label(labels.seedColor)
+        .required("Must be a hex color"),
+      fontFamily: yup.string().label(labels.fontFamily).required(),
+      shortDescription: yup
+        .string()
+        .min(3)
+        .max(30)
+        .label(labels.shortDescription)
+        .required(),
+      fullDescription: yup
+        .string()
+        .min(3)
+        .max(4000)
+        .label(labels.fullDescription)
+        .required(),
+      keywords: yup.string().label(labels.keywords).required(),
+      url: yup.string().label(labels.url).required(),
+    })
+    .required();
+
   const {
     control,
     handleSubmit,
@@ -73,34 +100,7 @@ export function AppConfigForm(props: {
       url: "",
     },
     values: defaultValues,
-    resolver: yupResolver(
-      yup
-        .object<ConfigUpdateDto>()
-        .shape({
-          name: yup.string().min(3).label(labels.name).required(),
-          seedColor: yup
-            .string()
-            .matches(/^#(?:[0-9a-fA-F]{3}){1,2}$/)
-            .label(labels.seedColor)
-            .required("Must be a hex color"),
-          fontFamily: yup.string().label(labels.fontFamily).required(),
-          shortDescription: yup
-            .string()
-            .min(3)
-            .max(30)
-            .label(labels.shortDescription)
-            .required(),
-          fullDescription: yup
-            .string()
-            .min(3)
-            .max(4000)
-            .label(labels.fullDescription)
-            .required(),
-          keywords: yup.string().label(labels.keywords).required(),
-          url: yup.string().label(labels.url).required(),
-        })
-        .required()
-    ),
+    resolver: yupResolver(yupSchema),
   });
 
   const [fontInputState, setFontInputState] = useState("");
@@ -159,6 +159,11 @@ export function AppConfigForm(props: {
                   required
                   helperText={!errors.name?.message && "The name of your app"}
                   label={labels.name}
+                  inputProps={{
+                    autocapitalize: "none",
+                    autocorrect: "none",
+                    spellCheck: false,
+                  }}
                   onChange={(event) => {
                     onChange("name", event.target.value);
                     field.onChange(event);
@@ -179,6 +184,7 @@ export function AppConfigForm(props: {
             <Skeleton height="92px" />
           ) : (
             <MuiFileInput
+              fullWidth
               value={appIconFileValue}
               onChange={handleFileChange}
               helperText="Will appear on users' homepage"
@@ -195,7 +201,10 @@ export function AppConfigForm(props: {
                 <Skeleton height="92px" />
               ) : (
                 <MuiColorInput
-                  {...field}
+                  onBlur={() => field.onBlur()}
+                  value={field.value ?? "#6750A4"}
+                  name={field.name}
+                  ref={field.ref}
                   fullWidth
                   helperText={
                     !errors.seedColor?.message && "Used to generate your theme"
@@ -367,6 +376,11 @@ export function AppConfigForm(props: {
                     !errors.url?.message &&
                     "Can be marketing, support, or social media"
                   }
+                  inputProps={{
+                    autocapitalize: "none",
+                    autocorrect: "none",
+                    spellCheck: false,
+                  }}
                   required
                   label={labels.url}
                   fullWidth

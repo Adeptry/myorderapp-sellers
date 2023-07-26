@@ -95,6 +95,11 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
                   {...field}
                   required
                   label="Email"
+                  inputProps={{
+                    autocapitalize: "none",
+                    autocorrect: "none",
+                    spellCheck: false,
+                  }}
                   fullWidth
                   autoFocus
                   error={errors.email ? true : false}
