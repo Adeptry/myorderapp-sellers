@@ -24,7 +24,9 @@ export function Configurator(props: {
               const iframe = document.getElementById(
                 "flutter-iframe"
               ) as HTMLIFrameElement;
-              iframe.contentWindow!.postMessage({ [field]: value }, "*");
+              const message = { [field]: value };
+              console.log(message);
+              iframe.contentWindow!.postMessage(message, "*");
             }}
             preloading={preloading}
             submitText={submitText}

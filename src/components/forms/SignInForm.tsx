@@ -11,8 +11,10 @@ import Grid from "@mui/material/Grid";
 import { default as MuiLink } from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import axios from "axios";
 import { AuthEmailLoginDto } from "moa-merchants-ts-axios";
 import { default as NextLink } from "next/link";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import AuthServices from "../layouts/AuthServices";
@@ -26,10 +28,12 @@ export function SignInForm(props: {
   const [{ data, loading, error }, invoke] = useNetworkingFunction(
     auth.createSession.bind(auth)
   );
+  const [errorString, setErrorString] = useState<string | null>(null);
 
   const {
     control,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<AuthEmailLoginDto>({
     defaultValues: {
@@ -40,8 +44,8 @@ export function SignInForm(props: {
       yup
         .object<AuthEmailLoginDto>()
         .shape({
-          email: yup.string().label("Email").required(),
-          password: yup.string().label("Password").required(),
+          email: yup.string().email().label("Email").required(),
+          password: yup.string().min(6).label("Password").required(),
         })
         .required()
     ),
@@ -57,7 +61,21 @@ export function SignInForm(props: {
       setSession(data);
       onSuccess();
     } catch (error) {
-      console.log(error);
+      if (axios.isAxiosError(error) && error?.response?.status === 422) {
+        const message = error?.response?.data.message;
+        if (typeof message === "string") {
+          setErrorString(message);
+        } else {
+          Object.keys(message).forEach((fieldName) => {
+            setError(fieldName as keyof AuthEmailLoginDto, {
+              type: "server",
+              message: message[fieldName],
+            });
+          });
+        }
+      } else {
+        setErrorString(JSON.stringify(error));
+      }
     }
   }
 
@@ -73,10 +91,10 @@ export function SignInForm(props: {
         columnSpacing={preloading ? 1 : 2}
         rowSpacing={preloading ? 0 : 2}
       >
-        {error && (
+        {errorString && (
           <Grid item xs={12}>
             <Alert severity="error" style={{ width: "100%" }}>
-              {error.response?.data.message}
+              {errorString}
             </Alert>
           </Grid>
         )}

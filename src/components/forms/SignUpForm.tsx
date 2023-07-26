@@ -11,8 +11,14 @@ import Grid from "@mui/material/Grid";
 import { default as MuiLink } from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { AuthRegisterLoginDto, Merchant } from "moa-merchants-ts-axios";
+import axios from "axios";
+import {
+  AuthEmailLoginDto,
+  AuthRegisterLoginDto,
+  Merchant,
+} from "moa-merchants-ts-axios";
 import { default as NextLink } from "next/link";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import AuthServices from "../layouts/AuthServices";
@@ -39,10 +45,12 @@ export function SignUpForm(props: {
     },
     createMerchant,
   ] = useNetworkingFunction(merchants.createMerchant.bind(merchants));
+  const [errorString, setErrorString] = useState<string | null>(null);
 
   const {
     control,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<AuthRegisterLoginDto>({
     defaultValues: {
@@ -55,8 +63,8 @@ export function SignUpForm(props: {
       yup
         .object<AuthRegisterLoginDto>()
         .shape({
-          email: yup.string().label("Email").required(),
-          password: yup.string().label("Password").required(),
+          email: yup.string().email().label("Email").required(),
+          password: yup.string().min(6).label("Password").required(),
           firstName: yup.string().label("First name").required(),
           lastName: yup.string().label("Last name").required(),
         })
@@ -87,7 +95,19 @@ export function SignUpForm(props: {
         throw new Error("No merchant response");
       }
     } catch (error) {
-      console.log(error);
+      if (axios.isAxiosError(error) && error?.response?.status === 422) {
+        const message = error?.response?.data.message;
+        if (typeof message === "string") {
+          setErrorString(message);
+        } else {
+          Object.keys(message).forEach((fieldName) => {
+            setError(fieldName as keyof AuthEmailLoginDto, {
+              type: "server",
+              message: message[fieldName],
+            });
+          });
+        }
+      }
     }
   }
 
@@ -107,10 +127,10 @@ export function SignUpForm(props: {
         columnSpacing={preloading ? 1 : 2}
         rowSpacing={preloading ? 0 : 2}
       >
-        {error && (
+        {errorString && (
           <Grid item xs={12}>
             <Alert severity="error" style={{ width: "100%" }}>
-              {error.response?.data.message}
+              {errorString}
             </Alert>
           </Grid>
         )}

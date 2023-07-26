@@ -34,7 +34,7 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
       yup
         .object<AuthForgotPasswordDto>()
         .shape({
-          email: yup.string().label("Email").required(),
+          email: yup.string().email().label("Email").required(),
         })
         .required()
     ),

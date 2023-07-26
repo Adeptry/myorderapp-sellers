@@ -2,19 +2,30 @@
 
 import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
 import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
+import { fonts } from "@/data/fonts";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LoadingButton } from "@mui/lab";
-import { Alert, Skeleton } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Skeleton,
+} from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { default as MuiLink } from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import axios from "axios";
 import { AppConfig, ConfigUpdateDto } from "moa-merchants-ts-axios";
 import { MuiColorInput } from "mui-color-input";
 import { default as NextLink } from "next/link";
+import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
+
+const injectFont = (fontName: string, fontURL: string) => {};
 
 export function AppConfigForm(props: {
   preloading?: boolean;
@@ -33,7 +44,18 @@ export function AppConfigForm(props: {
     defaultValues,
   } = props;
   const { configs } = useNetworkingContext();
-  const [{ loading, error }, invoke] = useNetworkingFunction(
+
+  useEffect(() => {
+    fonts.forEach((font) => {
+      const fontFace = new FontFace(font.fontFamily, `url(${font.regularUrl})`);
+      console.log(`loading ${font.fontFamily}`);
+      fontFace.load().then((loadedFace) => {
+        document.fonts.add(loadedFace);
+      });
+    });
+  }, []);
+
+  const [{ loading }, invoke] = useNetworkingFunction(
     configs.updateConfig.bind(configs)
   );
 
@@ -50,6 +72,7 @@ export function AppConfigForm(props: {
   const {
     control,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<ConfigUpdateDto>({
     defaultValues: {
@@ -66,15 +89,23 @@ export function AppConfigForm(props: {
       yup
         .object<ConfigUpdateDto>()
         .shape({
-          name: yup.string().label(labels.name).required(),
-          seedColor: yup.string().label(labels.seedColor).required(),
+          name: yup.string().min(3).label(labels.name).required(),
+          seedColor: yup
+            .string()
+            .matches(/^#(?:[0-9a-fA-F]{3}){1,2}$/)
+            .label(labels.seedColor)
+            .required("Must be a hex color"),
           fontFamily: yup.string().label(labels.fontFamily).required(),
           shortDescription: yup
             .string()
+            .min(3)
+            .max(30)
             .label(labels.shortDescription)
             .required(),
           fullDescription: yup
             .string()
+            .min(3)
+            .max(4000)
             .label(labels.fullDescription)
             .required(),
           keywords: yup.string().label(labels.keywords).required(),
@@ -93,7 +124,15 @@ export function AppConfigForm(props: {
       }
       onSuccess(data);
     } catch (error) {
-      console.log(error);
+      if (axios.isAxiosError(error) && error?.response?.status === 422) {
+        const serverErrors = error?.response?.data.message;
+        Object.keys(serverErrors).forEach((fieldName) => {
+          setError(fieldName as keyof ConfigUpdateDto, {
+            type: "server",
+            message: serverErrors[fieldName],
+          });
+        });
+      }
     }
   }
 
@@ -108,11 +147,6 @@ export function AppConfigForm(props: {
         columnSpacing={preloading ? 1 : 2}
         rowSpacing={preloading ? 0 : 2}
       >
-        {error && (
-          <Grid item xs={12}>
-            <Alert severity="error">{error.response?.data.message}</Alert>
-          </Grid>
-        )}
         <Grid item xs={12}>
           <Controller
             name="name"
@@ -184,32 +218,34 @@ export function AppConfigForm(props: {
               return preloading ? (
                 <Skeleton height="92px" />
               ) : (
-                <TextField
-                  {...field}
-                  helperText={
-                    !errors.fontFamily?.message && (
-                      <>
-                        See{" "}
-                        <MuiLink
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          href={"https://fonts.google.com/"}
-                          component={NextLink}
+                <FormControl fullWidth>
+                  <InputLabel id="font-family-select-label">
+                    {labels.fontFamily}
+                  </InputLabel>
+                  <Select
+                    labelId="font-family-select-label"
+                    {...field}
+                    onChange={(event) => {
+                      onChange("fontFamily", event.target.value);
+                      field.onChange(event);
+                    }}
+                    label={labels.fontFamily}
+                    fullWidth
+                    required
+                    error={errors.fontFamily ? true : false}
+                  >
+                    {fonts.map((font) => {
+                      return (
+                        <MenuItem
+                          value={font.fontFamily}
+                          style={{ fontFamily: font.fontFamily }}
                         >
-                          all fonts
-                        </MuiLink>
-                      </>
-                    )
-                  }
-                  onChange={(event) => {
-                    onChange("fontFamily", event.target.value);
-                    field.onChange(event);
-                  }}
-                  label={labels.fontFamily}
-                  fullWidth
-                  required
-                  error={errors.fontFamily ? true : false}
-                />
+                          {font.fontFamily}
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
+                </FormControl>
               );
             }}
           />

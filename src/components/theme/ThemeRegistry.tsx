@@ -14,7 +14,7 @@ export default function ThemeRegistry({ children }: { children: ReactNode }) {
       createTheme({
         typography: {
           fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI",
-          Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+          Oxygen-Sans, Ubuntu, Cantarell, Roboto,
           "Helvetica Neue", sans-serif`,
         },
         palette: {
