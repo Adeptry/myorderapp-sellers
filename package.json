@@ -23,6 +23,7 @@
     "axios": "^0.26.1",
     "moa-merchants-ts-axios": "github:Adeptry/moa-merchants-ts-axios",
     "mui-color-input": "^1.1.0",
+    "mui-file-input": "^2.0.5",
     "next": "^13.4.12",
     "react": "18.x",
     "react-cookie": "^4.1.1",

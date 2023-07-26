@@ -3,6 +3,9 @@ export const routes = {
   signup: "/",
   forgot: "/forgot",
   home: "/home",
+  onboarding: {
+    configurator: "/onboarding/configurator",
+  },
   configurator: "/configurator",
   square: "/square",
   squareOauth2: "/square/oauth2",

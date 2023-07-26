@@ -19,12 +19,11 @@ import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { AppConfig, ConfigUpdateDto } from "moa-merchants-ts-axios";
 import { MuiColorInput } from "mui-color-input";
+import { MuiFileInput } from "mui-file-input";
 import { default as NextLink } from "next/link";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
-
-const injectFont = (fontName: string, fontURL: string) => {};
 
 export function AppConfigForm(props: {
   preloading?: boolean;
@@ -106,6 +105,15 @@ export function AppConfigForm(props: {
 
   const [fontInputState, setFontInputState] = useState("");
 
+  const [appIconFileValue, setAppIconFileValue] = useState<File | null>(null);
+
+  const handleFileChange = (newValue: File | null) => {
+    setAppIconFileValue(newValue);
+    if (newValue) {
+      configs.uploadIcon({ file: newValue });
+    }
+  };
+
   async function handleOnValidSubmit(configUpdateDto: ConfigUpdateDto) {
     try {
       const response = await invoke({ configUpdateDto });
@@ -149,7 +157,7 @@ export function AppConfigForm(props: {
                 <TextField
                   {...field}
                   required
-                  helperText={!errors.name?.message && "The name of your app."}
+                  helperText={!errors.name?.message && "The name of your app"}
                   label={labels.name}
                   onChange={(event) => {
                     onChange("name", event.target.value);
@@ -165,6 +173,18 @@ export function AppConfigForm(props: {
           <Typography variant="inherit" color="error">
             {errors.name?.message}
           </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          {preloading ? (
+            <Skeleton height="92px" />
+          ) : (
+            <MuiFileInput
+              value={appIconFileValue}
+              onChange={handleFileChange}
+              helperText="Will appear on users' homepage"
+              label="App icon"
+            />
+          )}
         </Grid>
         <Grid item xs={12}>
           <Controller

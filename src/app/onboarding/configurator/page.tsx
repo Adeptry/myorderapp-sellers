@@ -1,18 +1,21 @@
 "use client";
 
+import { routes } from "@/app/routes";
 import { Configurator } from "@/components/Configurator";
+import OnboardingStepper, {
+  OnboardingSteps,
+} from "@/components/OnboardingStepper";
 import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
 import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
-import { Alert, Container, Snackbar, Stack } from "@mui/material";
+import { Container, Skeleton, Stack } from "@mui/material";
 import axios from "axios";
 import { ConfigUpdateDto } from "moa-merchants-ts-axios";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { routes } from "../routes";
+import { useEffect } from "react";
 
 export default function Page() {
   const { push } = useRouter();
-  const { configs } = useNetworkingContext();
+  const { configs, session } = useNetworkingContext();
   const [{ data, loading, error }, invoke] = useNetworkingFunction(
     configs.getConfig.bind(configs),
     true
@@ -33,49 +36,26 @@ export default function Page() {
     fetch();
   }, []);
 
-  const [open, setOpen] = useState(false);
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
-  };
-  const isOnboarding = data == null;
-  const submitText = isOnboarding ? "Create your app" : "Update your app";
-
   return (
     <>
       <Container maxWidth="md">
         <Stack spacing={3}>
+          {loading ? (
+            <Skeleton height={"24px"} />
+          ) : (
+            <OnboardingStepper activeStep={OnboardingSteps.configure} />
+          )}
           <Configurator
             onSuccess={() => {
-              if (isOnboarding) {
-                push(routes.square);
-              } else {
-                handleClick();
-              }
+              push(routes.square);
             }}
-            submitText={submitText}
+            submitText={"Create your app"}
             preloading={loading}
             shouldAutoFocus={data == null}
             defaultValues={data as ConfigUpdateDto}
           />
         </Stack>
       </Container>
-
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
-          App updated! It will take some time to propogate to all devices.
-        </Alert>
-      </Snackbar>
     </>
   );
 }
