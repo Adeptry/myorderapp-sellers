@@ -4,7 +4,7 @@ import { routes } from "@/app/routes";
 import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
 import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Check, Email } from "@mui/icons-material";
+import { Check } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import { Alert, Box, Skeleton } from "@mui/material";
 import Grid from "@mui/material/Grid";
@@ -30,26 +30,22 @@ export function SignInForm(props: {
   );
   const [errorString, setErrorString] = useState<string | null>(null);
 
-  const {
-    control,
-    handleSubmit,
-    setError,
-    formState: { errors },
-  } = useForm<AuthEmailLoginDto>({
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-    resolver: yupResolver(
-      yup
-        .object<AuthEmailLoginDto>()
-        .shape({
-          email: yup.string().email().label("Email").required(),
-          password: yup.string().min(6).label("Password").required(),
-        })
-        .required()
-    ),
-  });
+  const { control, handleSubmit, setError, formState } =
+    useForm<AuthEmailLoginDto>({
+      defaultValues: {
+        email: "",
+        password: "",
+      },
+      resolver: yupResolver(
+        yup
+          .object<AuthEmailLoginDto>()
+          .shape({
+            email: yup.string().email().label("Email").required(),
+            password: yup.string().min(6).label("Password").required(),
+          })
+          .required()
+      ),
+    });
 
   async function handleOnValidSubmit(authEmailLoginDto: AuthEmailLoginDto) {
     try {
@@ -112,19 +108,19 @@ export function SignInForm(props: {
                   label="Email"
                   autoComplete="email"
                   inputProps={{
-                    autocapitalize: "none",
-                    autocorrect: "none",
+                    autoCapitalize: "none",
+                    autoCorrect: "none",
                     spellCheck: false,
                   }}
                   fullWidth
                   autoFocus
-                  error={errors.email ? true : false}
+                  error={formState.errors.email ? true : false}
                 />
               );
             }}
           />
           <Typography variant="inherit" color="error">
-            {errors.email?.message}
+            {formState.errors.email?.message}
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -141,19 +137,19 @@ export function SignInForm(props: {
                   label="Password"
                   type="password"
                   inputProps={{
-                    autocapitalize: "none",
-                    autocorrect: "none",
+                    autoCapitalize: "none",
+                    autoCorrect: "none",
                     spellCheck: false,
                   }}
                   fullWidth
                   autoComplete="current-password"
-                  error={errors.password ? true : false}
+                  error={formState.errors.password ? true : false}
                 />
               );
             }}
           />
           <Typography variant="inherit" color="error">
-            {errors.password?.message}
+            {formState.errors.password?.message}
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -161,15 +157,15 @@ export function SignInForm(props: {
             <Skeleton height="56px" />
           ) : (
             <LoadingButton
-              loading={loading}
-              disabled={data != null}
+              loading={loading || formState.isSubmitting}
               size="large"
+              startIcon={formState.isSubmitSuccessful ? <Check /> : null}
+              color={formState.isSubmitSuccessful ? "success" : "primary"}
               type="submit"
               fullWidth
               variant="contained"
-              startIcon={data != null ? <Check /> : <Email />}
             >
-              Sign In with Email
+              {formState.isSubmitSuccessful ? "" : "Sign In with email"}
             </LoadingButton>
           )}
         </Grid>

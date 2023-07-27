@@ -4,6 +4,7 @@ import { useNetworkingContext } from "@/components/networking/useNetworkingConte
 import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
 import { fontNames } from "@/data/fontNames";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Check } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import {
   Autocomplete,
@@ -17,7 +18,7 @@ import { default as MuiLink } from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
-import { AppConfig, ConfigUpdateDto } from "moa-merchants-ts-axios";
+import { AppConfig, AppConfigUpdateDto } from "moa-merchants-ts-axios";
 import { MuiColorInput } from "mui-color-input";
 import { MuiFileInput } from "mui-file-input";
 import { default as NextLink } from "next/link";
@@ -29,9 +30,9 @@ export function AppConfigForm(props: {
   preloading?: boolean;
   submitText: string;
   shouldAutoFocus?: boolean;
-  defaultValues?: ConfigUpdateDto;
+  defaultValues?: AppConfigUpdateDto;
   onSuccess: (appConfig: AppConfig) => void;
-  onChange: (field: keyof ConfigUpdateDto, value: string) => void;
+  onChange: (field: keyof AppConfigUpdateDto, value: string) => void;
 }) {
   const {
     submitText,
@@ -51,57 +52,35 @@ export function AppConfigForm(props: {
     name: "Name",
     seedColor: "Color",
     fontFamily: "Font Family",
-    shortDescription: "Short Description",
-    fullDescription: "Full Description",
-    keywords: "Keywords",
-    url: "URL",
   };
 
-  const yupSchema = yup
-    .object<ConfigUpdateDto>()
-    .shape({
-      name: yup.string().min(3).label(labels.name).required(),
-      seedColor: yup
-        .string()
-        .matches(/^#(?:[0-9a-fA-F]{3}){1,2}$/)
-        .label(labels.seedColor)
-        .required("Must be a hex color"),
-      fontFamily: yup.string().label(labels.fontFamily).required(),
-      shortDescription: yup
-        .string()
-        .min(3)
-        .max(30)
-        .label(labels.shortDescription)
-        .required(),
-      fullDescription: yup
-        .string()
-        .min(3)
-        .max(4000)
-        .label(labels.fullDescription)
-        .required(),
-      keywords: yup.string().label(labels.keywords).required(),
-      url: yup.string().label(labels.url).required(),
-    })
-    .required();
-
-  const {
-    control,
-    handleSubmit,
-    setError,
-    formState: { errors },
-  } = useForm<ConfigUpdateDto>({
-    defaultValues: {
-      seedColor: "#6750A4",
-      name: "",
-      fontFamily: "",
-      shortDescription: "",
-      fullDescription: "",
-      keywords: "",
-      url: "",
-    },
-    values: defaultValues,
-    resolver: yupResolver(yupSchema),
-  });
+  const { control, handleSubmit, setError, formState } =
+    useForm<AppConfigUpdateDto>({
+      defaultValues: {
+        seedColor: "#6750A4",
+        name: "",
+        fontFamily: "Roboto",
+      },
+      values: defaultValues,
+      resolver: yupResolver<AppConfigUpdateDto>(
+        yup
+          .object<AppConfigUpdateDto>()
+          .shape({
+            name: yup.string().min(3).label(labels.name).required(),
+            seedColor: yup
+              .string()
+              .matches(/^#(?:[0-9a-fA-F]{3}){1,2}$/)
+              .label(labels.seedColor)
+              .required("Must be a hex color"),
+            fontFamily: yup.string().label(labels.fontFamily).required(),
+            shortDescription: yup.string().optional(),
+            fullDescription: yup.string().optional(),
+            keywords: yup.string().optional(),
+            url: yup.string().optional(),
+          })
+          .required()
+      ),
+    });
 
   const [fontInputState, setFontInputState] = useState("");
 
@@ -114,9 +93,9 @@ export function AppConfigForm(props: {
     }
   };
 
-  async function handleOnValidSubmit(configUpdateDto: ConfigUpdateDto) {
+  async function handleOnValidSubmit(appConfigUpdateDto: AppConfigUpdateDto) {
     try {
-      const response = await invoke({ configUpdateDto });
+      const response = await invoke({ appConfigUpdateDto });
       const data = response?.data;
       if (!data) {
         throw new Error("App config not updated");
@@ -126,7 +105,7 @@ export function AppConfigForm(props: {
       if (axios.isAxiosError(error) && error?.response?.status === 422) {
         const serverErrors = error?.response?.data.message;
         Object.keys(serverErrors).forEach((fieldName) => {
-          setError(fieldName as keyof ConfigUpdateDto, {
+          setError(fieldName as keyof AppConfigUpdateDto, {
             type: "server",
             message: serverErrors[fieldName],
           });
@@ -139,6 +118,7 @@ export function AppConfigForm(props: {
     <Box
       component="form"
       onSubmit={handleSubmit(handleOnValidSubmit)}
+      sx={{ width: "100%" }}
       noValidate
     >
       <Grid
@@ -157,11 +137,13 @@ export function AppConfigForm(props: {
                 <TextField
                   {...field}
                   required
-                  helperText={!errors.name?.message && "The name of your app"}
+                  helperText={
+                    !formState.errors.name?.message && "The name of your app"
+                  }
                   label={labels.name}
                   inputProps={{
-                    autocapitalize: "none",
-                    autocorrect: "none",
+                    autoCapitalize: "none",
+                    autoCorrect: "none",
                     spellCheck: false,
                   }}
                   onChange={(event) => {
@@ -170,13 +152,13 @@ export function AppConfigForm(props: {
                   }}
                   fullWidth
                   autoFocus={shouldAutoFocus}
-                  error={errors.name ? true : false}
+                  error={formState.errors.name ? true : false}
                 />
               );
             }}
           />
           <Typography variant="inherit" color="error">
-            {errors.name?.message}
+            {formState.errors.name?.message}
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -202,17 +184,18 @@ export function AppConfigForm(props: {
               ) : (
                 <MuiColorInput
                   onBlur={() => field.onBlur()}
-                  value={field.value ?? "#6750A4"}
+                  value={field.value ?? ""}
                   name={field.name}
                   ref={field.ref}
                   fullWidth
                   helperText={
-                    !errors.seedColor?.message && "Used to generate your theme"
+                    !formState.errors.seedColor?.message &&
+                    "Used to generate your theme"
                   }
                   format="hex"
                   isAlphaHidden
                   label={labels.seedColor}
-                  error={errors.seedColor ? true : false}
+                  error={formState.errors.seedColor ? true : false}
                   required
                   onChange={(value) => {
                     onChange("seedColor", value);
@@ -227,7 +210,7 @@ export function AppConfigForm(props: {
             }}
           />
           <Typography variant="inherit" color="error">
-            {errors.seedColor?.message}
+            {formState.errors.seedColor?.message}
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -240,8 +223,8 @@ export function AppConfigForm(props: {
               ) : (
                 <FormControl fullWidth>
                   <Autocomplete
+                    value={field.value}
                     disablePortal
-                    {...field}
                     onChange={(event: any, newValue: string | null) => {
                       if (newValue) {
                         onChange("fontFamily", newValue);
@@ -259,152 +242,53 @@ export function AppConfigForm(props: {
                     fullWidth
                     options={fontNames}
                     renderInput={(params) => (
-                      <TextField {...params} label="Font" />
+                      <TextField {...params} name={field.name} label="Font" />
                     )}
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={option}>
+                          {option}
+                        </li>
+                      );
+                    }}
                   />
-                  <FormHelperText>
-                    From{" "}
-                    <MuiLink
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href={"https://fonts.google.com"}
-                      component={NextLink}
-                    >
-                      Google Fonts
-                    </MuiLink>
-                    .
-                  </FormHelperText>
+                  {!formState.errors.fontFamily?.message && (
+                    <FormHelperText>
+                      From{" "}
+                      <MuiLink
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={"https://fonts.google.com"}
+                        component={NextLink}
+                      >
+                        Google Fonts
+                      </MuiLink>
+                      .
+                    </FormHelperText>
+                  )}
                 </FormControl>
               );
             }}
           />
           <Typography variant="inherit" color="error">
-            {errors.fontFamily?.message}
+            {formState.errors.fontFamily?.message}
           </Typography>
         </Grid>
-        <Grid item xs={12}>
-          <Controller
-            name="shortDescription"
-            control={control}
-            render={({ field }) => {
-              return preloading ? (
-                <Skeleton height="92px" />
-              ) : (
-                <TextField
-                  {...field}
-                  required
-                  helperText={
-                    !errors.shortDescription?.message &&
-                    "Product page subtitle, <30 characters"
-                  }
-                  label={labels.shortDescription}
-                  fullWidth
-                  error={errors.shortDescription ? true : false}
-                />
-              );
-            }}
-          />
-          <Typography variant="inherit" color="error">
-            {errors.shortDescription?.message}
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Controller
-            name="fullDescription"
-            control={control}
-            render={({ field }) => {
-              return preloading ? (
-                <Skeleton height="164px" />
-              ) : (
-                <TextField
-                  {...field}
-                  multiline
-                  required
-                  rows={4}
-                  helperText={
-                    !errors.fullDescription?.message &&
-                    "Longer store detail text, up to 4000 characters"
-                  }
-                  label={labels.fullDescription}
-                  fullWidth
-                  error={errors.fullDescription ? true : false}
-                />
-              );
-            }}
-          />
-          <Typography variant="inherit" color="error">
-            {errors.fullDescription?.message}
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Controller
-            name="keywords"
-            control={control}
-            render={({ field }) => {
-              return preloading ? (
-                <Skeleton height="92px" />
-              ) : (
-                <TextField
-                  {...field}
-                  helperText={
-                    !errors.keywords?.message &&
-                    "Comma separated, used for search"
-                  }
-                  label={labels.keywords}
-                  required
-                  fullWidth
-                  error={errors.keywords ? true : false}
-                />
-              );
-            }}
-          />
-          <Typography variant="inherit" color="error">
-            {errors.keywords?.message}
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Controller
-            name="url"
-            control={control}
-            render={({ field }) => {
-              return preloading ? (
-                <Skeleton height="92px" />
-              ) : (
-                <TextField
-                  {...field}
-                  helperText={
-                    !errors.url?.message &&
-                    "Can be marketing, support, or social media"
-                  }
-                  inputProps={{
-                    autocapitalize: "none",
-                    autocorrect: "none",
-                    spellCheck: false,
-                  }}
-                  required
-                  label={labels.url}
-                  fullWidth
-                  error={errors.url ? true : false}
-                />
-              );
-            }}
-          />
-          <Typography variant="inherit" color="error">
-            {errors.url?.message}
-          </Typography>
-        </Grid>
+
         <Grid item xs={12}>
           {preloading ? (
             <Skeleton height="92px" />
           ) : (
             <LoadingButton
-              loading={loading}
+              loading={loading || formState.isSubmitting}
               size="large"
+              startIcon={formState.isSubmitSuccessful ? <Check /> : null}
+              color={formState.isSubmitSuccessful ? "success" : "primary"}
               type="submit"
               fullWidth
               variant="contained"
             >
-              {submitText}
+              {formState.isSubmitSuccessful ? "" : submitText}
             </LoadingButton>
           )}
         </Grid>

@@ -1,6 +1,6 @@
 import { routes } from "@/app/routes";
 import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
-import { useRequestState } from "@/components/networking/useRequestState";
+import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LoadingButton } from "@mui/lab";
 import {
@@ -15,16 +15,22 @@ import { default as MuiLink } from "@mui/material/Link";
 import axios from "axios";
 import { AuthForgotPasswordDto } from "moa-merchants-ts-axios";
 import { default as NextLink } from "next/link";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 
 export function ForgotPasswordForm(props: { preloading: boolean }) {
   const { preloading } = props;
   const { auth } = useNetworkingContext();
-  const [{ data, loading, error }, setRequestState] = useRequestState<void>();
+  const [{ data, loading, error }, invoke] = useNetworkingFunction(
+    auth.forgotPassword.bind(auth)
+  );
+  const [errorString, setErrorString] = useState<string | null>(null);
+
   const {
     control,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<AuthForgotPasswordDto>({
     defaultValues: {
@@ -44,27 +50,26 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
     authForgotPasswordDto: AuthForgotPasswordDto
   ) {
     try {
-      setRequestState({
-        data: undefined,
-        loading: true,
-        error: undefined,
-      });
-      const response = await auth.forgotPassword({
-        authForgotPasswordDto,
-      });
-      setRequestState({
-        data: response?.data,
-        loading: false,
-        error: undefined,
-      });
+      await invoke({ authForgotPasswordDto });
     } catch (error) {
-      setRequestState({
-        data: undefined,
-        loading: false,
-        error: axios.isAxiosError(error) ? error : undefined,
-      });
+      if (axios.isAxiosError(error) && error?.response?.status === 422) {
+        const message = error?.response?.data.message;
+        if (typeof message === "string") {
+          setErrorString(message);
+        } else {
+          Object.keys(message).forEach((fieldName) => {
+            setError(fieldName as keyof AuthForgotPasswordDto, {
+              type: "server",
+              message: message[fieldName],
+            });
+          });
+        }
+      } else {
+        setErrorString(JSON.stringify(error));
+      }
     }
   }
+
   return (
     <Box
       component="form"
@@ -73,9 +78,11 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
       sx={{ width: "100%" }}
     >
       <Grid container spacing={2}>
-        {error && (
+        {errorString && (
           <Grid item xs={12}>
-            <Alert severity="error">{error.response?.data.message}</Alert>
+            <Alert severity="error" style={{ width: "100%" }}>
+              {errorString}
+            </Alert>
           </Grid>
         )}
         {data !== undefined && (
@@ -96,8 +103,8 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
                   required
                   label="Email"
                   inputProps={{
-                    autocapitalize: "none",
-                    autocorrect: "none",
+                    autoCapitalize: "none",
+                    autoCorrect: "none",
                     spellCheck: false,
                   }}
                   fullWidth

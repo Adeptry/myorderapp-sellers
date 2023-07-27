@@ -4,7 +4,7 @@ import { routes } from "@/app/routes";
 import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
 import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Check, Email } from "@mui/icons-material";
+import { Check } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import { Alert, Box, Skeleton } from "@mui/material";
 import Grid from "@mui/material/Grid";
@@ -47,30 +47,26 @@ export function SignUpForm(props: {
   ] = useNetworkingFunction(merchants.createMerchant.bind(merchants));
   const [errorString, setErrorString] = useState<string | null>(null);
 
-  const {
-    control,
-    handleSubmit,
-    setError,
-    formState: { errors },
-  } = useForm<AuthRegisterLoginDto>({
-    defaultValues: {
-      email: "",
-      password: "",
-      firstName: "",
-      lastName: "",
-    },
-    resolver: yupResolver(
-      yup
-        .object<AuthRegisterLoginDto>()
-        .shape({
-          email: yup.string().email().label("Email").required(),
-          password: yup.string().min(6).label("Password").required(),
-          firstName: yup.string().label("First name").required(),
-          lastName: yup.string().label("Last name").required(),
-        })
-        .required()
-    ),
-  });
+  const { control, handleSubmit, setError, formState } =
+    useForm<AuthRegisterLoginDto>({
+      defaultValues: {
+        email: "",
+        password: "",
+        firstName: "",
+        lastName: "",
+      },
+      resolver: yupResolver(
+        yup
+          .object<AuthRegisterLoginDto>()
+          .shape({
+            email: yup.string().email().label("Email").required(),
+            password: yup.string().min(6).label("Password").required(),
+            firstName: yup.string().label("First name").required(),
+            lastName: yup.string().label("Last name").required(),
+          })
+          .required()
+      ),
+    });
 
   async function handleOnValidSubmit(
     authRegisterLoginDto: AuthRegisterLoginDto
@@ -149,18 +145,18 @@ export function SignUpForm(props: {
                   label="First Name"
                   autoComplete="given-name"
                   inputProps={{
-                    autocapitalize: "none",
-                    autocorrect: "none",
+                    autoCapitalize: "none",
+                    autoCorrect: "none",
                     spellCheck: false,
                   }}
-                  error={errors.firstName ? true : false}
+                  error={formState.errors.firstName ? true : false}
                   autoFocus
                 />
               );
             }}
           />
           <Typography variant="inherit" color="error">
-            {errors.firstName?.message}
+            {formState.errors.firstName?.message}
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -178,17 +174,17 @@ export function SignUpForm(props: {
                   label="Last Name"
                   autoComplete="family-name"
                   inputProps={{
-                    autocapitalize: "none",
-                    autocorrect: "none",
+                    autoCapitalize: "none",
+                    autoCorrect: "none",
                     spellCheck: false,
                   }}
-                  error={errors.lastName ? true : false}
+                  error={formState.errors.lastName ? true : false}
                 />
               );
             }}
           />
           <Typography variant="inherit" color="error">
-            {errors.lastName?.message}
+            {formState.errors.lastName?.message}
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -203,19 +199,20 @@ export function SignUpForm(props: {
                   {...field}
                   required
                   label="Email"
+                  autoComplete="email"
                   inputProps={{
-                    autocapitalize: "none",
-                    autocorrect: "none",
+                    autoCapitalize: "none",
+                    autoCorrect: "none",
                     spellCheck: false,
                   }}
                   fullWidth
-                  error={errors.email ? true : false}
+                  error={formState.errors.email ? true : false}
                 />
               );
             }}
           />
           <Typography variant="inherit" color="error">
-            {errors.email?.message}
+            {formState.errors.email?.message}
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -231,19 +228,20 @@ export function SignUpForm(props: {
                   required
                   label="Password"
                   type="password"
+                  autoComplete="new-password"
                   inputProps={{
-                    autocapitalize: "none",
-                    autocorrect: "none",
+                    autoCapitalize: "none",
+                    autoCorrect: "none",
                     spellCheck: false,
                   }}
                   fullWidth
-                  error={errors.password ? true : false}
+                  error={formState.errors.password ? true : false}
                 />
               );
             }}
           />
           <Typography variant="inherit" color="error">
-            {errors.password?.message}
+            {formState.errors.password?.message}
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -251,15 +249,15 @@ export function SignUpForm(props: {
             <Skeleton height="56px" width="100%" />
           ) : (
             <LoadingButton
-              loading={loading}
-              disabled={datas}
+              loading={loading || formState.isSubmitting}
               size="large"
+              startIcon={formState.isSubmitSuccessful ? <Check /> : null}
+              color={formState.isSubmitSuccessful ? "success" : "primary"}
               type="submit"
               fullWidth
               variant="contained"
-              startIcon={datas ? <Check /> : <Email />}
             >
-              Sign Up with Email
+              {formState.isSubmitSuccessful ? "" : "Sign Up with Email"}
             </LoadingButton>
           )}
         </Grid>

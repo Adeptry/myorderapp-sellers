@@ -9,7 +9,7 @@ import { useNetworkingContext } from "@/components/networking/useNetworkingConte
 import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
 import { Skeleton, Stack, useMediaQuery, useTheme } from "@mui/material";
 import axios from "axios";
-import { ConfigUpdateDto } from "moa-merchants-ts-axios";
+import { AppConfigUpdateDto } from "moa-merchants-ts-axios";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -52,7 +52,7 @@ export default function Page() {
         submitText={"Create your app"}
         preloading={loading}
         shouldAutoFocus={data == null}
-        defaultValues={data as ConfigUpdateDto}
+        defaultValues={data as AppConfigUpdateDto}
       />
     </Stack>
   );

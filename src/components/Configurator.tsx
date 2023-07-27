@@ -1,7 +1,15 @@
 import { AppConfigForm } from "@/components/forms/AppConfigForm";
 import { TabContext, TabList } from "@mui/lab";
-import { Box, Grid, Stack, Tab, useMediaQuery, useTheme } from "@mui/material";
-import { AppConfig, ConfigUpdateDto } from "moa-merchants-ts-axios";
+import {
+  Box,
+  Grid,
+  Skeleton,
+  Stack,
+  Tab,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+import { AppConfig, AppConfigUpdateDto } from "moa-merchants-ts-axios";
 import { useState } from "react";
 import { DeviceFrameset } from "react-device-frameset";
 import "react-device-frameset/styles/marvel-devices.min.css";
@@ -11,7 +19,7 @@ export function Configurator(props: {
   onSuccess: (appConfig: AppConfig) => void;
   submitText: string;
   preloading?: boolean;
-  defaultValues?: ConfigUpdateDto;
+  defaultValues?: AppConfigUpdateDto;
 }) {
   const { shouldAutoFocus, submitText, onSuccess, preloading, defaultValues } =
     props;
@@ -22,17 +30,21 @@ export function Configurator(props: {
   return (
     <Stack>
       <Box display={isSmallScreen ? "block" : "none"}>
-        <TabContext value={value}>
-          <TabList
-            sx={{ pb: 3 }}
-            variant="fullWidth"
-            onChange={(e, v) => setValue(v)}
-            aria-label="lab API tabs example"
-          >
-            <Tab label="Options" value="0" />
-            <Tab label="Preview" value="1" />
-          </TabList>
-        </TabContext>
+        {preloading ? (
+          <Skeleton height="48px" width="100%" />
+        ) : (
+          <TabContext value={value}>
+            <TabList
+              sx={{ pb: 3 }}
+              variant="fullWidth"
+              onChange={(e, v) => setValue(v)}
+              aria-label="lab API tabs example"
+            >
+              <Tab label="Options" value="0" />
+              <Tab label="Preview" value="1" />
+            </TabList>
+          </TabContext>
+        )}
       </Box>
 
       <Grid container spacing={2}>
@@ -62,20 +74,17 @@ export function Configurator(props: {
           display={isSmallScreen ? (value !== "1" ? "none" : "flex") : "flex"}
           justifyContent="center"
         >
-          <DeviceFrameset
-            device="HTC One"
-            color="black"
-            // // @ts-ignore
-            // width="100%"
-            // // @ts-ignore
-            // height="100%"
-          >
-            <iframe
-              id="flutter-iframe"
-              src="https://moa-cafe.web.app/"
-              style={{ width: "100%", height: "100%", border: 0 }}
-            />
-          </DeviceFrameset>
+          {preloading ? (
+            <Skeleton height="512px" width="100%" />
+          ) : (
+            <DeviceFrameset device="HTC One" color="black">
+              <iframe
+                id="flutter-iframe"
+                src="https://moa-cafe.web.app/"
+                style={{ width: "100%", height: "100%", border: 0 }}
+              />
+            </DeviceFrameset>
+          )}
         </Grid>
       </Grid>
     </Stack>

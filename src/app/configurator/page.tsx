@@ -5,7 +5,7 @@ import { useNetworkingContext } from "@/components/networking/useNetworkingConte
 import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
 import { Alert, Container, Snackbar, Stack } from "@mui/material";
 import axios from "axios";
-import { ConfigUpdateDto } from "moa-merchants-ts-axios";
+import { AppConfigUpdateDto } from "moa-merchants-ts-axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { routes } from "../routes";
@@ -66,7 +66,7 @@ export default function Page() {
             submitText={submitText}
             preloading={loading}
             shouldAutoFocus={data == null}
-            defaultValues={data as ConfigUpdateDto}
+            defaultValues={data as AppConfigUpdateDto}
           />
         </Stack>
       </Container>
