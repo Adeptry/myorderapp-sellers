@@ -88,7 +88,6 @@ export default function Page() {
             }}
             preloading={preloading}
             submitText={"Create your app"}
-            color="secondary"
             onSuccess={() => {
               push(routes.onboarding.square);
             }}
