@@ -285,7 +285,7 @@ export function AppConfigForm(props: {
               size="large"
               variant="contained"
               startIcon={formState.isSubmitSuccessful ? <Check /> : null}
-              color={formState.isSubmitSuccessful ? "success" : "secondary"}
+              color={formState.isSubmitSuccessful ? "success" : "primary"}
               type="submit"
             >
               {formState.isSubmitSuccessful ? "Nice!" : submitText}

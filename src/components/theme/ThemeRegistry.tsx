@@ -18,14 +18,16 @@ export default function ThemeRegistry({ children }: { children: ReactNode }) {
           "Helvetica Neue", sans-serif`,
         },
         palette: {
-          mode: "light", // prefersDarkMode ? "dark" : ,
+          mode: prefersDarkMode ? "dark" : "light",
           primary: {
-            main: "#000000",
+            main: prefersDarkMode ? "#90caf9" : "#1976d2",
+            dark: prefersDarkMode ? "#5e92f3" : "#1565c0",
+            light: prefersDarkMode ? "#9be7ff" : "#42a5f5",
           },
           secondary: {
-            main: "#1976d2",
-            dark: "#1565c0",
-            light: "#42a5f5",
+            main: prefersDarkMode ? "#e0e0e0" : "#424242",
+            dark: prefersDarkMode ? "#aeaeae" : "#1b1b1b",
+            light: prefersDarkMode ? "#ffffff" : "#6d6d6d",
           },
         },
       }),
