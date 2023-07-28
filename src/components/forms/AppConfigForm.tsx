@@ -256,6 +256,7 @@ export function AppConfigForm(props: {
                     <FormHelperText>
                       From{" "}
                       <MuiLink
+                        color="secondary"
                         target="_blank"
                         rel="noopener noreferrer"
                         href={"https://fonts.google.com"}
@@ -275,20 +276,19 @@ export function AppConfigForm(props: {
           </Typography>
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid item xs={12} textAlign="center">
           {preloading ? (
             <Skeleton height="92px" />
           ) : (
             <LoadingButton
               loading={loading || formState.isSubmitting}
               size="large"
-              startIcon={formState.isSubmitSuccessful ? <Check /> : null}
-              color={formState.isSubmitSuccessful ? "success" : "primary"}
-              type="submit"
-              fullWidth
               variant="contained"
+              startIcon={formState.isSubmitSuccessful ? <Check /> : null}
+              color={formState.isSubmitSuccessful ? "success" : "secondary"}
+              type="submit"
             >
-              {formState.isSubmitSuccessful ? "" : submitText}
+              {formState.isSubmitSuccessful ? "Nice!" : submitText}
             </LoadingButton>
           )}
         </Grid>

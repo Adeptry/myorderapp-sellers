@@ -5,11 +5,14 @@ export const routes = {
   home: "/home",
   onboarding: {
     configurator: "/onboarding/configurator",
+    catalog: "/onboarding/catalog",
+    square: "/onboarding/square",
+    squareOauth2: "/onboarding/square/oauth2",
+    stripe: {
+      index: "/onboarding/stripe",
+      cancel: "/onboarding/stripe/cancel",
+      success: "/onboarding/stripe/success",
+    },
   },
   configurator: "/configurator",
-  square: "/square",
-  squareOauth2: "/square/oauth2",
-  stripe: "/stripe",
-  stripeCancel: "/stripe/cancel",
-  stripeSuccess: "/stripe/success",
 };

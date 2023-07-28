@@ -6,6 +6,7 @@ export default function AppleAuthButton() {
     <Button
       variant="outlined"
       startIcon={<Apple />}
+      color="secondary"
       fullWidth
       size="large"
       sx={{ whiteSpace: "nowrap" }}

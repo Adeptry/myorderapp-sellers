@@ -21,7 +21,7 @@ import { default as NextLink } from "next/link";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
-import AuthServices from "../layouts/AuthServices";
+import AuthServicesButtons from "../buttons/AuthServices";
 
 export function SignUpForm(props: {
   onSuccess: (merchant: Merchant) => void;
@@ -252,7 +252,7 @@ export function SignUpForm(props: {
               loading={loading || formState.isSubmitting}
               size="large"
               startIcon={formState.isSubmitSuccessful ? <Check /> : null}
-              color={formState.isSubmitSuccessful ? "success" : "primary"}
+              color={formState.isSubmitSuccessful ? "success" : "secondary"}
               type="submit"
               fullWidth
               variant="contained"
@@ -273,7 +273,12 @@ export function SignUpForm(props: {
               {preloading ? (
                 <Skeleton component={"a"} width={"100%"} />
               ) : (
-                <MuiLink href={routes.forgot} component={NextLink}>
+                <MuiLink
+                  href={routes.forgot}
+                  component={NextLink}
+                  variant="body2"
+                  color="secondary"
+                >
                   Forgot password?
                 </MuiLink>
               )}
@@ -288,7 +293,12 @@ export function SignUpForm(props: {
               {preloading ? (
                 <Skeleton component={"a"} width={"100%"} />
               ) : (
-                <MuiLink href={routes.signin} component={NextLink}>
+                <MuiLink
+                  href={routes.signin}
+                  component={NextLink}
+                  variant="body2"
+                  color="secondary"
+                >
                   Have an account? Sign in
                 </MuiLink>
               )}
@@ -296,7 +306,7 @@ export function SignUpForm(props: {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <AuthServices preloading={preloading} />
+          <AuthServicesButtons preloading={preloading} />
         </Grid>
       </Grid>
     </Box>

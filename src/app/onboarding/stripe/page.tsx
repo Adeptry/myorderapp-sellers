@@ -1,5 +1,6 @@
 "use client";
 
+import { routes } from "@/app/routes";
 import OnboardingStepper, {
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
@@ -29,8 +30,8 @@ export default function Page() {
         const frontEndDomain = process.env.NEXT_PUBLIC_FRONTEND_DOMAIN;
         const response = await invoke({
           stripeCheckoutCreateDto: {
-            successUrl: `${frontEndDomain}/stripe/success`,
-            cancelUrl: `${frontEndDomain}/stripe/cancel`,
+            successUrl: `${frontEndDomain}${routes.onboarding.stripe.success}`,
+            cancelUrl: `${frontEndDomain}${routes.onboarding.stripe.cancel}`,
           },
         });
         if (stripe && response.data.checkoutSessionId) {
@@ -58,7 +59,10 @@ export default function Page() {
   return (
     <>
       <Container maxWidth="md">
-        <OnboardingStepper activeStep={OnboardingSteps.checkout} />
+        <OnboardingStepper
+          activeStep={OnboardingSteps.checkout}
+          sx={{ width: "100%" }}
+        />
       </Container>
     </>
   );

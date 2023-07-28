@@ -5,6 +5,7 @@ export default function GoogleAuthButton() {
   return (
     <Button
       variant="outlined"
+      color="secondary"
       startIcon={<Google />}
       size="large"
       fullWidth

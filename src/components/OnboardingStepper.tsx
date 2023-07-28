@@ -1,5 +1,5 @@
 import { mapEnum } from "@/utils/mapEnum";
-import Box from "@mui/material/Box";
+import { SxProps } from "@mui/material";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Stepper from "@mui/material/Stepper";
@@ -19,19 +19,18 @@ const OnboardingStepsTitles: { [key in OnboardingSteps]: string } = {
 };
 export default function HorizontalLinearStepper(props: {
   activeStep: OnboardingSteps;
+  sx?: SxProps;
 }) {
   const { activeStep } = props;
   return (
-    <Box sx={{ width: "100%" }}>
-      <Stepper activeStep={activeStep}>
-        {mapEnum(OnboardingSteps, (step: OnboardingSteps) => {
-          return (
-            <Step key={OnboardingStepsTitles[step]}>
-              <StepLabel>{OnboardingStepsTitles[step]}</StepLabel>
-            </Step>
-          );
-        })}
-      </Stepper>
-    </Box>
+    <Stepper activeStep={activeStep} sx={props.sx}>
+      {mapEnum(OnboardingSteps, (step: OnboardingSteps) => {
+        return (
+          <Step key={OnboardingStepsTitles[step]}>
+            <StepLabel>{OnboardingStepsTitles[step]}</StepLabel>
+          </Step>
+        );
+      })}
+    </Stepper>
   );
 }

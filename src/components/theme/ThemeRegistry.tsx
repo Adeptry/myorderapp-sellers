@@ -18,6 +18,7 @@ export default function ThemeRegistry({ children }: { children: ReactNode }) {
           "Helvetica Neue", sans-serif`,
         },
         palette: {
+          mode: "light", // prefersDarkMode ? "dark" : ,
           primary: {
             main: "#000000",
           },

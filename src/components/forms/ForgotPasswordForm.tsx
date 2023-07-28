@@ -145,7 +145,12 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
               {preloading ? (
                 <Skeleton component={"a"} width={"100%"} />
               ) : (
-                <MuiLink href={routes.signin} component={NextLink}>
+                <MuiLink
+                  href={routes.signin}
+                  component={NextLink}
+                  color="secondary"
+                  variant="body2"
+                >
                   Back to sign in
                 </MuiLink>
               )}
@@ -160,7 +165,12 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
               {preloading ? (
                 <Skeleton component={"a"} width={"100%"} />
               ) : (
-                <MuiLink href={routes.signup} component={NextLink}>
+                <MuiLink
+                  href={routes.signup}
+                  component={NextLink}
+                  color="secondary"
+                  variant="body2"
+                >
                   New here? Sign up
                 </MuiLink>
               )}

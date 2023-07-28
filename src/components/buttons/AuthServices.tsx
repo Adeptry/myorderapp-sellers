@@ -1,8 +1,8 @@
 import { Grid, Skeleton } from "@mui/material";
-import AppleAuthButton from "../buttons/AppleAuthButton";
-import GoogleAuthButton from "../buttons/GoogleAuthButton";
+import AppleAuthButton from "./AppleAuthButton";
+import GoogleAuthButton from "./GoogleAuthButton";
 
-export default function AuthServices(props: { preloading?: boolean }) {
+export default function AuthServicesButtons(props: { preloading?: boolean }) {
   const { preloading } = props;
   return (
     <Grid container rowGap={preloading ? 0 : 2}>
