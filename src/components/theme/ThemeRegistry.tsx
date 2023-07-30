@@ -1,13 +1,12 @@
 "use client";
 
-import { useMediaQuery } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { ReactNode, useMemo } from "react";
 import NextAppDirEmotionCacheProvider from "./EmotionCache";
 
 export default function ThemeRegistry({ children }: { children: ReactNode }) {
-  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  const prefersDarkMode = false; //useMediaQuery("(prefers-color-scheme: dark)");
 
   const theme = useMemo(
     () =>
@@ -25,7 +24,7 @@ export default function ThemeRegistry({ children }: { children: ReactNode }) {
             light: prefersDarkMode ? "#9be7ff" : "#42a5f5",
           },
           secondary: {
-            main: prefersDarkMode ? "#e0e0e0" : "#424242",
+            main: prefersDarkMode ? "#e0e0e0" : "#1e1e1e",
             dark: prefersDarkMode ? "#aeaeae" : "#1b1b1b",
             light: prefersDarkMode ? "#ffffff" : "#6d6d6d",
           },

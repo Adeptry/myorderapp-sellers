@@ -1,5 +1,5 @@
 import { mapEnum } from "@/utils/mapEnum";
-import { SxProps } from "@mui/material";
+import { SxProps, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Stepper from "@mui/material/Stepper";
@@ -22,12 +22,22 @@ export default function HorizontalLinearStepper(props: {
   sx?: SxProps;
 }) {
   const { activeStep } = props;
+  const theme = useTheme();
+  const matchesXS = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <Stepper activeStep={activeStep} sx={props.sx}>
       {mapEnum(OnboardingSteps, (step: OnboardingSteps) => {
         return (
           <Step key={OnboardingStepsTitles[step]}>
-            <StepLabel>{OnboardingStepsTitles[step]}</StepLabel>
+            <StepLabel>
+              <Typography
+                variant="body2"
+                display={matchesXS && !(step === activeStep) ? "none" : "block"}
+              >
+                {OnboardingStepsTitles[step]}
+              </Typography>
+            </StepLabel>
           </Step>
         );
       })}

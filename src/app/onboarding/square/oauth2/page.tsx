@@ -7,7 +7,14 @@ import OnboardingStepper, {
 import SquareOauthButton from "@/components/buttons/SquareOauthButton";
 import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
 import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
-import { Alert, Box, CircularProgress, Skeleton, Stack } from "@mui/material";
+import {
+  Alert,
+  Box,
+  CircularProgress,
+  Skeleton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -21,12 +28,10 @@ export default function Page() {
   const [{}, confirmSquareOauth] = useNetworkingFunction(
     merchants.confirmSquareOauth.bind(merchants)
   );
-  const [{}, syncSquareCatalog] = useNetworkingFunction(
-    merchants.syncSquareCatalog.bind(merchants)
-  );
-  const [{}, syncSquareLocations] = useNetworkingFunction(
-    merchants.syncSquareLocations.bind(merchants)
-  );
+  const [{ loading: syncSquareCatalogLoading }, syncSquareCatalog] =
+    useNetworkingFunction(merchants.syncSquareCatalog.bind(merchants));
+  const [{ loading: syncSquareLocationsLoading }, syncSquareLocations] =
+    useNetworkingFunction(merchants.syncSquareLocations.bind(merchants));
 
   const [
     { data: currentMerchantData, loading: currentMerchantLoading },
@@ -87,6 +92,12 @@ export default function Page() {
       )}
       <Stack alignItems="center">
         <CircularProgress />
+        {syncSquareCatalogLoading && (
+          <Typography variant="body2">Syncing Square Catalog...</Typography>
+        )}
+        {syncSquareLocationsLoading && (
+          <Typography variant="body2">Syncing Square Locations...</Typography>
+        )}
       </Stack>
     </Box>
   );

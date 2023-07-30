@@ -145,7 +145,6 @@ export function SignUpForm(props: {
                   label="First Name"
                   autoComplete="given-name"
                   inputProps={{
-                    autoCapitalize: "none",
                     autoCorrect: "none",
                     spellCheck: false,
                   }}
@@ -174,7 +173,6 @@ export function SignUpForm(props: {
                   label="Last Name"
                   autoComplete="family-name"
                   inputProps={{
-                    autoCapitalize: "none",
                     autoCorrect: "none",
                     spellCheck: false,
                   }}

@@ -142,7 +142,6 @@ export function AppConfigForm(props: {
                   }
                   label={labels.name}
                   inputProps={{
-                    autoCapitalize: "none",
                     autoCorrect: "none",
                     spellCheck: false,
                   }}
