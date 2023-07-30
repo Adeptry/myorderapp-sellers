@@ -89,7 +89,7 @@ export default function Page() {
             preloading={preloading}
             submitText={"Create your app"}
             onSuccess={() => {
-              push(routes.onboarding.square);
+              push(routes.onboarding.square.index);
             }}
             shouldAutoFocus={data == null}
             defaultValues={data as AppConfigUpdateDto}

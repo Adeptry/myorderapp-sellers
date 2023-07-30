@@ -39,6 +39,7 @@ export const TabLayout: React.FC<Props> = ({ children, tabLabels, sx }) => {
       <Grid container spacing={2}>
         {children.map((child, index) => (
           <Grid
+            key={index}
             item
             xs={isSmallScreen ? 12 : 6}
             display={

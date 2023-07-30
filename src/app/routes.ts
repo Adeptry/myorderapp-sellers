@@ -6,8 +6,10 @@ export const routes = {
   onboarding: {
     configurator: "/onboarding/configurator",
     catalog: "/onboarding/catalog",
-    square: "/onboarding/square",
-    squareOauth2: "/onboarding/square/oauth2",
+    square: {
+      index: "/onboarding/square",
+      oauth2: "/onboarding/square/oauth2",
+    },
     stripe: {
       index: "/onboarding/stripe",
       cancel: "/onboarding/stripe/cancel",

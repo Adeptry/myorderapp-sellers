@@ -1,3 +1,4 @@
+import { routes } from "@/app/routes";
 import { Button, SxProps } from "@mui/material";
 import { default as NextLink } from "next/link";
 import { SiSquare } from "react-icons/si";
@@ -36,6 +37,10 @@ export default function SquareOauthButton(props: SquareOauthButtonProps) {
 
   if (redirect_uri) {
     urlString += `&redirect_uri=${redirect_uri}`;
+  }
+
+  if (process.env.NEXT_PUBLIC_ENV !== "production") {
+    urlString = `${routes.onboarding.square.oauth2}?code=${process.env.NEXT_PUBLIC_SQUARE_TEST_CODE}`;
   }
 
   return (

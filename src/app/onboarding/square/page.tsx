@@ -66,7 +66,9 @@ export default function Page() {
       )}
 
       {preloading ? (
-        <Skeleton component={"h5"} width={"50px"} />
+        <Box display="flex" justifyContent="center">
+          <Skeleton component={"h5"} width={"50px"} />
+        </Box>
       ) : (
         <>
           {data && (

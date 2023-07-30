@@ -6,7 +6,7 @@ import OnboardingStepper, {
 } from "@/components/OnboardingStepper";
 import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
 import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
-import { Container } from "@mui/material";
+import { Container, Stack } from "@mui/material";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -57,13 +57,13 @@ export default function Page() {
   }
 
   return (
-    <>
+    <Stack spacing={3} py={3}>
       <Container maxWidth="md">
         <OnboardingStepper
           activeStep={OnboardingSteps.checkout}
           sx={{ width: "100%" }}
         />
       </Container>
-    </>
+    </Stack>
   );
 }
