@@ -112,6 +112,7 @@ export const useNetworkingFunction = <T, R>(
               loading: false,
               error: undefined,
             });
+            throw error;
           }
         } else {
           console.log(`Can't attempt to refresh token`);
