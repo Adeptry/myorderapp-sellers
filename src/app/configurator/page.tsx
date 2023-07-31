@@ -42,13 +42,6 @@ export default function Page() {
     <Stack spacing={3} py={3}>
       <TabLayout tabLabels={["Options", "Preview"]}>
         <AppConfigForm
-          key="app-config-form"
-          onChange={(field, value) => {
-            iframeRef.current?.contentWindow?.postMessage(
-              { [field]: value },
-              "*"
-            );
-          }}
           preloading={preloading}
           submitText={"Update your app"}
           onSuccess={() => {
