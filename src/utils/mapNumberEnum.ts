@@ -1,4 +1,4 @@
-export function mapEnum<T extends Record<string | number, unknown>, U>(
+export function mapNumberEnum<T extends Record<string | number, unknown>, U>(
   enumerable: T,
   fn: (v: number) => U
 ): U[] {

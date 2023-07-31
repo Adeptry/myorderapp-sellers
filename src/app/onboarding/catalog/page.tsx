@@ -25,9 +25,10 @@ import { useEffect, useState } from "react";
 
 export default function Page() {
   const { push } = useRouter();
-  const { catalogs } = useNetworkingContext();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+  const { catalogs } = useNetworkingContext();
 
   const [categoriesState, setCategoriesState] = useState<Category[]>([]);
   const [
@@ -314,17 +315,17 @@ export default function Page() {
         >
           <Grid item xs={12} sm={12} md={6}>
             <CategoriesLists
-              items={itemsState}
+              preloading={preloading}
               entities={categoriesState}
+              items={itemsState}
               variations={variationsState}
               getItems={getItems}
               getVariations={getVariations}
               onCategoryMove={onCategoryMove}
               onItemMove={onItemMove}
-              onVariationUpdate={onVariationUpdate}
-              onItemUpdate={onItemUpdate}
               onCategoryUpdate={onCategoryUpdate}
-              preloading={preloading}
+              onItemUpdate={onItemUpdate}
+              onVariationUpdate={onVariationUpdate}
             />
           </Grid>
           <Grid item xs={12} sm={12} md={6}>

@@ -1,6 +1,7 @@
 import {
   Box,
   Grid,
+  Skeleton,
   Stack,
   SxProps,
   Tab,
@@ -11,12 +12,18 @@ import {
 import { useState } from "react";
 
 interface Props {
+  preloading?: boolean;
   tabLabels: string[];
   children: JSX.Element[];
   sx?: SxProps;
 }
 
-export const TabLayout: React.FC<Props> = ({ children, tabLabels, sx }) => {
+export const TabLayout: React.FC<Props> = ({
+  children,
+  tabLabels,
+  sx,
+  preloading,
+}) => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(780));
   const [tabValueState, setTabValueState] = useState("0");
@@ -31,9 +38,13 @@ export const TabLayout: React.FC<Props> = ({ children, tabLabels, sx }) => {
           onChange={(e, v) => setTabValueState(v)}
           aria-label="tab layout example"
         >
-          {children.map((_child, index) => (
-            <Tab label={tabLabels[index]} value={String(index)} key={index} />
-          ))}
+          {children.map((_child, index) => {
+            return preloading ? (
+              <Skeleton key={index} height={"88px"} />
+            ) : (
+              <Tab label={tabLabels[index]} value={String(index)} key={index} />
+            );
+          })}
         </Tabs>
       </Box>
       <Grid container spacing={2}>

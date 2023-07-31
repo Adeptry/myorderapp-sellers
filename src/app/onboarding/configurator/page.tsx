@@ -1,25 +1,17 @@
 "use client";
 
 import { routes } from "@/app/routes";
-import DevicePreview from "@/components/DevicePreview";
 import OnboardingStepper, {
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
 import { AppConfigForm } from "@/components/forms/AppConfigForm";
-import { TabLayout } from "@/components/layouts/TabLayout";
 import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
 import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
-import {
-  Skeleton,
-  Stack,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Skeleton, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { AppConfigUpdateDto } from "moa-merchants-ts-axios";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 export default function Page() {
   const { push } = useRouter();
@@ -28,9 +20,6 @@ export default function Page() {
     configs.getConfig.bind(configs),
     true
   );
-  const iframeRef = useRef<HTMLIFrameElement | null>(null);
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down(780));
 
   useEffect(() => {
     async function fetch() {
@@ -73,44 +62,17 @@ export default function Page() {
           totally free of charge.
         </Typography>
       )}
-      <TabLayout
-        tabLabels={["Options", "Preview"]}
-        sx={{ pt: isSmallScreen ? 0 : 3 }}
-      >
-        <Stack spacing={2} sx={{ width: "100%" }}>
-          <AppConfigForm
-            key="app-config-form"
-            onChange={(field, value) => {
-              iframeRef.current?.contentWindow?.postMessage(
-                { [field]: value },
-                "*"
-              );
-            }}
-            preloading={preloading}
-            submitText={"Create your app"}
-            onSuccess={() => {
-              push(routes.onboarding.square.index);
-            }}
-            shouldAutoFocus={data == null}
-            defaultValues={data as AppConfigUpdateDto}
-          />
-          {loading ? (
-            <>
-              <Skeleton variant="text" sx={{ width: "100%" }} />
-            </>
-          ) : (
-            <Typography variant="body1" textAlign={"center"}>
-              In the next step, we'll request authorization to connect with your
-              Square account to sync your catalog to your app.
-            </Typography>
-          )}
-        </Stack>
-        {preloading ? (
-          <Skeleton height="512px" width="100%" key="device-preview-skeleton" />
-        ) : (
-          <DevicePreview iframeRef={iframeRef} key="device-preview" />
-        )}
-      </TabLayout>
+
+      <AppConfigForm
+        key="app-config-form"
+        preloading={preloading}
+        submitText={"Create your app"}
+        onSuccess={() => {
+          push(routes.onboarding.square.index);
+        }}
+        shouldAutoFocus={data == null}
+        defaultValues={data as AppConfigUpdateDto}
+      />
     </Stack>
   );
 }

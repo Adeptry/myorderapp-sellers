@@ -64,7 +64,7 @@ export default function ItemListItem(props: {
             }
           }}
         />
-        <ButtonGroup variant="contained" sx={{ mr: 2 }}>
+        <ButtonGroup variant="contained" sx={{}}>
           <IconButton
             disabled={isFirst}
             onClick={() => {
@@ -88,7 +88,7 @@ export default function ItemListItem(props: {
         </ButtonGroup>
       </ListItem>
       <Collapse in={isIn} timeout="auto" unmountOnExit>
-        <Paper elevation={6} sx={{ mx: 2, my: 1 }}>
+        <Paper elevation={6} sx={{ ml: 2, my: 1 }}>
           <VariationsList
             entities={variations}
             onVariationUpdate={onVariationUpdate}

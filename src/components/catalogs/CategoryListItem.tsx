@@ -42,7 +42,7 @@ export default function CategoryListItem(props: {
           }
         }}
       />
-      <ButtonGroup variant="contained" sx={{ mr: 4 }}>
+      <ButtonGroup variant="contained" sx={{ mr: 2 }}>
         <IconButton
           disabled={isFirst}
           onClick={() => {

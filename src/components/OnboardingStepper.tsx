@@ -1,4 +1,4 @@
-import { mapEnum } from "@/utils/mapEnum";
+import { mapNumberEnum } from "@/utils/mapNumberEnum";
 import { SxProps, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
@@ -17,6 +17,7 @@ const OnboardingStepsTitles: { [key in OnboardingSteps]: string } = {
   [OnboardingSteps.square]: "Sync your Catalog",
   [OnboardingSteps.checkout]: "Subscribe to Publish",
 };
+
 export default function HorizontalLinearStepper(props: {
   activeStep: OnboardingSteps;
   sx?: SxProps;
@@ -27,7 +28,7 @@ export default function HorizontalLinearStepper(props: {
 
   return (
     <Stepper activeStep={activeStep} sx={props.sx}>
-      {mapEnum(OnboardingSteps, (step: OnboardingSteps) => {
+      {mapNumberEnum(OnboardingSteps, (step: OnboardingSteps) => {
         return (
           <Step key={OnboardingStepsTitles[step]}>
             <StepLabel>
