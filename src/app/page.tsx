@@ -6,7 +6,7 @@ import OnboardingStepper, {
 } from "@/components/OnboardingStepper";
 import { SignUpForm } from "@/components/forms/SignUpForm";
 import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
-import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
+import { useNetworkingFunctionNP } from "@/components/networking/useNetworkingFunctionNP";
 import {
   Box,
   Grid,
@@ -24,7 +24,7 @@ export default function Page() {
   const { merchants, session } = useNetworkingContext();
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.down("sm"));
-  const [{ loading }, invoke] = useNetworkingFunction(
+  const [{ loading }, invoke] = useNetworkingFunctionNP(
     merchants.getCurrentMerchant.bind(merchants),
     true
   );
@@ -34,7 +34,7 @@ export default function Page() {
       try {
         const response = await invoke({});
         if (response.data) {
-          push(routes.home);
+          push(routes.catalog);
         }
       } catch (error) {}
     }
@@ -45,7 +45,7 @@ export default function Page() {
   const preloading = loading || session != null;
 
   return (
-    <Stack pt={3}>
+    <Stack py={2}>
       {!isSm &&
         (preloading ? (
           <Skeleton height={"24px"} sx={{ pb: 3 }} />
@@ -60,9 +60,9 @@ export default function Page() {
         <Grid item xs={12} sm={8} md={6}>
           <Box display="flex" justifyContent="center">
             {preloading ? (
-              <Skeleton component={"h5"} width={"32px"} sx={{ pb: 2 }} />
+              <Skeleton component={"h4"} width={"32px"} sx={{ pb: 3 }} />
             ) : (
-              <Typography component="h1" variant="h5" pb={2}>
+              <Typography component="h1" variant="h4" pb={3}>
                 Sign up
               </Typography>
             )}

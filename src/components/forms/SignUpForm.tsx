@@ -2,9 +2,10 @@
 
 import { routes } from "@/app/routes";
 import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
-import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
+import { useNetworkingFunctionNP } from "@/components/networking/useNetworkingFunctionNP";
+import { useNetworkingFunctionP } from "@/components/networking/useNetworkingFunctionP";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Check } from "@mui/icons-material";
+import { Check, Login } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import { Alert, Box, Skeleton } from "@mui/material";
 import Grid from "@mui/material/Grid";
@@ -29,22 +30,12 @@ export function SignUpForm(props: {
 }) {
   const { preloading, onSuccess } = props;
   const { auth, merchants, setSession } = useNetworkingContext();
-  const [
-    {
-      data: createUserData,
-      loading: createUserLoading,
-      error: createUserError,
-    },
-    createUser,
-  ] = useNetworkingFunction(auth.createUser.bind(auth));
-  const [
-    {
-      data: createMerchantData,
-      loading: createMerchantLoading,
-      error: createMerchantError,
-    },
-    createMerchant,
-  ] = useNetworkingFunction(merchants.createMerchant.bind(merchants));
+  const [createUserState, createUserFn] = useNetworkingFunctionP(
+    auth.createUser.bind(auth)
+  );
+  const [createMerchantState, createMerchantFn] = useNetworkingFunctionNP(
+    merchants.createMerchant.bind(merchants)
+  );
   const [errorString, setErrorString] = useState<string | null>(null);
 
   const { control, handleSubmit, setError, formState } =
@@ -72,15 +63,18 @@ export function SignUpForm(props: {
     authRegisterLoginDto: AuthRegisterLoginDto
   ) {
     try {
-      const registerResponse = await createUser({
-        authRegisterLoginDto,
-      });
+      const registerResponse = await createUserFn(
+        {
+          authRegisterLoginDto,
+        },
+        {}
+      );
       const data = registerResponse?.data;
       if (!data) {
         throw new Error("No access token");
       }
       setSession(data);
-      const merchantResponse = await createMerchant({
+      const merchantResponse = await createMerchantFn({
         headers: {
           Authorization: `Bearer ${data.token}`,
         },
@@ -106,10 +100,6 @@ export function SignUpForm(props: {
       }
     }
   }
-
-  const error = createUserError || createMerchantError;
-  const loading = createUserLoading || createMerchantLoading;
-  const datas = !!(createUserData || createMerchantData);
 
   return (
     <Box
@@ -247,15 +237,19 @@ export function SignUpForm(props: {
             <Skeleton height="56px" width="100%" />
           ) : (
             <LoadingButton
-              loading={loading || formState.isSubmitting}
+              loading={
+                createUserState.loading ||
+                createMerchantState.loading ||
+                formState.isSubmitting
+              }
               size="large"
-              startIcon={formState.isSubmitSuccessful ? <Check /> : null}
-              color={formState.isSubmitSuccessful ? "success" : "secondary"}
+              startIcon={createMerchantState.data ? <Check /> : <Login />}
+              color={createMerchantState.data ? "success" : "secondary"}
               type="submit"
               fullWidth
               variant="contained"
             >
-              {formState.isSubmitSuccessful ? "" : "Sign Up with Email"}
+              {createMerchantState.data ? "Let's go!" : "Sign Up with Email"}
             </LoadingButton>
           )}
         </Grid>

@@ -1,74 +1,147 @@
 "use client";
 
 import { routes } from "@/app/routes";
-import { AccountCircle } from "@mui/icons-material";
-import TouchAppIcon from "@mui/icons-material/TouchApp";
-import { Box, IconButton, Menu, MenuItem } from "@mui/material";
+import {
+  AppShortcut,
+  CreditCard,
+  ExitToApp,
+  Menu,
+  MenuBook,
+} from "@mui/icons-material";
+import {
+  Box,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useIsClient } from "usehooks-ts";
+import { Fragment, useEffect } from "react";
+import { useBoolean, useIsClient } from "usehooks-ts";
 import { useNetworkingContext } from "../networking/useNetworkingContext";
+import { useNetworkingFunctionNP } from "../networking/useNetworkingFunctionNP";
+import { useNetworkingFunctionP } from "../networking/useNetworkingFunctionP";
 
 export default function AppBarLayout() {
   const { push } = useRouter();
   const isClient = useIsClient();
-  const { session, setSession } = useNetworkingContext(); // uses local storage to determine session
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const { value: drawerOpenState, toggle: toggleDrawerOpen } =
+    useBoolean(false);
+  const { session, setSession, merchants } = useNetworkingContext(); // uses local storage to determine session
+  const [getCurrentMerchantState, getCurrentMerchantFn] =
+    useNetworkingFunctionNP(merchants.getCurrentMerchant.bind(merchants), true);
+  const [stripeCreateBillingSessionUrlState, stripeCreateBillingSessionUrlFn] =
+    useNetworkingFunctionP(
+      merchants.stripeCreateBillingSessionUrl.bind(merchants)
+    );
+
+  useEffect(() => {
+    try {
+      getCurrentMerchantFn({});
+    } catch (error) {}
+  }, [session]);
+
+  const canShowMenuListItems =
+    getCurrentMerchantState.data?.stripeCheckoutSessionId != null;
 
   return (
-    <AppBar position="sticky">
-      <Toolbar>
-        <IconButton size="large" edge="start" color="inherit">
-          <TouchAppIcon />
-        </IconButton>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          MyOrderApp for Merchants
-        </Typography>
-        <Box display={isClient && session ? "block" : "none"}>
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            onClick={(event) => {
-              setAnchorEl(event.currentTarget);
-            }}
-            color="inherit"
-          >
-            <AccountCircle />
-          </IconButton>
-          <Menu
-            anchorEl={anchorEl}
-            id="menu-appbar"
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            open={Boolean(anchorEl)}
-            onClose={() => {
-              setAnchorEl(null);
-            }}
-          >
-            <MenuItem
+    <Fragment>
+      <AppBar position="sticky">
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            MyOrderApp for Merchants
+          </Typography>
+          <Box display={isClient && session ? "block" : "none"}>
+            <IconButton
+              onClick={toggleDrawerOpen}
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+            >
+              <Menu />
+            </IconButton>
+          </Box>
+        </Toolbar>
+      </AppBar>
+      <Drawer open={drawerOpenState} onClose={toggleDrawerOpen} anchor="right">
+        <List>
+          {canShowMenuListItems && (
+            <Fragment>
+              <ListItem key={"catalog-list-item"} disablePadding>
+                <ListItemButton
+                  onClick={() => {
+                    push(routes.catalog);
+                    toggleDrawerOpen();
+                  }}
+                >
+                  <ListItemIcon>
+                    <MenuBook />
+                  </ListItemIcon>
+                  <ListItemText primary={"Catalog"} />
+                </ListItemButton>
+              </ListItem>
+              <ListItem key={"app-configurator-list-item"} disablePadding>
+                <ListItemButton
+                  onClick={() => {
+                    push(routes.configurator);
+                    toggleDrawerOpen();
+                  }}
+                >
+                  <ListItemIcon>
+                    <AppShortcut />
+                  </ListItemIcon>
+                  <ListItemText primary={"App Configurator"} />
+                </ListItemButton>
+              </ListItem>
+              <ListItem key={"manage-account-list-item"} disablePadding>
+                <ListItemButton
+                  onClick={async () => {
+                    const response = await stripeCreateBillingSessionUrlFn(
+                      {
+                        stripeBillingPortalCreateInput: {
+                          returnUrl: window.location.href,
+                        },
+                      },
+                      {}
+                    );
+                    if (response.data?.url) {
+                      push(response.data.url);
+                    }
+
+                    toggleDrawerOpen();
+                  }}
+                >
+                  <ListItemIcon>
+                    <CreditCard />
+                  </ListItemIcon>
+                  <ListItemText primary={"Manage Account"} />
+                </ListItemButton>
+              </ListItem>
+            </Fragment>
+          )}
+          <ListItem key={"sign-out-list-item"} disablePadding>
+            <ListItemButton
               onClick={() => {
-                setAnchorEl(null);
                 setSession(null);
                 push(routes.signin);
+                toggleDrawerOpen();
               }}
             >
-              Sign out
-            </MenuItem>
-          </Menu>
-        </Box>
-      </Toolbar>
-    </AppBar>
+              <ListItemIcon>
+                <ExitToApp />
+              </ListItemIcon>
+              <ListItemText primary={"Sign out"} />
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </Drawer>
+    </Fragment>
   );
 }

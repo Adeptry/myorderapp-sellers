@@ -1,12 +1,12 @@
 "use client";
 
 import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
-import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
+import { useNetworkingFunctionP } from "@/components/networking/useNetworkingFunctionP";
 import { fontNames } from "@/data/fontNames";
 import { mapStringEnum } from "@/utils/mapStringEnum";
 import { toPascalCase } from "@/utils/toPascalCase";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Check } from "@mui/icons-material";
+import { Check, Create } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import {
   Autocomplete,
@@ -29,10 +29,8 @@ import axios from "axios";
 import {
   AppConfig,
   AppConfigUpdateDto,
-  AppConfigUpdateDtoAppearanceEnum,
-  AppConfigUpdateDtoColorModeEnum,
-  AppearanceEnum,
-  ColorModeEnum,
+  AppConfigUpdateDtoThemeModeEnum,
+  ThemeModeEnum,
 } from "moa-merchants-ts-axios";
 import { MuiColorInput } from "mui-color-input";
 import { MuiFileInput } from "mui-file-input";
@@ -57,7 +55,7 @@ export function AppConfigForm(props: {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(780));
 
-  const [{ loading }, invoke] = useNetworkingFunction(
+  const [updateConfigState, updateConfigFn] = useNetworkingFunctionP(
     configs.updateConfig.bind(configs)
   );
 
@@ -65,7 +63,7 @@ export function AppConfigForm(props: {
     name: "Name",
     seedColor: "Color",
     fontFamily: "Font Family",
-    colorMode: "Color Mode",
+    themeMode: "Color Mode",
     appearance: "Appearance",
   };
 
@@ -75,8 +73,8 @@ export function AppConfigForm(props: {
         seedColor: "#6750A4",
         name: "",
         fontFamily: "Roboto",
-        colorMode: AppConfigUpdateDtoColorModeEnum.System,
-        appearance: AppConfigUpdateDtoAppearanceEnum.Modern,
+        themeMode: AppConfigUpdateDtoThemeModeEnum.System,
+        useMaterial3: true,
       },
       values: defaultValues,
       resolver: yupResolver<AppConfigUpdateDto>(
@@ -94,10 +92,8 @@ export function AppConfigForm(props: {
             fullDescription: yup.string().optional(),
             keywords: yup.string().optional(),
             url: yup.string().optional(),
-            appearance: yup
-              .mixed<AppConfigUpdateDtoAppearanceEnum>()
-              .required(),
-            colorMode: yup.mixed<AppConfigUpdateDtoColorModeEnum>().required(),
+            useMaterial3: yup.boolean().required(),
+            themeMode: yup.mixed<AppConfigUpdateDtoThemeModeEnum>().required(),
           })
           .required()
       ),
@@ -120,7 +116,7 @@ export function AppConfigForm(props: {
 
   async function handleOnValidSubmit(appConfigUpdateDto: AppConfigUpdateDto) {
     try {
-      const response = await invoke({ appConfigUpdateDto });
+      const response = await updateConfigFn({ appConfigUpdateDto }, {});
       const data = response?.data;
       if (!data) {
         throw new Error("App config not updated");
@@ -137,6 +133,30 @@ export function AppConfigForm(props: {
         });
       }
     }
+  }
+
+  function submitButton(): JSX.Element {
+    return (
+      <Box textAlign="center">
+        {preloading ? (
+          <Skeleton height="92px" />
+        ) : (
+          <LoadingButton
+            size="large"
+            variant="contained"
+            color="secondary"
+            type="submit"
+            loading={updateConfigState.loading || formState.isSubmitting}
+            disabled={
+              (updateConfigState.loading || updateConfigState.data) && true
+            }
+            startIcon={formState.isSubmitSuccessful ? <Check /> : <Create />}
+          >
+            {formState.isSubmitSuccessful ? "Nice!" : submitText}
+          </LoadingButton>
+        )}
+      </Box>
+    );
   }
 
   return (
@@ -268,7 +288,6 @@ export function AppConfigForm(props: {
                       onInputChange={(event, newInputValue) => {
                         setFontInputState(newInputValue);
                       }}
-                      fullWidth
                       options={fontNames}
                       renderInput={(params) => (
                         <TextField {...params} name={field.name} label="Font" />
@@ -307,23 +326,23 @@ export function AppConfigForm(props: {
 
           <Grid item xs={12}>
             <Controller
-              name="colorMode"
+              name="themeMode"
               control={control}
               render={({ field }) => {
                 return preloading ? (
                   <Skeleton height="92px" />
                 ) : (
                   <FormControl>
-                    <FormLabel id="demo-row-radio-buttons-group-label">
-                      {labels.colorMode}
-                    </FormLabel>
+                    <FormLabel>{labels.themeMode}</FormLabel>
                     <RadioGroup
                       {...field}
+                      onChange={(event) => {
+                        onChange("themeMode", event.target.value);
+                        field.onChange(event);
+                      }}
                       row
-                      aria-labelledby="demo-row-radio-buttons-group-label"
-                      name="row-radio-buttons-group"
                     >
-                      {mapStringEnum(ColorModeEnum, (value) => {
+                      {mapStringEnum(ThemeModeEnum, (value) => {
                         return (
                           <FormControlLabel
                             key={value}
@@ -335,6 +354,10 @@ export function AppConfigForm(props: {
                         );
                       })}
                     </RadioGroup>
+                    <FormHelperText>
+                      'System' follows user settings. Select 'Light' or 'Dark'
+                      to override.
+                    </FormHelperText>
                   </FormControl>
                 );
               }}
@@ -342,7 +365,7 @@ export function AppConfigForm(props: {
           </Grid>
           <Grid item xs={12}>
             <Controller
-              name="appearance"
+              name="useMaterial3"
               control={control}
               render={({ field }) => {
                 return preloading ? (
@@ -354,27 +377,35 @@ export function AppConfigForm(props: {
                     </FormLabel>
                     <RadioGroup
                       {...field}
+                      onChange={(event) => {
+                        onChange("useMaterial3", `${event.target.value}`);
+                        field.onChange(event);
+                      }}
                       row
-                      aria-labelledby="demo-row-radio-buttons-group-label"
-                      name="row-radio-buttons-group"
                     >
-                      {mapStringEnum(AppearanceEnum, (value) => {
-                        return (
-                          <FormControlLabel
-                            key={value}
-                            checked={field.value === value}
-                            value={value}
-                            control={<Radio />}
-                            label={toPascalCase(value)}
-                          />
-                        );
-                      })}
+                      <FormControlLabel
+                        key={"modern"}
+                        value={true}
+                        control={<Radio />}
+                        label={"Modern"}
+                      />
+                      <FormControlLabel
+                        key={"classic"}
+                        value={false}
+                        control={<Radio />}
+                        label={"Classic"}
+                      />
                     </RadioGroup>
                   </FormControl>
                 );
               }}
             />
           </Grid>
+          {!isSmallScreen && (
+            <Grid item xs={12}>
+              {submitButton()}
+            </Grid>
+          )}
         </Grid>
         {preloading ? (
           <Skeleton height="512px" width="100%" key="device-preview-skeleton" />
@@ -386,22 +417,7 @@ export function AppConfigForm(props: {
           />
         )}
       </TabLayout>
-      <Box textAlign="center">
-        {preloading ? (
-          <Skeleton height="92px" />
-        ) : (
-          <LoadingButton
-            loading={loading || formState.isSubmitting}
-            size="large"
-            variant="contained"
-            startIcon={formState.isSubmitSuccessful ? <Check /> : null}
-            color={formState.isSubmitSuccessful ? "success" : "primary"}
-            type="submit"
-          >
-            {formState.isSubmitSuccessful ? "Nice!" : submitText}
-          </LoadingButton>
-        )}
-      </Box>
+      {isSmallScreen && submitButton()}
     </Box>
   );
 }

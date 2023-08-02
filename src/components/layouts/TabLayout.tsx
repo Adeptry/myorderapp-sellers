@@ -31,26 +31,32 @@ export const TabLayout: React.FC<Props> = ({
   return (
     <Stack style={{ marginTop: "6px" }} sx={sx}>
       <Box display={isSmallScreen ? "block" : "none"}>
-        <Tabs
-          sx={{ pb: 3 }}
-          variant="fullWidth"
-          value={tabValueState}
-          onChange={(e, v) => setTabValueState(v)}
-          aria-label="tab layout example"
-        >
-          {children.map((_child, index) => {
-            return preloading ? (
-              <Skeleton key={index} height={"88px"} />
-            ) : (
-              <Tab label={tabLabels[index]} value={String(index)} key={index} />
-            );
-          })}
-        </Tabs>
+        {preloading ? (
+          <Skeleton height={"88px"} />
+        ) : (
+          <Tabs
+            sx={{ pb: 3 }}
+            variant="fullWidth"
+            value={tabValueState}
+            onChange={(e, v) => setTabValueState(v)}
+            aria-label="tab layout example"
+          >
+            {children.map((_child, index) => {
+              return (
+                <Tab
+                  label={tabLabels[index]}
+                  value={String(index)}
+                  key={index}
+                />
+              );
+            })}
+          </Tabs>
+        )}
       </Box>
       <Grid container spacing={2}>
         {children.map((child, index) => (
           <Grid
-            key={index}
+            key={String(index)}
             item
             xs={isSmallScreen ? 12 : 6}
             display={
@@ -61,6 +67,7 @@ export const TabLayout: React.FC<Props> = ({
                 : "flex"
             }
             justifyContent="center"
+            alignItems="flex-start"
           >
             {child}
           </Grid>

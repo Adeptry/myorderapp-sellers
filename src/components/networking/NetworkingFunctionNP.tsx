@@ -1,6 +1,5 @@
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 
-export type NetworkingFunction<T, R> = (
-  requestParameters: T,
-  options?: AxiosRequestConfig
+export type NetworkingFunctionNP<R> = (
+  options: AxiosRequestConfig
 ) => Promise<AxiosResponse<R, any>>;

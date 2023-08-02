@@ -2,7 +2,7 @@
 
 import { ForgotPasswordForm } from "@/components/forms/ForgotPasswordForm";
 import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
-import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
+import { useNetworkingFunctionNP } from "@/components/networking/useNetworkingFunctionNP";
 import { Box, Grid, Skeleton } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/navigation";
@@ -12,7 +12,7 @@ import { routes } from "../routes";
 export default function Page() {
   const { push } = useRouter();
   const { merchants, session } = useNetworkingContext();
-  const [{ loading }, invoke] = useNetworkingFunction(
+  const [{ loading }, invoke] = useNetworkingFunctionNP(
     merchants.getCurrentMerchant.bind(merchants),
     true
   );
@@ -22,7 +22,7 @@ export default function Page() {
       try {
         const response = await invoke({});
         if (response.data) {
-          push(routes.home);
+          push(routes.catalog);
         }
       } catch (error) {}
     }
@@ -37,9 +37,9 @@ export default function Page() {
       <Grid item xs={12} sm={8} md={6}>
         <Box display="flex" justifyContent="center">
           {preloading ? (
-            <Skeleton component={"h5"} width={"50px"} sx={{ py: 3 }} />
+            <Skeleton component={"h4"} width={"50px"} sx={{ py: 3 }} />
           ) : (
-            <Typography component="h1" variant="h5" py={3}>
+            <Typography component="h1" variant="h4" py={3}>
               Reset Password
             </Typography>
           )}

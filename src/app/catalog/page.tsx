@@ -1,19 +1,11 @@
 "use client";
 
-import { routes } from "@/app/routes";
-import OnboardingStepper, {
-  OnboardingSteps,
-} from "@/components/OnboardingStepper";
 import { CategoriesLists } from "@/components/catalogs/CategoriesLists";
 import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
 import { useNetworkingFunctionP } from "@/components/networking/useNetworkingFunctionP";
-import { ThumbUp } from "@mui/icons-material";
 import {
   Alert,
   Box,
-  Button,
-  Grid,
-  Skeleton,
   Stack,
   Typography,
   useMediaQuery,
@@ -315,107 +307,31 @@ export default function Page() {
     }
   }
 
-  const preloading = getCategoriesLoading;
-
   return (
     <Stack spacing={2} py={2}>
-      {preloading ? (
-        <Skeleton height={"24px"} />
-      ) : (
-        <OnboardingStepper
-          activeStep={OnboardingSteps.square}
-          sx={{ width: "100%" }}
-        />
-      )}
+      <Box textAlign="center">
+        <Typography variant="h4">Edit your catalog</Typography>
+      </Box>
+
       {errorString && (
         <Alert severity="error" style={{ width: "100%" }}>
           {errorString}
         </Alert>
       )}
       {categoriesState && (
-        <Grid
-          container
-          columnSpacing={isSmallScreen ? 0 : 2}
-          direction={isSmallScreen ? "column-reverse" : "row"}
-        >
-          <Grid item xs={12} sm={12} md={6}>
-            <CategoriesLists
-              preloading={preloading}
-              entities={categoriesState}
-              items={itemsState}
-              variations={variationsState}
-              getItems={getItems}
-              getVariations={getVariations}
-              onCategoryMove={onCategoryMove}
-              onItemMove={onItemMove}
-              onCategoryUpdate={onCategoryUpdate}
-              onItemUpdate={onItemUpdate}
-              onVariationUpdate={onVariationUpdate}
-            />
-          </Grid>
-          <Grid item xs={12} sm={12} md={6}>
-            <Stack
-              spacing={2}
-              pt={1}
-              pb={2}
-              alignItems={"center"}
-              textAlign={"center"}
-            >
-              {preloading ? (
-                <Skeleton height={"24px"} width={"100%"} />
-              ) : (
-                <Typography variant="h4">Prepare your catalog</Typography>
-              )}
-
-              {preloading ? (
-                <>
-                  <Skeleton height={"24px"} width={"100%"} />
-                  <Skeleton height={"24px"} width={"100%"} />
-                  <Skeleton height={"24px"} width={"100%"} />
-                  <Skeleton height={"24px"} width={"100%"} />
-                  <Skeleton height={"24px"} width={"100%"} />
-                </>
-              ) : (
-                <Typography variant="body1">
-                  Here, you can manage and tailor your Catalog Items as desired.
-                  Any modifications made in Square are synchronized with this
-                  dashboard (just refresh) and your app, guaranteeing your
-                  customers access to the most current data. You can re-order,
-                  selectively enable items just in the app, or adjust your
-                  catalog according at any point -{" "}
-                  <strong>before or after app launch!</strong>
-                </Typography>
-              )}
-
-              {preloading ? (
-                <Skeleton height={"24px"} width={"100%"} />
-              ) : (
-                <Typography variant="body1">
-                  When set, click the button below to subscribe and initiate app
-                  publishing.
-                </Typography>
-              )}
-
-              <Box width="auto" display="inline-block">
-                {preloading ? (
-                  <Skeleton height={"42px"} width={"100px"} />
-                ) : (
-                  <Button
-                    size="large"
-                    variant="contained"
-                    color="secondary"
-                    startIcon={<ThumbUp />}
-                    onClick={() => {
-                      push(routes.onboarding.stripe.index);
-                    }}
-                  >
-                    I'm ready
-                  </Button>
-                )}
-              </Box>
-            </Stack>
-          </Grid>
-        </Grid>
+        <CategoriesLists
+          preloading={getCategoriesLoading}
+          entities={categoriesState}
+          items={itemsState}
+          variations={variationsState}
+          getItems={getItems}
+          getVariations={getVariations}
+          onCategoryMove={onCategoryMove}
+          onItemMove={onItemMove}
+          onCategoryUpdate={onCategoryUpdate}
+          onItemUpdate={onItemUpdate}
+          onVariationUpdate={onVariationUpdate}
+        />
       )}
     </Stack>
   );

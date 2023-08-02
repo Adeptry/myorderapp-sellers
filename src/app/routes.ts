@@ -2,7 +2,8 @@ export const routes = {
   signin: "/signin",
   signup: "/",
   forgot: "/forgot",
-  home: "/home",
+  configurator: "/configurator",
+  catalog: "/catalog",
   onboarding: {
     configurator: "/onboarding/configurator",
     catalog: "/onboarding/catalog",
@@ -16,5 +17,4 @@ export const routes = {
       success: "/onboarding/stripe/success",
     },
   },
-  configurator: "/configurator",
 };

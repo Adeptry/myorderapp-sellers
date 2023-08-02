@@ -5,7 +5,7 @@ import OnboardingStepper, {
 } from "@/components/OnboardingStepper";
 import SquareOauthButton from "@/components/buttons/SquareOauthButton";
 import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
-import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
+import { useNetworkingFunctionNP } from "@/components/networking/useNetworkingFunctionNP";
 import { Alert, Box, Skeleton, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -14,17 +14,17 @@ import { routes } from "../../routes";
 
 export default function Page() {
   const { push } = useRouter();
+  const [errorString, setErrorString] = useState<string | null>(null);
   const { merchants, setSession } = useNetworkingContext();
-  const [{ data, loading, error }, getCurrentMerchant] = useNetworkingFunction(
+  const [currentMerchantState, getCurrentMerchantFn] = useNetworkingFunctionNP(
     merchants.getCurrentMerchant.bind(merchants),
     true
   );
-  const [errorString, setErrorString] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetch() {
       try {
-        const response = await getCurrentMerchant({});
+        const response = await getCurrentMerchantFn({});
         if (!response.data) {
           setSession(null);
           push(routes.signin);
@@ -46,7 +46,9 @@ export default function Page() {
     fetch();
   }, []);
 
-  const preloading = loading || data?.squareId != undefined;
+  const preloading =
+    currentMerchantState.loading ||
+    currentMerchantState.data?.squareId != undefined;
 
   return (
     <Stack spacing={2} py={2} textAlign="center">
@@ -67,13 +69,13 @@ export default function Page() {
 
       {preloading ? (
         <Box display="flex" justifyContent="center">
-          <Skeleton component={"h5"} width={"50px"} />
+          <Skeleton component={"h4"} width={"50px"} />
         </Box>
       ) : (
         <>
-          {data && (
+          {currentMerchantState.data && (
             <>
-              <Typography variant="h5">Connect your Square Account</Typography>
+              <Typography variant="h4">Connect your Square Account</Typography>
               <Typography variant="body1">
                 To sync your catalog, please authorize our application to
                 interact with your Square account. This will grant us
@@ -89,10 +91,10 @@ export default function Page() {
       )}
 
       <Box justifyContent={"center"} display="flex">
-        {preloading || !data?.id ? (
+        {preloading || !currentMerchantState.data?.id ? (
           <Skeleton height="56px" width={"192px"} />
         ) : (
-          <SquareOauthButton state={data.id} />
+          <SquareOauthButton state={currentMerchantState.data.id} />
         )}
       </Box>
     </Stack>

@@ -6,7 +6,8 @@ import OnboardingStepper, {
 } from "@/components/OnboardingStepper";
 import SquareOauthButton from "@/components/buttons/SquareOauthButton";
 import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
-import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
+import { useNetworkingFunctionNP } from "@/components/networking/useNetworkingFunctionNP";
+import { useNetworkingFunctionP } from "@/components/networking/useNetworkingFunctionP";
 import {
   Alert,
   Box,
@@ -24,25 +25,29 @@ export default function Page() {
   const searchParams = useSearchParams();
   const oauthAccessCode = searchParams.get("code");
   const { merchants } = useNetworkingContext();
-  const [errorString, setErrorString] = useState<string | null>(null);
-  const [{}, confirmSquareOauth] = useNetworkingFunction(
+
+  const [{}, confirmSquareOauth] = useNetworkingFunctionP(
     merchants.confirmSquareOauth.bind(merchants)
   );
   const [{ loading: syncSquareCatalogLoading }, syncSquareCatalog] =
-    useNetworkingFunction(merchants.syncSquareCatalog.bind(merchants));
+    useNetworkingFunctionNP(merchants.syncSquareCatalog.bind(merchants));
   const [{ loading: syncSquareLocationsLoading }, syncSquareLocations] =
-    useNetworkingFunction(merchants.syncSquareLocations.bind(merchants));
-
+    useNetworkingFunctionNP(merchants.syncSquareLocations.bind(merchants));
   const [
     { data: currentMerchantData, loading: currentMerchantLoading },
     getCurrentMerchant,
-  ] = useNetworkingFunction(merchants.getCurrentMerchant.bind(merchants), true);
+  ] = useNetworkingFunctionNP(
+    merchants.getCurrentMerchant.bind(merchants),
+    true
+  );
+
+  const [errorString, setErrorString] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetch() {
       if (oauthAccessCode) {
         try {
-          await confirmSquareOauth({ oauthAccessCode });
+          await confirmSquareOauth({ oauthAccessCode }, {});
           await syncSquareCatalog({});
           await syncSquareLocations({});
           push(routes.onboarding.catalog);
@@ -65,18 +70,20 @@ export default function Page() {
   }, [oauthAccessCode]);
 
   return (
-    <Box py={2}>
+    <Box
+      py={2}
+      minHeight={"calc(100vh - 120px)"}
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+    >
+      <OnboardingStepper
+        activeStep={OnboardingSteps.square}
+        sx={{ width: "100%" }}
+      />
+
       {errorString && (
         <Stack gap={2}>
-          {currentMerchantLoading ? (
-            <Skeleton height={"24px"} />
-          ) : (
-            <OnboardingStepper
-              activeStep={OnboardingSteps.square}
-              sx={{ width: "100%" }}
-            />
-          )}
-
           <Box justifyContent={"center"} display="flex">
             <Alert severity="error">{errorString}</Alert>
           </Box>
@@ -90,15 +97,24 @@ export default function Page() {
           </Box>
         </Stack>
       )}
-      <Stack alignItems="center">
-        <CircularProgress />
-        {syncSquareCatalogLoading && (
-          <Typography variant="body2">Syncing Square Catalog...</Typography>
-        )}
-        {syncSquareLocationsLoading && (
-          <Typography variant="body2">Syncing Square Locations...</Typography>
-        )}
-      </Stack>
+
+      <Box
+        flex={1}
+        overflow="auto"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Stack display="flex" justifyContent="center" alignItems="center">
+          <CircularProgress />
+          {syncSquareCatalogLoading && (
+            <Typography variant="body2">Syncing Square Catalog...</Typography>
+          )}
+          {syncSquareLocationsLoading && (
+            <Typography variant="body2">Syncing Square Locations...</Typography>
+          )}
+        </Stack>
+      </Box>
     </Box>
   );
 }

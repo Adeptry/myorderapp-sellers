@@ -1,7 +1,8 @@
 import { routes } from "@/app/routes";
 import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
-import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
+import { useNetworkingFunctionP } from "@/components/networking/useNetworkingFunctionP";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Password } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import {
   Alert,
@@ -22,7 +23,7 @@ import * as yup from "yup";
 export function ForgotPasswordForm(props: { preloading: boolean }) {
   const { preloading } = props;
   const { auth } = useNetworkingContext();
-  const [{ data, loading, error }, invoke] = useNetworkingFunction(
+  const [forgotPasswordState, forgotPasswordFn] = useNetworkingFunctionP(
     auth.forgotPassword.bind(auth)
   );
   const [errorString, setErrorString] = useState<string | null>(null);
@@ -50,7 +51,7 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
     authForgotPasswordDto: AuthForgotPasswordDto
   ) {
     try {
-      await invoke({ authForgotPasswordDto });
+      await forgotPasswordFn({ authForgotPasswordDto }, {});
     } catch (error) {
       if (axios.isAxiosError(error) && error?.response?.status === 422) {
         const message = error?.response?.data.message;
@@ -85,7 +86,7 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
             </Alert>
           </Grid>
         )}
-        {data !== undefined && (
+        {forgotPasswordState.data !== undefined && (
           <Grid item xs={12}>
             <Alert severity="success">Check your email!</Alert>
           </Grid>
@@ -123,11 +124,13 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
             <Skeleton height="56px" width="100%" />
           ) : (
             <LoadingButton
-              loading={loading}
+              loading={forgotPasswordState.loading}
               type="submit"
               size="large"
               fullWidth
+              startIcon={<Password />}
               variant="contained"
+              color="secondary"
             >
               Reset Password
             </LoadingButton>

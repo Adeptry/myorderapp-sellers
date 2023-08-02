@@ -6,7 +6,7 @@ import OnboardingStepper, {
 } from "@/components/OnboardingStepper";
 import { AppConfigForm } from "@/components/forms/AppConfigForm";
 import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
-import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
+import { useNetworkingFunctionP } from "@/components/networking/useNetworkingFunctionP";
 import { Skeleton, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { AppConfigUpdateDto } from "moa-merchants-ts-axios";
@@ -16,7 +16,7 @@ import { useEffect } from "react";
 export default function Page() {
   const { push } = useRouter();
   const { configs } = useNetworkingContext();
-  const [{ data, loading }, getConfig] = useNetworkingFunction(
+  const [{ data, loading }, getConfig] = useNetworkingFunctionP(
     configs.getConfig.bind(configs),
     true
   );
@@ -24,9 +24,9 @@ export default function Page() {
   useEffect(() => {
     async function fetch() {
       try {
-        await getConfig({ actingAs: "merchant" });
+        await getConfig({ actingAs: "merchant" }, {});
       } catch (error) {
-        if (axios.isAxiosError(error) && error.response?.status == 401) {
+        if (axios.isAxiosError(error) && error.response?.status === 401) {
           push(routes.signin);
           return;
         }
@@ -39,7 +39,7 @@ export default function Page() {
   const preloading = loading;
 
   return (
-    <Stack spacing={3} py={3}>
+    <Stack spacing={2} py={2}>
       {loading ? (
         <Skeleton height={"24px"} />
       ) : (

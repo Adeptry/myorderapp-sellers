@@ -2,9 +2,9 @@
 
 import { routes } from "@/app/routes";
 import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
-import { useNetworkingFunction } from "@/components/networking/useNetworkingFunction";
+import { useNetworkingFunctionP } from "@/components/networking/useNetworkingFunctionP";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Check } from "@mui/icons-material";
+import { Check, Login } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import { Alert, Box, Skeleton } from "@mui/material";
 import Grid from "@mui/material/Grid";
@@ -12,7 +12,7 @@ import { default as MuiLink } from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
-import { AuthEmailLoginDto } from "moa-merchants-ts-axios";
+import { AuthEmailLoginDto, LoginResponseType } from "moa-merchants-ts-axios";
 import { default as NextLink } from "next/link";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -20,12 +20,12 @@ import * as yup from "yup";
 import AuthServicesButtons from "../buttons/AuthServices";
 
 export function SignInForm(props: {
-  onSuccess: () => void;
+  onSuccess: (data: LoginResponseType) => void;
   preloading?: boolean;
 }) {
   const { onSuccess, preloading } = props;
   const { auth, setSession } = useNetworkingContext();
-  const [{ data, loading, error }, invoke] = useNetworkingFunction(
+  const [createSessionState, createSessionFn] = useNetworkingFunctionP(
     auth.createSession.bind(auth)
   );
   const [errorString, setErrorString] = useState<string | null>(null);
@@ -49,13 +49,13 @@ export function SignInForm(props: {
 
   async function handleOnValidSubmit(authEmailLoginDto: AuthEmailLoginDto) {
     try {
-      const response = await invoke({ authEmailLoginDto });
+      const response = await createSessionFn({ authEmailLoginDto }, {});
       const data = response?.data;
       if (!data) {
         throw new Error("No access token");
       }
       setSession(data);
-      onSuccess();
+      onSuccess(data);
     } catch (error) {
       if (axios.isAxiosError(error) && error?.response?.status === 422) {
         const message = error?.response?.data.message;
@@ -157,15 +157,18 @@ export function SignInForm(props: {
             <Skeleton height="56px" />
           ) : (
             <LoadingButton
-              loading={loading || formState.isSubmitting}
+              loading={createSessionState.loading || formState.isSubmitting}
               size="large"
-              startIcon={formState.isSubmitSuccessful ? <Check /> : null}
-              color={formState.isSubmitSuccessful ? "success" : "secondary"}
+              startIcon={createSessionState.data ? <Check /> : <Login />}
+              disabled={
+                (createSessionState.loading || createSessionState.data) && true
+              }
+              color="secondary"
               type="submit"
               fullWidth
               variant="contained"
             >
-              {formState.isSubmitSuccessful ? "" : "Sign In with email"}
+              {createSessionState.data ? "Welcome back!" : "Sign In with email"}
             </LoadingButton>
           )}
         </Grid>

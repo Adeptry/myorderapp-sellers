@@ -23,7 +23,9 @@ export default function RootLayout({
             <AppBarLayout />
             <Container
               maxWidth={isSmallScreen ? undefined : "md"}
-              sx={{ minHeight: "calc(100vh - 120px)" }}
+              sx={{
+                minHeight: "calc(100vh - 120px)",
+              }}
             >
               {children}
             </Container>

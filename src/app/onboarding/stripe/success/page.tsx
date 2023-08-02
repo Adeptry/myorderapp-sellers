@@ -1,44 +1,92 @@
+"use client";
+
+import { routes } from "@/app/routes";
+import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
+import { useNetworkingFunctionP } from "@/components/networking/useNetworkingFunctionP";
 import { CheckCircleOutline } from "@mui/icons-material";
-import { Box, Card, CardContent, Typography } from "@mui/material";
+import { Alert, Box, Button, Skeleton, Stack, Typography } from "@mui/material";
 import { green } from "@mui/material/colors";
+import axios from "axios";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Fragment, useEffect, useState } from "react";
 
 export default function Page() {
+  const { push, refresh } = useRouter();
+  const searchParams = useSearchParams();
+  const checkoutSessionId = searchParams.get("session_id");
+
+  const { merchants } = useNetworkingContext();
+  const [confirmStripeCheckoutState, confirmStripeCheckoutFn] =
+    useNetworkingFunctionP(
+      merchants.confirmStripeCheckout.bind(merchants),
+      true
+    );
+
+  const [errorString, setErrorString] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetch() {
+      if (checkoutSessionId) {
+        try {
+          await confirmStripeCheckoutFn(
+            { stripeCheckoutDto: { checkoutSessionId } },
+            {}
+          );
+        } catch (error) {
+          if (axios.isAxiosError(error)) {
+            setErrorString(error?.response?.data.message);
+          } else {
+            setErrorString("There was an error. Please try again.");
+          }
+        }
+      }
+    }
+
+    fetch();
+  }, [checkoutSessionId]);
+
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      py={3}
-    >
-      <Card elevation={1}>
-        <CardContent>
-          <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="center"
-            padding={3}
-            gap={3}
-          >
-            <CheckCircleOutline sx={{ fontSize: 60, color: green[500] }} />
-            <Typography variant="h4" component="div" gutterBottom>
-              Congratulations!
-            </Typography>
-            <Typography variant="body1" textAlign="center">
-              You've successfully checked out and subscribed to MyOrderApp. This
-              service will publish a mobile ordering app for your Square
-              merchant business to both Android and iOS.
-            </Typography>
-            <Typography variant="body1" textAlign="center" marginTop={2}>
-              A member of our team will be in touch with you within the next
-              business day to keep you in the loop as your app gets published.
-              We're excited to have you onboard and can't wait to see your
-              business grow!
-            </Typography>
+    <Stack py={2} spacing={2} display="flex" alignItems="center">
+      {errorString && (
+        <Box justifyContent={"center"} display="flex">
+          <Alert severity="error">{errorString}</Alert>
+        </Box>
+      )}
+
+      {confirmStripeCheckoutState.loading && (
+        <Box justifyContent={"center"} display="flex">
+          <Skeleton variant="rectangular" width={210} height={118} />
+        </Box>
+      )}
+
+      {!errorString && !confirmStripeCheckoutState.loading && (
+        <Fragment>
+          <CheckCircleOutline style={{ fontSize: 60, color: green[500] }} />
+          <Typography variant="h5" align="center" gutterBottom>
+            Congratulations, your purchase was successful!
+          </Typography>
+          <Typography variant="body1" align="center" gutterBottom>
+            No further action is necessary. You may continue to edit your
+            application and catalog at your convenience.
+          </Typography>
+          <Typography variant="body1" align="center" gutterBottom>
+            We will be in touch within 1 business day.
+          </Typography>
+          <Box>
+            <Button
+              variant="contained"
+              color="secondary"
+              size="large"
+              onClick={() => {
+                push(routes.catalog);
+                refresh();
+              }}
+            >
+              Go to Catalog
+            </Button>
           </Box>
-        </CardContent>
-      </Card>
-    </Box>
+        </Fragment>
+      )}
+    </Stack>
   );
 }

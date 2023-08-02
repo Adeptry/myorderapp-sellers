@@ -50,6 +50,8 @@ export default function SquareOauthButton(props: SquareOauthButtonProps) {
       component={NextLink}
       startIcon={<SiSquare />}
       variant="contained"
+      color="secondary"
+      size="large"
     >
       Authorize Square
     </Button>
