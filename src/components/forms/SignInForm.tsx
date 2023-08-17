@@ -58,7 +58,7 @@ export function SignInForm(props: {
       onSuccess(data);
     } catch (error) {
       if (axios.isAxiosError(error) && error?.response?.status === 422) {
-        const message = error?.response?.data.message;
+        const message = (error?.response?.data as any).message;
         if (typeof message === "string") {
           setErrorString(message);
         } else {

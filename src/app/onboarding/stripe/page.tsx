@@ -27,9 +27,9 @@ export default function Page() {
   const { push } = useRouter();
 
   const { merchants } = useNetworkingContext();
-  const [startStripeCheckoutState, startStripeCheckoutFn] =
+  const [createStripeCheckoutState, createStripeCheckoutFn] =
     useNetworkingFunctionP(
-      merchants.startStripeCheckout.bind(merchants),
+      merchants.createStripeCheckout.bind(merchants),
       false
     );
 
@@ -41,7 +41,7 @@ export default function Page() {
         process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
       );
       const frontEndDomain = process.env.NEXT_PUBLIC_FRONTEND_DOMAIN;
-      const response = await startStripeCheckoutFn(
+      const response = await createStripeCheckoutFn(
         {
           stripeCheckoutCreateDto: {
             successUrl: `${frontEndDomain}${routes.onboarding.stripe.success}`,
@@ -65,8 +65,8 @@ export default function Page() {
     }
   };
 
-  if (startStripeCheckoutState.error) {
-    return <div>Error: {JSON.stringify(startStripeCheckoutState.error)}</div>;
+  if (createStripeCheckoutState.error) {
+    return <div>Error: {JSON.stringify(createStripeCheckoutState.error)}</div>;
   }
 
   return (
@@ -127,16 +127,16 @@ export default function Page() {
             size="large"
             onClick={onClickCheckout}
             startIcon={
-              startStripeCheckoutState.data ? (
+              createStripeCheckoutState.data ? (
                 <Check />
               ) : (
                 <ShoppingCartCheckout />
               )
             }
             loading={stripeLoading}
-            disabled={(stripeLoading || startStripeCheckoutState.data) && true}
+            disabled={(stripeLoading || createStripeCheckoutState.data) && true}
           >
-            {startStripeCheckoutState.data ? "Ready!" : "Proceed to Checkout"}
+            {createStripeCheckoutState.data ? "Ready!" : "Proceed to Checkout"}
           </LoadingButton>
         </Box>
       </Stack>

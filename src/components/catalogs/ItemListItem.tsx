@@ -57,7 +57,7 @@ export default function ItemListItem(props: {
         </IconButton>
         <ListItemText primary={entity.name} />
         <Switch
-          checked={entity.moaEnabled}
+          checked={entity.moaEnabled ?? false}
           onChange={() => {
             if (entity.id) {
               onItemUpdate(entity.id, !entity.moaEnabled);

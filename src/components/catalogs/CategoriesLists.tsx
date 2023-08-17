@@ -32,7 +32,7 @@ export function CategoriesLists(props: {
   } = props;
 
   const [openCategoryIdState, setOpenCategoryIdState] = useState<
-    string | undefined
+    string | undefined | null
   >(undefined);
 
   return (
@@ -41,37 +41,39 @@ export function CategoriesLists(props: {
         Array(8)
           .fill(null)
           .map((_, i) => <Skeleton key={i} height={"88px"} />)}
-      <Flipper
-        flipKey={entities.map((v) => v.id).join("")}
-        portalKey="categories"
-      >
-        {entities.map((entity) => {
-          return (
-            <Flipped key={entity.id} flipId={entity.id}>
-              <Paper elevation={2} sx={{ mb: 2 }}>
-                <CategoryList
-                  onCategoryMove={onCategoryMove}
-                  entity={entity}
-                  isIn={openCategoryIdState === entity.id}
-                  isFirst={entities[0].id === entity.id}
-                  isLast={entities[entities.length - 1].id === entity.id}
-                  setIsIn={(open) => {
-                    setOpenCategoryIdState(open ? entity.id : undefined);
-                  }}
-                  getItems={getItems}
-                  items={items}
-                  onItemMove={onItemMove}
-                  variations={variations}
-                  getVariations={getVariations}
-                  onVariationUpdate={onVariationUpdate}
-                  onItemUpdate={onItemUpdate}
-                  onCategoryUpdate={onCategoryUpdate}
-                />
-              </Paper>
-            </Flipped>
-          );
-        })}
-      </Flipper>
+      {!preloading && (
+        <Flipper
+          flipKey={entities.map((v) => v.id).join("")}
+          portalKey="categories"
+        >
+          {entities.map((entity) => {
+            return (
+              <Flipped key={entity.id} flipId={entity.id ?? ""}>
+                <Paper elevation={2} sx={{ mb: 2 }}>
+                  <CategoryList
+                    onCategoryMove={onCategoryMove}
+                    entity={entity}
+                    isIn={openCategoryIdState === entity.id}
+                    isFirst={entities[0].id === entity.id}
+                    isLast={entities[entities.length - 1].id === entity.id}
+                    setIsIn={(open) => {
+                      setOpenCategoryIdState(open ? entity.id : undefined);
+                    }}
+                    getItems={getItems}
+                    items={items}
+                    onItemMove={onItemMove}
+                    variations={variations}
+                    getVariations={getVariations}
+                    onVariationUpdate={onVariationUpdate}
+                    onItemUpdate={onItemUpdate}
+                    onCategoryUpdate={onCategoryUpdate}
+                  />
+                </Paper>
+              </Flipped>
+            );
+          })}
+        </Flipper>
+      )}
     </Box>
   );
 }

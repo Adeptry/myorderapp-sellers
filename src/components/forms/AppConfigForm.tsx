@@ -124,7 +124,7 @@ export function AppConfigForm(props: {
       onSuccess(data);
     } catch (error) {
       if (axios.isAxiosError(error) && error?.response?.status === 422) {
-        const serverErrors = error?.response?.data.message;
+        const serverErrors = (error?.response?.data as any).message;
         Object.keys(serverErrors).forEach((fieldName) => {
           setError(fieldName as keyof AppConfigUpdateDto, {
             type: "server",

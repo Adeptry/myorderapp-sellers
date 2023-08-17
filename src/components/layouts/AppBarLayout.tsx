@@ -38,7 +38,7 @@ export default function AppBarLayout() {
     useNetworkingFunctionNP(merchants.getCurrentMerchant.bind(merchants), true);
   const [stripeCreateBillingSessionUrlState, stripeCreateBillingSessionUrlFn] =
     useNetworkingFunctionP(
-      merchants.stripeCreateBillingSessionUrl.bind(merchants)
+      merchants.createStripeBillingSessionUrl.bind(merchants)
     );
 
   useEffect(() => {

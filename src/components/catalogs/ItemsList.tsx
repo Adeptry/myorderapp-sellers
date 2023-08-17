@@ -21,9 +21,9 @@ export default function ItemsList(props: {
     variations,
     getVariations,
   } = props;
-  const [openItemIdState, setOpenItemIdState] = useState<string | undefined>(
-    undefined
-  );
+  const [openItemIdState, setOpenItemIdState] = useState<
+    string | undefined | null
+  >(undefined);
   return (
     <List sx={props.sx}>
       <Flipper
@@ -33,7 +33,7 @@ export default function ItemsList(props: {
       >
         {entities.map((value) => {
           return (
-            <Flipped key={value.id} flipId={value.id}>
+            <Flipped key={value.id} flipId={value.id ?? ""}>
               <ItemListItem
                 isFirst={entities[0].id === value.id}
                 isLast={entities[entities.length - 1].id === value.id}

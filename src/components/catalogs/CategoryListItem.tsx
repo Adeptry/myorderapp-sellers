@@ -35,7 +35,7 @@ export default function CategoryListItem(props: {
 
       <ListItemText primary={entity.name} />
       <Switch
-        checked={entity.moaEnabled}
+        checked={entity.moaEnabled ?? false}
         onChange={() => {
           if (entity.id) {
             props.onCategoryUpdate(entity.id, !entity.moaEnabled);
