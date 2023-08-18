@@ -32,31 +32,28 @@ export default function Page() {
   const { catalogs } = useNetworkingContext();
 
   const [categoriesState, setCategoriesState] = useState<Category[]>([]);
-  const [
-    { data: getCategoriesData, loading: getCategoriesLoading },
-    getCategories,
-  ] = useNetworkingFunctionP(catalogs.getCatalog.bind(catalogs), true);
+  const [{ loading: getCategoriesLoading }, getMyCatalogFn] =
+    useNetworkingFunctionP(catalogs.getMyCatalog.bind(catalogs), true);
   const [{}, updateCategories] = useNetworkingFunctionP(
     catalogs.updateCategories.bind(catalogs),
     false
   );
 
   const [itemsState, setItemsState] = useState<Item[]>([]);
-  const [{}, getItemsInCategory] = useNetworkingFunctionP(
+  const [, getItemsInCategoryFn] = useNetworkingFunctionP(
     catalogs.getItemsInCategory.bind(catalogs),
     false
   );
-  const [{}, updateItems] = useNetworkingFunctionP(
+  const [, updateItemsFn] = useNetworkingFunctionP(
     catalogs.updateItems.bind(catalogs),
     false
   );
-
   const [variationsState, setVariationsState] = useState<Variation[]>([]);
-  const [{}, getVariationsForItem] = useNetworkingFunctionP(
+  const [, getVariationsForItemFn] = useNetworkingFunctionP(
     catalogs.getVariationsForItem.bind(catalogs),
     false
   );
-  const [{}, updateVariation] = useNetworkingFunctionP(
+  const [, updateVariationFn] = useNetworkingFunctionP(
     catalogs.updateVariation.bind(catalogs),
     false
   );
@@ -69,7 +66,7 @@ export default function Page() {
 
   async function getTheCategories() {
     try {
-      const response = await getCategories(
+      const response = await getMyCatalogFn(
         {
           actingAs: "merchant",
         },
@@ -91,7 +88,7 @@ export default function Page() {
   }
 
   async function getItems(categoryId: string) {
-    const response = await getItemsInCategory(
+    const response = await getItemsInCategoryFn(
       {
         actingAs: "merchant",
         id: categoryId,
@@ -102,7 +99,7 @@ export default function Page() {
   }
 
   async function getVariations(itemId: string) {
-    const response = await getVariationsForItem(
+    const response = await getVariationsForItemFn(
       {
         id: itemId,
       },
@@ -182,7 +179,7 @@ export default function Page() {
         item1NewOrdinal !== undefined &&
         item2NewOrdinal !== undefined
       ) {
-        const result = await updateItems(
+        const result = await updateItemsFn(
           {
             itemUpdateAllDto: [
               { id: item1Id, moaOrdinal: item1NewOrdinal },
@@ -268,7 +265,7 @@ export default function Page() {
           })
         );
 
-        updateItems(
+        updateItemsFn(
           {
             itemUpdateAllDto: [
               {
@@ -304,7 +301,7 @@ export default function Page() {
           })
         );
 
-        updateVariation(
+        updateVariationFn(
           {
             id: newVariation.id!,
             variationUpdateDto: {
