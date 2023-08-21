@@ -1,7 +1,8 @@
 "use client";
 
 import { routes } from "@/app/routes";
-import OnboardingStepper, {
+import {
+  OnboardingStepper,
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
 import SquareOauthButton from "@/components/buttons/SquareOauthButton";

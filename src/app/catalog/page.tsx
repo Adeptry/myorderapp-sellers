@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { Category, Item, Variation } from "moa-merchants-ts-axios";
+import { nanoid } from "nanoid";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -50,6 +51,10 @@ export default function Page() {
     catalogs.updateVariation.bind(catalogs),
     false
   );
+  const [, uploadImageToSquareCatalogFn] = useNetworkingFunctionP(
+    catalogs.uploadImageToSquareCatalog.bind(catalogs),
+    false
+  );
 
   useEffect(() => {
     getTheCategories();
@@ -85,10 +90,18 @@ export default function Page() {
       {
         actingAs: "merchant",
         id: categoryId,
+        images: true,
       },
       {}
     );
     setItemsState(response.data.data ?? []);
+  }
+
+  async function onObjectImageUpdate(id: string, file: File): Promise<void> {
+    await uploadImageToSquareCatalogFn(
+      { id, file: file, idempotencyKey: nanoid() },
+      {}
+    );
   }
 
   async function getVariations(itemId: string) {
@@ -331,6 +344,7 @@ export default function Page() {
           onCategoryUpdate={onCategoryUpdate}
           onItemUpdate={onItemUpdate}
           onVariationUpdate={onVariationUpdate}
+          onObjectImageUpdate={onObjectImageUpdate}
         />
       )}
     </Stack>

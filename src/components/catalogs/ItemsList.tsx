@@ -12,6 +12,7 @@ export default function ItemsList(props: {
   onItemMove: (id: string, up: boolean) => void;
   onVariationUpdate: (id: string, moaEnabled: boolean) => void;
   onItemUpdate: (id: string, moaEnabled: boolean) => void;
+  onObjectImageUpdate: (id: string, file: File) => Promise<void>;
 }) {
   const {
     entities,
@@ -20,6 +21,7 @@ export default function ItemsList(props: {
     onItemUpdate,
     variations,
     getVariations,
+    onObjectImageUpdate,
   } = props;
   const [openItemIdState, setOpenItemIdState] = useState<
     string | undefined | null
@@ -44,6 +46,7 @@ export default function ItemsList(props: {
                 onItemMove={onItemMove}
                 onVariationUpdate={onVariationUpdate}
                 onItemUpdate={onItemUpdate}
+                onObjectImageUpdate={onObjectImageUpdate}
                 setIsIn={(open) => {
                   setOpenItemIdState(open ? value.id : undefined);
                 }}

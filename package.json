@@ -24,6 +24,8 @@
     "moa-merchants-ts-axios": "github:Adeptry/moa-merchants-ts-axios",
     "mui-color-input": "^1.1.0",
     "mui-file-input": "^2.0.5",
+    "mui-image": "^1.0.7",
+    "nanoid": "^4.0.2",
     "next": "^13.4.12",
     "react": "18.x",
     "react-cookie": "^4.1.1",
@@ -36,6 +38,7 @@
     "yup": "^1.2.0"
   },
   "devDependencies": {
+    "@types/mui-image": "^1.0.1",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",

@@ -1,10 +1,12 @@
 import {
+  Add,
   ArrowDownward,
   ArrowUpward,
   ExpandLess,
   ExpandMore,
 } from "@mui/icons-material";
 import {
+  Avatar,
   Box,
   ButtonGroup,
   Collapse,
@@ -15,6 +17,8 @@ import {
   Switch,
 } from "@mui/material";
 import { Item, Variation } from "moa-merchants-ts-axios";
+import Image from "mui-image";
+import { useState } from "react";
 import VariationsList from "./VariationsList";
 
 export default function ItemListItem(props: {
@@ -26,6 +30,7 @@ export default function ItemListItem(props: {
   setIsIn: (isIn: boolean) => void;
   onVariationUpdate: (id: string, moaEnabled: boolean) => void;
   onItemUpdate: (id: string, moaEnabled: boolean) => void;
+  onObjectImageUpdate: (id: string, file: File) => Promise<void>;
   isFirst: boolean;
   isLast: boolean;
 }) {
@@ -38,9 +43,26 @@ export default function ItemListItem(props: {
     getVariations,
     onVariationUpdate,
     onItemUpdate,
+    onObjectImageUpdate,
     isFirst,
     isLast,
   } = props;
+
+  // Local state to manage the preview image URL
+  const [previewImgUrl, setPreviewImgUrl] = useState<string | null>(null);
+
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files ? e.target.files[0] : null;
+    if (file) {
+      // Generate a local URL for the image preview
+      setPreviewImgUrl(URL.createObjectURL(file));
+      if (entity.id) {
+        await onObjectImageUpdate(entity.id, file);
+      }
+    }
+  };
+
+  const imgUrl = previewImgUrl ?? entity.images?.at(0)?.url;
 
   return (
     <Box>
@@ -55,7 +77,20 @@ export default function ItemListItem(props: {
         >
           {isIn ? <ExpandLess /> : <ExpandMore />}
         </IconButton>
+        <IconButton>
+          <input
+            type="file"
+            style={{ display: "none" }}
+            accept="image/*"
+            onChange={handleImageChange}
+            id={`fileInput-${entity.id}`}
+          />
+          <label htmlFor={`fileInput-${entity.id}`}>
+            <Avatar>{imgUrl ? <Image src={imgUrl} /> : <Add />}</Avatar>
+          </label>
+        </IconButton>
         <ListItemText primary={entity.name} />
+
         <Switch
           checked={entity.moaEnabled ?? false}
           onChange={() => {
@@ -88,7 +123,7 @@ export default function ItemListItem(props: {
         </ButtonGroup>
       </ListItem>
       <Collapse in={isIn} timeout="auto" unmountOnExit>
-        <Paper elevation={6} sx={{ ml: 2, my: 1 }}>
+        <Paper elevation={6} sx={{ ml: 2, mr: 2, my: 1 }}>
           <VariationsList
             entities={variations}
             onVariationUpdate={onVariationUpdate}

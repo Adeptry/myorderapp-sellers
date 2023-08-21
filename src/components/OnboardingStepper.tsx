@@ -18,7 +18,7 @@ const OnboardingStepsTitles: { [key in OnboardingSteps]: string } = {
   [OnboardingSteps.checkout]: "Subscribe to Publish",
 };
 
-export default function HorizontalLinearStepper(props: {
+export function OnboardingStepper(props: {
   activeStep: OnboardingSteps;
   sx?: SxProps;
 }) {

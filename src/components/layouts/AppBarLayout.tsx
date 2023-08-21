@@ -54,9 +54,6 @@ export default function AppBarLayout() {
     <Fragment>
       <AppBar position="sticky">
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            MyOrderApp for Merchants
-          </Typography>
           <Box display={isClient && session ? "block" : "none"}>
             <IconButton
               onClick={toggleDrawerOpen}
@@ -68,9 +65,12 @@ export default function AppBarLayout() {
               <Menu />
             </IconButton>
           </Box>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            MyOrderApp for Merchants
+          </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer open={drawerOpenState} onClose={toggleDrawerOpen} anchor="right">
+      <Drawer open={drawerOpenState} onClose={toggleDrawerOpen}>
         <List>
           {canShowMenuListItems && (
             <Fragment>

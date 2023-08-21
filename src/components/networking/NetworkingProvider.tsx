@@ -9,7 +9,6 @@ import {
   LocationsApi,
   LoginResponseType,
   MerchantsApi,
-  SquareApi,
 } from "moa-merchants-ts-axios";
 import React, { useEffect, useState } from "react";
 import { useIsClient, useLocalStorage } from "usehooks-ts";
@@ -38,7 +37,6 @@ export function NetworkingProvider({
     configs: new ConfigsApi(configuration, basePath, globalAxios),
     locations: new LocationsApi(configuration, basePath, globalAxios),
     merchants: new MerchantsApi(configuration, basePath, globalAxios),
-    square: new SquareApi(configuration, basePath, globalAxios),
     session: isClient ? session : null,
     setSession,
   });
@@ -50,7 +48,6 @@ export function NetworkingProvider({
       configs: new ConfigsApi(configuration, basePath, globalAxios),
       locations: new LocationsApi(configuration, basePath, globalAxios),
       merchants: new MerchantsApi(configuration, basePath, globalAxios),
-      square: new SquareApi(configuration, basePath, globalAxios),
       session: isClient ? session : null,
       setSession,
     });

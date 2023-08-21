@@ -11,7 +11,7 @@ export default function VariationListItem(props: {
     <ListItem key={entity.id}>
       <ListItemText primary={entity.name} />
       <Switch
-        sx={{ mr: 10 }}
+        sx={{ mr: 8 }}
         checked={entity.moaEnabled ?? false}
         onChange={() => {
           if (entity.id) {

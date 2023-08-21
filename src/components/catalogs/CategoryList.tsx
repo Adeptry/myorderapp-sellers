@@ -18,6 +18,7 @@ export default function CategoryList(props: {
   onVariationUpdate: (id: string, moaEnabled: boolean) => void;
   onItemUpdate: (id: string, moaEnabled: boolean) => void;
   onCategoryUpdate: (id: string, moaEnabled: boolean) => void;
+  onObjectImageUpdate: (id: string, file: File) => Promise<void>;
 }) {
   const {
     entity,
@@ -34,6 +35,7 @@ export default function CategoryList(props: {
     onVariationUpdate,
     onItemUpdate,
     onCategoryUpdate,
+    onObjectImageUpdate,
   } = props;
 
   return (
@@ -61,6 +63,7 @@ export default function CategoryList(props: {
             onItemUpdate={onItemUpdate}
             variations={variations}
             getVariations={getVariations}
+            onObjectImageUpdate={onObjectImageUpdate}
           />
         </Paper>
       </Collapse>

@@ -15,6 +15,7 @@ export function CategoriesLists(props: {
   onVariationUpdate: (id: string, moaEnabled: boolean) => void;
   onItemUpdate: (id: string, moaEnabled: boolean) => void;
   onCategoryUpdate: (id: string, moaEnabled: boolean) => void;
+  onObjectImageUpdate: (id: string, file: File) => Promise<void>;
   preloading: boolean;
 }) {
   const {
@@ -28,6 +29,7 @@ export function CategoriesLists(props: {
     onVariationUpdate,
     onItemUpdate,
     onCategoryUpdate,
+    onObjectImageUpdate,
     preloading,
   } = props;
 
@@ -67,6 +69,7 @@ export function CategoriesLists(props: {
                     onVariationUpdate={onVariationUpdate}
                     onItemUpdate={onItemUpdate}
                     onCategoryUpdate={onCategoryUpdate}
+                    onObjectImageUpdate={onObjectImageUpdate}
                   />
                 </Paper>
               </Flipped>

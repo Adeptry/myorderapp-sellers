@@ -1,7 +1,8 @@
 "use client";
 
 import { routes } from "@/app/routes";
-import OnboardingStepper, {
+import {
+  OnboardingStepper,
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
 import { CategoriesLists } from "@/components/catalogs/CategoriesLists";
@@ -21,6 +22,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { Category, Item, Variation } from "moa-merchants-ts-axios";
+import { nanoid } from "nanoid";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -58,6 +60,11 @@ export default function Page() {
     false
   );
 
+  const [, uploadImageToSquareCatalogFn] = useNetworkingFunctionP(
+    catalogs.uploadImageToSquareCatalog.bind(catalogs),
+    false
+  );
+
   useEffect(() => {
     getTheCategories();
   }, []);
@@ -92,6 +99,7 @@ export default function Page() {
       {
         actingAs: "merchant",
         id: categoryId,
+        images: true,
       },
       {}
     );
@@ -280,6 +288,13 @@ export default function Page() {
     }
   }
 
+  async function onObjectImageUpdate(id: string, file: File): Promise<void> {
+    await uploadImageToSquareCatalogFn(
+      { id, file: file, idempotencyKey: nanoid() },
+      {}
+    );
+  }
+
   function onVariationUpdate(id: string, moaEnabled: boolean): void {
     const index = variationsState.findIndex((value) => value.id === id);
 
@@ -350,6 +365,7 @@ export default function Page() {
               onCategoryUpdate={onCategoryUpdate}
               onItemUpdate={onItemUpdate}
               onVariationUpdate={onVariationUpdate}
+              onObjectImageUpdate={onObjectImageUpdate}
             />
           </Grid>
           <Grid item xs={12} sm={12} md={6}>

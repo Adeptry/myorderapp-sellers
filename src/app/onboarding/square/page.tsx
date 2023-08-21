@@ -1,6 +1,7 @@
 "use client";
 
-import OnboardingStepper, {
+import {
+  OnboardingStepper,
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
 import SquareOauthButton from "@/components/buttons/SquareOauthButton";
