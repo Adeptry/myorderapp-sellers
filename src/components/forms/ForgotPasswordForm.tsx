@@ -1,6 +1,5 @@
 import { routes } from "@/app/routes";
-import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
-import { useNetworkingFunctionP } from "@/components/networking/useNetworkingFunctionP";
+import { useNetworkingContext } from "@/contexts/networking/useNetworkingContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Password } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
@@ -13,6 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import { default as MuiLink } from "@mui/material/Link";
+import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { AuthForgotPasswordDto } from "moa-merchants-ts-axios";
 import { default as NextLink } from "next/link";
@@ -22,18 +22,10 @@ import * as yup from "yup";
 
 export function ForgotPasswordForm(props: { preloading: boolean }) {
   const { preloading } = props;
-  const { auth } = useNetworkingContext();
-  const [forgotPasswordState, forgotPasswordFn] = useNetworkingFunctionP(
-    auth.forgotPassword.bind(auth)
-  );
+
   const [errorString, setErrorString] = useState<string | null>(null);
 
-  const {
-    control,
-    handleSubmit,
-    setError,
-    formState: { errors },
-  } = useForm<AuthForgotPasswordDto>({
+  const form = useForm<AuthForgotPasswordDto>({
     defaultValues: {
       email: "",
     },
@@ -47,11 +39,18 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
     ),
   });
 
-  async function handleOnValidSubmit(
-    authForgotPasswordDto: AuthForgotPasswordDto
-  ) {
+  const { auth } = useNetworkingContext();
+  const forgotPasswordMutation = useMutation({
+    mutationFn: (authForgotPasswordDto: AuthForgotPasswordDto) => {
+      return auth.forgotPassword({
+        authForgotPasswordDto,
+      });
+    },
+  });
+
+  async function handleOnValidSubmit(data: AuthForgotPasswordDto) {
     try {
-      await forgotPasswordFn({ authForgotPasswordDto }, {});
+      await forgotPasswordMutation.mutateAsync(data);
     } catch (error) {
       if (axios.isAxiosError(error) && error?.response?.status === 422) {
         const message = (error?.response?.data as any).message;
@@ -59,7 +58,7 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
           setErrorString(message);
         } else {
           Object.keys(message).forEach((fieldName) => {
-            setError(fieldName as keyof AuthForgotPasswordDto, {
+            form.setError(fieldName as keyof AuthForgotPasswordDto, {
               type: "server",
               message: message[fieldName],
             });
@@ -75,7 +74,7 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
     <Box
       component="form"
       noValidate
-      onSubmit={handleSubmit(handleOnValidSubmit)}
+      onSubmit={form.handleSubmit(handleOnValidSubmit)}
       sx={{ width: "100%" }}
     >
       <Grid container spacing={2}>
@@ -86,7 +85,7 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
             </Alert>
           </Grid>
         )}
-        {forgotPasswordState.data !== undefined && (
+        {forgotPasswordMutation.data !== undefined && (
           <Grid item xs={12}>
             <Alert severity="success">Check your email!</Alert>
           </Grid>
@@ -94,7 +93,7 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
         <Grid item xs={12}>
           <Controller
             name="email"
-            control={control}
+            control={form.control}
             render={({ field }) => {
               return preloading ? (
                 <Skeleton height="56px" />
@@ -110,13 +109,13 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
                   }}
                   fullWidth
                   autoFocus
-                  error={errors.email ? true : false}
+                  error={form.formState.errors.email ? true : false}
                 />
               );
             }}
           />
           <Typography variant="inherit" color="error">
-            {errors.email?.message}
+            {form.formState.errors.email?.message}
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -124,7 +123,7 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
             <Skeleton height="56px" width="100%" />
           ) : (
             <LoadingButton
-              loading={forgotPasswordState.loading}
+              loading={forgotPasswordMutation.isLoading}
               type="submit"
               size="large"
               fullWidth

@@ -1,6 +1,9 @@
 "use client";
 
 import { routes } from "@/app/routes";
+import { useCurrentMerchantQuery } from "@/contexts/networking/useCurrentMerchantQuery";
+import { useNetworkingContext } from "@/contexts/networking/useNetworkingContext";
+import { useSessionContext } from "@/contexts/session/useSessionContext";
 import {
   AppShortcut,
   CreditCard,
@@ -21,34 +24,35 @@ import {
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import { useMutation } from "@tanstack/react-query";
+import { StripeBillingPortalCreateInput } from "moa-merchants-ts-axios";
 import { useRouter } from "next/navigation";
-import { Fragment, useEffect } from "react";
+import { Fragment } from "react";
 import { useBoolean, useIsClient } from "usehooks-ts";
-import { useNetworkingContext } from "../networking/useNetworkingContext";
-import { useNetworkingFunctionNP } from "../networking/useNetworkingFunctionNP";
-import { useNetworkingFunctionP } from "../networking/useNetworkingFunctionP";
+
+// https://mui.com/material-ui/react-app-bar/#app-bar-with-responsive-menu
+// https://github.com/mui/material-ui/tree/v5.14.5/docs/data/material/getting-started/templates/dashboard
 
 export default function AppBarLayout() {
   const { push } = useRouter();
   const isClient = useIsClient();
   const { value: drawerOpenState, toggle: toggleDrawerOpen } =
     useBoolean(false);
-  const { session, setSession, merchants } = useNetworkingContext(); // uses local storage to determine session
-  const [getCurrentMerchantState, getCurrentMerchantFn] =
-    useNetworkingFunctionNP(merchants.getCurrentMerchant.bind(merchants), true);
-  const [stripeCreateBillingSessionUrlState, stripeCreateBillingSessionUrlFn] =
-    useNetworkingFunctionP(
-      merchants.createStripeBillingSessionUrl.bind(merchants)
-    );
-
-  useEffect(() => {
-    try {
-      getCurrentMerchantFn({});
-    } catch (error) {}
-  }, [session]);
+  const { session, setSession } = useSessionContext();
+  const { data: currentMerchant } = useCurrentMerchantQuery();
+  const { merchants } = useNetworkingContext();
+  const createStripeBillingSessionUrlMutation = useMutation({
+    mutationFn: (
+      stripeBillingPortalCreateInput: StripeBillingPortalCreateInput
+    ) => {
+      return merchants.createStripeBillingSessionUrl({
+        stripeBillingPortalCreateInput,
+      });
+    },
+  });
 
   const canShowMenuListItems =
-    getCurrentMerchantState.data?.stripeCheckoutSessionId != null;
+    currentMerchant?.data?.stripeCheckoutSessionId != null;
 
   return (
     <Fragment>
@@ -103,14 +107,10 @@ export default function AppBarLayout() {
               <ListItem key={"manage-account-list-item"} disablePadding>
                 <ListItemButton
                   onClick={async () => {
-                    const response = await stripeCreateBillingSessionUrlFn(
-                      {
-                        stripeBillingPortalCreateInput: {
-                          returnUrl: window.location.href,
-                        },
-                      },
-                      {}
-                    );
+                    const response =
+                      await createStripeBillingSessionUrlMutation.mutateAsync({
+                        returnUrl: window.location.href,
+                      });
                     if (response.data?.url) {
                       push(response.data.url);
                     }

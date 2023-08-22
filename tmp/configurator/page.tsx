@@ -2,8 +2,8 @@
 
 import { routes } from "@/app/routes";
 import { AppConfigForm } from "@/components/forms/AppConfigForm";
-import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
-import { useNetworkingFunctionP } from "@/components/networking/useNetworkingFunctionP";
+import { useNetworkingContext } from "@/contexts/networking/useNetworkingContext";
+import { useNetworkingFunctionP } from "@/contexts/networking/useNetworkingFunctionP";
 import { Stack } from "@mui/material";
 import axios from "axios";
 import { AppConfigUpdateDto } from "moa-merchants-ts-axios";

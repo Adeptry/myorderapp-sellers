@@ -1,9 +1,8 @@
 "use client";
 
 import { routes } from "@/app/routes";
-import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
-import { useNetworkingFunctionNP } from "@/components/networking/useNetworkingFunctionNP";
-import { useNetworkingFunctionP } from "@/components/networking/useNetworkingFunctionP";
+import { useNetworkingContext } from "@/contexts/networking/useNetworkingContext";
+import { useSessionContext } from "@/contexts/session/useSessionContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Check, Login } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
@@ -12,11 +11,12 @@ import Grid from "@mui/material/Grid";
 import { default as MuiLink } from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import {
+  AuthApiCreateUserRequest,
   AuthEmailLoginDto,
   AuthRegisterLoginDto,
-  Merchant,
 } from "moa-merchants-ts-axios";
 import { default as NextLink } from "next/link";
 import { useState } from "react";
@@ -25,62 +25,63 @@ import * as yup from "yup";
 import AuthServicesButtons from "../buttons/AuthServices";
 
 export function SignUpForm(props: {
-  onSuccess: (merchant: Merchant) => void;
+  onSuccess: () => void;
   preloading?: boolean;
 }) {
   const { preloading, onSuccess } = props;
-  const { auth, merchants, setSession } = useNetworkingContext();
-  const [createUserState, createUserFn] = useNetworkingFunctionP(
-    auth.createUser.bind(auth)
-  );
-  const [createMerchantState, createMerchantFn] = useNetworkingFunctionNP(
-    merchants.createMerchant.bind(merchants)
-  );
   const [errorString, setErrorString] = useState<string | null>(null);
 
-  const { control, handleSubmit, setError, formState } =
-    useForm<AuthRegisterLoginDto>({
-      defaultValues: {
-        email: "",
-        password: "",
-        firstName: "",
-        lastName: "",
-      },
-      resolver: yupResolver(
-        yup
-          .object<AuthRegisterLoginDto>()
-          .shape({
-            email: yup.string().email().label("Email").required(),
-            password: yup.string().min(6).label("Password").required(),
-            firstName: yup.string().label("First name").required(),
-            lastName: yup.string().label("Last name").required(),
-          })
-          .required()
-      ),
-    });
+  const form = useForm<AuthRegisterLoginDto>({
+    defaultValues: {
+      email: "",
+      password: "",
+      firstName: "",
+      lastName: "",
+    },
+    resolver: yupResolver(
+      yup
+        .object<AuthRegisterLoginDto>()
+        .shape({
+          email: yup.string().email().label("Email").required(),
+          password: yup.string().min(6).label("Password").required(),
+          firstName: yup.string().label("First name").required(),
+          lastName: yup.string().label("Last name").required(),
+        })
+        .required()
+    ),
+  });
 
-  async function handleOnValidSubmit(
-    authRegisterLoginDto: AuthRegisterLoginDto
-  ) {
-    try {
-      const registerResponse = await createUserFn(
-        {
-          authRegisterLoginDto,
-        },
-        {}
-      );
-      const data = registerResponse?.data;
-      if (!data) {
-        throw new Error("No access token");
+  const { setSession } = useSessionContext();
+  const { merchants, auth } = useNetworkingContext();
+
+  const createUserAndMerchantMutation = useMutation(
+    async (requestParameters: AuthApiCreateUserRequest) => {
+      try {
+        const userRes = await auth.createUser(requestParameters);
+        setSession(userRes.data);
+
+        const merchantResponse = await merchants.createMerchant({
+          headers: {
+            Authorization: `Bearer ${userRes.data.token}`,
+          },
+        });
+
+        return merchantResponse;
+      } catch (error) {
+        throw error;
       }
-      setSession(data);
-      const merchantResponse = await createMerchantFn({
-        headers: {
-          Authorization: `Bearer ${data.token}`,
-        },
-      });
-      if (merchantResponse?.data !== undefined) {
-        onSuccess(merchantResponse.data);
+    }
+  );
+
+  async function handleOnValidSubmit() {
+    try {
+      const createUserAndMerchantMutationResponse =
+        await createUserAndMerchantMutation.mutateAsync({
+          authRegisterLoginDto: form.getValues(),
+        });
+
+      if (createUserAndMerchantMutationResponse?.data !== undefined) {
+        onSuccess();
       } else {
         throw new Error("No merchant response");
       }
@@ -91,7 +92,7 @@ export function SignUpForm(props: {
           setErrorString(message);
         } else {
           Object.keys(message).forEach((fieldName) => {
-            setError(fieldName as keyof AuthEmailLoginDto, {
+            form.setError(fieldName as keyof AuthEmailLoginDto, {
               type: "server",
               message: message[fieldName],
             });
@@ -106,7 +107,7 @@ export function SignUpForm(props: {
       sx={{ width: "100%" }}
       component="form"
       noValidate
-      onSubmit={handleSubmit(handleOnValidSubmit)}
+      onSubmit={form.handleSubmit(handleOnValidSubmit)}
     >
       <Grid
         container
@@ -123,7 +124,7 @@ export function SignUpForm(props: {
         <Grid item xs={12} sm={6}>
           <Controller
             name="firstName"
-            control={control}
+            control={form.control}
             render={({ field }) => {
               return preloading ? (
                 <Skeleton height="56px" />
@@ -138,20 +139,20 @@ export function SignUpForm(props: {
                     autoCorrect: "none",
                     spellCheck: false,
                   }}
-                  error={formState.errors.firstName ? true : false}
+                  error={form.formState.errors.firstName ? true : false}
                   autoFocus
                 />
               );
             }}
           />
           <Typography variant="inherit" color="error">
-            {formState.errors.firstName?.message}
+            {form.formState.errors.firstName?.message}
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Controller
             name="lastName"
-            control={control}
+            control={form.control}
             render={({ field }) => {
               return preloading ? (
                 <Skeleton height="56px" />
@@ -166,19 +167,19 @@ export function SignUpForm(props: {
                     autoCorrect: "none",
                     spellCheck: false,
                   }}
-                  error={formState.errors.lastName ? true : false}
+                  error={form.formState.errors.lastName ? true : false}
                 />
               );
             }}
           />
           <Typography variant="inherit" color="error">
-            {formState.errors.lastName?.message}
+            {form.formState.errors.lastName?.message}
           </Typography>
         </Grid>
         <Grid item xs={12}>
           <Controller
             name="email"
-            control={control}
+            control={form.control}
             render={({ field }) => {
               return preloading ? (
                 <Skeleton height="56px" />
@@ -194,19 +195,19 @@ export function SignUpForm(props: {
                     spellCheck: false,
                   }}
                   fullWidth
-                  error={formState.errors.email ? true : false}
+                  error={form.formState.errors.email ? true : false}
                 />
               );
             }}
           />
           <Typography variant="inherit" color="error">
-            {formState.errors.email?.message}
+            {form.formState.errors.email?.message}
           </Typography>
         </Grid>
         <Grid item xs={12}>
           <Controller
             name="password"
-            control={control}
+            control={form.control}
             render={({ field }) => {
               return preloading ? (
                 <Skeleton height="56px" />
@@ -223,13 +224,13 @@ export function SignUpForm(props: {
                     spellCheck: false,
                   }}
                   fullWidth
-                  error={formState.errors.password ? true : false}
+                  error={form.formState.errors.password ? true : false}
                 />
               );
             }}
           />
           <Typography variant="inherit" color="error">
-            {formState.errors.password?.message}
+            {form.formState.errors.password?.message}
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -238,18 +239,23 @@ export function SignUpForm(props: {
           ) : (
             <LoadingButton
               loading={
-                createUserState.loading ||
-                createMerchantState.loading ||
-                formState.isSubmitting
+                createUserAndMerchantMutation.isLoading ||
+                form.formState.isSubmitting
               }
               size="large"
-              startIcon={createMerchantState.data ? <Check /> : <Login />}
-              color={createMerchantState.data ? "success" : "secondary"}
+              startIcon={
+                createUserAndMerchantMutation.data ? <Check /> : <Login />
+              }
+              color={
+                createUserAndMerchantMutation.data ? "success" : "secondary"
+              }
               type="submit"
               fullWidth
               variant="contained"
             >
-              {createMerchantState.data ? "Let's go!" : "Sign Up with Email"}
+              {createUserAndMerchantMutation.data
+                ? "Let's go!"
+                : "Sign Up with Email"}
             </LoadingButton>
           )}
         </Grid>

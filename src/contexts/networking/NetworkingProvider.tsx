@@ -1,5 +1,10 @@
 "use client";
 
+import {
+  NetworkingContext,
+  NetworkingContextType,
+} from "@/contexts/networking/NetworkingContext";
+import { useSessionContext } from "@/contexts/session/useSessionContext";
 import globalAxios from "axios";
 import {
   AuthApi,
@@ -7,23 +12,16 @@ import {
   ConfigsApi,
   Configuration,
   LocationsApi,
-  LoginResponseType,
   MerchantsApi,
 } from "moa-merchants-ts-axios";
 import React, { useEffect, useState } from "react";
-import { useIsClient, useLocalStorage } from "usehooks-ts";
-import { NetworkingContext, NetworkingContextType } from "./NetworkingContext";
 
 export function NetworkingProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [session, setSession] = useLocalStorage<LoginResponseType | null>(
-    "session",
-    null
-  );
-  const isClient = useIsClient();
+  const { session } = useSessionContext();
 
   const configuration = new Configuration({
     accessToken: session?.token,
@@ -37,8 +35,6 @@ export function NetworkingProvider({
     configs: new ConfigsApi(configuration, basePath, globalAxios),
     locations: new LocationsApi(configuration, basePath, globalAxios),
     merchants: new MerchantsApi(configuration, basePath, globalAxios),
-    session: isClient ? session : null,
-    setSession,
   });
 
   useEffect(() => {
@@ -48,8 +44,6 @@ export function NetworkingProvider({
       configs: new ConfigsApi(configuration, basePath, globalAxios),
       locations: new LocationsApi(configuration, basePath, globalAxios),
       merchants: new MerchantsApi(configuration, basePath, globalAxios),
-      session: isClient ? session : null,
-      setSession,
     });
   }, [session]);
 

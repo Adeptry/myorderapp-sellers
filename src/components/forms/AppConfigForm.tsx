@@ -1,7 +1,5 @@
 "use client";
 
-import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
-import { useNetworkingFunctionP } from "@/components/networking/useNetworkingFunctionP";
 import { fontNames } from "@/data/fontNames";
 import { mapStringEnum } from "@/utils/mapStringEnum";
 import { toPascalCase } from "@/utils/toPascalCase";
@@ -25,11 +23,13 @@ import Grid from "@mui/material/Grid";
 import { default as MuiLink } from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import {
   AppConfig,
   AppConfigUpdateDto,
   AppConfigUpdateDtoThemeModeEnum,
+  ConfigsApiFp,
   ThemeModeEnum,
 } from "moa-merchants-ts-axios";
 import { MuiColorInput } from "mui-color-input";
@@ -50,14 +50,9 @@ export function AppConfigForm(props: {
 }) {
   const { submitText, onSuccess, preloading, shouldAutoFocus, defaultValues } =
     props;
-  const { configs } = useNetworkingContext();
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(780));
-
-  const [updateConfigState, updateConfigFn] = useNetworkingFunctionP(
-    configs.updateConfig.bind(configs)
-  );
 
   const labels = {
     name: "Name",
@@ -67,37 +62,43 @@ export function AppConfigForm(props: {
     appearance: "Appearance",
   };
 
-  const { control, handleSubmit, setError, formState } =
-    useForm<AppConfigUpdateDto>({
-      defaultValues: {
-        seedColor: "#6750A4",
-        name: "",
-        fontFamily: "Roboto",
-        themeMode: AppConfigUpdateDtoThemeModeEnum.System,
-        useMaterial3: true,
-      },
-      values: defaultValues,
-      resolver: yupResolver<AppConfigUpdateDto>(
-        yup
-          .object<AppConfigUpdateDto>()
-          .shape({
-            name: yup.string().min(3).label(labels.name).required(),
-            seedColor: yup
-              .string()
-              .matches(/^#(?:[0-9a-fA-F]{3}){1,2}$/)
-              .label(labels.seedColor)
-              .required("Must be a hex color"),
-            fontFamily: yup.string().label(labels.fontFamily).required(),
-            shortDescription: yup.string().optional(),
-            fullDescription: yup.string().optional(),
-            keywords: yup.string().optional(),
-            url: yup.string().optional(),
-            useMaterial3: yup.boolean().required(),
-            themeMode: yup.mixed<AppConfigUpdateDtoThemeModeEnum>().required(),
-          })
-          .required()
-      ),
-    });
+  const updateConfigMutation = useMutation({
+    mutationFn: async (appConfigUpdateDto: AppConfigUpdateDto) => {
+      const fn = await ConfigsApiFp().updateConfig(appConfigUpdateDto);
+      return fn();
+    },
+  });
+
+  const form = useForm<AppConfigUpdateDto>({
+    defaultValues: {
+      seedColor: "#6750A4",
+      name: "",
+      fontFamily: "Roboto",
+      themeMode: AppConfigUpdateDtoThemeModeEnum.System,
+      useMaterial3: true,
+    },
+    values: defaultValues,
+    resolver: yupResolver<AppConfigUpdateDto>(
+      yup
+        .object<AppConfigUpdateDto>()
+        .shape({
+          name: yup.string().min(3).label(labels.name).required(),
+          seedColor: yup
+            .string()
+            .matches(/^#(?:[0-9a-fA-F]{3}){1,2}$/)
+            .label(labels.seedColor)
+            .required("Must be a hex color"),
+          fontFamily: yup.string().label(labels.fontFamily).required(),
+          shortDescription: yup.string().optional(),
+          fullDescription: yup.string().optional(),
+          keywords: yup.string().optional(),
+          url: yup.string().optional(),
+          useMaterial3: yup.boolean().required(),
+          themeMode: yup.mixed<AppConfigUpdateDtoThemeModeEnum>().required(),
+        })
+        .required()
+    ),
+  });
 
   const [fontInputState, setFontInputState] = useState("");
 
@@ -106,7 +107,7 @@ export function AppConfigForm(props: {
   const handleFileChange = (newValue: File | null) => {
     setAppIconFileValue(newValue);
     if (newValue) {
-      configs.uploadIcon({ file: newValue });
+      // configs.uploadIcon({ file: newValue });
     }
   };
 
@@ -114,19 +115,19 @@ export function AppConfigForm(props: {
     iframeRef.current?.contentWindow?.postMessage({ [name]: value }, "*");
   };
 
-  async function handleOnValidSubmit(appConfigUpdateDto: AppConfigUpdateDto) {
+  async function handleOnValidSubmit(data: AppConfigUpdateDto) {
     try {
-      const response = await updateConfigFn({ appConfigUpdateDto }, {});
-      const data = response?.data;
-      if (!data) {
+      const response = await updateConfigMutation.mutateAsync(data);
+
+      if (!response.data) {
         throw new Error("App config not updated");
       }
-      onSuccess(data);
+      onSuccess(response.data);
     } catch (error) {
       if (axios.isAxiosError(error) && error?.response?.status === 422) {
         const serverErrors = (error?.response?.data as any).message;
         Object.keys(serverErrors).forEach((fieldName) => {
-          setError(fieldName as keyof AppConfigUpdateDto, {
+          form.setError(fieldName as keyof AppConfigUpdateDto, {
             type: "server",
             message: serverErrors[fieldName],
           });
@@ -146,13 +147,18 @@ export function AppConfigForm(props: {
             variant="contained"
             color="secondary"
             type="submit"
-            loading={updateConfigState.loading || formState.isSubmitting}
-            disabled={
-              (updateConfigState.loading || updateConfigState.data) && true
+            loading={
+              updateConfigMutation.isLoading || form.formState.isSubmitting
             }
-            startIcon={formState.isSubmitSuccessful ? <Check /> : <Create />}
+            disabled={
+              (updateConfigMutation.isLoading || updateConfigMutation.data) &&
+              true
+            }
+            startIcon={
+              form.formState.isSubmitSuccessful ? <Check /> : <Create />
+            }
           >
-            {formState.isSubmitSuccessful ? "Nice!" : submitText}
+            {form.formState.isSubmitSuccessful ? "Nice!" : submitText}
           </LoadingButton>
         )}
       </Box>
@@ -162,7 +168,7 @@ export function AppConfigForm(props: {
   return (
     <Box
       component="form"
-      onSubmit={handleSubmit(handleOnValidSubmit)}
+      onSubmit={form.handleSubmit(handleOnValidSubmit)}
       sx={{ width: "100%" }}
       noValidate
     >
@@ -179,7 +185,7 @@ export function AppConfigForm(props: {
           <Grid item xs={12}>
             <Controller
               name="name"
-              control={control}
+              control={form.control}
               render={({ field }) => {
                 return preloading ? (
                   <Skeleton height="92px" />
@@ -188,7 +194,8 @@ export function AppConfigForm(props: {
                     {...field}
                     required
                     helperText={
-                      !formState.errors.name?.message && "The name of your app"
+                      !form.formState.errors.name?.message &&
+                      "The name of your app"
                     }
                     label={labels.name}
                     inputProps={{
@@ -201,13 +208,13 @@ export function AppConfigForm(props: {
                     }}
                     fullWidth
                     autoFocus={shouldAutoFocus}
-                    error={formState.errors.name ? true : false}
+                    error={form.formState.errors.name ? true : false}
                   />
                 );
               }}
             />
             <Typography variant="inherit" color="error">
-              {formState.errors.name?.message}
+              {form.formState.errors.name?.message}
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -226,7 +233,7 @@ export function AppConfigForm(props: {
           <Grid item xs={12}>
             <Controller
               name="seedColor"
-              control={control}
+              control={form.control}
               render={({ field }) => {
                 return preloading ? (
                   <Skeleton height="92px" />
@@ -238,13 +245,13 @@ export function AppConfigForm(props: {
                     ref={field.ref}
                     fullWidth
                     helperText={
-                      !formState.errors.seedColor?.message &&
+                      !form.formState.errors.seedColor?.message &&
                       "Used to generate your theme"
                     }
                     format="hex"
                     isAlphaHidden
                     label={labels.seedColor}
-                    error={formState.errors.seedColor ? true : false}
+                    error={form.formState.errors.seedColor ? true : false}
                     required
                     onChange={(value) => {
                       onChange("seedColor", value);
@@ -259,13 +266,13 @@ export function AppConfigForm(props: {
               }}
             />
             <Typography variant="inherit" color="error">
-              {formState.errors.seedColor?.message}
+              {form.formState.errors.seedColor?.message}
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <Controller
               name="fontFamily"
-              control={control}
+              control={form.control}
               render={({ field }) => {
                 return preloading ? (
                   <Skeleton height="92px" />
@@ -300,7 +307,7 @@ export function AppConfigForm(props: {
                         );
                       }}
                     />
-                    {!formState.errors.fontFamily?.message && (
+                    {!form.formState.errors.fontFamily?.message && (
                       <FormHelperText>
                         From{" "}
                         <MuiLink
@@ -320,14 +327,14 @@ export function AppConfigForm(props: {
               }}
             />
             <Typography variant="inherit" color="error">
-              {formState.errors.fontFamily?.message}
+              {form.formState.errors.fontFamily?.message}
             </Typography>
           </Grid>
 
           <Grid item xs={12}>
             <Controller
               name="themeMode"
-              control={control}
+              control={form.control}
               render={({ field }) => {
                 return preloading ? (
                   <Skeleton height="92px" />
@@ -366,7 +373,7 @@ export function AppConfigForm(props: {
           <Grid item xs={12}>
             <Controller
               name="useMaterial3"
-              control={control}
+              control={form.control}
               render={({ field }) => {
                 return preloading ? (
                   <Skeleton height="92px" />

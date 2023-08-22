@@ -1,8 +1,8 @@
 "use client";
 
 import { routes } from "@/app/routes";
-import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
-import { useNetworkingFunctionP } from "@/components/networking/useNetworkingFunctionP";
+import { useNetworkingContext } from "@/contexts/networking/useNetworkingContext";
+import { useSessionContext } from "@/contexts/session/useSessionContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Check, Login } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
@@ -11,6 +11,7 @@ import Grid from "@mui/material/Grid";
 import { default as MuiLink } from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { AuthEmailLoginDto, LoginResponseType } from "moa-merchants-ts-axios";
 import { default as NextLink } from "next/link";
@@ -24,32 +25,38 @@ export function SignInForm(props: {
   preloading?: boolean;
 }) {
   const { onSuccess, preloading } = props;
-  const { auth, setSession } = useNetworkingContext();
-  const [createSessionState, createSessionFn] = useNetworkingFunctionP(
-    auth.createSession.bind(auth)
-  );
+  const { setSession } = useSessionContext();
+
   const [errorString, setErrorString] = useState<string | null>(null);
 
-  const { control, handleSubmit, setError, formState } =
-    useForm<AuthEmailLoginDto>({
-      defaultValues: {
-        email: "",
-        password: "",
-      },
-      resolver: yupResolver(
-        yup
-          .object<AuthEmailLoginDto>()
-          .shape({
-            email: yup.string().email().label("Email").required(),
-            password: yup.string().min(6).label("Password").required(),
-          })
-          .required()
-      ),
-    });
+  const form = useForm<AuthEmailLoginDto>({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    resolver: yupResolver(
+      yup
+        .object<AuthEmailLoginDto>()
+        .shape({
+          email: yup.string().email().label("Email").required(),
+          password: yup.string().min(6).label("Password").required(),
+        })
+        .required()
+    ),
+  });
 
-  async function handleOnValidSubmit(authEmailLoginDto: AuthEmailLoginDto) {
+  const { auth } = useNetworkingContext();
+  const createSessionMutation = useMutation({
+    mutationFn: () => {
+      return auth.createSession({
+        authEmailLoginDto: form.getValues(),
+      });
+    },
+  });
+
+  async function handleOnValidSubmit() {
     try {
-      const response = await createSessionFn({ authEmailLoginDto }, {});
+      const response = await createSessionMutation.mutateAsync();
       const data = response?.data;
       if (!data) {
         throw new Error("No access token");
@@ -63,7 +70,7 @@ export function SignInForm(props: {
           setErrorString(message);
         } else {
           Object.keys(message).forEach((fieldName) => {
-            setError(fieldName as keyof AuthEmailLoginDto, {
+            form.setError(fieldName as keyof AuthEmailLoginDto, {
               type: "server",
               message: message[fieldName],
             });
@@ -77,7 +84,7 @@ export function SignInForm(props: {
 
   return (
     <Box
-      onSubmit={handleSubmit(handleOnValidSubmit)}
+      onSubmit={form.handleSubmit(handleOnValidSubmit)}
       sx={{ width: "100%" }}
       component="form"
       noValidate
@@ -97,7 +104,7 @@ export function SignInForm(props: {
         <Grid item xs={12}>
           <Controller
             name="email"
-            control={control}
+            control={form.control}
             render={({ field }) => {
               return preloading ? (
                 <Skeleton height="56px" />
@@ -114,19 +121,19 @@ export function SignInForm(props: {
                   }}
                   fullWidth
                   autoFocus
-                  error={formState.errors.email ? true : false}
+                  error={form.formState.errors.email ? true : false}
                 />
               );
             }}
           />
           <Typography variant="inherit" color="error">
-            {formState.errors.email?.message}
+            {form.formState.errors.email?.message}
           </Typography>
         </Grid>
         <Grid item xs={12}>
           <Controller
             name="password"
-            control={control}
+            control={form.control}
             render={({ field }) => {
               return preloading ? (
                 <Skeleton height="56px" />
@@ -143,13 +150,13 @@ export function SignInForm(props: {
                   }}
                   fullWidth
                   autoComplete="current-password"
-                  error={formState.errors.password ? true : false}
+                  error={form.formState.errors.password ? true : false}
                 />
               );
             }}
           />
           <Typography variant="inherit" color="error">
-            {formState.errors.password?.message}
+            {form.formState.errors.password?.message}
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -157,18 +164,24 @@ export function SignInForm(props: {
             <Skeleton height="56px" />
           ) : (
             <LoadingButton
-              loading={createSessionState.loading || formState.isSubmitting}
+              loading={
+                createSessionMutation.isLoading || form.formState.isSubmitting
+              }
               size="large"
-              startIcon={createSessionState.data ? <Check /> : <Login />}
+              startIcon={createSessionMutation.data ? <Check /> : <Login />}
               disabled={
-                (createSessionState.loading || createSessionState.data) && true
+                (createSessionMutation.isLoading ||
+                  createSessionMutation.data) &&
+                true
               }
               color="secondary"
               type="submit"
               fullWidth
               variant="contained"
             >
-              {createSessionState.data ? "Welcome back!" : "Sign In with email"}
+              {createSessionMutation.data
+                ? "Welcome back!"
+                : "Sign In with email"}
             </LoadingButton>
           )}
         </Grid>

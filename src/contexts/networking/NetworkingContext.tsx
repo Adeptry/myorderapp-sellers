@@ -3,7 +3,6 @@ import {
   CatalogsApi,
   ConfigsApi,
   LocationsApi,
-  LoginResponseType,
   MerchantsApi,
 } from "moa-merchants-ts-axios";
 import { createContext } from "react";
@@ -14,8 +13,6 @@ export type NetworkingContextType = {
   configs: ConfigsApi;
   locations: LocationsApi;
   merchants: MerchantsApi;
-  session: LoginResponseType | null;
-  setSession: (value: LoginResponseType | null) => void;
 };
 
 export const NetworkingContext = createContext<

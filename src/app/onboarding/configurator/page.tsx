@@ -6,42 +6,36 @@ import {
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
 import { AppConfigForm } from "@/components/forms/AppConfigForm";
-import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
-import { useNetworkingFunctionP } from "@/components/networking/useNetworkingFunctionP";
+import { useNetworkingContext } from "@/contexts/networking/useNetworkingContext";
 import { Skeleton, Stack, Typography } from "@mui/material";
-import axios from "axios";
-import { AppConfigUpdateDto } from "moa-merchants-ts-axios";
+import { useQuery } from "@tanstack/react-query";
+import {
+  AppConfigUpdateDto,
+  ConfigsApiGetConfigRequest,
+} from "moa-merchants-ts-axios";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 export default function Page() {
   const { push } = useRouter();
   const { configs } = useNetworkingContext();
-  const [{ data, loading }, getConfig] = useNetworkingFunctionP(
-    configs.getConfig.bind(configs),
-    true
-  );
-
-  useEffect(() => {
-    async function fetch() {
-      try {
-        await getConfig({ actingAs: "merchant" }, {});
-      } catch (error) {
-        if (axios.isAxiosError(error) && error.response?.status === 401) {
-          push(routes.signin);
-          return;
-        }
-      }
+  const myConfigQuery = useQuery(
+    ["myConfig", { actingAs: "merchant" }],
+    (context) => {
+      return configs.getConfig(
+        context.queryKey[1] as ConfigsApiGetConfigRequest,
+        {}
+      );
+    },
+    {
+      retry: 0,
+      refetchOnWindowFocus: false,
+      staleTime: Infinity,
     }
-
-    fetch();
-  }, []);
-
-  const preloading = loading;
+  );
 
   return (
     <Stack spacing={2} py={2}>
-      {loading ? (
+      {myConfigQuery.isLoading ? (
         <Skeleton height={"24px"} />
       ) : (
         <OnboardingStepper
@@ -49,7 +43,7 @@ export default function Page() {
           sx={{ width: "100%" }}
         />
       )}
-      {loading ? (
+      {myConfigQuery.isLoading ? (
         <>
           <Skeleton variant="text" />
         </>
@@ -66,13 +60,13 @@ export default function Page() {
 
       <AppConfigForm
         key="app-config-form"
-        preloading={preloading}
+        preloading={myConfigQuery.isLoading}
         submitText={"Create your app"}
         onSuccess={() => {
           push(routes.onboarding.square.index);
         }}
-        shouldAutoFocus={data == null}
-        defaultValues={data as AppConfigUpdateDto}
+        shouldAutoFocus={myConfigQuery.data == null}
+        defaultValues={myConfigQuery.data as AppConfigUpdateDto}
       />
     </Stack>
   );

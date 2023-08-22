@@ -5,8 +5,8 @@ import {
   OnboardingStepper,
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
-import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
-import { useNetworkingFunctionP } from "@/components/networking/useNetworkingFunctionP";
+import { useNetworkingContext } from "@/contexts/networking/useNetworkingContext";
+import { useNetworkingFunctionP } from "@/contexts/networking/useNetworkingFunctionP";
 import { Check, ShoppingCartCheckout } from "@mui/icons-material";
 import AppsIcon from "@mui/icons-material/Apps";
 import MobileFriendlyIcon from "@mui/icons-material/MobileFriendly";

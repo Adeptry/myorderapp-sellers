@@ -6,9 +6,10 @@ import {
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
 import SquareOauthButton from "@/components/buttons/SquareOauthButton";
-import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
-import { useNetworkingFunctionNP } from "@/components/networking/useNetworkingFunctionNP";
-import { useNetworkingFunctionP } from "@/components/networking/useNetworkingFunctionP";
+import { swrCurrentMerchant } from "@/contexts/networking/swrCurrentMerchant";
+import { useNetworkingContext } from "@/contexts/networking/useNetworkingContext";
+import { useNetworkingFunctionNP } from "@/contexts/networking/useNetworkingFunctionNP";
+import { useNetworkingFunctionP } from "@/contexts/networking/useNetworkingFunctionP";
 import {
   Alert,
   Box,
@@ -34,13 +35,8 @@ export default function Page() {
     useNetworkingFunctionNP(merchants.syncSquareCatalog.bind(merchants));
   const [{ loading: syncSquareLocationsLoading }, syncSquareLocations] =
     useNetworkingFunctionNP(merchants.syncSquareLocations.bind(merchants));
-  const [
-    { data: currentMerchantData, loading: currentMerchantLoading },
-    getCurrentMerchant,
-  ] = useNetworkingFunctionNP(
-    merchants.getCurrentMerchant.bind(merchants),
-    true
-  );
+  const { data: currentMerchantData, isLoading: currentMerchantLoading } =
+    swrCurrentMerchant();
 
   const [errorString, setErrorString] = useState<string | null>(null);
 
@@ -63,8 +59,6 @@ export default function Page() {
           } else {
             setErrorString("There was an error. Please try again.");
           }
-
-          getCurrentMerchant({});
         }
       }
     }
@@ -92,10 +86,10 @@ export default function Page() {
           </Box>
 
           <Box justifyContent={"center"} display="flex">
-            {currentMerchantLoading || !currentMerchantData?.id ? (
+            {currentMerchantLoading || !currentMerchantData?.data?.id ? (
               <Skeleton height="56px" />
             ) : (
-              <SquareOauthButton state={currentMerchantData.id} />
+              <SquareOauthButton state={currentMerchantData?.data.id} />
             )}
           </Box>
         </Stack>

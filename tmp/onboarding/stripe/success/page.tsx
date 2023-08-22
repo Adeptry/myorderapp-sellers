@@ -1,8 +1,8 @@
 "use client";
 
 import { routes } from "@/app/routes";
-import { useNetworkingContext } from "@/components/networking/useNetworkingContext";
-import { useNetworkingFunctionP } from "@/components/networking/useNetworkingFunctionP";
+import { useNetworkingContext } from "@/contexts/networking/useNetworkingContext";
+import { useNetworkingFunctionP } from "@/contexts/networking/useNetworkingFunctionP";
 import { CheckCircleOutline } from "@mui/icons-material";
 import { Alert, Box, Button, Skeleton, Stack, Typography } from "@mui/material";
 import { green } from "@mui/material/colors";
