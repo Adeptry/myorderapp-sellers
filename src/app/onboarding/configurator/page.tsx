@@ -6,36 +6,43 @@ import {
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
 import { AppConfigForm } from "@/components/forms/AppConfigForm";
-import { useNetworkingContext } from "@/contexts/networking/useNetworkingContext";
+import { stringToColor } from "@/utils/stringToColor";
+import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
+import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { Skeleton, Stack, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import {
-  AppConfigUpdateDto,
-  ConfigsApiGetConfigRequest,
-} from "moa-merchants-ts-axios";
+import { ConfigsApiFp } from "moa-merchants-ts-axios";
 import { useRouter } from "next/navigation";
 
 export default function Page() {
   const { push } = useRouter();
-  const { configs } = useNetworkingContext();
-  const myConfigQuery = useQuery(
-    ["myConfig", { actingAs: "merchant" }],
-    (context) => {
-      return configs.getConfig(
-        context.queryKey[1] as ConfigsApiGetConfigRequest,
-        {}
-      );
+  const { configuration, preloading } = useSessionedApiConfiguration();
+  const { data: currentMerchantData } = useCurrentMerchantQuery();
+
+  const myConfigQuery = useQuery({
+    queryKey: ["myConfigQuery"],
+    queryFn: async () => {
+      return (
+        await (
+          await ConfigsApiFp(configuration).getConfig(undefined, "merchant")
+        )()
+      ).data;
     },
-    {
-      retry: 0,
-      refetchOnWindowFocus: false,
-      staleTime: Infinity,
-    }
-  );
+    retry: 0,
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+    enabled: !preloading,
+  });
+
+  const currentMerchant = currentMerchantData?.data;
+  const currentUser = currentMerchant?.user;
+  const firstName = currentUser?.firstName;
+  const lastName = currentUser?.lastName;
+  const fullName = `${firstName ?? ""} ${lastName ?? ""}`;
 
   return (
     <Stack spacing={2} py={2}>
-      {myConfigQuery.isLoading ? (
+      {preloading ? (
         <Skeleton height={"24px"} />
       ) : (
         <OnboardingStepper
@@ -43,7 +50,7 @@ export default function Page() {
           sx={{ width: "100%" }}
         />
       )}
-      {myConfigQuery.isLoading ? (
+      {preloading ? (
         <>
           <Skeleton variant="text" />
         </>
@@ -58,16 +65,25 @@ export default function Page() {
         </Typography>
       )}
 
-      <AppConfigForm
-        key="app-config-form"
-        preloading={myConfigQuery.isLoading}
-        submitText={"Create your app"}
-        onSuccess={() => {
-          push(routes.onboarding.square.index);
-        }}
-        shouldAutoFocus={myConfigQuery.data == null}
-        defaultValues={myConfigQuery.data as AppConfigUpdateDto}
-      />
+      {!myConfigQuery.isLoading && (
+        <AppConfigForm
+          key="app-config-form"
+          submitText={"Create your app"}
+          onSuccess={() => {
+            push(routes.onboarding.square.index);
+          }}
+          defaultValues={{
+            name: myConfigQuery.data?.name ?? "",
+            seedColor:
+              myConfigQuery.data?.seedColor ?? fullName
+                ? stringToColor(fullName)
+                : "#6750A4",
+            fontFamily: myConfigQuery.data?.fontFamily ?? "Roboto",
+            themeMode: myConfigQuery.data?.themeMode ?? "system",
+            useMaterial3: myConfigQuery.data?.useMaterial3 ?? true,
+          }}
+        />
+      )}
     </Stack>
   );
 }

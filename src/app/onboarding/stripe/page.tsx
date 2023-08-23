@@ -5,9 +5,8 @@ import {
   OnboardingStepper,
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
-import { useNetworkingContext } from "@/contexts/networking/useNetworkingContext";
-import { useNetworkingFunctionP } from "@/contexts/networking/useNetworkingFunctionP";
-import { Check, ShoppingCartCheckout } from "@mui/icons-material";
+import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
+import { ShoppingCartCheckout } from "@mui/icons-material";
 import AppsIcon from "@mui/icons-material/Apps";
 import MobileFriendlyIcon from "@mui/icons-material/MobileFriendly";
 import PaletteIcon from "@mui/icons-material/Palette";
@@ -20,40 +19,43 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { loadStripe } from "@stripe/stripe-js";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { MerchantsApiFp } from "moa-merchants-ts-axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Page() {
   const { push } = useRouter();
 
-  const { merchants } = useNetworkingContext();
-  const [createStripeCheckoutState, createStripeCheckoutFn] =
-    useNetworkingFunctionP(
-      merchants.createStripeCheckout.bind(merchants),
-      false
-    );
+  const { configuration, preloading } = useSessionedApiConfiguration();
+  const createStripeCheckoutQuery = useQuery({
+    queryKey: ["createStripeCheckout"],
+    queryFn: async () => {
+      const frontEndDomain = process.env.NEXT_PUBLIC_FRONTEND_DOMAIN;
+      return (
+        await (
+          await MerchantsApiFp(configuration).createStripeCheckout({
+            successUrl: `${frontEndDomain}${routes.onboarding.stripe.success}`,
+            cancelUrl: `${frontEndDomain}${routes.onboarding.stripe.cancel}`,
+          })
+        )()
+      ).data;
+    },
+    enabled: !preloading,
+  });
 
-  const [stripeLoading, setStripeLoading] = useState(false);
+  const [stripeLoadingState, setStripeLoadingState] = useState(false);
   const onClickCheckout = async () => {
-    setStripeLoading(true);
+    setStripeLoadingState(true);
     try {
       const stripe = await loadStripe(
         process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
       );
-      const frontEndDomain = process.env.NEXT_PUBLIC_FRONTEND_DOMAIN;
-      const response = await createStripeCheckoutFn(
-        {
-          stripeCheckoutCreateDto: {
-            successUrl: `${frontEndDomain}${routes.onboarding.stripe.success}`,
-            cancelUrl: `${frontEndDomain}${routes.onboarding.stripe.cancel}`,
-          },
-        },
-        {}
-      );
-      if (stripe && response.data.checkoutSessionId) {
+
+      if (stripe && createStripeCheckoutQuery?.data?.checkoutSessionId) {
         stripe.redirectToCheckout({
-          sessionId: response.data.checkoutSessionId,
+          sessionId: createStripeCheckoutQuery.data.checkoutSessionId,
         });
       }
     } catch (error) {
@@ -62,13 +64,19 @@ export default function Page() {
         return;
       }
     } finally {
-      setStripeLoading(false);
+      setStripeLoadingState(false);
     }
   };
 
-  if (createStripeCheckoutState.error) {
-    return <div>Error: {JSON.stringify(createStripeCheckoutState.error)}</div>;
+  if (createStripeCheckoutQuery?.error) {
+    return <div>Error: {JSON.stringify(createStripeCheckoutQuery?.error)}</div>;
   }
+
+  const buttonLoading =
+    (createStripeCheckoutQuery.isLoading &&
+      !createStripeCheckoutQuery.isFetching &&
+      !createStripeCheckoutQuery.data) ||
+    stripeLoadingState;
 
   return (
     <Stack py={2} spacing={2}>
@@ -82,7 +90,7 @@ export default function Page() {
         </Typography>
         <Typography variant="body1">
           Join our growing community of vendors enjoying a seamless experience
-          publishing iOS and Android apps. Here's what you get for $100 per
+          publishing iOS and Android apps. Here's what you get for $99 per
           month:
         </Typography>
         <List>
@@ -127,17 +135,11 @@ export default function Page() {
             color="secondary"
             size="large"
             onClick={onClickCheckout}
-            startIcon={
-              createStripeCheckoutState.data ? (
-                <Check />
-              ) : (
-                <ShoppingCartCheckout />
-              )
-            }
-            loading={stripeLoading}
-            disabled={(stripeLoading || createStripeCheckoutState.data) && true}
+            startIcon={<ShoppingCartCheckout />}
+            loading={buttonLoading}
+            disabled={buttonLoading}
           >
-            {createStripeCheckoutState.data ? "Ready!" : "Proceed to Checkout"}
+            Proceed to Checkout
           </LoadingButton>
         </Box>
       </Stack>

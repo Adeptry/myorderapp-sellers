@@ -1,8 +1,6 @@
 "use client";
 
 import { routes } from "@/app/routes";
-import { useNetworkingContext } from "@/contexts/networking/useNetworkingContext";
-import { useSessionContext } from "@/contexts/session/useSessionContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Check, Login } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
@@ -14,21 +12,21 @@ import Typography from "@mui/material/Typography";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import {
-  AuthApiCreateUserRequest,
+  AuthApiFp,
   AuthEmailLoginDto,
   AuthRegisterLoginDto,
+  Configuration,
+  MerchantsApiFp,
 } from "moa-merchants-ts-axios";
+import { signIn } from "next-auth/react";
 import { default as NextLink } from "next/link";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import AuthServicesButtons from "../buttons/AuthServices";
 
-export function SignUpForm(props: {
-  onSuccess: () => void;
-  preloading?: boolean;
-}) {
-  const { preloading, onSuccess } = props;
+export function SignUpForm(props: { preloading?: boolean }) {
+  const { preloading } = props;
   const [errorString, setErrorString] = useState<string | null>(null);
 
   const form = useForm<AuthRegisterLoginDto>({
@@ -51,20 +49,22 @@ export function SignUpForm(props: {
     ),
   });
 
-  const { setSession } = useSessionContext();
-  const { merchants, auth } = useNetworkingContext();
-
   const createUserAndMerchantMutation = useMutation(
-    async (requestParameters: AuthApiCreateUserRequest) => {
+    async (requestParameters: AuthRegisterLoginDto) => {
       try {
-        const userRes = await auth.createUser(requestParameters);
-        setSession(userRes.data);
-
-        const merchantResponse = await merchants.createMerchant({
-          headers: {
-            Authorization: `Bearer ${userRes.data.token}`,
-          },
+        const configuration = new Configuration({
+          apiKey: process.env.NEXT_PUBLIC_BACKEND_API_KEY,
+          basePath: process.env.NEXT_PUBLIC_BACKEND_DOMAIN,
         });
+        const createUserResponse = await (
+          await AuthApiFp(configuration).createUser(requestParameters)
+        )();
+
+        configuration.accessToken = createUserResponse.data.token;
+
+        const merchantResponse = await (
+          await MerchantsApiFp(configuration).createMerchant()
+        )();
 
         return merchantResponse;
       } catch (error) {
@@ -73,18 +73,13 @@ export function SignUpForm(props: {
     }
   );
 
-  async function handleOnValidSubmit() {
+  async function handleOnValidSubmit(data: AuthRegisterLoginDto) {
     try {
-      const createUserAndMerchantMutationResponse =
-        await createUserAndMerchantMutation.mutateAsync({
-          authRegisterLoginDto: form.getValues(),
-        });
-
-      if (createUserAndMerchantMutationResponse?.data !== undefined) {
-        onSuccess();
-      } else {
-        throw new Error("No merchant response");
-      }
+      await createUserAndMerchantMutation.mutateAsync(form.getValues());
+      await signIn("credentials", {
+        ...data,
+        callbackUrl: routes.onboarding.configurator,
+      });
     } catch (error) {
       if (axios.isAxiosError(error) && error?.response?.status === 422) {
         const message = (error?.response?.data as any).message;

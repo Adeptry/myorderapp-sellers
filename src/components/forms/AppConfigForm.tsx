@@ -3,6 +3,7 @@
 import { fontNames } from "@/data/fontNames";
 import { mapStringEnum } from "@/utils/mapStringEnum";
 import { toPascalCase } from "@/utils/toPascalCase";
+import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Check, Create } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
@@ -14,7 +15,6 @@ import {
   FormLabel,
   Radio,
   RadioGroup,
-  Skeleton,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
@@ -48,8 +48,7 @@ export function AppConfigForm(props: {
   defaultValues?: AppConfigUpdateDto;
   onSuccess: (appConfig: AppConfig) => void;
 }) {
-  const { submitText, onSuccess, preloading, shouldAutoFocus, defaultValues } =
-    props;
+  const { submitText, onSuccess, shouldAutoFocus, defaultValues } = props;
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(780));
@@ -62,22 +61,18 @@ export function AppConfigForm(props: {
     appearance: "Appearance",
   };
 
+  const { configuration } = useSessionedApiConfiguration();
+
   const updateConfigMutation = useMutation({
     mutationFn: async (appConfigUpdateDto: AppConfigUpdateDto) => {
-      const fn = await ConfigsApiFp().updateConfig(appConfigUpdateDto);
-      return fn();
+      return (
+        await ConfigsApiFp(configuration).updateConfig(appConfigUpdateDto)
+      )();
     },
   });
 
   const form = useForm<AppConfigUpdateDto>({
-    defaultValues: {
-      seedColor: "#6750A4",
-      name: "",
-      fontFamily: "Roboto",
-      themeMode: AppConfigUpdateDtoThemeModeEnum.System,
-      useMaterial3: true,
-    },
-    values: defaultValues,
+    defaultValues: defaultValues,
     resolver: yupResolver<AppConfigUpdateDto>(
       yup
         .object<AppConfigUpdateDto>()
@@ -139,28 +134,22 @@ export function AppConfigForm(props: {
   function submitButton(): JSX.Element {
     return (
       <Box textAlign="center">
-        {preloading ? (
-          <Skeleton height="92px" />
-        ) : (
-          <LoadingButton
-            size="large"
-            variant="contained"
-            color="secondary"
-            type="submit"
-            loading={
-              updateConfigMutation.isLoading || form.formState.isSubmitting
-            }
-            disabled={
-              (updateConfigMutation.isLoading || updateConfigMutation.data) &&
-              true
-            }
-            startIcon={
-              form.formState.isSubmitSuccessful ? <Check /> : <Create />
-            }
-          >
-            {form.formState.isSubmitSuccessful ? "Nice!" : submitText}
-          </LoadingButton>
-        )}
+        <LoadingButton
+          size="large"
+          variant="contained"
+          color="secondary"
+          type="submit"
+          loading={
+            updateConfigMutation.isLoading || form.formState.isSubmitting
+          }
+          disabled={
+            (updateConfigMutation.isLoading || updateConfigMutation.data) &&
+            true
+          }
+          startIcon={form.formState.isSubmitSuccessful ? <Check /> : <Create />}
+        >
+          {form.formState.isSubmitSuccessful ? "Nice!" : submitText}
+        </LoadingButton>
       </Box>
     );
   }
@@ -173,23 +162,16 @@ export function AppConfigForm(props: {
       noValidate
     >
       <TabLayout
-        preloading={preloading}
         tabLabels={["Options", "Preview"]}
         sx={{ pt: isSmallScreen ? 0 : 3, pb: 3 }}
       >
-        <Grid
-          container
-          columnSpacing={preloading ? 1 : 2}
-          rowSpacing={preloading ? 0 : 2}
-        >
+        <Grid container columnSpacing={2} rowSpacing={2}>
           <Grid item xs={12}>
             <Controller
               name="name"
               control={form.control}
               render={({ field }) => {
-                return preloading ? (
-                  <Skeleton height="92px" />
-                ) : (
+                return (
                   <TextField
                     {...field}
                     required
@@ -218,26 +200,20 @@ export function AppConfigForm(props: {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            {preloading ? (
-              <Skeleton height="92px" />
-            ) : (
-              <MuiFileInput
-                fullWidth
-                value={appIconFileValue}
-                onChange={handleFileChange}
-                helperText="Will appear on users' homepage"
-                label="App icon"
-              />
-            )}
+            <MuiFileInput
+              fullWidth
+              value={appIconFileValue}
+              onChange={handleFileChange}
+              helperText="Will appear on users' homepage"
+              label="App icon"
+            />
           </Grid>
           <Grid item xs={12}>
             <Controller
               name="seedColor"
               control={form.control}
               render={({ field }) => {
-                return preloading ? (
-                  <Skeleton height="92px" />
-                ) : (
+                return (
                   <MuiColorInput
                     onBlur={() => field.onBlur()}
                     value={field.value ?? ""}
@@ -274,9 +250,7 @@ export function AppConfigForm(props: {
               name="fontFamily"
               control={form.control}
               render={({ field }) => {
-                return preloading ? (
-                  <Skeleton height="92px" />
-                ) : (
+                return (
                   <FormControl fullWidth>
                     <Autocomplete
                       value={field.value}
@@ -336,9 +310,7 @@ export function AppConfigForm(props: {
               name="themeMode"
               control={form.control}
               render={({ field }) => {
-                return preloading ? (
-                  <Skeleton height="92px" />
-                ) : (
+                return (
                   <FormControl>
                     <FormLabel>{labels.themeMode}</FormLabel>
                     <RadioGroup
@@ -375,9 +347,7 @@ export function AppConfigForm(props: {
               name="useMaterial3"
               control={form.control}
               render={({ field }) => {
-                return preloading ? (
-                  <Skeleton height="92px" />
-                ) : (
+                return (
                   <FormControl>
                     <FormLabel id="demo-row-radio-buttons-group-label">
                       {labels.appearance}
@@ -414,15 +384,11 @@ export function AppConfigForm(props: {
             </Grid>
           )}
         </Grid>
-        {preloading ? (
-          <Skeleton height="512px" width="100%" key="device-preview-skeleton" />
-        ) : (
-          <DevicePreview
-            iframeRef={iframeRef}
-            key="device-preview"
-            sx={{ pb: 2 }}
-          />
-        )}
+        <DevicePreview
+          iframeRef={iframeRef}
+          key="device-preview"
+          sx={{ pb: 2 }}
+        />
       </TabLayout>
       {isSmallScreen && submitButton()}
     </Box>

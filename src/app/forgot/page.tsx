@@ -1,7 +1,7 @@
 "use client";
 
 import { ForgotPasswordForm } from "@/components/forms/ForgotPasswordForm";
-import { useCurrentMerchantQuery } from "@/contexts/networking/useCurrentMerchantQuery";
+import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
 import { Box, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/navigation";

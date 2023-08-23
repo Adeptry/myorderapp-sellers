@@ -1,5 +1,5 @@
 import { routes } from "@/app/routes";
-import { useNetworkingContext } from "@/contexts/networking/useNetworkingContext";
+import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Password } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
@@ -14,7 +14,7 @@ import {
 import { default as MuiLink } from "@mui/material/Link";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { AuthForgotPasswordDto } from "moa-merchants-ts-axios";
+import { AuthApiFp, AuthForgotPasswordDto } from "moa-merchants-ts-axios";
 import { default as NextLink } from "next/link";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -39,12 +39,10 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
     ),
   });
 
-  const { auth } = useNetworkingContext();
+  const { configuration } = useSessionedApiConfiguration();
   const forgotPasswordMutation = useMutation({
     mutationFn: (authForgotPasswordDto: AuthForgotPasswordDto) => {
-      return auth.forgotPassword({
-        authForgotPasswordDto,
-      });
+      return AuthApiFp(configuration).forgotPassword(authForgotPasswordDto);
     },
   });
 

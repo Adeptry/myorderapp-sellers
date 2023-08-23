@@ -1,41 +1,280 @@
+import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { Box, Paper, Skeleton } from "@mui/material";
-import { Category, Item, Variation } from "moa-merchants-ts-axios";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  CatalogsApiFp,
+  CategoryUpdateAllDto,
+  ItemUpdateAllDto,
+  VariationUpdateDto,
+} from "moa-merchants-ts-axios";
+import { nanoid } from "nanoid";
 import { useState } from "react";
 import { Flipped, Flipper } from "react-flip-toolkit";
 import CategoryList from "./CategoryList";
 
-export function CategoriesLists(props: {
-  entities: Category[];
-  getItems: (categoryId: string) => void;
-  items: Item[];
-  onCategoryMove: (id: string, up: boolean) => void;
-  onItemMove: (id: string, up: boolean) => void;
-  variations: Variation[];
-  getVariations: (itemId: string) => void;
-  onVariationUpdate: (id: string, moaEnabled: boolean) => void;
-  onItemUpdate: (id: string, moaEnabled: boolean) => void;
-  onCategoryUpdate: (id: string, moaEnabled: boolean) => void;
-  onObjectImageUpdate: (id: string, file: File) => Promise<void>;
-  preloading: boolean;
-}) {
-  const {
-    entities,
-    getItems,
-    onCategoryMove,
-    items,
-    onItemMove,
-    variations,
-    getVariations,
-    onVariationUpdate,
-    onItemUpdate,
-    onCategoryUpdate,
-    onObjectImageUpdate,
-    preloading,
-  } = props;
+export function CategoriesLists(props: {}) {
+  const { configuration, preloading } = useSessionedApiConfiguration();
+  const queryClient = useQueryClient();
+  const getMyCatalogQueryKey = ["getMyCatalogQuery"];
+  const getMyCatalogQuery = useQuery({
+    queryKey: getMyCatalogQueryKey,
+    queryFn: async () => {
+      return (
+        await (
+          await CatalogsApiFp(configuration).getMyCatalog(
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            "merchant",
+            undefined,
+            undefined
+          )
+        )()
+      ).data;
+    },
+    enabled: !preloading,
+  });
+  const categories = getMyCatalogQuery.data?.data ?? [];
 
-  const [openCategoryIdState, setOpenCategoryIdState] = useState<
-    string | undefined | null
-  >(undefined);
+  const [currentCategoryIdState, setCurrentCategoryIdState] = useState<
+    string | null
+  >(null);
+  const getItemsInCategoryQueryKey = [
+    "getItemsInCategory",
+    currentCategoryIdState,
+  ];
+  const getItemsInCategoryQuery = useQuery({
+    queryKey: getItemsInCategoryQueryKey,
+    queryFn: async () => {
+      if (currentCategoryIdState) {
+        return (
+          await (
+            await CatalogsApiFp(configuration).getItemsInCategory(
+              currentCategoryIdState,
+              undefined,
+              undefined,
+              undefined,
+              true,
+              undefined,
+              undefined,
+              "merchant"
+            )
+          )()
+        ).data;
+      } else {
+        return null;
+      }
+    },
+  });
+  const itemsInCategory = getItemsInCategoryQuery.data?.data ?? [];
+
+  const updateItemsMutation = useMutation({
+    mutationFn: async (itemUpdateAllDto: Array<ItemUpdateAllDto>) => {
+      return (
+        await (
+          await CatalogsApiFp(configuration).updateItems(itemUpdateAllDto)
+        )()
+      ).data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(getItemsInCategoryQueryKey);
+    },
+  });
+
+  const updateCategoriesMutation = useMutation({
+    mutationFn: async (categoryUpdateAllDto: Array<CategoryUpdateAllDto>) => {
+      return (
+        await (
+          await CatalogsApiFp(configuration).updateCategories(
+            categoryUpdateAllDto
+          )
+        )()
+      ).data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(getMyCatalogQueryKey);
+    },
+  });
+
+  const [currentItemIdState, setCurrentItemIdState] = useState<string | null>(
+    null
+  );
+  const getVariationsForItemIdQueryKey = [
+    "getVariationsForItem",
+    currentItemIdState,
+  ];
+  const getVariationsForItemQuery = useQuery({
+    queryKey: getVariationsForItemIdQueryKey,
+    queryFn: async () => {
+      if (currentItemIdState) {
+        return (
+          await (
+            await CatalogsApiFp(configuration).getVariationsForItem(
+              currentItemIdState
+            )
+          )()
+        ).data;
+      } else {
+        return null;
+      }
+    },
+  });
+  const updateVariationMutation = useMutation({
+    mutationFn: async (params: {
+      id: string;
+      variationUpdateDto: VariationUpdateDto;
+    }) => {
+      return (
+        await CatalogsApiFp(configuration).updateVariation(
+          params.id,
+          params.variationUpdateDto
+        )
+      )();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(getVariationsForItemIdQueryKey);
+    },
+  });
+  const variationsInItem = getVariationsForItemQuery.data ?? [];
+
+  const uploadImageToSquareCatalogMutation = useMutation({
+    mutationFn: async (params: {
+      idempotencyKey: string;
+      id: string;
+      file?: File;
+    }) => {
+      return (
+        await CatalogsApiFp(configuration).uploadImageToSquareCatalog(
+          params.idempotencyKey,
+          params.id,
+          params.file
+        )
+      )();
+    },
+  });
+
+  async function onObjectImageUpdate(id: string, file: File): Promise<void> {
+    await uploadImageToSquareCatalogMutation.mutateAsync({
+      id,
+      file,
+      idempotencyKey: nanoid(),
+    });
+  }
+
+  async function onCategoryMove(id: string, up: boolean) {
+    const index = categories.findIndex((category) => category.id === id);
+
+    if (
+      index !== -1 &&
+      !(up && index === 0) &&
+      !(!up && index === categories.length - 1)
+    ) {
+      const category1 = categories[index];
+      const category2 = categories[index + (up ? -1 : 1)];
+      const category1Id = category1.id;
+      const category2Id = category2.id;
+      const category1NewOrdinal = category2.moaOrdinal;
+      const category2NewOrdinal = category1.moaOrdinal;
+
+      await updateCategoriesMutation.mutateAsync([
+        { id: category1Id!, moaOrdinal: category1NewOrdinal },
+        { id: category2Id!, moaOrdinal: category2NewOrdinal },
+      ]);
+    }
+  }
+
+  async function onItemMove(id: string, up: boolean) {
+    const index = itemsInCategory.findIndex((item) => item.id === id);
+
+    if (
+      index !== -1 &&
+      !(up && index === 0) &&
+      !(!up && index === itemsInCategory.length - 1)
+    ) {
+      const item1 = itemsInCategory[index];
+      const item2 = itemsInCategory[index + (up ? -1 : 1)];
+      const item1Id = item1.id;
+      const item2Id = item2.id;
+      const item1NewOrdinal = item2.moaOrdinal;
+      const item2NewOrdinal = item1.moaOrdinal;
+
+      if (
+        item1Id &&
+        item2Id &&
+        item1NewOrdinal !== undefined &&
+        item2NewOrdinal !== undefined
+      ) {
+        await updateItemsMutation.mutateAsync([
+          { id: item1Id, moaOrdinal: item1NewOrdinal },
+          { id: item2Id, moaOrdinal: item2NewOrdinal },
+        ]);
+      }
+    }
+  }
+
+  async function onCategoryUpdate(id: string, moaEnabled: boolean) {
+    const index = categories.findIndex((category) => category.id === id);
+
+    if (index !== -1) {
+      const category = categories[index];
+      if (category.moaEnabled != moaEnabled && category.id !== undefined) {
+        const newCategory = {
+          ...category,
+          moaEnabled: moaEnabled,
+        };
+
+        await updateCategoriesMutation.mutateAsync([
+          {
+            id: newCategory.id!,
+            moaEnabled: newCategory.moaEnabled,
+          },
+        ]);
+      }
+    }
+  }
+
+  function onItemUpdate(id: string, moaEnabled: boolean): void {
+    const index = itemsInCategory.findIndex((value) => value.id === id);
+
+    if (index !== -1) {
+      const item = itemsInCategory[index];
+      if (item.moaEnabled != moaEnabled && item.id !== undefined) {
+        const newItem = {
+          ...item,
+          moaEnabled: moaEnabled,
+        };
+
+        updateItemsMutation.mutateAsync([
+          {
+            id: newItem.id!,
+            moaEnabled: newItem.moaEnabled,
+          },
+        ]);
+      }
+    }
+  }
+
+  function onVariationUpdate(id: string, moaEnabled: boolean): void {
+    const index = variationsInItem.findIndex((value) => value.id === id);
+
+    if (index !== -1) {
+      const variation = variationsInItem[index];
+      if (variation.moaEnabled != moaEnabled && variation.id !== undefined) {
+        const newVariation = {
+          ...variation,
+          moaEnabled: moaEnabled,
+        };
+
+        updateVariationMutation.mutateAsync({
+          id: newVariation.id!,
+          variationUpdateDto: { moaEnabled: newVariation.moaEnabled },
+        });
+      }
+    }
+  }
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -45,27 +284,33 @@ export function CategoriesLists(props: {
           .map((_, i) => <Skeleton key={i} height={"88px"} />)}
       {!preloading && (
         <Flipper
-          flipKey={entities.map((v) => v.id).join("")}
+          flipKey={categories.map((v) => v.id).join("")}
           portalKey="categories"
         >
-          {entities.map((entity) => {
+          {categories.map((entity) => {
             return (
               <Flipped key={entity.id} flipId={entity.id ?? ""}>
                 <Paper elevation={2} sx={{ mb: 2 }}>
                   <CategoryList
                     onCategoryMove={onCategoryMove}
                     entity={entity}
-                    isIn={openCategoryIdState === entity.id}
-                    isFirst={entities[0].id === entity.id}
-                    isLast={entities[entities.length - 1].id === entity.id}
+                    isIn={currentCategoryIdState === entity.id}
+                    isFirst={categories[0].id === entity.id}
+                    isLast={categories[categories.length - 1].id === entity.id}
                     setIsIn={(open) => {
-                      setOpenCategoryIdState(open ? entity.id : undefined);
+                      setCurrentCategoryIdState(
+                        open ? entity.id ?? null : null
+                      );
                     }}
-                    getItems={getItems}
-                    items={items}
+                    getItems={(itemId) => {
+                      setCurrentItemIdState(itemId);
+                    }}
+                    items={itemsInCategory}
                     onItemMove={onItemMove}
-                    variations={variations}
-                    getVariations={getVariations}
+                    variations={variationsInItem}
+                    getVariations={(itemId) => {
+                      setCurrentItemIdState(itemId);
+                    }}
                     onVariationUpdate={onVariationUpdate}
                     onItemUpdate={onItemUpdate}
                     onCategoryUpdate={onCategoryUpdate}

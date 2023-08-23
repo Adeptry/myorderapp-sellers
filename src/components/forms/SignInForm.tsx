@@ -1,8 +1,6 @@
 "use client";
 
 import { routes } from "@/app/routes";
-import { useNetworkingContext } from "@/contexts/networking/useNetworkingContext";
-import { useSessionContext } from "@/contexts/session/useSessionContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Check, Login } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
@@ -13,7 +11,11 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { AuthEmailLoginDto, LoginResponseType } from "moa-merchants-ts-axios";
+import {
+  AuthApiFp,
+  AuthEmailLoginDto,
+  LoginResponseType,
+} from "moa-merchants-ts-axios";
 import { default as NextLink } from "next/link";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -25,7 +27,6 @@ export function SignInForm(props: {
   preloading?: boolean;
 }) {
   const { onSuccess, preloading } = props;
-  const { setSession } = useSessionContext();
 
   const [errorString, setErrorString] = useState<string | null>(null);
 
@@ -45,24 +46,21 @@ export function SignInForm(props: {
     ),
   });
 
-  const { auth } = useNetworkingContext();
   const createSessionMutation = useMutation({
-    mutationFn: () => {
-      return auth.createSession({
-        authEmailLoginDto: form.getValues(),
-      });
+    mutationFn: async (authEmailLoginDto: AuthEmailLoginDto) => {
+      return (await AuthApiFp().createSession(authEmailLoginDto))();
     },
   });
 
-  async function handleOnValidSubmit() {
+  async function handleOnValidSubmit(data: AuthEmailLoginDto) {
     try {
-      const response = await createSessionMutation.mutateAsync();
-      const data = response?.data;
-      if (!data) {
+      const response = await createSessionMutation.mutateAsync(data);
+
+      if (!response.data) {
         throw new Error("No access token");
       }
-      setSession(data);
-      onSuccess(data);
+
+      onSuccess(response.data);
     } catch (error) {
       if (axios.isAxiosError(error) && error?.response?.status === 422) {
         const message = (error?.response?.data as any).message;

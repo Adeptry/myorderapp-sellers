@@ -6,10 +6,8 @@ import {
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
 import SquareOauthButton from "@/components/buttons/SquareOauthButton";
-import { swrCurrentMerchant } from "@/contexts/networking/swrCurrentMerchant";
-import { useNetworkingContext } from "@/contexts/networking/useNetworkingContext";
-import { useNetworkingFunctionNP } from "@/contexts/networking/useNetworkingFunctionNP";
-import { useNetworkingFunctionP } from "@/contexts/networking/useNetworkingFunctionP";
+import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
+import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import {
   Alert,
   Box,
@@ -18,7 +16,9 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { MerchantsApiFp } from "moa-merchants-ts-axios";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -26,17 +26,30 @@ export default function Page() {
   const { push } = useRouter();
   const searchParams = useSearchParams();
   const oauthAccessCode = searchParams.get("code");
-  const { merchants } = useNetworkingContext();
+  const { configuration } = useSessionedApiConfiguration();
 
-  const [{}, confirmSquareOauth] = useNetworkingFunctionP(
-    merchants.confirmSquareOauth.bind(merchants)
-  );
-  const [{ loading: syncSquareCatalogLoading }, syncSquareCatalog] =
-    useNetworkingFunctionNP(merchants.syncSquareCatalog.bind(merchants));
-  const [{ loading: syncSquareLocationsLoading }, syncSquareLocations] =
-    useNetworkingFunctionNP(merchants.syncSquareLocations.bind(merchants));
-  const { data: currentMerchantData, isLoading: currentMerchantLoading } =
-    swrCurrentMerchant();
+  const confirmSquareOauthMutation = useMutation({
+    mutationFn: async (oauthAccessCode: string) => {
+      return (
+        await MerchantsApiFp(configuration).confirmSquareOauth(oauthAccessCode)
+      )();
+    },
+  });
+
+  const syncSquareCatalogMutation = useMutation({
+    mutationFn: async () => {
+      return (await MerchantsApiFp(configuration).syncSquareCatalog())();
+    },
+  });
+
+  const syncSquareLocationsMutation = useMutation({
+    mutationFn: async () => {
+      return (await MerchantsApiFp(configuration).syncSquareLocations())();
+    },
+  });
+
+  const { data: currentMerchantData, isLoading: currentMerchantIsLoading } =
+    useCurrentMerchantQuery();
 
   const [errorString, setErrorString] = useState<string | null>(null);
 
@@ -44,9 +57,9 @@ export default function Page() {
     async function fetch() {
       if (oauthAccessCode) {
         try {
-          await confirmSquareOauth({ oauthAccessCode }, {});
-          await syncSquareCatalog({});
-          await syncSquareLocations({});
+          await confirmSquareOauthMutation.mutateAsync(oauthAccessCode);
+          await syncSquareCatalogMutation.mutateAsync();
+          await syncSquareLocationsMutation.mutateAsync();
           push(routes.onboarding.catalog);
         } catch (error) {
           if (axios.isAxiosError(error) && error?.response?.status === 422) {
@@ -86,7 +99,7 @@ export default function Page() {
           </Box>
 
           <Box justifyContent={"center"} display="flex">
-            {currentMerchantLoading || !currentMerchantData?.data?.id ? (
+            {currentMerchantIsLoading || !currentMerchantData?.data?.id ? (
               <Skeleton height="56px" />
             ) : (
               <SquareOauthButton state={currentMerchantData?.data.id} />
@@ -104,10 +117,10 @@ export default function Page() {
       >
         <Stack display="flex" justifyContent="center" alignItems="center">
           <CircularProgress />
-          {syncSquareCatalogLoading && (
+          {syncSquareCatalogMutation.isLoading && (
             <Typography variant="body2">Syncing Square Catalog...</Typography>
           )}
-          {syncSquareLocationsLoading && (
+          {syncSquareLocationsMutation.isLoading && (
             <Typography variant="body2">Syncing Square Locations...</Typography>
           )}
         </Stack>

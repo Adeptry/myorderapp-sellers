@@ -5,46 +5,47 @@ import {
   OnboardingStepper,
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
-import { useNetworkingContext } from "@/contexts/networking/useNetworkingContext";
-import { useNetworkingFunctionP } from "@/contexts/networking/useNetworkingFunctionP";
-import { Check, ShoppingCartCheckout } from "@mui/icons-material";
+import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
+import { ShoppingCartCheckout } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import { Box, Stack, Typography } from "@mui/material";
 import { loadStripe } from "@stripe/stripe-js";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { MerchantsApiFp } from "moa-merchants-ts-axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Page() {
   const { push } = useRouter();
 
-  const { merchants } = useNetworkingContext();
-  const [createStripeCheckoutState, createStripeCheckoutFn] =
-    useNetworkingFunctionP(
-      merchants.createStripeCheckout.bind(merchants),
-      false
-    );
+  const { configuration, preloading } = useSessionedApiConfiguration();
+  const createStripeCheckoutQuery = useQuery({
+    queryFn: async () => {
+      const frontEndDomain = process.env.NEXT_PUBLIC_FRONTEND_DOMAIN;
+      return (
+        await (
+          await MerchantsApiFp(configuration).createStripeCheckout({
+            successUrl: `${frontEndDomain}${routes.onboarding.stripe.success}`,
+            cancelUrl: `${frontEndDomain}${routes.onboarding.stripe.cancel}`,
+          })
+        )()
+      ).data;
+    },
+    enabled: !preloading,
+  });
 
-  const [stripeLoading, setStripeLoading] = useState(false);
+  const [stripeLoadingState, setStripeLoadingState] = useState(false);
   const onClickCheckout = async () => {
-    setStripeLoading(true);
+    setStripeLoadingState(true);
     try {
       const stripe = await loadStripe(
         process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
       );
-      const frontEndDomain = process.env.NEXT_PUBLIC_FRONTEND_DOMAIN;
-      const response = await createStripeCheckoutFn(
-        {
-          stripeCheckoutCreateDto: {
-            successUrl: `${frontEndDomain}${routes.onboarding.stripe.success}`,
-            cancelUrl: `${frontEndDomain}${routes.onboarding.stripe.cancel}`,
-          },
-        },
-        {}
-      );
-      if (stripe && response.data.checkoutSessionId) {
+
+      if (stripe && createStripeCheckoutQuery?.data?.checkoutSessionId) {
         stripe.redirectToCheckout({
-          sessionId: response.data.checkoutSessionId,
+          sessionId: createStripeCheckoutQuery.data.checkoutSessionId,
         });
       }
     } catch (error) {
@@ -53,9 +54,15 @@ export default function Page() {
         return;
       }
     } finally {
-      setStripeLoading(false);
+      setStripeLoadingState(false);
     }
   };
+
+  const buttonLoading =
+    (createStripeCheckoutQuery.isLoading &&
+      !createStripeCheckoutQuery.isFetching &&
+      !createStripeCheckoutQuery.data) ||
+    stripeLoadingState;
 
   return (
     <Stack spacing={2} py={2} textAlign="center">
@@ -78,18 +85,12 @@ export default function Page() {
             variant="contained"
             color="secondary"
             size="large"
-            startIcon={
-              createStripeCheckoutState.data ? (
-                <Check />
-              ) : (
-                <ShoppingCartCheckout />
-              )
-            }
             onClick={onClickCheckout}
-            loading={stripeLoading}
-            disabled={(stripeLoading || createStripeCheckoutState.data) && true}
+            startIcon={<ShoppingCartCheckout />}
+            loading={buttonLoading}
+            disabled={buttonLoading}
           >
-            {createStripeCheckoutState.data ? "Ready!" : "Return to Checkout"}
+            Proceed to Checkout
           </LoadingButton>
         </Box>
       </Stack>

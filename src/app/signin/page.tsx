@@ -2,7 +2,7 @@
 
 import { routes } from "@/app/routes";
 import { SignInForm } from "@/components/forms/SignInForm";
-import { useCurrentMerchantQuery } from "@/contexts/networking/useCurrentMerchantQuery";
+import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
 import { Box, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
