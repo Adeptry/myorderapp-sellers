@@ -39,8 +39,13 @@ export default function SquareOauthButton(props: SquareOauthButtonProps) {
     urlString += `&redirect_uri=${redirect_uri}`;
   }
 
-  if (process.env.NEXT_PUBLIC_ENV !== "production") {
-    urlString = `${routes.onboarding.square.oauth2}?code=${process.env.NEXT_PUBLIC_SQUARE_TEST_CODE}`;
+  const testCode = process.env.NEXT_PUBLIC_SQUARE_TEST_CODE;
+  if (
+    process.env.NEXT_PUBLIC_ENV !== "production" &&
+    testCode != undefined &&
+    testCode.length > 0
+  ) {
+    urlString = `${routes.onboarding.square.oauth2}?code=${testCode}`;
   }
 
   return (
