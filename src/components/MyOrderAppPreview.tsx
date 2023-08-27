@@ -1,7 +1,6 @@
 import { Box, SxProps } from "@mui/material";
 import { DeviceFrameset } from "react-device-frameset";
 import "react-device-frameset/styles/marvel-devices.min.css";
-import { useBoolean } from "usehooks-ts";
 import MessagingIframe from "./messaging-iframe/MessagingIframe";
 import { WindowMessage } from "./messaging-iframe/WindowMessage";
 
@@ -23,12 +22,6 @@ export function MyOrderAppPreview(props: {
   } | null;
 }) {
   const { sx } = props;
-  const { value: readyForThemeState, setTrue: setReadyForThemeStateTrue } =
-    useBoolean(false);
-  const {
-    value: readyForEnvironmentState,
-    setTrue: setReadyForConfigStateTrue,
-  } = useBoolean(false);
 
   return (
     <Box sx={{ ...sx }}>
@@ -39,19 +32,11 @@ export function MyOrderAppPreview(props: {
           sendMessageState={{
             type: "state",
             payload: {
-              theme: readyForThemeState ? props.theme : null,
-              environment: readyForEnvironmentState ? props.environment : null,
+              theme: props.theme,
+              environment: props.environment,
             },
           }}
-          onReceiveMessage={(message: WindowMessage<string>) => {
-            if (message.type === "event") {
-              if (message.payload === "ready_for_theme") {
-                setReadyForThemeStateTrue();
-              } else if (message.payload === "ready_for_environment") {
-                setReadyForConfigStateTrue();
-              }
-            }
-          }}
+          onReceiveMessage={(message: WindowMessage<string>) => {}}
           style={{
             width: "100%",
             height: "100%",
