@@ -28,6 +28,7 @@ export function CategoriesLists(props: {}) {
             undefined,
             undefined,
             undefined,
+            undefined,
             "merchant",
             undefined,
             undefined
@@ -54,13 +55,13 @@ export function CategoriesLists(props: {}) {
           await (
             await CatalogsApiFp(configuration).getItemsInCategory(
               currentCategoryIdState,
+              "merchant",
               undefined,
               undefined,
               undefined,
               true,
               undefined,
-              undefined,
-              "merchant"
+              undefined
             )
           )()
         ).data;

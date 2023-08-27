@@ -6,7 +6,7 @@ import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import {
   AppShortcut,
-  ArrowBack,
+  Home,
   Logout,
   MenuBook,
   Menu as MenuIcon,
@@ -54,41 +54,43 @@ interface AppBarProps extends MuiAppBarProps {
 const AdaptiveAppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })<AppBarProps>(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(["width", "margin"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
+  [theme.breakpoints.up("md")]: {
+    zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
+      duration: theme.transitions.duration.leavingScreen,
     }),
-  }),
+    ...(open && {
+      marginLeft: drawerWidth,
+      width: `calc(100% - ${drawerWidth}px)`,
+      transition: theme.transitions.create(["width", "margin"], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    }),
+  },
 }));
 
-const AdaptiveDrawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  "& .MuiDrawer-paper": {
-    position: "relative",
-    whiteSpace: "nowrap",
-    width: drawerWidth,
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    boxSizing: "border-box",
-    ...(!open && {
-      overflowX: "hidden",
+const AdaptiveDrawer = styled(MuiDrawer)(({ theme, open }) => ({
+  [theme.breakpoints.up("md")]: {
+    "& .MuiDrawer-paper": {
+      position: "relative",
+      whiteSpace: "nowrap",
+      width: drawerWidth,
       transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
+        duration: theme.transitions.duration.enteringScreen,
       }),
-      width: theme.spacing(7),
-    }),
+      boxSizing: "border-box",
+      ...(!open && {
+        overflowX: "hidden",
+        transition: theme.transitions.create("width", {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.leavingScreen,
+        }),
+        width: theme.spacing(7),
+      }),
+    },
   },
 }));
 
@@ -98,7 +100,7 @@ export function MoaAdaptiveScaffold({
   children: React.ReactNode;
 }) {
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const { push } = useRouter();
   const { value: drawerOpenState, toggle: toggleDrawerOpenState } =
@@ -128,8 +130,7 @@ export function MoaAdaptiveScaffold({
     setAnchorElUser(null);
   };
 
-  const currentMerchant = currentMerchantData?.data;
-  const currentUser = currentMerchant?.user;
+  const currentUser = currentMerchantData?.user;
   const firstName = currentUser?.firstName;
   const lastName = currentUser?.lastName;
   const fullName = `${firstName ?? ""} ${lastName ?? ""}`;
@@ -137,10 +138,10 @@ export function MoaAdaptiveScaffold({
     lastName ? lastName[0] : ""
   }`;
   const hasFinishedOnboarding =
-    currentMerchant?.catalogId &&
-    currentMerchant?.squareId &&
-    currentMerchant.stripeId &&
-    currentMerchant?.stripeCheckoutSessionId;
+    currentMerchantData?.catalogId &&
+    currentMerchantData?.squareId &&
+    currentMerchantData?.stripeId &&
+    currentMerchantData?.stripeCheckoutSessionId;
 
   const menuItems: Array<ReactNode> = [];
 
@@ -152,7 +153,7 @@ export function MoaAdaptiveScaffold({
     );
   }
 
-  if (currentMerchant?.stripeId) {
+  if (currentMerchantData?.stripeId) {
     menuItems.push(
       <MenuItem
         key="manage-account-menu-item"
@@ -190,59 +191,66 @@ export function MoaAdaptiveScaffold({
     );
   }
 
+  const appBarToolbar: ReactNode = (
+    <Toolbar>
+      <Box>
+        <IconButton
+          onClick={toggleDrawerOpenState}
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+        >
+          <MenuIcon />
+        </IconButton>
+      </Box>
+      <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        MyOrderApp
+      </Typography>
+
+      <Box sx={{ flexGrow: 0 }}>
+        {preloading && (
+          <Skeleton height="40px" width="40px" variant="circular" />
+        )}
+        {currentMerchantData && (
+          <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+            <Avatar
+              sx={{
+                bgcolor: stringToColor(fullName),
+              }}
+            >
+              {initials}
+            </Avatar>
+          </IconButton>
+        )}
+
+        <Menu
+          sx={{ mt: "45px" }}
+          id="menu-appbar"
+          anchorEl={anchorElUser}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          keepMounted
+          open={Boolean(anchorElUser)}
+          onClose={handleCloseUserMenu}
+        >
+          {menuItems}
+        </Menu>
+      </Box>
+    </Toolbar>
+  );
+
   return (
     <Box sx={{ display: "flex" }}>
       <AdaptiveAppBar position="absolute" open={drawerOpenState}>
-        <Toolbar>
-          <Box>
-            <IconButton
-              onClick={toggleDrawerOpenState}
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-            >
-              <MenuIcon />
-            </IconButton>
-          </Box>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {isSmallScreen ? "MOA" : "MyOrderApp for Merchants"}
-          </Typography>
-
-          <Box sx={{ flexGrow: 0 }}>
-            {preloading && (
-              <Skeleton height="40px" width="40px" variant="circular" />
-            )}
-            {currentMerchantData && (
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar
-                  sx={{
-                    bgcolor: stringToColor(fullName),
-                  }}
-                >
-                  {initials}
-                </Avatar>
-              </IconButton>
-            )}
-
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {menuItems}
-            </Menu>
-          </Box>
-        </Toolbar>
+        {appBarToolbar}
       </AdaptiveAppBar>
-      <AdaptiveDrawer variant="permanent" open={drawerOpenState}>
+      <AdaptiveDrawer
+        variant={isSmallScreen ? "temporary" : "permanent"}
+        open={drawerOpenState}
+      >
         <Toolbar
           sx={{
             display: "flex",
@@ -289,7 +297,7 @@ export function MoaAdaptiveScaffold({
             <ListItem key={"home-list-item"} disablePadding>
               <ListItemButton onClick={() => {}}>
                 <ListItemIcon>
-                  <ArrowBack />
+                  <Home />
                 </ListItemIcon>
                 <ListItemText primary={"Homepage"} />
               </ListItemButton>

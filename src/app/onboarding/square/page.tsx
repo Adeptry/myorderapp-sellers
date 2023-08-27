@@ -24,7 +24,7 @@ export default function Page() {
   }, [status]);
 
   useEffect(() => {
-    if (data?.data.squareId) {
+    if (data?.squareId) {
       push(routes.onboarding.catalog);
     }
   }, [data]);
@@ -47,10 +47,10 @@ export default function Page() {
       </Typography>
 
       <Box justifyContent={"center"} display="flex">
-        {!data?.data?.id ? (
+        {!data?.id ? (
           <Skeleton height="56px" width={"192px"} />
         ) : (
-          <SquareOauthButton state={data.data.id} />
+          <SquareOauthButton state={data.id} />
         )}
       </Box>
     </Stack>

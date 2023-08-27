@@ -1,15 +1,11 @@
-import { Configuration } from "moa-merchants-ts-axios";
 import { useSession } from "next-auth/react";
+import { configurationForSession } from "./configurationForSession";
 
 export const useSessionedApiConfiguration = () => {
-  const { data: session, status } = useSession();
+  const { data, status } = useSession();
 
   return {
-    configuration: new Configuration({
-      accessToken: session?.user.token,
-      apiKey: process.env.NEXT_PUBLIC_BACKEND_API_KEY,
-      basePath: process.env.NEXT_PUBLIC_BACKEND_DOMAIN,
-    }),
+    configuration: configurationForSession(data),
     preloading: status === "loading",
   };
 };

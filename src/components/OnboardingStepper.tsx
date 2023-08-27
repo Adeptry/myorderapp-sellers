@@ -13,8 +13,8 @@ export enum OnboardingSteps {
 
 const OnboardingStepsTitles: { [key in OnboardingSteps]: string } = {
   [OnboardingSteps.signUp]: "Sign Up",
-  [OnboardingSteps.configure]: "Create your App",
-  [OnboardingSteps.square]: "Sync your Catalog",
+  [OnboardingSteps.configure]: "Customize Appearance",
+  [OnboardingSteps.square]: "Synchronize Catalog",
   [OnboardingSteps.checkout]: "Subscribe to Publish",
 };
 

@@ -9,8 +9,10 @@ export const useCurrentMerchantQuery = (options?: AxiosRequestConfig) => {
     queryKey: ["getCurrentMerchant"],
     queryFn: async () => {
       return (
-        await MerchantsApiFp(configuration).getCurrentMerchant(options)
-      )();
+        await (
+          await MerchantsApiFp(configuration).getCurrentMerchant(options)
+        )()
+      ).data;
     },
     enabled: !preloading,
   });

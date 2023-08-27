@@ -1,22 +1,26 @@
 "use client";
 
 import { fontNames } from "@/data/fontNames";
+import { configurationForSession } from "@/utils/configurationForSession";
 import { mapStringEnum } from "@/utils/mapStringEnum";
+import { randomColor } from "@/utils/randomColor";
+import { stringToColor } from "@/utils/stringToColor";
 import { toPascalCase } from "@/utils/toPascalCase";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Check, Create } from "@mui/icons-material";
+import { Save } from "@mui/icons-material";
+import ShuffleIcon from "@mui/icons-material/Shuffle";
 import { LoadingButton } from "@mui/lab";
 import {
   Autocomplete,
+  Button,
   FormControl,
   FormControlLabel,
   FormHelperText,
   FormLabel,
+  IconButton,
   Radio,
   RadioGroup,
-  useMediaQuery,
-  useTheme,
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -30,28 +34,34 @@ import {
   AppConfigUpdateDto,
   AppConfigUpdateDtoThemeModeEnum,
   ConfigsApiFp,
+  MerchantsApiFp,
   ThemeModeEnum,
 } from "moa-merchants-ts-axios";
 import { MuiColorInput } from "mui-color-input";
 import { MuiFileInput } from "mui-file-input";
+import { getSession } from "next-auth/react";
 import { default as NextLink } from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { unstable_batchedUpdates } from "react-dom";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
-import DevicePreview from "../DevicePreview";
-import { TabLayout } from "../layouts/TabLayout";
 
 export function AppConfigForm(props: {
-  preloading?: boolean;
-  submitText: string;
-  shouldAutoFocus?: boolean;
-  defaultValues?: AppConfigUpdateDto;
   onSuccess: (appConfig: AppConfig) => void;
+  onChange?: (appConfig: AppConfig) => void;
 }) {
-  const { submitText, onSuccess, shouldAutoFocus, defaultValues } = props;
-  const iframeRef = useRef<HTMLIFrameElement | null>(null);
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down(780));
+  const { onSuccess, onChange } = props;
+  const { configuration } = useSessionedApiConfiguration();
+
+  const updateConfigMutation = useMutation({
+    mutationFn: async (appConfigUpdateDto: AppConfigUpdateDto) => {
+      return (
+        await (
+          await ConfigsApiFp(configuration).updateConfig(appConfigUpdateDto)
+        )()
+      ).data;
+    },
+  });
 
   const labels = {
     name: "Name",
@@ -61,18 +71,50 @@ export function AppConfigForm(props: {
     appearance: "Appearance",
   };
 
-  const { configuration } = useSessionedApiConfiguration();
-
-  const updateConfigMutation = useMutation({
-    mutationFn: async (appConfigUpdateDto: AppConfigUpdateDto) => {
-      return (
-        await ConfigsApiFp(configuration).updateConfig(appConfigUpdateDto)
-      )();
-    },
-  });
-
   const form = useForm<AppConfigUpdateDto>({
-    defaultValues: defaultValues,
+    defaultValues: async () => {
+      const session = await getSession();
+
+      if (session) {
+        try {
+          const myConfigResponse = await (
+            await ConfigsApiFp(configurationForSession(session)).getMyConfig(
+              undefined,
+              "merchant"
+            )
+          )();
+          const myConfig = myConfigResponse.data;
+          onChange ? onChange(myConfig) : {};
+          return {
+            name: myConfig.name ?? "",
+            seedColor: myConfig.seedColor ?? "#",
+            fontFamily: myConfig.fontFamily ?? "Roboto",
+            themeMode: myConfig.themeMode ?? ThemeModeEnum.Light,
+            useMaterial3: myConfig.useMaterial3 ?? false,
+          };
+        } catch (error) {
+          const currentMerchantResponse = await (
+            await MerchantsApiFp(
+              configurationForSession(session)
+            ).getCurrentMerchant()
+          )();
+          const currentMerchant = currentMerchantResponse?.data;
+          const currentUser = currentMerchant?.user;
+          const firstName = currentUser?.firstName;
+          const lastName = currentUser?.lastName;
+          const fullName = `${firstName ?? ""} ${lastName ?? ""}`;
+          return {
+            name: `${firstName}'s App`,
+            seedColor: stringToColor(fullName),
+            fontFamily: "Roboto",
+            themeMode: ThemeModeEnum.Light,
+            useMaterial3: false,
+          };
+        }
+      } else {
+        throw new Error("Session data not available");
+      }
+    },
     resolver: yupResolver<AppConfigUpdateDto>(
       yup
         .object<AppConfigUpdateDto>()
@@ -96,8 +138,11 @@ export function AppConfigForm(props: {
   });
 
   const [fontInputState, setFontInputState] = useState("");
-
   const [appIconFileValue, setAppIconFileValue] = useState<File | null>(null);
+
+  const randomFont = () => {
+    return fontNames[Math.floor(Math.random() * fontNames.length)];
+  };
 
   const handleFileChange = (newValue: File | null) => {
     setAppIconFileValue(newValue);
@@ -106,18 +151,21 @@ export function AppConfigForm(props: {
     }
   };
 
-  const onChange = (name: keyof AppConfigUpdateDto, value: any) => {
-    iframeRef.current?.contentWindow?.postMessage({ [name]: value }, "*");
-  };
+  useEffect(() => {
+    const subscription = form.watch((value) => {
+      onChange ? onChange(value) : {};
+    });
+    return () => subscription.unsubscribe();
+  }, [form.watch()]);
 
   async function handleOnValidSubmit(data: AppConfigUpdateDto) {
     try {
       const response = await updateConfigMutation.mutateAsync(data);
 
-      if (!response.data) {
+      if (!response) {
         throw new Error("App config not updated");
       }
-      onSuccess(response.data);
+      onSuccess(response);
     } catch (error) {
       if (axios.isAxiosError(error) && error?.response?.status === 422) {
         const serverErrors = (error?.response?.data as any).message;
@@ -131,29 +179,6 @@ export function AppConfigForm(props: {
     }
   }
 
-  function submitButton(): JSX.Element {
-    return (
-      <Box textAlign="center">
-        <LoadingButton
-          size="large"
-          variant="contained"
-          color="secondary"
-          type="submit"
-          loading={
-            updateConfigMutation.isLoading || form.formState.isSubmitting
-          }
-          disabled={
-            (updateConfigMutation.isLoading || updateConfigMutation.data) &&
-            true
-          }
-          startIcon={form.formState.isSubmitSuccessful ? <Check /> : <Create />}
-        >
-          {form.formState.isSubmitSuccessful ? "Nice!" : submitText}
-        </LoadingButton>
-      </Box>
-    );
-  }
-
   return (
     <Box
       component="form"
@@ -161,76 +186,64 @@ export function AppConfigForm(props: {
       sx={{ width: "100%" }}
       noValidate
     >
-      <TabLayout
-        tabLabels={["Options", "Preview"]}
-        sx={{ pt: isSmallScreen ? 0 : 3, pb: 3 }}
-      >
-        <Grid container columnSpacing={2} rowSpacing={2}>
-          <Grid item xs={12}>
-            <Controller
-              name="name"
-              control={form.control}
-              render={({ field }) => {
-                return (
-                  <TextField
-                    {...field}
-                    required
-                    helperText={
-                      !form.formState.errors.name?.message &&
-                      "The name of your app"
-                    }
-                    label={labels.name}
-                    inputProps={{
-                      autoCorrect: "none",
-                      spellCheck: false,
-                    }}
-                    onChange={(event) => {
-                      onChange("name", event.target.value);
-                      field.onChange(event);
-                    }}
-                    fullWidth
-                    autoFocus={shouldAutoFocus}
-                    error={form.formState.errors.name ? true : false}
-                  />
-                );
-              }}
-            />
-            <Typography variant="inherit" color="error">
-              {form.formState.errors.name?.message}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <MuiFileInput
-              fullWidth
-              value={appIconFileValue}
-              onChange={handleFileChange}
-              helperText="Will appear on users' homepage"
-              label="App icon"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Controller
-              name="seedColor"
-              control={form.control}
-              render={({ field }) => {
-                return (
+      <Grid container columnSpacing={2} rowSpacing={2}>
+        <Grid item xs={12}>
+          <Controller
+            name="name"
+            control={form.control}
+            render={({ field }) => {
+              return (
+                <TextField
+                  {...field}
+                  value={field.value ?? ""}
+                  required
+                  helperText={
+                    !form.formState.errors.name?.message &&
+                    "The name of your app"
+                  }
+                  label={labels.name}
+                  inputProps={{
+                    autoCorrect: "none",
+                    spellCheck: false,
+                  }}
+                  fullWidth
+                  error={form.formState.errors.name ? true : false}
+                />
+              );
+            }}
+          />
+          <Typography variant="inherit" color="error">
+            {form.formState.errors.name?.message}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <MuiFileInput
+            fullWidth
+            value={appIconFileValue}
+            onChange={handleFileChange}
+            helperText="Will appear on users' homepage"
+            label="App icon"
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Controller
+            name="seedColor"
+            control={form.control}
+            render={({ field }) => {
+              return (
+                <Box>
                   <MuiColorInput
                     onBlur={() => field.onBlur()}
-                    value={field.value ?? ""}
+                    value={field.value ?? "#"}
                     name={field.name}
                     ref={field.ref}
                     fullWidth
-                    helperText={
-                      !form.formState.errors.seedColor?.message &&
-                      "Used to generate your theme"
-                    }
                     format="hex"
                     isAlphaHidden
                     label={labels.seedColor}
                     error={form.formState.errors.seedColor ? true : false}
                     required
                     onChange={(value) => {
-                      onChange("seedColor", value);
                       field.onChange({
                         target: {
                           value,
@@ -238,159 +251,251 @@ export function AppConfigForm(props: {
                       });
                     }}
                   />
-                );
-              }}
-            />
-            <Typography variant="inherit" color="error">
-              {form.formState.errors.seedColor?.message}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Controller
-              name="fontFamily"
-              control={form.control}
-              render={({ field }) => {
-                return (
-                  <FormControl fullWidth>
-                    <Autocomplete
-                      value={field.value}
-                      disablePortal
-                      onChange={(event: any, newValue: string | null) => {
-                        if (newValue) {
-                          onChange("fontFamily", newValue);
+                  <Grid
+                    container
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                  >
+                    <Grid item>
+                      <FormHelperText sx={{ pl: 2 }}>
+                        {!form.formState.errors.seedColor?.message &&
+                          `Used to generate your theme`}
+                      </FormHelperText>
+                    </Grid>
+                    <Grid item>
+                      <IconButton
+                        size="small"
+                        onClick={() => {
                           field.onChange({
                             target: {
-                              value: newValue,
+                              value: randomColor(),
                             },
                           });
-                        }
-                      }}
-                      inputValue={fontInputState}
-                      onInputChange={(event, newInputValue) => {
-                        setFontInputState(newInputValue);
-                      }}
-                      options={fontNames}
-                      renderInput={(params) => (
-                        <TextField {...params} name={field.name} label="Font" />
-                      )}
-                      renderOption={(props, option) => {
-                        return (
-                          <li {...props} key={option}>
-                            {option}
-                          </li>
-                        );
-                      }}
-                    />
-                    {!form.formState.errors.fontFamily?.message && (
-                      <FormHelperText>
-                        From{" "}
-                        <MuiLink
-                          color="secondary"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          href={"https://fonts.google.com"}
-                          component={NextLink}
-                        >
-                          Google Fonts
-                        </MuiLink>
-                        .
-                      </FormHelperText>
-                    )}
-                  </FormControl>
-                );
-              }}
-            />
-            <Typography variant="inherit" color="error">
-              {form.formState.errors.fontFamily?.message}
-            </Typography>
-          </Grid>
-
-          <Grid item xs={12}>
-            <Controller
-              name="themeMode"
-              control={form.control}
-              render={({ field }) => {
-                return (
-                  <FormControl>
-                    <FormLabel>{labels.themeMode}</FormLabel>
-                    <RadioGroup
-                      {...field}
-                      onChange={(event) => {
-                        onChange("themeMode", event.target.value);
-                        field.onChange(event);
-                      }}
-                      row
-                    >
-                      {mapStringEnum(ThemeModeEnum, (value) => {
-                        return (
-                          <FormControlLabel
-                            key={value}
-                            checked={field.value === value}
-                            value={value}
-                            control={<Radio />}
-                            label={toPascalCase(value)}
-                          />
-                        );
-                      })}
-                    </RadioGroup>
-                    <FormHelperText>
-                      'System' follows user settings. Select 'Light' or 'Dark'
-                      to override.
-                    </FormHelperText>
-                  </FormControl>
-                );
-              }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Controller
-              name="useMaterial3"
-              control={form.control}
-              render={({ field }) => {
-                return (
-                  <FormControl>
-                    <FormLabel id="demo-row-radio-buttons-group-label">
-                      {labels.appearance}
-                    </FormLabel>
-                    <RadioGroup
-                      {...field}
-                      onChange={(event) => {
-                        onChange("useMaterial3", `${event.target.value}`);
-                        field.onChange(event);
-                      }}
-                      row
-                    >
-                      <FormControlLabel
-                        key={"modern"}
-                        value={true}
-                        control={<Radio />}
-                        label={"Modern"}
-                      />
-                      <FormControlLabel
-                        key={"classic"}
-                        value={false}
-                        control={<Radio />}
-                        label={"Classic"}
-                      />
-                    </RadioGroup>
-                  </FormControl>
-                );
-              }}
-            />
-          </Grid>
-          {!isSmallScreen && (
-            <Grid item xs={12}>
-              {submitButton()}
-            </Grid>
-          )}
+                        }}
+                      >
+                        <ShuffleIcon fontSize="inherit" />
+                      </IconButton>
+                    </Grid>
+                  </Grid>
+                </Box>
+              );
+            }}
+          />
+          <Typography variant="inherit" color="error">
+            {form.formState.errors.seedColor?.message}
+          </Typography>
         </Grid>
-        <DevicePreview
-          iframeRef={iframeRef}
-          key="device-preview"
-          sx={{ pb: 2 }}
-        />
-      </TabLayout>
-      {isSmallScreen && submitButton()}
+        <Grid item xs={12}>
+          <Controller
+            name="fontFamily"
+            control={form.control}
+            render={({ field }) => {
+              return (
+                <FormControl fullWidth>
+                  <Autocomplete
+                    value={field.value ?? "Roboto"}
+                    disablePortal
+                    onChange={(_event: any, newValue: string | null) => {
+                      if (newValue) {
+                        field.onChange({
+                          target: {
+                            value: newValue,
+                          },
+                        });
+                      }
+                    }}
+                    inputValue={fontInputState}
+                    onInputChange={(event, newInputValue) => {
+                      setFontInputState(newInputValue);
+                    }}
+                    options={fontNames}
+                    renderInput={(params) => (
+                      <TextField {...params} name={field.name} label="Font" />
+                    )}
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={option}>
+                          {option}
+                        </li>
+                      );
+                    }}
+                  />
+                  {!form.formState.errors.fontFamily?.message && (
+                    <Grid
+                      container
+                      direction="row"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
+                      <Grid item>
+                        <FormHelperText>
+                          From{" "}
+                          <MuiLink
+                            color="secondary"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={"https://fonts.google.com"}
+                            component={NextLink}
+                          >
+                            Google Fonts
+                          </MuiLink>
+                          .
+                        </FormHelperText>
+                      </Grid>
+                      <Grid item>
+                        <IconButton
+                          size="small"
+                          onClick={() => {
+                            field.onChange({
+                              target: {
+                                value: randomFont(),
+                              },
+                            });
+                          }}
+                        >
+                          <ShuffleIcon fontSize="inherit" />
+                        </IconButton>
+                      </Grid>
+                    </Grid>
+                  )}
+                </FormControl>
+              );
+            }}
+          />
+          <Typography variant="inherit" color="error">
+            {form.formState.errors.fontFamily?.message}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Controller
+            name="useMaterial3"
+            control={form.control}
+            render={({ field }) => (
+              <FormControl>
+                <FormLabel id="demo-row-radio-buttons-group-label">
+                  {labels.appearance}
+                </FormLabel>
+                <RadioGroup
+                  {...field}
+                  value={field.value == null ? null : `${field.value}`} // Convert the boolean value to string for the RadioGroup
+                  row
+                >
+                  <FormControlLabel
+                    key={"modern"}
+                    value="true"
+                    onClick={(e) => {
+                      field.onChange({
+                        target: {
+                          value: true,
+                        },
+                      });
+                    }}
+                    control={<Radio />}
+                    label={"Modern"}
+                  />
+                  <FormControlLabel
+                    key={"classic"}
+                    value="false"
+                    onClick={(e) => {
+                      field.onChange({
+                        target: {
+                          value: false,
+                        },
+                      });
+                    }}
+                    control={<Radio />}
+                    label={"Classic"}
+                  />
+                </RadioGroup>
+              </FormControl>
+            )}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Controller
+            name="themeMode"
+            control={form.control}
+            render={({ field }) => {
+              return (
+                <FormControl>
+                  <FormLabel>{labels.themeMode}</FormLabel>
+                  <RadioGroup
+                    {...field}
+                    value={field.value ? `${field.value}` : null}
+                    row
+                    onChange={(e) => {}}
+                  >
+                    {mapStringEnum(ThemeModeEnum, (value) => {
+                      return (
+                        <FormControlLabel
+                          key={value}
+                          onChange={() => {
+                            field.onChange({
+                              target: {
+                                value: `${value}`,
+                              },
+                            });
+                          }}
+                          value={value}
+                          control={<Radio />}
+                          label={toPascalCase(value)}
+                        />
+                      );
+                    })}
+                  </RadioGroup>
+                  <FormHelperText>
+                    'System' follows user settings. Select 'Light' or 'Dark' to
+                    override.
+                  </FormHelperText>
+                </FormControl>
+              );
+            }}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Box textAlign="center">
+            <LoadingButton
+              size="large"
+              variant="contained"
+              color="secondary"
+              type="submit"
+              loading={
+                updateConfigMutation.isLoading || form.formState.isSubmitting
+              }
+              disabled={updateConfigMutation.isLoading}
+              startIcon={<Save />}
+            >
+              Save
+            </LoadingButton>
+          </Box>
+        </Grid>
+
+        <Grid item xs={12} pt={0}>
+          <Box textAlign="center">
+            <Button
+              endIcon={<ShuffleIcon />}
+              size="small"
+              color="inherit"
+              onClick={() => {
+                unstable_batchedUpdates(() => {
+                  form.setValue("seedColor", randomColor());
+                  form.setValue("fontFamily", randomFont());
+                  form.setValue("useMaterial3", Math.random() < 0.5);
+                  form.setValue(
+                    "themeMode",
+                    Math.random() < 0.5
+                      ? ThemeModeEnum.Light
+                      : ThemeModeEnum.Dark
+                  );
+                });
+              }}
+            >
+              Randomize all
+            </Button>
+          </Box>
+        </Grid>
+      </Grid>
     </Box>
   );
 }

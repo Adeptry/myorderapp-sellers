@@ -11,6 +11,7 @@ export const useGetMyCatalogQuery = (params: {
   limit?: number;
   locationId?: string;
   items?: boolean;
+  images?: boolean;
   variations?: boolean;
   modifierLists?: boolean;
   actingAs?: GetMyCatalogActingAsEnum;
@@ -26,6 +27,7 @@ export const useGetMyCatalogQuery = (params: {
       params.limit,
       params.locationId,
       params.items,
+      params.images,
       params.variations,
       params.modifierLists,
       params.actingAs,
@@ -40,6 +42,7 @@ export const useGetMyCatalogQuery = (params: {
             params.limit,
             params.locationId,
             params.items,
+            params.images,
             params.variations,
             params.modifierLists,
             params.actingAs,

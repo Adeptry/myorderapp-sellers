@@ -99,10 +99,10 @@ export default function Page() {
           </Box>
 
           <Box justifyContent={"center"} display="flex">
-            {currentMerchantIsLoading || !currentMerchantData?.data?.id ? (
+            {currentMerchantIsLoading || !currentMerchantData?.id ? (
               <Skeleton height="56px" />
             ) : (
-              <SquareOauthButton state={currentMerchantData?.data.id} />
+              <SquareOauthButton state={currentMerchantData.id} />
             )}
           </Box>
         </Stack>
