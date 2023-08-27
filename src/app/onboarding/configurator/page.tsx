@@ -8,6 +8,7 @@ import {
 } from "@/components/OnboardingStepper";
 import { AppConfigForm } from "@/components/forms/AppConfigForm";
 import { TabLayout } from "@/components/layouts/TabLayout";
+import { logger } from "@/utils/logger";
 import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
 import { Stack, useMediaQuery, useTheme } from "@mui/material";
 import { AppConfig } from "moa-merchants-ts-axios";
@@ -15,6 +16,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Page() {
+  logger.info({}, "Rendering /onboarding/configure/page.tsx");
   const { push } = useRouter();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(780));

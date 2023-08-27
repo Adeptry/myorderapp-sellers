@@ -7,7 +7,7 @@ interface LogObject {
   [key: string]: any;
 }
 
-const browserLogger: Logger = pino({
+export const logger: Logger = pino({
   browser: {
     asObject: true,
     write: {
@@ -18,5 +18,3 @@ const browserLogger: Logger = pino({
     },
   },
 });
-
-export default browserLogger;

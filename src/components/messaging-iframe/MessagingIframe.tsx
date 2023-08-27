@@ -1,6 +1,5 @@
-import browserLogger from "@/utils/browserLogger";
-import { useEffect, useRef } from "react";
-import { useBoolean } from "usehooks-ts";
+import { logger } from "@/utils/logger";
+import { useEffect, useRef, useState } from "react";
 import { WindowClonable } from "./WindowClonable";
 import { ReceivingWindowMessage, WindowMessage } from "./WindowMessage";
 
@@ -15,17 +14,15 @@ export default function MessagingIframe<
   style?: React.CSSProperties;
 }) {
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
-  const { value: isReadyState, setTrue: setIsReadyStateTrue } =
-    useBoolean(false);
+  const [updateCountState, setUpdateCountState] = useState(0);
 
   useEffect(() => {
-    if (!isReadyState || !props.sendMessageState) return;
-    browserLogger.info(props.sendMessageState, "Web sending message");
+    logger.info(props.sendMessageState, "Web sending message");
     iframeRef.current?.contentWindow?.postMessage(
       props.sendMessageState,
       new URL(props.src).origin
     );
-  }, [props.sendMessageState, isReadyState]);
+  }, [props.sendMessageState, updateCountState]);
 
   useEffect(() => {
     function handleIncomingMessage(
@@ -35,12 +32,12 @@ export default function MessagingIframe<
         return;
       }
 
-      browserLogger.info(event.data, "Web received message");
+      logger.info(event.data, "Web received message");
 
       try {
         const data = event.data.data;
-        if (data.type === "event" && data.payload === "ready") {
-          setIsReadyStateTrue();
+        if (data.type === "event" && data.payload === "update") {
+          setUpdateCountState(updateCountState + 1);
         }
         props.onReceiveMessage?.(data);
       } catch (e) {
