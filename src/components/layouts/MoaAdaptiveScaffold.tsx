@@ -108,7 +108,8 @@ export function MoaAdaptiveScaffold({
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const { data: currentMerchantData } = useCurrentMerchantQuery();
-  const { configuration, preloading } = useSessionedApiConfiguration();
+  const { configuration, status } = useSessionedApiConfiguration();
+  const preloading = status === "loading";
 
   const createStripeBillingSessionUrlMutation = useMutation({
     mutationFn: async (

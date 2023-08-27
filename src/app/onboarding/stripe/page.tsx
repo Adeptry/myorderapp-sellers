@@ -27,8 +27,8 @@ import { useState } from "react";
 
 export default function Page() {
   const { push } = useRouter();
+  const { configuration, status } = useSessionedApiConfiguration();
 
-  const { configuration, preloading } = useSessionedApiConfiguration();
   const createStripeCheckoutQuery = useQuery({
     queryKey: ["createStripeCheckout"],
     queryFn: async () => {
@@ -42,7 +42,7 @@ export default function Page() {
         )()
       ).data;
     },
-    enabled: !preloading,
+    enabled: status === "authenticated",
   });
 
   const [stripeLoadingState, setStripeLoadingState] = useState(false);

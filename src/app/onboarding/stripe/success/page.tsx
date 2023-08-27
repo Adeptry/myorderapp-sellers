@@ -16,7 +16,7 @@ export default function Page() {
   const checkoutSessionId = searchParams.get("session_id");
   const queryClient = useQueryClient();
 
-  const { configuration, preloading } = useSessionedApiConfiguration();
+  const { configuration, status } = useSessionedApiConfiguration();
 
   const confirmStripeCheckoutMutation = useMutation({
     mutationFn: async (stripeCheckoutDto: StripeCheckoutDto) => {
@@ -35,7 +35,7 @@ export default function Page() {
 
   useEffect(() => {
     async function fetch() {
-      if (checkoutSessionId && !preloading) {
+      if (checkoutSessionId && status === "authenticated") {
         confirmStripeCheckoutMutation.mutateAsync({
           checkoutSessionId: checkoutSessionId,
         });
@@ -43,11 +43,11 @@ export default function Page() {
     }
 
     fetch();
-  }, [checkoutSessionId, preloading]);
+  }, [checkoutSessionId, status]);
 
   const loading =
     confirmStripeCheckoutMutation.isLoading ||
-    preloading ||
+    status === "loading" ||
     checkoutSessionId === null;
 
   return (

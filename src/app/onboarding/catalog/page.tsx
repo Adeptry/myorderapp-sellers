@@ -25,7 +25,8 @@ export default function Page() {
   const { push } = useRouter();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const { preloading } = useSessionedApiConfiguration();
+  const { status } = useSessionedApiConfiguration();
+  const preloading = status === "loading";
   const { data: currentMerchantData } = useCurrentMerchantQuery();
 
   return (

@@ -4,7 +4,8 @@ import { AxiosRequestConfig } from "axios";
 import { MerchantsApiFp } from "moa-merchants-ts-axios";
 
 export const useCurrentMerchantQuery = (options?: AxiosRequestConfig) => {
-  const { configuration, preloading } = useSessionedApiConfiguration();
+  const { configuration, status } = useSessionedApiConfiguration();
+
   return useQuery({
     queryKey: ["getCurrentMerchant"],
     queryFn: async () => {
@@ -14,6 +15,6 @@ export const useCurrentMerchantQuery = (options?: AxiosRequestConfig) => {
         )()
       ).data;
     },
-    enabled: !preloading,
+    enabled: status === "authenticated",
   });
 };

@@ -26,7 +26,7 @@ export default function Page() {
   const { push } = useRouter();
   const searchParams = useSearchParams();
   const oauthAccessCode = searchParams.get("code");
-  const { configuration } = useSessionedApiConfiguration();
+  const { configuration, status } = useSessionedApiConfiguration();
 
   const confirmSquareOauthMutation = useMutation({
     mutationFn: async (oauthAccessCode: string) => {
@@ -55,7 +55,7 @@ export default function Page() {
 
   useEffect(() => {
     async function fetch() {
-      if (oauthAccessCode) {
+      if (oauthAccessCode && status === "authenticated") {
         try {
           await confirmSquareOauthMutation.mutateAsync(oauthAccessCode);
           await syncSquareCatalogMutation.mutateAsync();
@@ -77,7 +77,7 @@ export default function Page() {
     }
 
     fetch();
-  }, [oauthAccessCode]);
+  }, [oauthAccessCode, status]);
 
   return (
     <Box

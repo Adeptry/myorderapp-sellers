@@ -18,7 +18,7 @@ export const useGetMyCatalogQuery = (params: {
   merchantId?: string;
   options?: AxiosRequestConfig;
 }) => {
-  const { configuration, preloading } = useSessionedApiConfiguration();
+  const { configuration, status } = useSessionedApiConfiguration();
 
   return useQuery({
     queryKey: [
@@ -52,6 +52,6 @@ export const useGetMyCatalogQuery = (params: {
         )()
       ).data;
     },
-    enabled: !preloading,
+    enabled: status === "authenticated",
   });
 };

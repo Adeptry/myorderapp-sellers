@@ -6,6 +6,6 @@ export const useSessionedApiConfiguration = () => {
 
   return {
     configuration: configurationForSession(data),
-    preloading: status === "loading",
+    status,
   };
 };

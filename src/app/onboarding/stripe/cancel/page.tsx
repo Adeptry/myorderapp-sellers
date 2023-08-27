@@ -19,7 +19,7 @@ import { useState } from "react";
 export default function Page() {
   const { push } = useRouter();
 
-  const { configuration, preloading } = useSessionedApiConfiguration();
+  const { configuration, status } = useSessionedApiConfiguration();
   const createStripeCheckoutQuery = useQuery({
     queryFn: async () => {
       const frontEndDomain = process.env.NEXT_PUBLIC_FRONTEND_DOMAIN;
@@ -32,7 +32,7 @@ export default function Page() {
         )()
       ).data;
     },
-    enabled: !preloading,
+    enabled: status === "authenticated",
   });
 
   const [stripeLoadingState, setStripeLoadingState] = useState(false);

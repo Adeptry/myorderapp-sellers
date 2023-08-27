@@ -13,7 +13,7 @@ import { Flipped, Flipper } from "react-flip-toolkit";
 import CategoryList from "./CategoryList";
 
 export function CategoriesLists(props: {}) {
-  const { configuration, preloading } = useSessionedApiConfiguration();
+  const { configuration, status } = useSessionedApiConfiguration();
   const queryClient = useQueryClient();
   const getMyCatalogQueryKey = ["getMyCatalogQuery"];
   const getMyCatalogQuery = useQuery({
@@ -36,7 +36,7 @@ export function CategoriesLists(props: {}) {
         )()
       ).data;
     },
-    enabled: !preloading,
+    enabled: status === "authenticated",
   });
   const categories = getMyCatalogQuery.data?.data ?? [];
 
@@ -279,11 +279,11 @@ export function CategoriesLists(props: {}) {
 
   return (
     <Box sx={{ width: "100%" }}>
-      {preloading &&
+      {status === "loading" &&
         Array(8)
           .fill(null)
           .map((_, i) => <Skeleton key={i} height={"88px"} />)}
-      {!preloading && (
+      {!(status === "loading") && (
         <Flipper
           flipKey={categories.map((v) => v.id).join("")}
           portalKey="categories"
