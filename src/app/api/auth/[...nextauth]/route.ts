@@ -1,3 +1,4 @@
+import { moaEnv } from "@/utils/config";
 import {
   AuthApiFp,
   AuthRegisterLoginDto,
@@ -41,8 +42,8 @@ const handler = NextAuth({
           const response = await (
             await AuthApiFp(
               new Configuration({
-                apiKey: process.env.NEXT_PUBLIC_BACKEND_API_KEY,
-                basePath: process.env.NEXT_PUBLIC_BACKEND_DOMAIN,
+                apiKey: moaEnv.backendApiKey,
+                basePath: moaEnv.backendUrl,
               })
             ).createSession(credentials as AuthRegisterLoginDto)
           )();
@@ -59,7 +60,7 @@ const handler = NextAuth({
             throw new Error("Authentication failed");
           }
         } catch (e) {
-          return null;
+          throw new Error("Authentication failed");
         }
       },
     }),

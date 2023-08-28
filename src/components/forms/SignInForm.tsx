@@ -10,24 +10,16 @@ import { default as MuiLink } from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
-import {
-  AuthApiFp,
-  AuthEmailLoginDto,
-  LoginResponseType,
-} from "moa-merchants-ts-axios";
+import { AuthEmailLoginDto } from "moa-merchants-ts-axios";
+import { signIn } from "next-auth/react";
 import { default as NextLink } from "next/link";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import AuthServicesButtons from "../buttons/AuthServices";
 
-export function SignInForm(props: {
-  onSuccess: (data: LoginResponseType) => void;
-  preloading?: boolean;
-}) {
-  const { onSuccess, preloading } = props;
-
+export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
+  const { skeleton } = props;
   const [errorString, setErrorString] = useState<string | null>(null);
 
   const form = useForm<AuthEmailLoginDto>({
@@ -48,35 +40,18 @@ export function SignInForm(props: {
 
   const createSessionMutation = useMutation({
     mutationFn: async (authEmailLoginDto: AuthEmailLoginDto) => {
-      return (await AuthApiFp().createSession(authEmailLoginDto))();
+      return await signIn("credentials", {
+        ...authEmailLoginDto,
+        callbackUrl: props.callbackUrl,
+        redirect: false,
+      });
     },
   });
 
   async function handleOnValidSubmit(data: AuthEmailLoginDto) {
-    try {
-      const response = await createSessionMutation.mutateAsync(data);
-
-      if (!response.data) {
-        throw new Error("No access token");
-      }
-
-      onSuccess(response.data);
-    } catch (error) {
-      if (axios.isAxiosError(error) && error?.response?.status === 422) {
-        const message = (error?.response?.data as any).message;
-        if (typeof message === "string") {
-          setErrorString(message);
-        } else {
-          Object.keys(message).forEach((fieldName) => {
-            form.setError(fieldName as keyof AuthEmailLoginDto, {
-              type: "server",
-              message: message[fieldName],
-            });
-          });
-        }
-      } else {
-        setErrorString(JSON.stringify(error));
-      }
+    const result = await createSessionMutation.mutateAsync(data);
+    if (result?.error) {
+      setErrorString(result?.error);
     }
   }
 
@@ -89,8 +64,8 @@ export function SignInForm(props: {
     >
       <Grid
         container
-        columnSpacing={preloading ? 1 : 2}
-        rowSpacing={preloading ? 0 : 2}
+        columnSpacing={skeleton ? 1 : 2}
+        rowSpacing={skeleton ? 0 : 2}
       >
         {errorString && (
           <Grid item xs={12}>
@@ -104,7 +79,7 @@ export function SignInForm(props: {
             name="email"
             control={form.control}
             render={({ field }) => {
-              return preloading ? (
+              return skeleton ? (
                 <Skeleton height="56px" />
               ) : (
                 <TextField
@@ -133,7 +108,7 @@ export function SignInForm(props: {
             name="password"
             control={form.control}
             render={({ field }) => {
-              return preloading ? (
+              return skeleton ? (
                 <Skeleton height="56px" />
               ) : (
                 <TextField
@@ -158,7 +133,7 @@ export function SignInForm(props: {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          {preloading ? (
+          {skeleton ? (
             <Skeleton height="56px" />
           ) : (
             <LoadingButton
@@ -192,7 +167,7 @@ export function SignInForm(props: {
               justifyContent="start"
               alignItems="center"
             >
-              {preloading ? (
+              {skeleton ? (
                 <Skeleton component={"a"} width={"100%"} />
               ) : (
                 <MuiLink
@@ -212,7 +187,7 @@ export function SignInForm(props: {
               justifyContent="end"
               alignItems="center"
             >
-              {preloading ? (
+              {skeleton ? (
                 <Skeleton component={"a"} width={"100%"} />
               ) : (
                 <MuiLink
@@ -228,7 +203,7 @@ export function SignInForm(props: {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <AuthServicesButtons preloading={preloading} />
+          <AuthServicesButtons skeleton={skeleton} />
         </Grid>
       </Grid>
     </Box>

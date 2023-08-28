@@ -1,17 +1,18 @@
 "use client";
 
 import { routes } from "@/app/routes";
-import { MyOrderAppPreview } from "@/components/MyOrderAppPreview";
 import {
   OnboardingStepper,
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
+import { MyOrderAppPreview } from "@/components/app-preview/MyOrderAppPreview";
 import { CategoriesLists } from "@/components/catalogs/CategoriesLists";
+import { TabLayout } from "@/components/layouts/TabLayout";
+import { moaEnv } from "@/utils/config";
 import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
-import { ThumbUp } from "@mui/icons-material";
+import { Save } from "@mui/icons-material";
 import {
-  Box,
   Button,
   Grid,
   Skeleton,
@@ -19,70 +20,93 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import { Category } from "moa-merchants-ts-axios";
 import { useRouter } from "next/navigation";
-
+import { useEffect, useState } from "react";
+// 64 + 16 + 24 + 72 + 6
 export default function Page() {
   const { push } = useRouter();
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down(780));
   const { status } = useSessionedApiConfiguration();
-  const preloading = status === "loading";
+  const [categoriesState, setCategoriesState] = useState<Category[]>([]);
+  const skeleton = status === "loading" || categoriesState.length === 0;
   const { data: currentMerchantData } = useCurrentMerchantQuery();
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      push(routes.signin);
+    }
+  }, [status]);
 
   return (
     <Stack spacing={2} py={2}>
-      {preloading ? (
+      {skeleton ? (
         <Skeleton height={"24px"} />
       ) : (
         <OnboardingStepper
           activeStep={OnboardingSteps.square}
-          sx={{ width: "100%" }}
+          sx={{ width: "100%", pt: isSmallScreen ? 0 : 2 }}
         />
       )}
 
-      <Grid container columnSpacing={isSmallScreen ? 0 : 2} direction={"row"}>
-        <Grid item xs={12} sm={12} md={6}>
-          <Stack
-            spacing={2}
-            pt={1}
-            pb={2}
-            alignItems={"center"}
-            textAlign={"center"}
-          >
-            <Box width="auto" display="inline-block">
-              {preloading ? (
-                <Skeleton height={"42px"} width={"100px"} />
-              ) : (
-                <Button
-                  size="large"
-                  variant="contained"
-                  color="secondary"
-                  startIcon={<ThumbUp />}
-                  onClick={() => {
-                    push(routes.onboarding.stripe.index);
-                  }}
-                >
-                  I'm ready
-                </Button>
-              )}
-            </Box>
-            <CategoriesLists />{" "}
-          </Stack>
+      <TabLayout
+        tabLabels={["Categories", "Preview"]}
+        sx={{ pt: isSmallScreen ? 0 : 3, pb: 3 }}
+      >
+        <Grid
+          container
+          key="categories-grid"
+          direction="column"
+          spacing={2}
+          sx={{ width: "100%" }}
+        >
+          <Grid item key="categories-grid-button" alignSelf={"center"}>
+            {skeleton ? (
+              <Skeleton height="56px" width="200px" />
+            ) : (
+              <Button
+                size="large"
+                variant="contained"
+                color="secondary"
+                startIcon={<Save />}
+                onClick={() => {
+                  push(routes.onboarding.stripe.index);
+                }}
+              >
+                Save and Continue
+              </Button>
+            )}
+          </Grid>
+          <Grid item key="categories-grid-item">
+            <CategoriesLists
+              onCatalogUpdate={(categories) => {
+                setCategoriesState(categories);
+              }}
+            />
+          </Grid>
         </Grid>
 
         <MyOrderAppPreview
           key="device-preview"
-          sx={{ pb: 2 }}
-          theme={null}
+          sx={{
+            py: 2,
+            position: "sticky",
+            top: "72px", // Adjusted for the toolbar
+          }}
+          categories={categoriesState}
           environment={{
-            apiBaseUrl: process.env.NEXT_PUBLIC_BACKEND_DOMAIN!,
-            apiKey: process.env.NEXT_PUBLIC_BACKEND_API_KEY!,
-            merchantFrontendUrl: process.env.NEXT_PUBLIC_FRONTEND_DOMAIN!,
+            apiBaseUrl: moaEnv.backendUrl!,
+            apiKey: moaEnv.backendApiKey!,
+            merchantFrontendUrl: moaEnv.frontendUrl!,
             merchantId: currentMerchantData?.id ?? null,
             isPreview: true,
           }}
         />
-      </Grid>
+      </TabLayout>
     </Stack>
   );
+}
+{
+  /*  */
 }

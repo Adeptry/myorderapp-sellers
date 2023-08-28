@@ -1,6 +1,7 @@
 "use client";
 
 import { routes } from "@/app/routes";
+import { moaEnv } from "@/utils/config";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Check, Login } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
@@ -25,8 +26,8 @@ import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import AuthServicesButtons from "../buttons/AuthServices";
 
-export function SignUpForm(props: { preloading?: boolean }) {
-  const { preloading } = props;
+export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
+  const { skeleton, callbackUrl } = props;
   const [errorString, setErrorString] = useState<string | null>(null);
 
   const form = useForm<AuthRegisterLoginDto>({
@@ -53,8 +54,8 @@ export function SignUpForm(props: { preloading?: boolean }) {
     async (requestParameters: AuthRegisterLoginDto) => {
       try {
         const configuration = new Configuration({
-          apiKey: process.env.NEXT_PUBLIC_BACKEND_API_KEY,
-          basePath: process.env.NEXT_PUBLIC_BACKEND_DOMAIN,
+          apiKey: moaEnv.backendApiKey,
+          basePath: moaEnv.backendUrl,
         });
         const createUserResponse = await (
           await AuthApiFp(configuration).createUser(requestParameters)
@@ -76,10 +77,13 @@ export function SignUpForm(props: { preloading?: boolean }) {
   async function handleOnValidSubmit(data: AuthRegisterLoginDto) {
     try {
       await createUserAndMerchantMutation.mutateAsync(form.getValues());
-      await signIn("credentials", {
+      const response = await signIn("credentials", {
         ...data,
-        callbackUrl: routes.onboarding.configurator,
+        callbackUrl,
       });
+      if (response?.error) {
+        setErrorString(response?.error);
+      }
     } catch (error) {
       if (axios.isAxiosError(error) && error?.response?.status === 422) {
         const message = (error?.response?.data as any).message;
@@ -106,8 +110,8 @@ export function SignUpForm(props: { preloading?: boolean }) {
     >
       <Grid
         container
-        columnSpacing={preloading ? 1 : 2}
-        rowSpacing={preloading ? 0 : 2}
+        columnSpacing={skeleton ? 1 : 2}
+        rowSpacing={skeleton ? 0 : 2}
       >
         {errorString && (
           <Grid item xs={12}>
@@ -121,7 +125,7 @@ export function SignUpForm(props: { preloading?: boolean }) {
             name="firstName"
             control={form.control}
             render={({ field }) => {
-              return preloading ? (
+              return skeleton ? (
                 <Skeleton height="56px" />
               ) : (
                 <TextField
@@ -149,7 +153,7 @@ export function SignUpForm(props: { preloading?: boolean }) {
             name="lastName"
             control={form.control}
             render={({ field }) => {
-              return preloading ? (
+              return skeleton ? (
                 <Skeleton height="56px" />
               ) : (
                 <TextField
@@ -176,7 +180,7 @@ export function SignUpForm(props: { preloading?: boolean }) {
             name="email"
             control={form.control}
             render={({ field }) => {
-              return preloading ? (
+              return skeleton ? (
                 <Skeleton height="56px" />
               ) : (
                 <TextField
@@ -204,7 +208,7 @@ export function SignUpForm(props: { preloading?: boolean }) {
             name="password"
             control={form.control}
             render={({ field }) => {
-              return preloading ? (
+              return skeleton ? (
                 <Skeleton height="56px" />
               ) : (
                 <TextField
@@ -229,7 +233,7 @@ export function SignUpForm(props: { preloading?: boolean }) {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          {preloading ? (
+          {skeleton ? (
             <Skeleton height="56px" width="100%" />
           ) : (
             <LoadingButton
@@ -241,9 +245,12 @@ export function SignUpForm(props: { preloading?: boolean }) {
               startIcon={
                 createUserAndMerchantMutation.data ? <Check /> : <Login />
               }
-              color={
-                createUserAndMerchantMutation.data ? "success" : "secondary"
+              disabled={
+                (createUserAndMerchantMutation.isLoading ||
+                  createUserAndMerchantMutation.data) &&
+                true
               }
+              color={"secondary"}
               type="submit"
               fullWidth
               variant="contained"
@@ -263,7 +270,7 @@ export function SignUpForm(props: { preloading?: boolean }) {
               justifyContent="start"
               alignItems="center"
             >
-              {preloading ? (
+              {skeleton ? (
                 <Skeleton component={"a"} width={"100%"} />
               ) : (
                 <MuiLink
@@ -283,7 +290,7 @@ export function SignUpForm(props: { preloading?: boolean }) {
               justifyContent="end"
               alignItems="center"
             >
-              {preloading ? (
+              {skeleton ? (
                 <Skeleton component={"a"} width={"100%"} />
               ) : (
                 <MuiLink
@@ -299,7 +306,7 @@ export function SignUpForm(props: { preloading?: boolean }) {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <AuthServicesButtons preloading={preloading} />
+          <AuthServicesButtons skeleton={skeleton} />
         </Grid>
       </Grid>
     </Box>

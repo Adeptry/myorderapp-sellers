@@ -2,75 +2,51 @@ import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfigurati
 import { Box, Paper, Skeleton } from "@mui/material";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
+  CatalogsApi,
   CatalogsApiFp,
+  Category,
   CategoryUpdateAllDto,
   ItemUpdateAllDto,
   VariationUpdateDto,
 } from "moa-merchants-ts-axios";
 import { nanoid } from "nanoid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Flipped, Flipper } from "react-flip-toolkit";
 import CategoryList from "./CategoryList";
 
-export function CategoriesLists(props: {}) {
+export function CategoriesLists(props: {
+  onCatalogUpdate?: (categories: Category[]) => void;
+}) {
+  const { onCatalogUpdate } = props;
   const { configuration, status } = useSessionedApiConfiguration();
   const queryClient = useQueryClient();
   const getMyCatalogQueryKey = ["getMyCatalogQuery"];
   const getMyCatalogQuery = useQuery({
     queryKey: getMyCatalogQueryKey,
     queryFn: async () => {
+      const catalogsApi = new CatalogsApi(configuration);
       return (
-        await (
-          await CatalogsApiFp(configuration).getMyCatalog(
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            "merchant",
-            undefined,
-            undefined
-          )
-        )()
+        await catalogsApi.getMyCatalog({
+          items: true,
+          images: true,
+          variations: true,
+          actingAs: "merchant",
+        })
       ).data;
     },
     enabled: status === "authenticated",
   });
   const categories = getMyCatalogQuery.data?.data ?? [];
+  useEffect(() => {
+    onCatalogUpdate?.(categories);
+  }, [categories]);
 
   const [currentCategoryIdState, setCurrentCategoryIdState] = useState<
     string | null
   >(null);
-  const getItemsInCategoryQueryKey = [
-    "getItemsInCategory",
-    currentCategoryIdState,
-  ];
-  const getItemsInCategoryQuery = useQuery({
-    queryKey: getItemsInCategoryQueryKey,
-    queryFn: async () => {
-      if (currentCategoryIdState) {
-        return (
-          await (
-            await CatalogsApiFp(configuration).getItemsInCategory(
-              currentCategoryIdState,
-              "merchant",
-              undefined,
-              undefined,
-              undefined,
-              true,
-              undefined,
-              undefined
-            )
-          )()
-        ).data;
-      } else {
-        return null;
-      }
-    },
-  });
-  const itemsInCategory = getItemsInCategoryQuery.data?.data ?? [];
+  const itemsInCategory =
+    categories.find((value) => value.id === currentCategoryIdState)?.items ??
+    [];
 
   const updateItemsMutation = useMutation({
     mutationFn: async (itemUpdateAllDto: Array<ItemUpdateAllDto>) => {
@@ -81,7 +57,7 @@ export function CategoriesLists(props: {}) {
       ).data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(getItemsInCategoryQueryKey);
+      queryClient.invalidateQueries(getMyCatalogQueryKey);
     },
   });
 
@@ -103,26 +79,7 @@ export function CategoriesLists(props: {}) {
   const [currentItemIdState, setCurrentItemIdState] = useState<string | null>(
     null
   );
-  const getVariationsForItemIdQueryKey = [
-    "getVariationsForItem",
-    currentItemIdState,
-  ];
-  const getVariationsForItemQuery = useQuery({
-    queryKey: getVariationsForItemIdQueryKey,
-    queryFn: async () => {
-      if (currentItemIdState) {
-        return (
-          await (
-            await CatalogsApiFp(configuration).getVariationsForItem(
-              currentItemIdState
-            )
-          )()
-        ).data;
-      } else {
-        return null;
-      }
-    },
-  });
+
   const updateVariationMutation = useMutation({
     mutationFn: async (params: {
       id: string;
@@ -136,10 +93,12 @@ export function CategoriesLists(props: {}) {
       )();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(getVariationsForItemIdQueryKey);
+      queryClient.invalidateQueries(getMyCatalogQueryKey);
     },
   });
-  const variationsInItem = getVariationsForItemQuery.data ?? [];
+  const variationsInItem =
+    itemsInCategory.find((value) => value.id === currentItemIdState)
+      ?.variations ?? [];
 
   const uploadImageToSquareCatalogMutation = useMutation({
     mutationFn: async (params: {
@@ -154,6 +113,9 @@ export function CategoriesLists(props: {}) {
           params.file
         )
       )();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(getMyCatalogQueryKey);
     },
   });
 

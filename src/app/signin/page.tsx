@@ -4,18 +4,20 @@ import { routes } from "@/app/routes";
 import { SignInForm } from "@/components/forms/SignInForm";
 import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
 import { Box, Grid, Typography } from "@mui/material";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Page() {
   const { push } = useRouter();
-  const getCurrentMerchantQueryState = useCurrentMerchantQuery();
+  const { status } = useSession();
+  const { data } = useCurrentMerchantQuery();
 
   useEffect(() => {
-    if (getCurrentMerchantQueryState.data) {
+    if (data) {
       push(routes.catalog);
     }
-  }, [getCurrentMerchantQueryState.data]);
+  }, [data]);
 
   return (
     <Grid container justifyContent="center">
@@ -27,36 +29,8 @@ export default function Page() {
         </Box>
 
         <SignInForm
-          onSuccess={async (data) => {
-            // const merchantResponse = await getCurrentMerchantFn({
-            //   headers: { Authorization: `Bearer ${data.token}` },
-            // });
-
-            // try {
-            //   await getConfig(
-            //     { actingAs: "merchant" },
-            //     { headers: { Authorization: `Bearer ${data.token}` } }
-            //   );
-            // } catch (error) {
-            //   if (axios.isAxiosError(error) && error.response?.status === 404) {
-            //     push(routes.onboarding.configurator);
-            //     return;
-            //   }
-            // }
-
-            // if (!merchantResponse.data.squareId) {
-            //   push(routes.onboarding.square.index);
-            //   return;
-            // }
-
-            // if (!merchantResponse.data.stripeCheckoutSessionId) {
-            //   push(routes.onboarding.stripe.index);
-            //   return;
-            // }
-
-            push(routes.catalog);
-          }}
-          preloading={false}
+          callbackUrl={routes.dashboard}
+          skeleton={status === "loading"}
         />
       </Grid>
     </Grid>

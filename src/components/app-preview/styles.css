@@ -1,0 +1,23 @@
+/* App bar 56px */
+
+/* Container padding 32px */
+
+/* Stepper 25px */
+
+/* Tabs 48px */
+
+/* Footer 56px */
+
+/* Device padding 16px */
+
+/* Device bezels 100px*/
+
+.marvel-device.nexus5 {
+  max-height: calc(100vh - 56px - 32px - 25px - 190px);
+}
+
+@media (max-width: 780px) {
+  .marvel-device.nexus5 {
+    max-height: calc(100vh - 56px - 32px - 25px - 48px - 56px - 190px);
+  }
+}

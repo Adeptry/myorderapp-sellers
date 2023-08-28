@@ -15,6 +15,8 @@ import {
   Skeleton,
   Stack,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
@@ -27,6 +29,14 @@ export default function Page() {
   const searchParams = useSearchParams();
   const oauthAccessCode = searchParams.get("code");
   const { configuration, status } = useSessionedApiConfiguration();
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      push(routes.signin);
+    }
+  }, [status]);
 
   const confirmSquareOauthMutation = useMutation({
     mutationFn: async (oauthAccessCode: string) => {
@@ -89,7 +99,7 @@ export default function Page() {
     >
       <OnboardingStepper
         activeStep={OnboardingSteps.square}
-        sx={{ width: "100%" }}
+        sx={{ width: "100%", pt: isSmallScreen ? 0 : 2 }}
       />
 
       {errorString && (

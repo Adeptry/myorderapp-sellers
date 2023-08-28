@@ -5,10 +5,11 @@ import {
   OnboardingStepper,
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
+import { moaEnv } from "@/utils/config";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { ShoppingCartCheckout } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { loadStripe } from "@stripe/stripe-js";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -18,16 +19,17 @@ import { useState } from "react";
 
 export default function Page() {
   const { push } = useRouter();
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const { configuration, status } = useSessionedApiConfiguration();
   const createStripeCheckoutQuery = useQuery({
     queryFn: async () => {
-      const frontEndDomain = process.env.NEXT_PUBLIC_FRONTEND_DOMAIN;
       return (
         await (
           await MerchantsApiFp(configuration).createStripeCheckout({
-            successUrl: `${frontEndDomain}${routes.onboarding.stripe.success}`,
-            cancelUrl: `${frontEndDomain}${routes.onboarding.stripe.cancel}`,
+            successUrl: `${moaEnv.frontendUrl}${routes.onboarding.stripe.success}`,
+            cancelUrl: `${moaEnv.frontendUrl}${routes.onboarding.stripe.cancel}`,
           })
         )()
       ).data;
@@ -39,9 +41,7 @@ export default function Page() {
   const onClickCheckout = async () => {
     setStripeLoadingState(true);
     try {
-      const stripe = await loadStripe(
-        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-      );
+      const stripe = await loadStripe(moaEnv.stripePublishableKey);
 
       if (stripe && createStripeCheckoutQuery?.data?.checkoutSessionId) {
         stripe.redirectToCheckout({
@@ -68,7 +68,7 @@ export default function Page() {
     <Stack spacing={2} py={2} textAlign="center">
       <OnboardingStepper
         activeStep={OnboardingSteps.checkout}
-        sx={{ width: "100%" }}
+        sx={{ width: "100%", pt: isSmallScreen ? 0 : 2 }}
       />
       <Stack spacing={2}>
         <Typography variant="h4">We're sorry to see you go</Typography>

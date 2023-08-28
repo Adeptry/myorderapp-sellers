@@ -1,18 +1,17 @@
+import { moaEnv } from "@/utils/config";
+import { logger } from "@/utils/logger";
 import { Box, SxProps } from "@mui/material";
+import { AppConfig, Category } from "moa-merchants-ts-axios";
 import { DeviceFrameset } from "react-device-frameset";
 import "react-device-frameset/styles/marvel-devices.min.css";
-import MessagingIframe from "./messaging-iframe/MessagingIframe";
-import { WindowMessage } from "./messaging-iframe/WindowMessage";
+import MessagingIframe from "../messaging-iframe/MessagingIframe";
+import { toWindowClonable } from "../messaging-iframe/WindowClonable";
+import "./styles.css";
 
 export function MyOrderAppPreview(props: {
   sx?: SxProps;
-  theme: {
-    name: string | null;
-    seedColor: string | null;
-    fontFamily: string | null;
-    useMaterial3: boolean | null;
-    themeMode: string | null;
-  } | null;
+  categories?: Array<Category>;
+  appConfig?: AppConfig;
   environment: {
     apiBaseUrl: string | null;
     apiKey: string | null;
@@ -22,21 +21,26 @@ export function MyOrderAppPreview(props: {
   } | null;
 }) {
   const { sx } = props;
+  logger.info(props, "Rendering MyOrderAppPreview");
 
   return (
-    <Box sx={{ ...sx }}>
-      <DeviceFrameset device="HTC One" color="black">
+    <Box
+      sx={{
+        ...sx,
+      }}
+    >
+      <DeviceFrameset device="HTC One" color="black" style={{}}>
         <MessagingIframe
           id="flutter-iframe"
-          src={process.env.NEXT_PUBLIC_APP_PREVIEW_URL!}
+          src={moaEnv.previewUrl}
           sendMessageState={{
             type: "state",
             payload: {
-              theme: props.theme,
+              categories: toWindowClonable(props.categories),
+              appConfig: toWindowClonable(props.appConfig),
               environment: props.environment,
             },
           }}
-          onReceiveMessage={(message: WindowMessage<string>) => {}}
           style={{
             width: "100%",
             height: "100%",

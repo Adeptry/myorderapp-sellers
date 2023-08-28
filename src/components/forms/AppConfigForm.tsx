@@ -8,7 +8,7 @@ import { stringToColor } from "@/utils/stringToColor";
 import { toPascalCase } from "@/utils/toPascalCase";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Save } from "@mui/icons-material";
+import { Check, Save } from "@mui/icons-material";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import { LoadingButton } from "@mui/lab";
 import {
@@ -21,6 +21,9 @@ import {
   IconButton,
   Radio,
   RadioGroup,
+  Skeleton,
+  Stack,
+  useTheme,
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -41,17 +44,25 @@ import { MuiColorInput } from "mui-color-input";
 import { MuiFileInput } from "mui-file-input";
 import { getSession } from "next-auth/react";
 import { default as NextLink } from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { unstable_batchedUpdates } from "react-dom";
 import { Controller, useForm } from "react-hook-form";
+
 import * as yup from "yup";
 
 export function AppConfigForm(props: {
-  onSuccess: (appConfig: AppConfig) => void;
+  buttonOnTop?: boolean;
+  submitButtonText?: string;
+  successUrl?: string;
   onChange?: (appConfig: AppConfig) => void;
 }) {
-  const { onSuccess, onChange } = props;
+  const { onChange, submitButtonText, successUrl } = props;
+  const { push } = useRouter();
+  const theme = useTheme();
+
   const { configuration } = useSessionedApiConfiguration();
+  const [skeletonState, setSkeletonState] = useState(true);
 
   const updateConfigMutation = useMutation({
     mutationFn: async (appConfigUpdateDto: AppConfigUpdateDto) => {
@@ -110,6 +121,8 @@ export function AppConfigForm(props: {
             themeMode: ThemeModeEnum.Light,
             useMaterial3: false,
           };
+        } finally {
+          setSkeletonState(false);
         }
       } else {
         throw new Error("Session data not available");
@@ -165,7 +178,10 @@ export function AppConfigForm(props: {
       if (!response) {
         throw new Error("App config not updated");
       }
-      onSuccess(response);
+
+      if (successUrl) {
+        push(successUrl);
+      }
     } catch (error) {
       if (axios.isAxiosError(error) && error?.response?.status === 422) {
         const serverErrors = (error?.response?.data as any).message;
@@ -179,6 +195,51 @@ export function AppConfigForm(props: {
     }
   }
 
+  const submitButton = (
+    <Grid item xs={12}>
+      {skeletonState ? (
+        <Skeleton height="56px" />
+      ) : (
+        <Stack
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          spacing={1}
+        >
+          <LoadingButton
+            loading={
+              updateConfigMutation.isLoading || form.formState.isSubmitting
+            }
+            size="large"
+            startIcon={
+              updateConfigMutation.data && successUrl ? <Check /> : <Save />
+            }
+            disabled={
+              updateConfigMutation.isLoading ||
+              (updateConfigMutation.data != undefined &&
+                successUrl != undefined)
+            }
+            color="secondary"
+            type="submit"
+            variant="contained"
+          >
+            {updateConfigMutation.data && successUrl
+              ? "Lookin good!"
+              : submitButtonText
+              ? submitButtonText
+              : "Save"}
+          </LoadingButton>
+          <Typography
+            variant="caption"
+            style={{ color: theme.palette.text.secondary }}
+          >
+            You can update these settings at any time.
+          </Typography>
+        </Stack>
+      )}
+    </Grid>
+  );
+
   return (
     <Box
       component="form"
@@ -187,12 +248,15 @@ export function AppConfigForm(props: {
       noValidate
     >
       <Grid container columnSpacing={2} rowSpacing={2}>
+        {props.buttonOnTop ? submitButton : null}
         <Grid item xs={12}>
           <Controller
             name="name"
             control={form.control}
             render={({ field }) => {
-              return (
+              return skeletonState ? (
+                <Skeleton height="56px" />
+              ) : (
                 <TextField
                   {...field}
                   value={field.value ?? ""}
@@ -216,21 +280,28 @@ export function AppConfigForm(props: {
             {form.formState.errors.name?.message}
           </Typography>
         </Grid>
+
         <Grid item xs={12}>
-          <MuiFileInput
-            fullWidth
-            value={appIconFileValue}
-            onChange={handleFileChange}
-            helperText="Will appear on users' homepage"
-            label="App icon"
-          />
+          {skeletonState ? (
+            <Skeleton height="56px" />
+          ) : (
+            <MuiFileInput
+              fullWidth
+              value={appIconFileValue}
+              onChange={handleFileChange}
+              helperText="Will appear on users' homepage"
+              label="App icon"
+            />
+          )}
         </Grid>
         <Grid item xs={12}>
           <Controller
             name="seedColor"
             control={form.control}
             render={({ field }) => {
-              return (
+              return skeletonState ? (
+                <Skeleton height="56px" />
+              ) : (
                 <Box>
                   <MuiColorInput
                     onBlur={() => field.onBlur()}
@@ -291,7 +362,9 @@ export function AppConfigForm(props: {
             name="fontFamily"
             control={form.control}
             render={({ field }) => {
-              return (
+              return skeletonState ? (
+                <Skeleton height="56px" />
+              ) : (
                 <FormControl fullWidth>
                   <Autocomplete
                     value={field.value ?? "Roboto"}
@@ -371,45 +444,49 @@ export function AppConfigForm(props: {
           <Controller
             name="useMaterial3"
             control={form.control}
-            render={({ field }) => (
-              <FormControl>
-                <FormLabel id="demo-row-radio-buttons-group-label">
-                  {labels.appearance}
-                </FormLabel>
-                <RadioGroup
-                  {...field}
-                  value={field.value == null ? null : `${field.value}`} // Convert the boolean value to string for the RadioGroup
-                  row
-                >
-                  <FormControlLabel
-                    key={"modern"}
-                    value="true"
-                    onClick={(e) => {
-                      field.onChange({
-                        target: {
-                          value: true,
-                        },
-                      });
-                    }}
-                    control={<Radio />}
-                    label={"Modern"}
-                  />
-                  <FormControlLabel
-                    key={"classic"}
-                    value="false"
-                    onClick={(e) => {
-                      field.onChange({
-                        target: {
-                          value: false,
-                        },
-                      });
-                    }}
-                    control={<Radio />}
-                    label={"Classic"}
-                  />
-                </RadioGroup>
-              </FormControl>
-            )}
+            render={({ field }) =>
+              skeletonState ? (
+                <Skeleton height="56px" />
+              ) : (
+                <FormControl>
+                  <FormLabel id="demo-row-radio-buttons-group-label">
+                    {labels.appearance}
+                  </FormLabel>
+                  <RadioGroup
+                    {...field}
+                    value={field.value == null ? null : `${field.value}`} // Convert the boolean value to string for the RadioGroup
+                    row
+                  >
+                    <FormControlLabel
+                      key={"modern"}
+                      value="true"
+                      onClick={(e) => {
+                        field.onChange({
+                          target: {
+                            value: true,
+                          },
+                        });
+                      }}
+                      control={<Radio />}
+                      label={"Modern"}
+                    />
+                    <FormControlLabel
+                      key={"classic"}
+                      value="false"
+                      onClick={(e) => {
+                        field.onChange({
+                          target: {
+                            value: false,
+                          },
+                        });
+                      }}
+                      control={<Radio />}
+                      label={"Classic"}
+                    />
+                  </RadioGroup>
+                </FormControl>
+              )
+            }
           />
         </Grid>
         <Grid item xs={12}>
@@ -417,7 +494,9 @@ export function AppConfigForm(props: {
             name="themeMode"
             control={form.control}
             render={({ field }) => {
-              return (
+              return skeletonState ? (
+                <Skeleton height="56px" />
+              ) : (
                 <FormControl>
                   <FormLabel>{labels.themeMode}</FormLabel>
                   <RadioGroup
@@ -453,46 +532,34 @@ export function AppConfigForm(props: {
             }}
           />
         </Grid>
-        <Grid item xs={12}>
-          <Box textAlign="center">
-            <LoadingButton
-              size="large"
-              variant="contained"
-              color="secondary"
-              type="submit"
-              loading={
-                updateConfigMutation.isLoading || form.formState.isSubmitting
-              }
-              disabled={updateConfigMutation.isLoading}
-              startIcon={<Save />}
-            >
-              Save
-            </LoadingButton>
-          </Box>
-        </Grid>
+        {!props.buttonOnTop ? submitButton : null}
 
         <Grid item xs={12} pt={0}>
           <Box textAlign="center">
-            <Button
-              endIcon={<ShuffleIcon />}
-              size="small"
-              color="inherit"
-              onClick={() => {
-                unstable_batchedUpdates(() => {
-                  form.setValue("seedColor", randomColor());
-                  form.setValue("fontFamily", randomFont());
-                  form.setValue("useMaterial3", Math.random() < 0.5);
-                  form.setValue(
-                    "themeMode",
-                    Math.random() < 0.5
-                      ? ThemeModeEnum.Light
-                      : ThemeModeEnum.Dark
-                  );
-                });
-              }}
-            >
-              Randomize all
-            </Button>
+            {skeletonState ? (
+              <Skeleton height="56px" />
+            ) : (
+              <Button
+                endIcon={<ShuffleIcon />}
+                size="small"
+                color="inherit"
+                onClick={() => {
+                  unstable_batchedUpdates(() => {
+                    form.setValue("seedColor", randomColor());
+                    form.setValue("fontFamily", randomFont());
+                    form.setValue("useMaterial3", Math.random() < 0.5);
+                    form.setValue(
+                      "themeMode",
+                      Math.random() < 0.5
+                        ? ThemeModeEnum.Light
+                        : ThemeModeEnum.Dark
+                    );
+                  });
+                }}
+              >
+                Randomize all
+              </Button>
+            )}
           </Box>
         </Grid>
       </Grid>

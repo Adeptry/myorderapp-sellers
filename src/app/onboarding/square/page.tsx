@@ -6,7 +6,14 @@ import {
 } from "@/components/OnboardingStepper";
 import SquareOauthButton from "@/components/buttons/SquareOauthButton";
 import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
-import { Box, Skeleton, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Skeleton,
+  Stack,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -15,8 +22,11 @@ import { routes } from "../../routes";
 export default function Page() {
   const { push } = useRouter();
   const { data } = useCurrentMerchantQuery();
-  const { status } = useSession();
 
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+  const { status } = useSession();
   useEffect(() => {
     if (status === "unauthenticated") {
       push(routes.signin);
@@ -33,7 +43,7 @@ export default function Page() {
     <Stack spacing={2} py={2} textAlign="center">
       <OnboardingStepper
         activeStep={OnboardingSteps.square}
-        sx={{ width: "100%" }}
+        sx={{ width: "100%", pt: isSmallScreen ? 0 : 2 }}
       />
 
       <Typography variant="h4">Connect your Square Account</Typography>

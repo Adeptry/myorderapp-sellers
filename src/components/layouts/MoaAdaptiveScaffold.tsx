@@ -5,6 +5,7 @@ import { stringToColor } from "@/utils/stringToColor";
 import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import {
+  AccountBox,
   AppShortcut,
   Home,
   Logout,
@@ -109,7 +110,6 @@ export function MoaAdaptiveScaffold({
 
   const { data: currentMerchantData } = useCurrentMerchantQuery();
   const { configuration, status } = useSessionedApiConfiguration();
-  const preloading = status === "loading";
 
   const createStripeBillingSessionUrlMutation = useMutation({
     mutationFn: async (
@@ -153,6 +153,21 @@ export function MoaAdaptiveScaffold({
       </MenuItem>
     );
   }
+  if (currentMerchantData) {
+    menuItems.push(
+      <MenuItem
+        key="account-menu-item"
+        onClick={() => {
+          signOut({ callbackUrl: routes.signin });
+        }}
+      >
+        <ListItemIcon>
+          <AccountBox fontSize="small" />
+        </ListItemIcon>
+        <ListItemText>Account</ListItemText>
+      </MenuItem>
+    );
+  }
 
   if (currentMerchantData?.stripeId) {
     menuItems.push(
@@ -191,7 +206,7 @@ export function MoaAdaptiveScaffold({
       </MenuItem>
     );
   }
-
+  const skeleton = status === "loading";
   const appBarToolbar: ReactNode = (
     <Toolbar>
       <Box>
@@ -210,9 +225,7 @@ export function MoaAdaptiveScaffold({
       </Typography>
 
       <Box sx={{ flexGrow: 0 }}>
-        {preloading && (
-          <Skeleton height="40px" width="40px" variant="circular" />
-        )}
+        {skeleton && <Skeleton height="40px" width="40px" variant="circular" />}
         {currentMerchantData && (
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
             <Avatar
@@ -283,7 +296,7 @@ export function MoaAdaptiveScaffold({
                 <ListItem key={"app-configurator-list-item"} disablePadding>
                   <ListItemButton
                     onClick={() => {
-                      push(routes.configurator);
+                      push(routes.appearance);
                     }}
                   >
                     <ListItemIcon>
@@ -318,7 +331,7 @@ export function MoaAdaptiveScaffold({
           maxWidth={isSmallScreen ? undefined : "md"}
           sx={{
             minHeight: "calc(100vh - 120px)",
-            mt: 8,
+            mt: "56px",
           }}
         >
           {children}

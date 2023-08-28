@@ -2,10 +2,12 @@ export const routes = {
   signin: "/signin",
   signup: "/",
   forgot: "/forgot",
-  configurator: "/configurator",
+  dashboard: "/dashboard",
+  account: "/account",
+  appearance: "/appearance",
   catalog: "/catalog",
   onboarding: {
-    configurator: "/onboarding/configurator",
+    appearance: "/onboarding/appearance",
     catalog: "/onboarding/catalog",
     square: {
       index: "/onboarding/square",

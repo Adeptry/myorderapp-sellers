@@ -34,3 +34,35 @@ export interface WindowClonableMap
   extends Map<WindowClonable, WindowClonable> {}
 
 export interface WindowClonableSet extends Set<WindowClonable> {}
+
+export function toWindowClonable(obj: any): WindowClonable {
+  if (obj === null) return null;
+
+  switch (typeof obj) {
+    case "string":
+    case "number":
+    case "boolean":
+      return obj;
+    case "object":
+      if (Array.isArray(obj)) {
+        return obj.map(toWindowClonable) as ClonableArray;
+      }
+      if (obj instanceof Date) return obj;
+      if (obj instanceof RegExp) return obj;
+      if (obj instanceof Error) return obj;
+      if (obj instanceof ArrayBuffer) return obj;
+      if (obj instanceof DataView) return obj;
+      if (ArrayBuffer.isView(obj)) return obj as WindowTypedArray;
+
+      const cleanObj: WindowClonableObject = {};
+      for (const key in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, key)) {
+          cleanObj[key] = toWindowClonable(obj[key]);
+        }
+      }
+      return cleanObj;
+
+    default:
+      return null;
+  }
+}

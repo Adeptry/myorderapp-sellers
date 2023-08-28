@@ -7,20 +7,28 @@ import {
 } from "@/components/OnboardingStepper";
 import { SignUpForm } from "@/components/forms/SignUpForm";
 import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
-import { Box, Grid, Stack, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Grid,
+  Stack,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Page() {
   const { push } = useRouter();
-
-  const theme = useTheme();
-
+  const { status } = useSession();
   const { data } = useCurrentMerchantQuery();
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   useEffect(() => {
     if (data) {
-      push(routes.catalog);
+      push(routes.dashboard);
     }
   }, [data]);
 
@@ -28,7 +36,7 @@ export default function Page() {
     <Stack py={2}>
       <OnboardingStepper
         activeStep={OnboardingSteps.signUp}
-        sx={{ width: "100%", pb: 2 }}
+        sx={{ width: "100%", pb: 2, pt: isSmallScreen ? 0 : 2 }}
       />
 
       <Grid container justifyContent="center">
@@ -38,7 +46,10 @@ export default function Page() {
               Sign up
             </Typography>
           </Box>
-          <SignUpForm />
+          <SignUpForm
+            callbackUrl={routes.onboarding.appearance}
+            skeleton={status === "loading" || data !== undefined}
+          />
         </Grid>
       </Grid>
     </Stack>
