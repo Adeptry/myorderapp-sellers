@@ -1,0 +1,37 @@
+{
+  "common": {
+    "locale": "es",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "signIn": "Iniciar sesión",
+    "signUp": "Registrarse"
+  },
+  "SignInLink": {
+    "text": "¿Tienes una cuenta? Iniciar sesión"
+  },
+  "SignUpForm": {
+    "submitButton": "Registrarse con Correo Electrónico"
+  },
+  "SignUpLink": {
+    "text": "¿Nuevo aquí? Registrarse"
+  },
+  "ForgotPasswordLink": {
+    "text": "¿Olvidaste tu contraseña?"
+  },
+  "AppleAuthButton": {
+    "text": "Continuar con Apple"
+  },
+  "GoogleAuthButton": {
+    "text": "Continuar con Google"
+  },
+  "SignInForm": {
+    "submitButton": "Iniciar sesión con Correo Electrónico"
+  },
+  "OnboardingStepper": {
+    "customize": "Personalizar",
+    "synchronize": "Sincronizar",
+    "publish": "Publicar"
+  }
+}

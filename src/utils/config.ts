@@ -1,4 +1,4 @@
-import { MoaEnv } from "types/moa-env";
+import { MoaEnv } from "@/types/moa-env";
 
 export const moaEnv: MoaEnv = {
   env: process.env.NEXT_PUBLIC_ENV!,

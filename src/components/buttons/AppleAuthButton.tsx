@@ -1,7 +1,9 @@
 import { Apple } from "@mui/icons-material";
 import { Button } from "@mui/material";
+import { useTranslations } from "next-intl";
 
 export default function AppleAuthButton() {
+  const t = useTranslations("AppleAuthButton");
   return (
     <Button
       variant="outlined"
@@ -11,7 +13,7 @@ export default function AppleAuthButton() {
       size="large"
       sx={{ whiteSpace: "nowrap" }}
     >
-      Continue with Apple
+      {t("text")}
     </Button>
   );
 }

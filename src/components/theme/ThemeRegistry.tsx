@@ -3,9 +3,9 @@
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { ReactNode, useMemo } from "react";
-import NextAppDirEmotionCacheProvider from "./EmotionCache";
+import EmotionCacheProvider from "./EmotionCacheProvider";
 
-export default function ThemeRegistry({ children }: { children: ReactNode }) {
+export function ThemeRegistry({ children }: { children: ReactNode }) {
   const prefersDarkMode = false; //useMediaQuery("(prefers-color-scheme: dark)");
 
   const theme = useMemo(
@@ -34,11 +34,11 @@ export default function ThemeRegistry({ children }: { children: ReactNode }) {
   );
 
   return (
-    <NextAppDirEmotionCacheProvider options={{ key: "mui" }}>
+    <EmotionCacheProvider options={{ key: "mui" }}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         {children}
       </ThemeProvider>
-    </NextAppDirEmotionCacheProvider>
+    </EmotionCacheProvider>
   );
 }

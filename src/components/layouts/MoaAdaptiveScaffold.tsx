@@ -41,7 +41,7 @@ import {
   StripeBillingPortalCreateInput,
 } from "moa-merchants-ts-axios";
 import { signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-intl/client";
 import * as React from "react";
 import { Fragment, ReactNode, useState } from "react";
 import { useBoolean } from "usehooks-ts";
@@ -95,11 +95,7 @@ const AdaptiveDrawer = styled(MuiDrawer)(({ theme, open }) => ({
   },
 }));
 
-export function MoaAdaptiveScaffold({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -334,7 +330,7 @@ export function MoaAdaptiveScaffold({
             mt: "56px",
           }}
         >
-          {children}
+          {props.children}
         </Container>
         <FooterLayout />
       </Box>

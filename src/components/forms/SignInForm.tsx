@@ -1,26 +1,28 @@
 "use client";
 
-import { routes } from "@/app/routes";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Check, Login } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
-import { Alert, Box, Skeleton } from "@mui/material";
-import Grid from "@mui/material/Grid";
-import { default as MuiLink } from "@mui/material/Link";
+import { Alert, Box, Grid, Skeleton } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useMutation } from "@tanstack/react-query";
 import { AuthEmailLoginDto } from "moa-merchants-ts-axios";
 import { signIn } from "next-auth/react";
-import { default as NextLink } from "next/link";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
-import AuthServicesButtons from "../buttons/AuthServices";
+import AppleAuthButton from "../buttons/AppleAuthButton";
+import GoogleAuthButton from "../buttons/GoogleAuthButton";
+import { ForgotPasswordLink } from "../links/ForgotPasswordLink";
+import { SignUpLink } from "../links/SignUpLink";
 
 export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
   const { skeleton } = props;
   const [errorString, setErrorString] = useState<string | null>(null);
+  const common = useTranslations("common");
+  const t = useTranslations("SignInForm");
 
   const form = useForm<AuthEmailLoginDto>({
     defaultValues: {
@@ -31,8 +33,8 @@ export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
       yup
         .object<AuthEmailLoginDto>()
         .shape({
-          email: yup.string().email().label("Email").required(),
-          password: yup.string().min(6).label("Password").required(),
+          email: yup.string().email().label(common("email")).required(),
+          password: yup.string().min(6).label(common("password")).required(),
         })
         .required()
     ),
@@ -85,7 +87,7 @@ export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
                 <TextField
                   {...field}
                   required
-                  label="Email"
+                  label={common("email")}
                   autoComplete="email"
                   inputProps={{
                     autoCapitalize: "none",
@@ -114,7 +116,7 @@ export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
                 <TextField
                   {...field}
                   required
-                  label="Password"
+                  label={common("password")}
                   type="password"
                   inputProps={{
                     autoCapitalize: "none",
@@ -152,9 +154,7 @@ export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
               fullWidth
               variant="contained"
             >
-              {createSessionMutation.data
-                ? "Welcome back!"
-                : "Sign In with email"}
+              {t("submitButton")}
             </LoadingButton>
           )}
         </Grid>
@@ -170,14 +170,7 @@ export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
               {skeleton ? (
                 <Skeleton component={"a"} width={"100%"} />
               ) : (
-                <MuiLink
-                  href={routes.forgot}
-                  component={NextLink}
-                  variant="body2"
-                  color="secondary"
-                >
-                  Forgot password?
-                </MuiLink>
+                <ForgotPasswordLink />
               )}
             </Grid>
             <Grid
@@ -190,20 +183,16 @@ export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
               {skeleton ? (
                 <Skeleton component={"a"} width={"100%"} />
               ) : (
-                <MuiLink
-                  href={routes.signup}
-                  component={NextLink}
-                  variant="body2"
-                  color="secondary"
-                >
-                  Need an account? Sign up
-                </MuiLink>
+                <SignUpLink />
               )}
             </Grid>
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <AuthServicesButtons skeleton={skeleton} />
+          {skeleton ? <Skeleton height="56px" /> : <GoogleAuthButton />}
+        </Grid>
+        <Grid item xs={12}>
+          {skeleton ? <Skeleton height="56px" /> : <AppleAuthButton />}
         </Grid>
       </Grid>
     </Box>

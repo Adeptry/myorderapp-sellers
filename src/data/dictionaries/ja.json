@@ -1,0 +1,37 @@
+{
+  "common": {
+    "locale": "ja",
+    "email": "メールアドレス",
+    "password": "パスワード",
+    "firstName": "名",
+    "lastName": "姓",
+    "signIn": "ログイン",
+    "signUp": "登録"
+  },
+  "SignInLink": {
+    "text": "アカウントをお持ちですか？ログイン"
+  },
+  "SignUpForm": {
+    "submitButton": "メールアドレスで登録"
+  },
+  "SignUpLink": {
+    "text": "初めての方ですか？登録する"
+  },
+  "ForgotPasswordLink": {
+    "text": "パスワードを忘れましたか？"
+  },
+  "AppleAuthButton": {
+    "text": "Appleで続行"
+  },
+  "GoogleAuthButton": {
+    "text": "Googleで続行"
+  },
+  "SignInForm": {
+    "submitButton": "メールアドレスでログイン"
+  },
+  "OnboardingStepper": {
+    "customize": "カスタマイズ",
+    "synchronize": "同期",
+    "publish": "公開"
+  }
+}

@@ -1,13 +1,11 @@
 "use client";
 
-import { routes } from "@/app/routes";
 import { moaEnv } from "@/utils/config";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Check, Login } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import { Alert, Box, Skeleton } from "@mui/material";
 import Grid from "@mui/material/Grid";
-import { default as MuiLink } from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useMutation } from "@tanstack/react-query";
@@ -20,15 +18,20 @@ import {
   MerchantsApiFp,
 } from "moa-merchants-ts-axios";
 import { signIn } from "next-auth/react";
-import { default as NextLink } from "next/link";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { useTranslations } from "use-intl";
 import * as yup from "yup";
-import AuthServicesButtons from "../buttons/AuthServices";
+import AppleAuthButton from "../buttons/AppleAuthButton";
+import GoogleAuthButton from "../buttons/GoogleAuthButton";
+import { ForgotPasswordLink } from "../links/ForgotPasswordLink";
+import { SignInLink } from "../links/SignInLink";
 
 export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
   const { skeleton, callbackUrl } = props;
   const [errorString, setErrorString] = useState<string | null>(null);
+  const t = useTranslations("SignUpForm");
+  const common = useTranslations("common");
 
   const form = useForm<AuthRegisterLoginDto>({
     defaultValues: {
@@ -41,10 +44,10 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
       yup
         .object<AuthRegisterLoginDto>()
         .shape({
-          email: yup.string().email().label("Email").required(),
-          password: yup.string().min(6).label("Password").required(),
-          firstName: yup.string().label("First name").required(),
-          lastName: yup.string().label("Last name").required(),
+          email: yup.string().email().label(common("email")).required(),
+          password: yup.string().min(6).label(common("password")).required(),
+          firstName: yup.string().label(common("firstName")).required(),
+          lastName: yup.string().label(common("lastName")).required(),
         })
         .required()
     ),
@@ -132,7 +135,7 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
                   {...field}
                   required
                   fullWidth
-                  label="First Name"
+                  label={common("firstName")}
                   autoComplete="given-name"
                   inputProps={{
                     autoCorrect: "none",
@@ -160,7 +163,7 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
                   {...field}
                   required
                   fullWidth
-                  label="Last Name"
+                  label={common("lastName")}
                   autoComplete="family-name"
                   inputProps={{
                     autoCorrect: "none",
@@ -186,7 +189,7 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
                 <TextField
                   {...field}
                   required
-                  label="Email"
+                  label={common("email")}
                   autoComplete="email"
                   inputProps={{
                     autoCapitalize: "none",
@@ -214,7 +217,7 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
                 <TextField
                   {...field}
                   required
-                  label="Password"
+                  label={common("password")}
                   type="password"
                   autoComplete="new-password"
                   inputProps={{
@@ -255,9 +258,7 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
               fullWidth
               variant="contained"
             >
-              {createUserAndMerchantMutation.data
-                ? "Let's go!"
-                : "Sign Up with Email"}
+              {t("submitButton")}
             </LoadingButton>
           )}
         </Grid>
@@ -273,14 +274,7 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
               {skeleton ? (
                 <Skeleton component={"a"} width={"100%"} />
               ) : (
-                <MuiLink
-                  href={routes.forgot}
-                  component={NextLink}
-                  variant="body2"
-                  color="secondary"
-                >
-                  Forgot password?
-                </MuiLink>
+                <ForgotPasswordLink />
               )}
             </Grid>
             <Grid
@@ -293,20 +287,16 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
               {skeleton ? (
                 <Skeleton component={"a"} width={"100%"} />
               ) : (
-                <MuiLink
-                  href={routes.signin}
-                  component={NextLink}
-                  variant="body2"
-                  color="secondary"
-                >
-                  Have an account? Sign in
-                </MuiLink>
+                <SignInLink />
               )}
             </Grid>
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <AuthServicesButtons skeleton={skeleton} />
+          {skeleton ? <Skeleton height="56px" /> : <GoogleAuthButton />}
+        </Grid>
+        <Grid item xs={12}>
+          {skeleton ? <Skeleton height="56px" /> : <AppleAuthButton />}
         </Grid>
       </Grid>
     </Box>

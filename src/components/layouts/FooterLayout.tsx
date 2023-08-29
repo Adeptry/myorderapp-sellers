@@ -1,21 +1,24 @@
-import { Box, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
+import { LanguageSelect } from "../LanguageSelect";
 
 export const FooterLayout = () => {
   const year = new Date().getFullYear();
 
   return (
-    <Box
-      sx={{
-        left: 0,
-        bottom: 0,
-        width: "100%",
-        bgcolor: "background.paper",
-        color: "text.primary",
-        textAlign: "center",
-        py: 2,
-      }}
+    <Grid
+      container
+      spacing={3}
+      px={3}
+      justifyContent="space-between"
+      alignItems="center"
     >
-      <Typography variant="body1">MyOrderApp &copy; {year}</Typography>
-    </Box>
+      <Grid item xs={4}></Grid>
+      <Grid item xs={4} textAlign={"center"}>
+        <Typography variant="body1">MyOrderApp &copy; {year}</Typography>
+      </Grid>
+      <Grid item xs={4} textAlign={"right"}>
+        <LanguageSelect />
+      </Grid>
+    </Grid>
   );
 };

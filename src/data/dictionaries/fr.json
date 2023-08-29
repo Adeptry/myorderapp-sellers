@@ -1,0 +1,37 @@
+{
+  "common": {
+    "locale": "fr",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "signIn": "Se connecter",
+    "signUp": "S'inscrire"
+  },
+  "SignInLink": {
+    "text": "Vous avez un compte? Se connecter"
+  },
+  "SignUpForm": {
+    "submitButton": "S'inscrire avec l'e-mail"
+  },
+  "SignUpLink": {
+    "text": "Nouveau ici? S'inscrire"
+  },
+  "ForgotPasswordLink": {
+    "text": "Mot de passe oublié?"
+  },
+  "AppleAuthButton": {
+    "text": "Continuer avec Apple"
+  },
+  "GoogleAuthButton": {
+    "text": "Continuer avec Google"
+  },
+  "SignInForm": {
+    "submitButton": "Se connecter avec l'e-mail"
+  },
+  "OnboardingStepper": {
+    "customize": "Personnaliser",
+    "synchronize": "Synchroniser",
+    "publish": "Publier"
+  }
+}

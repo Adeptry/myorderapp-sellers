@@ -43,8 +43,8 @@ import {
 import { MuiColorInput } from "mui-color-input";
 import { MuiFileInput } from "mui-file-input";
 import { getSession } from "next-auth/react";
+import { useRouter } from "next-intl/client";
 import { default as NextLink } from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { unstable_batchedUpdates } from "react-dom";
 import { Controller, useForm } from "react-hook-form";

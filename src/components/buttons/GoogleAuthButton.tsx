@@ -1,7 +1,9 @@
 import { Google } from "@mui/icons-material";
 import { Button } from "@mui/material";
+import { useTranslations } from "next-intl";
 
 export default function GoogleAuthButton() {
+  const t = useTranslations("GoogleAuthButton");
   return (
     <Button
       variant="outlined"
@@ -11,7 +13,7 @@ export default function GoogleAuthButton() {
       fullWidth
       sx={{ whiteSpace: "nowrap" }}
     >
-      Continue with Google
+      {t("text")}
     </Button>
   );
 }

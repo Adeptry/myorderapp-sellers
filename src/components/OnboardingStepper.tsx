@@ -10,7 +10,8 @@ import {
 } from "@mui/material";
 import Step from "@mui/material/Step";
 import Stepper from "@mui/material/Stepper";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { useRouter } from "next-intl/client";
 
 export enum OnboardingSteps {
   signUp = 0,
@@ -27,17 +28,19 @@ export function OnboardingStepper(props: {
   const { push } = useRouter();
   const theme = useTheme();
   const matchesXS = useMediaQuery(theme.breakpoints.down("sm"));
+  const t = useTranslations("OnboardingStepper");
+  const common = useTranslations("common");
 
   function getTitleForStep(step: OnboardingSteps): string {
     switch (step) {
       case OnboardingSteps.signUp:
-        return "Sign Up";
+        return common("signUp");
       case OnboardingSteps.configure:
-        return "Customize";
+        return t("customize");
       case OnboardingSteps.square:
-        return "Synchronize";
+        return t("synchronize");
       case OnboardingSteps.checkout:
-        return "Publish";
+        return t("publish");
       default:
         throw new Error(`Unknown step: ${step}`);
     }
