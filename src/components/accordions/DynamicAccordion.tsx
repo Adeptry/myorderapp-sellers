@@ -20,7 +20,7 @@ export function DynamicAccordion(props: {
           aria-controls={`${item.summary}-content`}
           id={`${index}`}
         >
-          <Typography>{item.summary}</Typography>
+          <Typography sx={{ fontWeight: "bold" }}>{item.summary}</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>{item.details}</Typography>

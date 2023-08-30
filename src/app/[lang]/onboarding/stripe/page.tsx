@@ -29,7 +29,7 @@ export default function Page() {
   }, [status]);
 
   return (
-    <Stack py={2} spacing={2} justifyContent="center" alignItems="center">
+    <Stack spacing={2} justifyContent="center" alignItems="center">
       <OnboardingStepper
         activeStep={OnboardingSteps.checkout}
         sx={{ width: "100%", pt: isSmallScreen ? 0 : 2 }}
@@ -44,7 +44,7 @@ export default function Page() {
         <SubscribeCard />
       </Stack>
 
-      <Stack direction={"column"} py={3} spacing={2}>
+      <Stack direction={"column"} spacing={2}>
         <Typography variant="h4" align="center">
           {common("frequentlyAskedQuestions")}
         </Typography>

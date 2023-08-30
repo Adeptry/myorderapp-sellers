@@ -18,20 +18,22 @@ export const FooterLayout = () => {
   return (
     <Grid
       container
-      px={2}
-      pb={1}
+      pr={2}
+      pl={isSmallScreen ? 2 : 0}
+      py={1}
       justifyContent="space-between"
       alignItems={"center"}
     >
       <Grid item md={4} xs={"auto"}>
         <LegalMenu />
       </Grid>
-      <Grid item textAlign="center" md={4} xs="auto">
-        <Typography variant="body1">
-          {!isExtraSmallScreen && (isSmallScreen ? "MOA" : "MyOrderApp")} &copy;{" "}
-          {year}
-        </Typography>
-      </Grid>
+      {!isExtraSmallScreen && (
+        <Grid item textAlign="center" md={4} xs="auto">
+          <Typography variant="body1">
+            {isSmallScreen ? "MOA" : "MyOrderApp"} &copy; {year}
+          </Typography>
+        </Grid>
+      )}
       <Grid item md={4}>
         <Stack direction="row" spacing={1} justifyContent="flex-end">
           <CurrencySelector />

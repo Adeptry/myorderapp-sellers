@@ -23,9 +23,9 @@ export default function Page() {
 
   return (
     <Grid container justifyContent="center">
-      <Grid item xs={12} sm={8} md={6}>
+      <Grid item xs={12} sm={8} md={6} lg={4}>
         <Box display="flex" justifyContent="center">
-          <Typography component="h1" variant="h4" py={3}>
+          <Typography component="h1" variant="h4" pb={3}>
             {common("signIn")}
           </Typography>
         </Box>

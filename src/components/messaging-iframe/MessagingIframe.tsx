@@ -40,6 +40,7 @@ export function MessagingIframe<
       try {
         const data = event.data.data;
         if (data.type === "event" && data.payload === "update") {
+          logger.info(updateCountState, "Web received update event");
           setUpdateCountState(updateCountState + 1);
         }
         props.onReceiveMessage?.(data);

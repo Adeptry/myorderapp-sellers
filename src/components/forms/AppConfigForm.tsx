@@ -2,6 +2,7 @@
 
 import { fontNames } from "@/data/fontNames";
 import { configurationForSession } from "@/utils/configurationForSession";
+import { logger } from "@/utils/logger";
 import { mapStringEnum } from "@/utils/mapStringEnum";
 import { randomColor } from "@/utils/randomColor";
 import { stringToColor } from "@/utils/stringToColor";
@@ -160,6 +161,7 @@ export function AppConfigForm(props: {
 
   useEffect(() => {
     const subscription = form.watch((value) => {
+      logger.info(value.useMaterial3, "PAUL HERE WEB");
       onChange ? onChange(value) : {};
     });
     return () => subscription.unsubscribe();
@@ -429,7 +431,7 @@ export function AppConfigForm(props: {
           <Controller
             name="useMaterial3"
             control={form.control}
-            render={({ field }) =>
+            render={(renderer) =>
               skeletonState ? (
                 <Skeleton height="56px" />
               ) : (
@@ -438,33 +440,29 @@ export function AppConfigForm(props: {
                     {t("appearanceLabel")}
                   </FormLabel>
                   <RadioGroup
-                    {...field}
-                    value={field.value == null ? null : `${field.value}`} // Convert the boolean value to string for the RadioGroup
+                    {...renderer.field}
+                    value={
+                      renderer.field.value == null
+                        ? null
+                        : `${renderer.field.value}`
+                    }
+                    onChange={(event) => {
+                      form.setValue(
+                        "useMaterial3",
+                        event.target.value === "true"
+                      );
+                    }}
                     row
                   >
                     <FormControlLabel
                       key={"modern"}
-                      value="true"
-                      onClick={(e) => {
-                        field.onChange({
-                          target: {
-                            value: true,
-                          },
-                        });
-                      }}
+                      value={"true"}
                       control={<Radio />}
                       label={t("useMaterial3Labels.true")}
                     />
                     <FormControlLabel
                       key={"classic"}
-                      value="false"
-                      onClick={(e) => {
-                        field.onChange({
-                          target: {
-                            value: false,
-                          },
-                        });
-                      }}
+                      value={"false"}
                       control={<Radio />}
                       label={t("useMaterial3Labels.false")}
                     />

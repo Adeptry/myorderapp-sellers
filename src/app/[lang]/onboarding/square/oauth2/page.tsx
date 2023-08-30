@@ -91,7 +91,6 @@ export default function Page() {
 
   return (
     <Box
-      py={2}
       minHeight={"calc(100vh - 120px)"}
       display="flex"
       flexDirection="column"

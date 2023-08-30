@@ -3,6 +3,7 @@
 import { routes } from "@/app/routes";
 import { FooterLayout } from "@/components/layouts/FooterLayout";
 import { stringToColor } from "@/utils/stringToColor";
+import { useAppBarHeight } from "@/utils/useAppBarHeight";
 import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import {
@@ -17,7 +18,9 @@ import {
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import {
   Avatar,
+  BottomNavigation,
   Box,
+  Container,
   IconButton,
   List,
   ListItem,
@@ -31,7 +34,6 @@ import {
   useTheme,
 } from "@mui/material";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
-import Container from "@mui/material/Container";
 import MuiDrawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -99,6 +101,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   const common = useTranslations("Common");
+  const appBarHeight = useAppBarHeight();
 
   const { push } = useRouter();
   const { value: drawerOpenState, toggle: toggleDrawerOpenState } =
@@ -143,13 +146,6 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
 
   const menuItems: Array<ReactNode> = [];
 
-  if (currentMerchantData) {
-    menuItems.push(
-      <MenuItem key="full-name-menu-item" disabled>
-        <Typography variant="subtitle2">Hi, {fullName}!</Typography>
-      </MenuItem>
-    );
-  }
   if (currentMerchantData) {
     menuItems.push(
       <MenuItem
@@ -254,7 +250,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
   );
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", overflow: "hidden" }}>
       <AdaptiveAppBar position="fixed" open={drawerOpenState}>
         {appBarToolbar}
       </AdaptiveAppBar>
@@ -320,19 +316,44 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
         component="main"
         sx={{
           flexGrow: 1,
-          height: "100vh",
           overflow: "auto",
+          height: `calc(100vh - 56px)`,
         }}
       >
         <Container
           sx={{
-            minHeight: "calc(100vh - 110px)",
-            mt: "56px",
+            minHeight: `calc(100vh - ${appBarHeight}px - 56px)`,
+            mt: `${appBarHeight}px`,
+            pt: isSmallScreen ? 2 : 0,
+            pb: 2,
           }}
         >
           {props.children}
         </Container>
-        <FooterLayout />
+        <Box
+          sx={{
+            position: "fixed",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            borderTop: "1px",
+            borderTopStyle: "solid",
+            borderTopColor: "divider",
+            ml: isSmallScreen
+              ? 0
+              : drawerOpenState
+              ? `${drawerWidth - 1}px`
+              : "55px",
+            transition: theme.transitions.create("margin", {
+              easing: theme.transitions.easing.sharp,
+              duration: theme.transitions.duration.enteringScreen,
+            }),
+          }}
+        >
+          <BottomNavigation>
+            <FooterLayout />
+          </BottomNavigation>
+        </Box>
       </Box>
     </Box>
   );

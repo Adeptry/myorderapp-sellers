@@ -35,7 +35,7 @@ export default function Page() {
   }, [status]);
 
   return (
-    <Stack spacing={2} py={2}>
+    <Stack spacing={2}>
       <OnboardingStepper
         activeStep={OnboardingSteps.configure}
         sx={{ width: "100%", pt: isSmallScreen ? 0 : 2 }}

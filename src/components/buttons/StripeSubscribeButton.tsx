@@ -13,24 +13,28 @@ import {
   MerchantsApiFp,
   StripeCheckoutCreateDtoCurrencyEnum,
 } from "moa-merchants-ts-axios";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next-intl/client";
 import { useState } from "react";
 
 export function StripeSubscribeButton(props: { fullWidth?: boolean }) {
   const { configuration, status } = useSessionedApiConfiguration();
   const { push } = useRouter();
+  const locale = useLocale();
   const t = useTranslations("Common");
   const { currencyCookieValue } = useCookieContext();
 
+  const successUrl = `${moaEnv.frontendUrl}/${locale}${routes.onboarding.stripe.success}`;
+  const cancelUrl = `${moaEnv.frontendUrl}/${locale}${routes.onboarding.stripe.cancel}`;
+  console.log(`successUrl: ${successUrl}`);
   const createStripeCheckoutQuery = useQuery({
     queryKey: ["createStripeCheckout", currencyCookieValue],
     queryFn: async () => {
       return (
         await (
           await MerchantsApiFp(configuration).createStripeCheckout({
-            successUrl: `${moaEnv.frontendUrl}${routes.onboarding.stripe.success}`,
-            cancelUrl: `${moaEnv.frontendUrl}${routes.onboarding.stripe.cancel}`,
+            successUrl,
+            cancelUrl,
             currency:
               currencyCookieValue as StripeCheckoutCreateDtoCurrencyEnum,
           })

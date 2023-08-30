@@ -251,15 +251,16 @@ export function CategoriesLists(props: {
           portalKey="categories"
         >
           {categories.map((entity) => {
+            const isLast = categories[categories.length - 1].id === entity.id;
             return (
               <Flipped key={entity.id} flipId={entity.id ?? ""}>
-                <Paper elevation={2} sx={{ mb: 2 }}>
+                <Paper elevation={2} sx={{ mb: isLast ? 0 : 2 }}>
                   <CategoryList
                     onCategoryMove={onCategoryMove}
                     entity={entity}
                     isIn={currentCategoryIdState === entity.id}
                     isFirst={categories[0].id === entity.id}
-                    isLast={categories[categories.length - 1].id === entity.id}
+                    isLast={isLast}
                     setIsIn={(open) => {
                       setCurrentCategoryIdState(
                         open ? entity.id ?? null : null

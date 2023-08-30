@@ -19,7 +19,7 @@ export default function Page() {
   const common = useTranslations("Common");
 
   return (
-    <Stack spacing={2} py={2} alignItems={"center"}>
+    <Stack spacing={2} alignItems={"center"}>
       <OnboardingStepper
         activeStep={OnboardingSteps.checkout}
         sx={{

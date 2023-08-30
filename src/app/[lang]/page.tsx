@@ -28,14 +28,14 @@ export default function Page() {
     }
   }, [data]);
   return (
-    <Stack py={2}>
+    <Stack>
       <OnboardingStepper
         activeStep={OnboardingSteps.signUp}
         sx={{ width: "100%", pb: 2, pt: isSmallScreen ? 0 : 2 }}
       />
 
       <Grid container justifyContent="center">
-        <Grid item xs={12} sm={8} md={6}>
+        <Grid item xs={12} sm={8} md={6} lg={4}>
           <Box display="flex" justifyContent="center">
             <Typography component="h1" variant="h4" pb={3}>
               {common("signUp")}

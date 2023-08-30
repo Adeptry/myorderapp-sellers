@@ -53,7 +53,7 @@ export default function Page() {
   }
 
   return (
-    <Stack spacing={2} py={2}>
+    <Stack spacing={2}>
       <Typography>Hello, dashboard2.</Typography>
     </Stack>
   );

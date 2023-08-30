@@ -42,7 +42,7 @@ export default function Page() {
   }, [status]);
 
   return (
-    <Stack spacing={2} py={2}>
+    <Stack spacing={2}>
       {skeleton ? (
         <Skeleton height={"24px"} />
       ) : (
@@ -54,7 +54,7 @@ export default function Page() {
 
       <TabLayout
         tabLabels={["Categories", "Preview"]}
-        sx={{ pt: isSmallScreen ? 0 : 3, pb: 3 }}
+        sx={{ pt: isSmallScreen ? 0 : 3 }}
       >
         <Grid
           container

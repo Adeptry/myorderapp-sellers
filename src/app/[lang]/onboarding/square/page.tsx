@@ -33,7 +33,7 @@ export default function Page() {
   }, [data]);
 
   return (
-    <Stack spacing={2} py={2} alignItems={"center"}>
+    <Stack spacing={2} alignItems={"center"}>
       <OnboardingStepper
         activeStep={OnboardingSteps.square}
         sx={{ width: "100%", pt: isSmallScreen ? 0 : 2 }}

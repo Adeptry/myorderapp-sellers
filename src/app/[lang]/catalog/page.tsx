@@ -26,7 +26,7 @@ export default function Page() {
     }
   }, [status]);
   return (
-    <Stack spacing={2} py={2}>
+    <Stack spacing={2}>
       <TabLayout
         tabLabels={["Catalog", "Preview"]}
         sx={{ pt: isSmallScreen ? 0 : 3, pb: 3 }}
