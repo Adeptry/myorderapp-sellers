@@ -7,9 +7,10 @@ import { TabLayout } from "@/components/layouts/TabLayout";
 import { moaEnv } from "@/utils/config";
 import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
 import { Stack, useMediaQuery, useTheme } from "@mui/material";
+import { Category } from "moa-merchants-ts-axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next-intl/client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Page() {
   const theme = useTheme();
@@ -17,6 +18,8 @@ export default function Page() {
   const { data: currentMerchantData } = useCurrentMerchantQuery();
   const { push } = useRouter();
   const { status } = useSession();
+  const [categoriesState, setCategoriesState] = useState<Category[]>([]);
+
   useEffect(() => {
     if (status === "unauthenticated") {
       push(routes.signin);
@@ -28,10 +31,15 @@ export default function Page() {
         tabLabels={["Catalog", "Preview"]}
         sx={{ pt: isSmallScreen ? 0 : 3, pb: 3 }}
       >
-        <CategoriesLists />
+        <CategoriesLists
+          onCatalogUpdate={(categories) => {
+            setCategoriesState(categories);
+          }}
+        />
         <MyOrderAppPreview
           key="device-preview"
           sx={{ pb: 2, position: "sticky", top: "72px" }}
+          categories={categoriesState}
           environment={{
             apiBaseUrl: moaEnv.backendUrl!,
             apiKey: moaEnv.backendApiKey!,
