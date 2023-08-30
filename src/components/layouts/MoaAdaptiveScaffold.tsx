@@ -316,7 +316,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
         sx={{
           flexGrow: 1,
           overflow: "auto",
-          height: `calc(100vh)`,
+          height: isSmallScreen ? "inherit" : `calc(100vh)`,
         }}
       >
         <Container
