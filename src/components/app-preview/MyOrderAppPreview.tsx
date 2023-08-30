@@ -1,11 +1,11 @@
+import { MessagingIframe } from "@/components/messaging-iframe/MessagingIframe";
+import { toWindowClonable } from "@/components/messaging-iframe/WindowClonable";
 import { moaEnv } from "@/utils/config";
 import { logger } from "@/utils/logger";
 import { Box, SxProps } from "@mui/material";
 import { AppConfig, Category } from "moa-merchants-ts-axios";
 import { DeviceFrameset } from "react-device-frameset";
 import "react-device-frameset/styles/marvel-devices.min.css";
-import MessagingIframe from "../messaging-iframe/MessagingIframe";
-import { toWindowClonable } from "../messaging-iframe/WindowClonable";
 import "./styles.css";
 
 export function MyOrderAppPreview(props: {

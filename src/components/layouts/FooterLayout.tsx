@@ -1,23 +1,42 @@
-import { Grid, Typography } from "@mui/material";
-import { LanguageSelect } from "../LanguageSelect";
+import { LegalMenu } from "@/components/menus/LegalMenu";
+import { CurrencySelector } from "@/components/selectors/CurrencySelector";
+import { LanguageSelector } from "@/components/selectors/LanguageSelector";
+import {
+  Grid,
+  Stack,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 
 export const FooterLayout = () => {
   const year = new Date().getFullYear();
+  const theme = useTheme();
+  const isExtraSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <Grid
       container
-      spacing={3}
-      px={3}
+      px={2}
+      pb={1}
       justifyContent="space-between"
-      alignItems="center"
+      alignItems={"center"}
     >
-      <Grid item xs={4}></Grid>
-      <Grid item xs={4} textAlign={"center"}>
-        <Typography variant="body1">MyOrderApp &copy; {year}</Typography>
+      <Grid item md={4} xs={"auto"}>
+        <LegalMenu />
       </Grid>
-      <Grid item xs={4} textAlign={"right"}>
-        <LanguageSelect />
+      <Grid item textAlign="center" md={4} xs="auto">
+        <Typography variant="body1">
+          {!isExtraSmallScreen && (isSmallScreen ? "MOA" : "MyOrderApp")} &copy;{" "}
+          {year}
+        </Typography>
+      </Grid>
+      <Grid item md={4}>
+        <Stack direction="row" spacing={1} justifyContent="flex-end">
+          <CurrencySelector />
+          <LanguageSelector />
+        </Stack>
       </Grid>
     </Grid>
   );

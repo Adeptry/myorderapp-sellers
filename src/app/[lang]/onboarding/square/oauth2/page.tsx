@@ -5,7 +5,7 @@ import {
   OnboardingStepper,
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
-import SquareOauthButton from "@/components/buttons/SquareOauthButton";
+import { SquareOauthButton } from "@/components/buttons/SquareOauthButton";
 import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import {
@@ -14,14 +14,14 @@ import {
   CircularProgress,
   Skeleton,
   Stack,
-  Typography,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { MerchantsApiFp } from "moa-merchants-ts-axios";
-import { useRouter, useSearchParams } from "next-intl/client";
+import { useRouter } from "next-intl/client";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Page() {
@@ -112,7 +112,7 @@ export default function Page() {
             {currentMerchantIsLoading || !currentMerchantData?.id ? (
               <Skeleton height="56px" />
             ) : (
-              <SquareOauthButton state={currentMerchantData.id} />
+              <SquareOauthButton />
             )}
           </Box>
         </Stack>
@@ -127,12 +127,6 @@ export default function Page() {
       >
         <Stack display="flex" justifyContent="center" alignItems="center">
           <CircularProgress />
-          {syncSquareCatalogMutation.isLoading && (
-            <Typography variant="body2">Syncing Square Catalog...</Typography>
-          )}
-          {syncSquareLocationsMutation.isLoading && (
-            <Typography variant="body2">Syncing Square Locations...</Typography>
-          )}
         </Stack>
       </Box>
     </Box>

@@ -11,3 +11,8 @@ export interface MoaEnv {
   previewUrl: string;
   env: string;
 }
+
+export interface MoaConstants {
+  currencyCookieName: string;
+  currencyToPriceDictionary: { [key: string]: number };
+}

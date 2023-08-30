@@ -1,12 +1,26 @@
+import clm from "country-locale-map";
 import createMiddleware from "next-intl/middleware";
+import { NextRequest } from "next/server";
+import { constants } from "./constants";
 
-export default createMiddleware({
-  // A list of all locales that are supported
-  locales: ["en", "es", "fr", "ja"],
+export default async function middleware(request: NextRequest) {
+  const nextIntlMiddleware = createMiddleware({
+    locales: ["en", "es", "fr", "ja"],
+    defaultLocale: "en",
+  });
+  const response = nextIntlMiddleware(request);
 
-  // If this locale is matched, pathnames work without a prefix (e.g. `/about`)
-  defaultLocale: "en",
-});
+  let currency = request.cookies.get(constants.currencyCookieName)?.value;
+
+  if (!currency) {
+    const country = request.geo?.country || "US";
+    currency = clm.getCurrencyByAlpha2(country) || "USD";
+  }
+
+  response.cookies.set(constants.currencyCookieName, currency);
+
+  return response;
+}
 
 export const config = {
   // Skip all paths that should not be internationalized. This example skips the

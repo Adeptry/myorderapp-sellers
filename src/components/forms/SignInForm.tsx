@@ -1,5 +1,9 @@
 "use client";
 
+import AppleAuthButton from "@/components/buttons/AppleAuthButton";
+import GoogleAuthButton from "@/components/buttons/GoogleAuthButton";
+import { ForgotPasswordLink } from "@/components/links/ForgotPasswordLink";
+import { SignUpLink } from "@/components/links/SignUpLink";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Check, Login } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
@@ -13,15 +17,11 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
-import AppleAuthButton from "../buttons/AppleAuthButton";
-import GoogleAuthButton from "../buttons/GoogleAuthButton";
-import { ForgotPasswordLink } from "../links/ForgotPasswordLink";
-import { SignUpLink } from "../links/SignUpLink";
 
 export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
   const { skeleton } = props;
   const [errorString, setErrorString] = useState<string | null>(null);
-  const common = useTranslations("common");
+  const common = useTranslations("Common");
   const t = useTranslations("SignInForm");
 
   const form = useForm<AuthEmailLoginDto>({
@@ -179,6 +179,7 @@ export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
               display="flex"
               justifyContent="end"
               alignItems="center"
+              textAlign={"right"}
             >
               {skeleton ? (
                 <Skeleton component={"a"} width={"100%"} />

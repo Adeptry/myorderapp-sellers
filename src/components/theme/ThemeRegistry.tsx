@@ -1,9 +1,9 @@
 "use client";
 
+import EmotionCacheProvider from "@/components/theme/EmotionCacheProvider";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { ReactNode, useMemo } from "react";
-import EmotionCacheProvider from "./EmotionCacheProvider";
 
 export function ThemeRegistry({ children }: { children: ReactNode }) {
   const prefersDarkMode = false; //useMediaQuery("(prefers-color-scheme: dark)");

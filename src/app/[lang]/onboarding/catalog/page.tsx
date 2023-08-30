@@ -21,9 +21,10 @@ import {
   useTheme,
 } from "@mui/material";
 import { Category } from "moa-merchants-ts-axios";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next-intl/client";
 import { useEffect, useState } from "react";
-// 64 + 16 + 24 + 72 + 6
+
 export default function Page() {
   const { push } = useRouter();
   const theme = useTheme();
@@ -32,6 +33,7 @@ export default function Page() {
   const [categoriesState, setCategoriesState] = useState<Category[]>([]);
   const skeleton = status === "loading" || categoriesState.length === 0;
   const { data: currentMerchantData } = useCurrentMerchantQuery();
+  const common = useTranslations("Common");
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -74,7 +76,7 @@ export default function Page() {
                   push(routes.onboarding.stripe.index);
                 }}
               >
-                Save and Continue
+                {common("saveAndContinue")}
               </Button>
             )}
           </Grid>

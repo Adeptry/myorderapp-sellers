@@ -1,7 +1,7 @@
 import { ListItem, ListItemText, Switch } from "@mui/material";
 import { Variation } from "moa-merchants-ts-axios";
 
-export default function VariationListItem(props: {
+export function VariationListItem(props: {
   entity: Variation;
   onVariationUpdate: (id: string, moaEnabled: boolean) => void;
 }) {

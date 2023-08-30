@@ -1,9 +1,12 @@
+import { WindowClonable } from "@/components/messaging-iframe/WindowClonable";
+import {
+  ReceivingWindowMessage,
+  WindowMessage,
+} from "@/components/messaging-iframe/WindowMessage";
 import { logger } from "@/utils/logger";
 import { useEffect, useRef, useState } from "react";
-import { WindowClonable } from "./WindowClonable";
-import { ReceivingWindowMessage, WindowMessage } from "./WindowMessage";
 
-export default function MessagingIframe<
+export function MessagingIframe<
   SenderType extends WindowClonable,
   ReceiverType extends WindowClonable
 >(props: {

@@ -1,5 +1,9 @@
 "use client";
 
+import AppleAuthButton from "@/components/buttons/AppleAuthButton";
+import GoogleAuthButton from "@/components/buttons/GoogleAuthButton";
+import { ForgotPasswordLink } from "@/components/links/ForgotPasswordLink";
+import { SignInLink } from "@/components/links/SignInLink";
 import { moaEnv } from "@/utils/config";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Check, Login } from "@mui/icons-material";
@@ -22,16 +26,12 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslations } from "use-intl";
 import * as yup from "yup";
-import AppleAuthButton from "../buttons/AppleAuthButton";
-import GoogleAuthButton from "../buttons/GoogleAuthButton";
-import { ForgotPasswordLink } from "../links/ForgotPasswordLink";
-import { SignInLink } from "../links/SignInLink";
 
 export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
   const { skeleton, callbackUrl } = props;
   const [errorString, setErrorString] = useState<string | null>(null);
   const t = useTranslations("SignUpForm");
-  const common = useTranslations("common");
+  const common = useTranslations("Common");
 
   const form = useForm<AuthRegisterLoginDto>({
     defaultValues: {
@@ -283,6 +283,7 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
               display="flex"
               justifyContent="end"
               alignItems="center"
+              textAlign={"right"}
             >
               {skeleton ? (
                 <Skeleton component={"a"} width={"100%"} />

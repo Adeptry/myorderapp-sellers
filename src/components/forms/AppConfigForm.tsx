@@ -5,10 +5,9 @@ import { configurationForSession } from "@/utils/configurationForSession";
 import { mapStringEnum } from "@/utils/mapStringEnum";
 import { randomColor } from "@/utils/randomColor";
 import { stringToColor } from "@/utils/stringToColor";
-import { toPascalCase } from "@/utils/toPascalCase";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Check, Save } from "@mui/icons-material";
+import { Save } from "@mui/icons-material";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import { LoadingButton } from "@mui/lab";
 import {
@@ -43,6 +42,7 @@ import {
 import { MuiColorInput } from "mui-color-input";
 import { MuiFileInput } from "mui-file-input";
 import { getSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next-intl/client";
 import { default as NextLink } from "next/link";
 import { useEffect, useState } from "react";
@@ -60,6 +60,8 @@ export function AppConfigForm(props: {
   const { onChange, submitButtonText, successUrl } = props;
   const { push } = useRouter();
   const theme = useTheme();
+  const t = useTranslations("AppConfigForm");
+  const common = useTranslations("Common");
 
   const { configuration } = useSessionedApiConfiguration();
   const [skeletonState, setSkeletonState] = useState(true);
@@ -73,14 +75,6 @@ export function AppConfigForm(props: {
       ).data;
     },
   });
-
-  const labels = {
-    name: "Name",
-    seedColor: "Color",
-    fontFamily: "Font Family",
-    themeMode: "Color Mode",
-    appearance: "Appearance",
-  };
 
   const form = useForm<AppConfigUpdateDto>({
     defaultValues: async () => {
@@ -132,13 +126,13 @@ export function AppConfigForm(props: {
       yup
         .object<AppConfigUpdateDto>()
         .shape({
-          name: yup.string().min(3).label(labels.name).required(),
+          name: yup.string().min(3).label(t("nameLabel")).required(),
           seedColor: yup
             .string()
             .matches(/^#(?:[0-9a-fA-F]{3}){1,2}$/)
-            .label(labels.seedColor)
+            .label(t("seedColorLabel"))
             .required("Must be a hex color"),
-          fontFamily: yup.string().label(labels.fontFamily).required(),
+          fontFamily: yup.string().label(t("fontFamilyLabel")).required(),
           shortDescription: yup.string().optional(),
           fullDescription: yup.string().optional(),
           keywords: yup.string().optional(),
@@ -211,29 +205,19 @@ export function AppConfigForm(props: {
               updateConfigMutation.isLoading || form.formState.isSubmitting
             }
             size="large"
-            startIcon={
-              updateConfigMutation.data && successUrl ? <Check /> : <Save />
-            }
-            disabled={
-              updateConfigMutation.isLoading ||
-              (updateConfigMutation.data != undefined &&
-                successUrl != undefined)
-            }
+            startIcon={<Save />}
+            disabled={updateConfigMutation.isLoading}
             color="secondary"
             type="submit"
             variant="contained"
           >
-            {updateConfigMutation.data && successUrl
-              ? "Lookin good!"
-              : submitButtonText
-              ? submitButtonText
-              : "Save"}
+            {successUrl ? common("saveAndContinue") : t("submitButtonText")}
           </LoadingButton>
           <Typography
             variant="caption"
             style={{ color: theme.palette.text.secondary }}
           >
-            You can update these settings at any time.
+            {t("submitButtonCaption")}
           </Typography>
         </Stack>
       )}
@@ -262,10 +246,9 @@ export function AppConfigForm(props: {
                   value={field.value ?? ""}
                   required
                   helperText={
-                    !form.formState.errors.name?.message &&
-                    "The name of your app"
+                    !form.formState.errors.name?.message && t("nameHelperText")
                   }
-                  label={labels.name}
+                  label={t("nameLabel")}
                   inputProps={{
                     autoCorrect: "none",
                     spellCheck: false,
@@ -289,8 +272,8 @@ export function AppConfigForm(props: {
               fullWidth
               value={appIconFileValue}
               onChange={handleFileChange}
-              helperText="Will appear on users' homepage"
-              label="App icon"
+              helperText={t("appIconHelperText")}
+              label={t("appIconLabel")}
             />
           )}
         </Grid>
@@ -311,7 +294,7 @@ export function AppConfigForm(props: {
                     fullWidth
                     format="hex"
                     isAlphaHidden
-                    label={labels.seedColor}
+                    label={t("seedColorLabel")}
                     error={form.formState.errors.seedColor ? true : false}
                     required
                     onChange={(value) => {
@@ -331,7 +314,7 @@ export function AppConfigForm(props: {
                     <Grid item>
                       <FormHelperText sx={{ pl: 2 }}>
                         {!form.formState.errors.seedColor?.message &&
-                          `Used to generate your theme`}
+                          t("seedColorHelperText")}
                       </FormHelperText>
                     </Grid>
                     <Grid item>
@@ -384,7 +367,11 @@ export function AppConfigForm(props: {
                     }}
                     options={fontNames}
                     renderInput={(params) => (
-                      <TextField {...params} name={field.name} label="Font" />
+                      <TextField
+                        {...params}
+                        name={field.name}
+                        label={t("fontFamilyLabel")}
+                      />
                     )}
                     renderOption={(props, option) => {
                       return (
@@ -403,7 +390,6 @@ export function AppConfigForm(props: {
                     >
                       <Grid item>
                         <FormHelperText>
-                          From{" "}
                           <MuiLink
                             color="secondary"
                             target="_blank"
@@ -411,9 +397,8 @@ export function AppConfigForm(props: {
                             href={"https://fonts.google.com"}
                             component={NextLink}
                           >
-                            Google Fonts
+                            {t("fontFamilyHelperLinkText")}
                           </MuiLink>
-                          .
                         </FormHelperText>
                       </Grid>
                       <Grid item>
@@ -450,7 +435,7 @@ export function AppConfigForm(props: {
               ) : (
                 <FormControl>
                   <FormLabel id="demo-row-radio-buttons-group-label">
-                    {labels.appearance}
+                    {t("appearanceLabel")}
                   </FormLabel>
                   <RadioGroup
                     {...field}
@@ -468,7 +453,7 @@ export function AppConfigForm(props: {
                         });
                       }}
                       control={<Radio />}
-                      label={"Modern"}
+                      label={t("useMaterial3Labels.true")}
                     />
                     <FormControlLabel
                       key={"classic"}
@@ -481,7 +466,7 @@ export function AppConfigForm(props: {
                         });
                       }}
                       control={<Radio />}
-                      label={"Classic"}
+                      label={t("useMaterial3Labels.false")}
                     />
                   </RadioGroup>
                 </FormControl>
@@ -498,7 +483,7 @@ export function AppConfigForm(props: {
                 <Skeleton height="56px" />
               ) : (
                 <FormControl>
-                  <FormLabel>{labels.themeMode}</FormLabel>
+                  <FormLabel>{t("themeModeLabel")}</FormLabel>
                   <RadioGroup
                     {...field}
                     value={field.value ? `${field.value}` : null}
@@ -518,15 +503,12 @@ export function AppConfigForm(props: {
                           }}
                           value={value}
                           control={<Radio />}
-                          label={toPascalCase(value)}
+                          label={t("themeModeValues." + value)}
                         />
                       );
                     })}
                   </RadioGroup>
-                  <FormHelperText>
-                    'System' follows user settings. Select 'Light' or 'Dark' to
-                    override.
-                  </FormHelperText>
+                  <FormHelperText>{t("themeModeHelperText")}</FormHelperText>
                 </FormControl>
               );
             }}
@@ -557,7 +539,7 @@ export function AppConfigForm(props: {
                   });
                 }}
               >
-                Randomize all
+                {t("randomizeAllButtonText")}
               </Button>
             )}
           </Box>

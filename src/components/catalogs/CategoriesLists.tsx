@@ -1,3 +1,4 @@
+import { CategoryList } from "@/components/catalogs/CategoryList";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { Box, Paper, Skeleton } from "@mui/material";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -12,7 +13,6 @@ import {
 import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 import { Flipped, Flipper } from "react-flip-toolkit";
-import CategoryList from "./CategoryList";
 
 export function CategoriesLists(props: {
   onCatalogUpdate?: (categories: Category[]) => void;

@@ -1,6 +1,7 @@
 "use client";
 
 import { routes } from "@/app/routes";
+import { FooterLayout } from "@/components/layouts/FooterLayout";
 import { stringToColor } from "@/utils/stringToColor";
 import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
@@ -41,11 +42,10 @@ import {
   StripeBillingPortalCreateInput,
 } from "moa-merchants-ts-axios";
 import { signOut } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next-intl/client";
-import * as React from "react";
 import { Fragment, ReactNode, useState } from "react";
 import { useBoolean } from "usehooks-ts";
-import { FooterLayout } from "./FooterLayout";
 const drawerWidth: number = 240;
 
 interface AppBarProps extends MuiAppBarProps {
@@ -98,6 +98,7 @@ const AdaptiveDrawer = styled(MuiDrawer)(({ theme, open }) => ({
 export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const common = useTranslations("Common");
 
   const { push } = useRouter();
   const { value: drawerOpenState, toggle: toggleDrawerOpenState } =
@@ -160,7 +161,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
         <ListItemIcon>
           <AccountBox fontSize="small" />
         </ListItemIcon>
-        <ListItemText>Account</ListItemText>
+        <ListItemText>{common("account")}</ListItemText>
       </MenuItem>
     );
   }
@@ -182,7 +183,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
         <ListItemIcon>
           <Payment />
         </ListItemIcon>
-        <ListItemText primary={"Billing"} />
+        <ListItemText primary={common("billing")} />
       </MenuItem>
     );
   }
@@ -198,7 +199,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
         <ListItemIcon>
           <Logout fontSize="small" style={{ transform: "scaleX(-1)" }} />
         </ListItemIcon>
-        <ListItemText>Sign out</ListItemText>
+        <ListItemText>{common("signOut")}</ListItemText>
       </MenuItem>
     );
   }
@@ -286,7 +287,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
                     <ListItemIcon>
                       <MenuBook />
                     </ListItemIcon>
-                    <ListItemText primary={"Catalog"} />
+                    <ListItemText primary={common("catalog")} />
                   </ListItemButton>
                 </ListItem>
                 <ListItem key={"app-configurator-list-item"} disablePadding>
@@ -298,7 +299,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
                     <ListItemIcon>
                       <AppShortcut />
                     </ListItemIcon>
-                    <ListItemText primary={"Appearance"} />
+                    <ListItemText primary={common("appearance")} />
                   </ListItemButton>
                 </ListItem>
               </Fragment>
@@ -309,7 +310,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
                 <ListItemIcon>
                   <Home />
                 </ListItemIcon>
-                <ListItemText primary={"Homepage"} />
+                <ListItemText primary={common("homepage")} />
               </ListItemButton>
             </ListItem>
           </Fragment>
@@ -324,9 +325,8 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
         }}
       >
         <Container
-          maxWidth={isSmallScreen ? undefined : "md"}
           sx={{
-            minHeight: "calc(100vh - 120px)",
+            minHeight: "calc(100vh - 110px)",
             mt: "56px",
           }}
         >

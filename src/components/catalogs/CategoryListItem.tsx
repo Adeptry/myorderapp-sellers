@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { Category } from "moa-merchants-ts-axios";
 
-export default function CategoryListItem(props: {
+export function CategoryListItem(props: {
   setIsIn: (open: boolean) => void;
   onCategoryMove: (id: string, up: boolean) => void;
   onCategoryUpdate: (id: string, moaEnabled: boolean) => void;

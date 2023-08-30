@@ -1,4 +1,5 @@
-import { routes } from "@/app/routes";
+import { SignInLink } from "@/components/links/SignInLink";
+import { SignUpLink } from "@/components/links/SignUpLink";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Password } from "@mui/icons-material";
@@ -11,19 +12,18 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { default as MuiLink } from "@mui/material/Link";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { AuthApiFp, AuthForgotPasswordDto } from "moa-merchants-ts-axios";
-import { default as NextLink } from "next/link";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 
 export function ForgotPasswordForm(props: { preloading: boolean }) {
-  const { preloading } = props;
-
+  const { preloading: skeleton } = props;
   const [errorString, setErrorString] = useState<string | null>(null);
+  const common = useTranslations("Common");
 
   const form = useForm<AuthForgotPasswordDto>({
     defaultValues: {
@@ -33,7 +33,7 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
       yup
         .object<AuthForgotPasswordDto>()
         .shape({
-          email: yup.string().email().label("Email").required(),
+          email: yup.string().email().label(common("email")).required(),
         })
         .required()
     ),
@@ -93,13 +93,13 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
             name="email"
             control={form.control}
             render={({ field }) => {
-              return preloading ? (
+              return skeleton ? (
                 <Skeleton height="56px" />
               ) : (
                 <TextField
                   {...field}
                   required
-                  label="Email"
+                  label={common("email")}
                   inputProps={{
                     autoCapitalize: "none",
                     autoCorrect: "none",
@@ -117,7 +117,7 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          {preloading ? (
+          {skeleton ? (
             <Skeleton height="56px" width="100%" />
           ) : (
             <LoadingButton
@@ -129,7 +129,7 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
               variant="contained"
               color="secondary"
             >
-              Reset Password
+              {common("resetPassword")}
             </LoadingButton>
           )}
         </Grid>
@@ -142,17 +142,10 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
               justifyContent="start"
               alignItems="center"
             >
-              {preloading ? (
+              {skeleton ? (
                 <Skeleton component={"a"} width={"100%"} />
               ) : (
-                <MuiLink
-                  href={routes.signin}
-                  component={NextLink}
-                  color="secondary"
-                  variant="body2"
-                >
-                  Back to sign in
-                </MuiLink>
+                <SignInLink />
               )}
             </Grid>
             <Grid
@@ -162,17 +155,10 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
               justifyContent="end"
               alignItems="center"
             >
-              {preloading ? (
+              {skeleton ? (
                 <Skeleton component={"a"} width={"100%"} />
               ) : (
-                <MuiLink
-                  href={routes.signup}
-                  component={NextLink}
-                  color="secondary"
-                  variant="body2"
-                >
-                  New here? Sign up
-                </MuiLink>
+                <SignUpLink />
               )}
             </Grid>
           </Grid>

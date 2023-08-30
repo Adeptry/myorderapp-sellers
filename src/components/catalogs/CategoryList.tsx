@@ -1,9 +1,9 @@
+import { CategoryListItem } from "@/components/catalogs/CategoryListItem";
+import { ItemsList } from "@/components/catalogs/ItemsList";
 import { Collapse, List, Paper } from "@mui/material";
 import { Category, Item, Variation } from "moa-merchants-ts-axios";
-import CategoryListItem from "./CategoryListItem";
-import ItemsList from "./ItemsList";
 
-export default function CategoryList(props: {
+export function CategoryList(props: {
   entity: Category;
   isIn: boolean;
   isFirst: boolean;

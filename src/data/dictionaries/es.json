@@ -1,12 +1,120 @@
 {
-  "common": {
-    "locale": "es",
+  "AppConfigForm": {
+    "appIconHelperText": "Aparecerá en la página principal de los usuarios",
+    "appIconLabel": "Ícono de la app",
+    "appearanceLabel": "Apariencia",
+    "fontFamilyHelperLinkText": "Ver todas las fuentes",
+    "fontFamilyLabel": "Familia de fuente",
+    "nameHelperText": "El nombre de tu app",
+    "nameLabel": "Nombre",
+    "randomizeAllButtonText": "Aleatorizar todo",
+    "seedColorHelperText": "Usado para generar tu tema",
+    "seedColorLabel": "Color base",
+    "submitButtonCaption": "Puedes actualizar estos ajustes en cualquier momento.",
+    "submitButtonText": "Guardar",
+    "themeModeHelperText": "'Sistema' sigue los ajustes del usuario. Selecciona 'Claro' o 'Oscuro' para anular.",
+    "themeModeLabel": "Modo de color",
+    "themeModeValues": {
+      "dark": "Oscuro",
+      "light": "Claro",
+      "system": "Sistema"
+    },
+    "useMaterial3Labels": {
+      "false": "Clásico",
+      "true": "Moderno"
+    }
+  },
+  "AppleAuthButton": {
+    "text": "Continuar con Apple"
+  },
+  "CheckoutFaqAccordion": {
+    "ads": {
+      "details": "Para la versión Gratuita, los anuncios que ves provienen principalmente de Google Ads.",
+      "summary": "¿Qué tipo de anuncios aparecerán en la versión Gratuita?"
+    },
+    "billing": {
+      "details": "Nos hemos asociado con Stripe para facilitar todos nuestros procedimientos de facturación. Al iniciar tu suscripción, se aplica un cargo inmediato, seguido de cargos mensuales posteriormente.",
+      "summary": "¿Qué métodos de pago se aceptan y cuándo se me factura?"
+    },
+    "cost": {
+      "details": "El precio depende en gran medida de las tarifas asociadas con la apertura de una Cuenta de Desarrollador de Apple en tu región específica. Por ejemplo, en EE.UU., UE, Australia y Canadá, la tarifa es de $99/mes. En el Reino Unido, es de $79/mes, y en Japón, 11,800 yenes/mes. Tu primer mes, o 'mes de publicación', incluye la creación de tu cuenta, la carga de materiales y la aprobación de la aplicación. Este pago inicial facilita principalmente la fase de publicación, y en la mayoría de los casos, tu aplicación estará en vivo antes de que concluya el mes. Por lo general, las aprobaciones de aplicaciones se completan en menos de 48 horas.",
+      "summary": "¿Cómo se determina el costo de la versión Pro?"
+    },
+    "downgrading": {
+      "details": "Al cambiar a un nivel inferior, tu aplicación volverá a un modelo con publicidad. Para cualquier actualización futura, será obligatorio autopublicar en las tiendas de aplicaciones. Además, el soporte premium y los servicios de publicación de aplicaciones ya no estarán disponibles.",
+      "summary": "¿Qué sucede cuando cambio de Pro a Gratis?"
+    },
+    "publishing": {
+      "details": "Aunque te proporcionaremos un enlace directo para descargar tu aplicación, será necesario autopublicar en las tiendas de aplicaciones. No te preocupes; te proporcionaremos orientación detallada para simplificar este proceso.",
+      "summary": "¿Necesito habilidades técnicas para la versión Gratis?"
+    },
+    "support": {
+      "details": "Los usuarios de la versión Gratuita pueden esperar soporte cuando esté disponible. En contraste, nuestros suscriptores de la versión Pro disfrutan del lujo de soporte de desarrolladores las 24 horas, con un tiempo de respuesta garantizado dentro de las 48 horas.",
+      "summary": "¿Qué tipo de soporte puedo esperar?"
+    },
+    "switching": {
+      "details": "Absolutamente. Comienza con nuestra versión Gratis y si descubres que prefieres un soporte más completo o una experiencia sin anuncios, cambia a nuestra versión Pro. Por otro lado, si tus necesidades cambian, puedes volver de Pro a Gratis. Ten en cuenta que cambiar a la versión Gratuita reintroducirá los anuncios y requerirá autopublicación.",
+      "summary": "¿Puedo cambiar de plan?"
+    },
+    "upgrading": {
+      "details": "¡Es sencillo! Cuando estés listo, simplemente visita tu página de Cuenta para realizar el cambio.",
+      "summary": "¿Qué tan fácil es cambiar de Gratis a Pro?"
+    }
+  },
+  "Common": {
+    "country": "País",
+    "currency": "Divisa",
     "email": "Correo electrónico",
-    "password": "Contraseña",
     "firstName": "Nombre",
+    "frequentlyAskedQuestions": "Preguntas Frecuentes",
+    "language": "Idioma",
     "lastName": "Apellido",
+    "locale": "es",
+    "password": "Contraseña",
+    "resetPassword": "Restablecer Contraseña",
+    "saveAndContinue": "Guardar y Continuar",
     "signIn": "Iniciar sesión",
-    "signUp": "Registrarse"
+    "signUp": "Registrarse",
+    "subscribe": "Suscribirse",
+    "catalog": "Catálogo",
+    "appearance": "Apariencia",
+    "homepage": "Página principal",
+    "account": "Cuenta",
+    "billing": "Facturación",
+    "signOut": "Cerrar sesión"
+  },
+  "ForgotPasswordLink": {
+    "text": "¿Olvidaste tu contraseña?"
+  },
+  "FreeCard": {
+    "adSupportedPrimary": "Con publicidad",
+    "adSupportedSecondary": "La versión gratuita está respaldada por anuncios, que se mostrarán a tus clientes.",
+    "buttonText": "Obtener mi app gratuita",
+    "customizationPrimary": "App & Catálogo Personalizables",
+    "customizationSecondary": "Personaliza tu aplicación con tu propio logo, colores y fuentes, y sincronízalo con tu Catálogo Square.",
+    "perMonth": "/mes",
+    "perfectForBody": "Empresas que comienzan con pedidos móviles o aquellas que prefieren un enfoque práctico en la gestión y publicación de su aplicación.",
+    "perfectForHeader": "Perfecto para:",
+    "selfPublishedPrimary": "Autopublicado",
+    "selfPublishedSecondary": "Este nivel requiere que publiques la aplicación tú mismo. ¡Nosotros proporcionamos la plataforma y tú la presentas al mundo!",
+    "title": "Gratis"
+  },
+  "GoogleAuthButton": {
+    "text": "Continuar con Google"
+  },
+  "LegalMenu": {
+    "gdpr": "RGPD",
+    "legal": "Legal",
+    "privacy": "Privacidad",
+    "terms": "Términos"
+  },
+  "OnboardingStepper": {
+    "customize": "Personalizar",
+    "publish": "Publicar",
+    "synchronize": "Sincronizar"
+  },
+  "SignInForm": {
+    "submitButton": "Iniciar sesión con Correo Electrónico"
   },
   "SignInLink": {
     "text": "¿Tienes una cuenta? Iniciar sesión"
@@ -17,21 +125,51 @@
   "SignUpLink": {
     "text": "¿Nuevo aquí? Registrarse"
   },
-  "ForgotPasswordLink": {
-    "text": "¿Olvidaste tu contraseña?"
+  "SquareOauthButton": {
+    "text": "Autorizar Square"
   },
-  "AppleAuthButton": {
-    "text": "Continuar con Apple"
+  "SquareOauthExplainerCard": {
+    "catalogSyncPrimary": "Sincronización del Catálogo",
+    "catalogSyncSecondary": "Autoriza a nuestra aplicación para acceder a tu catálogo, garantizando una integración perfecta con tus listados de productos actuales.",
+    "dataSecurityPrimary": "Seguridad de Datos",
+    "dataSecuritySecondary": "Tus datos están protegidos por las medidas de seguridad de Square. Puedes gestionar o revocar permisos en cualquier momento desde tu Panel de Square.",
+    "orderSubmissionPrimary": "Envío de Pedidos",
+    "orderSubmissionSecondary": "Permítenos enviar pedidos en nombre de tus clientes, garantizando un procesamiento de pedidos rápido y fluido.",
+    "posIntegrationPrimary": "Integración con POS",
+    "posIntegrationSecondary": "Envía pedidos directamente a tus sistemas de punto de venta, cerrando la brecha entre pedidos en línea y ventas en persona.",
+    "title": "Conecta tu cuenta de Square"
   },
-  "GoogleAuthButton": {
-    "text": "Continuar con Google"
+  "StripeCheckoutCancelledCard": {
+    "body": "La vida se pone ocupada y lo entendemos. Si decides regresar y finalizar tu configuración, ten en cuenta que tu progreso está guardado. En cualquier momento, puedes revisitar los pasos anteriores usando la navegación de arriba. Para cualquier consulta o más información, nuestra sección de preguntas frecuentes y opciones de publicación están disponibles a continuación.",
+    "title": "Notamos que tu proceso de pago fue interrumpido"
   },
-  "SignInForm": {
-    "submitButton": "Iniciar sesión con Correo Electrónico"
+  "StripeCheckoutSuccessCard": {
+    "accountPrimary": "Configuración de cuenta",
+    "accountSecondary": "Estamos configurando tus cuentas para asegurar una integración sin problemas.",
+    "buildPrimary": "Construcción de la aplicación",
+    "buildSecondary": "Tu aplicación está siendo construida con las características que seleccionaste.",
+    "calendarPrimary": "Publicación garantizada antes de",
+    "calendarSecondary": "Garantizamos publicar tu aplicación antes de fin de mes. Sin embargo, ¡a menudo está disponible en solo 2 semanas!",
+    "editPrimary": "Mientras esperas",
+    "editSecondary": "Siéntete libre de hacer cualquier cambio a tu aplicación mientras la estamos construyendo, nos aseguraremos de que tus cambios se implementen.",
+    "reviewPrimary": "Revisión de materiales",
+    "reviewSecondary": "Nuestro equipo está revisando los materiales que has proporcionado.",
+    "subheader": "Estamos preparando todo para ti",
+    "timerPrimary": "Espera contacto en",
+    "timerSecondary": "Puedes esperar noticias de nuestro equipo en las próximas 48 horas.",
+    "title": "¡Felicidades por tu compra!"
   },
-  "OnboardingStepper": {
-    "customize": "Personalizar",
-    "synchronize": "Sincronizar",
-    "publish": "Publicar"
+  "SubscribeCard": {
+    "customizationPrimary": "App & Catálogo Personalizables",
+    "customizationSecondary": "Todas las características de personalización del nivel gratuito sin anuncios que distraigan a tus clientes.",
+    "perMonth": "/mes",
+    "perfectForBody": "Empresas que buscan un enfoque simplificado y automático y que valoran el beneficio adicional del soporte y mantenimiento de expertos.",
+    "perfectForHeader": "Perfecto para:",
+    "publishingPrimary": "Publicación de App Sin Complicaciones",
+    "publishingSecondary": "Nos encargamos de publicar tu aplicación en las plataformas iOS y Android, manteniendo tu app disponible para los clientes y actualizada.",
+    "subheader": "Gestionado y Soportado",
+    "supportPrimary": "Soporte Premium",
+    "supportSecondary": "Nuestro equipo de desarrollo monitoreará tu aplicación y brindará soporte cuando sea necesario.",
+    "title": "Pro"
   }
 }

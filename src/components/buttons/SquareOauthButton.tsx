@@ -1,11 +1,14 @@
+"use client";
+
 import { routes } from "@/app/routes";
 import { moaEnv } from "@/utils/config";
-import { Button, SxProps } from "@mui/material";
+import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
+import { Button, Skeleton, SxProps } from "@mui/material";
+import { useTranslations } from "next-intl";
 import { default as NextLink } from "next/link";
 import { SiSquare } from "react-icons/si";
 
 interface SquareOauthButtonProps {
-  state: string;
   scope?: string;
   locale?: string;
   session?: boolean;
@@ -14,9 +17,8 @@ interface SquareOauthButtonProps {
   sx?: SxProps;
 }
 
-export default function SquareOauthButton(props: SquareOauthButtonProps) {
+export function SquareOauthButton(props: SquareOauthButtonProps) {
   const {
-    state,
     scope = moaEnv.squareScope,
     locale,
     session = true,
@@ -24,7 +26,11 @@ export default function SquareOauthButton(props: SquareOauthButtonProps) {
     redirect_uri,
   } = props;
 
-  let urlString = `${moaEnv.squareBaseUrl}/oauth2/authorize?client_id=${moaEnv.squareClientId}&scope=${scope}&state=${state}`;
+  const { data } = useCurrentMerchantQuery();
+
+  const t = useTranslations("SquareOauthButton");
+
+  let urlString = `${moaEnv.squareBaseUrl}/oauth2/authorize?client_id=${moaEnv.squareClientId}&scope=${scope}&state=${data?.id}`;
 
   if (locale) {
     urlString += `&locale=${locale}`;
@@ -48,17 +54,21 @@ export default function SquareOauthButton(props: SquareOauthButtonProps) {
     urlString = `${routes.onboarding.square.oauth2}?code=${moaEnv.squareTestCode}`;
   }
 
-  return (
-    <Button
-      sx={props.sx}
-      href={urlString}
-      component={NextLink}
-      startIcon={<SiSquare />}
-      variant="contained"
-      color="secondary"
-      size="large"
-    >
-      Authorize Square
-    </Button>
-  );
+  if (!data?.id) {
+    return <Skeleton height="56px" width={"192px"} />;
+  } else {
+    return (
+      <Button
+        sx={props.sx}
+        href={urlString}
+        component={NextLink}
+        startIcon={<SiSquare />}
+        variant="contained"
+        color="secondary"
+        size="large"
+      >
+        {t("text")}
+      </Button>
+    );
+  }
 }

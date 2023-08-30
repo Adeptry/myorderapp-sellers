@@ -1,10 +1,10 @@
+import { ItemListItem } from "@/components/catalogs/ItemListItem";
 import { List, SxProps } from "@mui/material";
 import { Item, Variation } from "moa-merchants-ts-axios";
 import { useState } from "react";
 import { Flipped, Flipper } from "react-flip-toolkit";
-import ItemListItem from "./ItemListItem";
 
-export default function ItemsList(props: {
+export function ItemsList(props: {
   sx?: SxProps;
   entities: Item[];
   variations: Variation[];

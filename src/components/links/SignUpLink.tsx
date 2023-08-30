@@ -1,6 +1,6 @@
 import { routes } from "@/app/routes";
+import { MoaLink } from "@/components/links/MoaLink";
 import { useTranslations } from "use-intl";
-import { MoaLink } from "../MoaLink";
 
 export function SignUpLink() {
   const t = useTranslations("SignUpLink");

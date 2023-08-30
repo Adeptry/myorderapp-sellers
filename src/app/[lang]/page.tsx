@@ -20,7 +20,7 @@ export default function Page() {
   const { data } = useCurrentMerchantQuery();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const common = useTranslations("common");
+  const common = useTranslations("Common");
 
   useEffect(() => {
     if (data) {

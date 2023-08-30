@@ -1,8 +1,8 @@
+import { VariationListItem } from "@/components/catalogs/VariationListItem";
 import { List, SxProps } from "@mui/material";
 import { Variation } from "moa-merchants-ts-axios";
-import VariationListItem from "./VariationListItem";
 
-export default function VariationsList(props: {
+export function VariationsList(props: {
   sx?: SxProps;
   entities: Variation[];
   onVariationUpdate: (id: string, moaEnabled: boolean) => void;

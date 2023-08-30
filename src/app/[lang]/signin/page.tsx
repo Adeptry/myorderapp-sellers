@@ -13,7 +13,7 @@ export default function Page() {
   const { push } = useRouter();
   const { status } = useSession();
   const { data } = useCurrentMerchantQuery();
-  const common = useTranslations("common");
+  const common = useTranslations("Common");
 
   useEffect(() => {
     if (data) {

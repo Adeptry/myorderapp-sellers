@@ -1,3 +1,4 @@
+import { VariationsList } from "@/components/catalogs/VariationsList";
 import {
   Add,
   ArrowDownward,
@@ -19,9 +20,8 @@ import {
 import { Item, Variation } from "moa-merchants-ts-axios";
 import Image from "mui-image";
 import { useState } from "react";
-import VariationsList from "./VariationsList";
 
-export default function ItemListItem(props: {
+export function ItemListItem(props: {
   entity: Item;
   isIn: boolean;
   variations: Variation[];

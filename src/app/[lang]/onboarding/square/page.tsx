@@ -5,16 +5,9 @@ import {
   OnboardingStepper,
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
-import SquareOauthButton from "@/components/buttons/SquareOauthButton";
+import { SquareOauthExplainerCard } from "@/components/cards/SquareOauthExplainerCard";
 import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
-import {
-  Box,
-  Skeleton,
-  Stack,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Stack, useMediaQuery, useTheme } from "@mui/material";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next-intl/client";
 import { useEffect } from "react";
@@ -40,29 +33,17 @@ export default function Page() {
   }, [data]);
 
   return (
-    <Stack spacing={2} py={2} textAlign="center">
+    <Stack spacing={2} py={2} alignItems={"center"}>
       <OnboardingStepper
         activeStep={OnboardingSteps.square}
         sx={{ width: "100%", pt: isSmallScreen ? 0 : 2 }}
       />
 
-      <Typography variant="h4">Connect your Square Account</Typography>
-      <Typography variant="body1">
-        To sync your catalog, please authorize our application to interact with
-        your Square account. This will grant us permissions to fetch your
-        catalog, to submit orders on your customers' behalf, and send those
-        order to your point-of-sale systems. Don't worry, your data is secured
-        by Square, and you can revoke this permission at any time from your
-        Square Dashboard.
-      </Typography>
-
-      <Box justifyContent={"center"} display="flex">
-        {!data?.id ? (
-          <Skeleton height="56px" width={"192px"} />
-        ) : (
-          <SquareOauthButton state={data.id} />
-        )}
-      </Box>
+      <SquareOauthExplainerCard
+        sx={{
+          maxWidth: "sm",
+        }}
+      />
     </Stack>
   );
 }

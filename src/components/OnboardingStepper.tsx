@@ -29,7 +29,7 @@ export function OnboardingStepper(props: {
   const theme = useTheme();
   const matchesXS = useMediaQuery(theme.breakpoints.down("sm"));
   const t = useTranslations("OnboardingStepper");
-  const common = useTranslations("common");
+  const common = useTranslations("Common");
 
   function getTitleForStep(step: OnboardingSteps): string {
     switch (step) {

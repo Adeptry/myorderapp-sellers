@@ -1,4 +1,4 @@
-import { WindowClonable } from "./WindowClonable";
+import { WindowClonable } from "@/components/messaging-iframe/WindowClonable";
 
 export interface WindowMessage<T extends WindowClonable> {
   type: string;

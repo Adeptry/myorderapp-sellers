@@ -1,12 +1,120 @@
 {
-  "common": {
-    "locale": "ja",
+  "AppConfigForm": {
+    "appIconHelperText": "ユーザーのホームページに表示されます",
+    "appIconLabel": "アプリのアイコン",
+    "appearanceLabel": "外観",
+    "fontFamilyHelperLinkText": "すべてのフォントを見る",
+    "fontFamilyLabel": "フォントファミリー",
+    "nameHelperText": "アプリの名前",
+    "nameLabel": "名前",
+    "randomizeAllButtonText": "すべてをランダム化",
+    "seedColorHelperText": "テーマを生成するために使用されます",
+    "seedColorLabel": "シードカラー",
+    "submitButtonCaption": "これらの設定はいつでも更新できます。",
+    "submitButtonText": "保存",
+    "themeModeHelperText": "'システム'はユーザーの設定に従います。'ライト'または'ダーク'を選択して上書きします。",
+    "themeModeLabel": "カラーモード",
+    "themeModeValues": {
+      "dark": "ダーク",
+      "light": "ライト",
+      "system": "システム"
+    },
+    "useMaterial3Labels": {
+      "false": "クラシック",
+      "true": "モダン"
+    }
+  },
+  "AppleAuthButton": {
+    "text": "Appleで続行"
+  },
+  "CheckoutFaqAccordion": {
+    "ads": {
+      "details": "無料版では、表示される広告は主にGoogle Adsから取得されています。",
+      "summary": "無料版にはどのような広告が表示されますか？"
+    },
+    "billing": {
+      "details": "私たちは、すべての請求手続きを簡易化するためにStripeと提携しています。サブスクリプションを開始すると、即時の料金が適用され、その後毎月の料金が適用されます。",
+      "summary": "どのような支払い方法が受け付けられており、いつ請求されますか？"
+    },
+    "cost": {
+      "details": "価格は、特定の地域でのApple Developer Accountの開設に関連する費用に大きく依存しています。例えば、米国、EU、オーストラリア、カナダでは料金は99ドル/月です。英国では79ドル/月、日本では11,800円/月です。公開月として知られる最初の月には、アカウントの設定、資料のアップロード、アプリの承認が含まれます。この初回の支払いは、主に公開フェーズを容易にするためのものであり、ほとんどの場合、アプリは月が終わる前にライブになります。通常、アプリの承認は48時間以内に完了します。",
+      "summary": "Pro版のコストはどのように決定されますか？"
+    },
+    "downgrading": {
+      "details": "ダウングレードすると、アプリは広告サポートモデルに戻ります。今後のアップデートには、アプリストアへの自分での公開が必須になります。また、プレミアムサポートやアプリ公開サービスは利用できなくなります。",
+      "summary": "Proから無料にダウングレードするとどうなりますか？"
+    },
+    "publishing": {
+      "details": "アプリのダウンロード用のダイレクトリンクは提供されますが、アプリストアへの自分での公開が必要です。心配しないでください、このプロセスを簡素化するための詳細なガイダンスを提供します。",
+      "summary": "無料プランでは技術的なスキルが必要ですか？"
+    },
+    "support": {
+      "details": "無料版のユーザーは、利用可能な場合にサポートを受けることができます。一方、Proプランの加入者は、48時間以内の保証された応答時間で、24時間365日の開発者サポートを享受することができます。",
+      "summary": "どのようなサポートが期待できますか？"
+    },
+    "switching": {
+      "details": "もちろんです。無料プランから始めて、もっと包括的なサポートや広告なしの体験がほしい場合は、Proプランに移行できます。逆に、ニーズが変わった場合は、Proから無料に戻ることもできます。無料バージョンに切り替えると、広告が再表示され、自分で公開する必要があることに注意してください。",
+      "summary": "プランを変更できますか？"
+    },
+    "upgrading": {
+      "details": "簡単です！準備ができたら、アカウントページにアクセスして切り替えてください。",
+      "summary": "無料からProにアップグレードするのは簡単ですか？"
+    }
+  },
+  "Common": {
+    "country": "国",
+    "currency": "通貨",
     "email": "メールアドレス",
-    "password": "パスワード",
     "firstName": "名",
+    "frequentlyAskedQuestions": "よくある質問",
+    "language": "言語",
     "lastName": "姓",
+    "locale": "ja",
+    "password": "パスワード",
+    "resetPassword": "パスワードをリセット",
+    "saveAndContinue": "保存して続行",
     "signIn": "ログイン",
-    "signUp": "登録"
+    "signUp": "登録",
+    "subscribe": "購読する",
+    "catalog": "カタログ",
+    "appearance": "外観",
+    "homepage": "ホームページ",
+    "account": "アカウント",
+    "billing": "請求",
+    "signOut": "ログアウト"
+  },
+  "ForgotPasswordLink": {
+    "text": "パスワードを忘れましたか？"
+  },
+  "FreeCard": {
+    "adSupportedPrimary": "広告サポート",
+    "adSupportedSecondary": "無料版は広告でサポートされており、お客様に表示されます。",
+    "buttonText": "無料アプリを入手",
+    "customizationPrimary": "カスタマイズ可能なアプリ＆カタログ",
+    "customizationSecondary": "独自のロゴ、色、フォントでアプリをカスタマイズし、Squareカタログと同期します。",
+    "perMonth": "/月",
+    "perfectForBody": "モバイルオーダリングを開始する企業や、アプリの管理と公開に積極的に取り組むことを好む企業向け。",
+    "perfectForHeader": "こんな方に最適:",
+    "selfPublishedPrimary": "セルフパブリッシュ",
+    "selfPublishedSecondary": "このレベルでは、アプリの公開を自分で行う必要があります。私たちがプラットフォームを提供し、あなたがそれを世界に持ってきます！",
+    "title": "無料"
+  },
+  "GoogleAuthButton": {
+    "text": "Googleで続行"
+  },
+  "LegalMenu": {
+    "gdpr": "GDPR",
+    "legal": "法的",
+    "privacy": "プライバシー",
+    "terms": "利用規約"
+  },
+  "OnboardingStepper": {
+    "customize": "カスタマイズ",
+    "publish": "公開",
+    "synchronize": "同期"
+  },
+  "SignInForm": {
+    "submitButton": "メールアドレスでログイン"
   },
   "SignInLink": {
     "text": "アカウントをお持ちですか？ログイン"
@@ -17,21 +125,51 @@
   "SignUpLink": {
     "text": "初めての方ですか？登録する"
   },
-  "ForgotPasswordLink": {
-    "text": "パスワードを忘れましたか？"
+  "SquareOauthButton": {
+    "text": "Squareを認証"
   },
-  "AppleAuthButton": {
-    "text": "Appleで続行"
+  "SquareOauthExplainerCard": {
+    "catalogSyncPrimary": "カタログ同期",
+    "catalogSyncSecondary": "私たちのアプリケーションがあなたのカタログを取得するための認証を行い、現在の商品リストとのシームレスな統合を保証します。",
+    "dataSecurityPrimary": "データセキュリティ",
+    "dataSecuritySecondary": "あなたのデータはSquareのセキュリティ対策によって保護されています。Squareのダッシュボードからいつでも許可を管理または取り消すことができます。",
+    "orderSubmissionPrimary": "注文の提出",
+    "orderSubmissionSecondary": "お客様の代わりに注文を行うことを許可し、迅速かつスムーズな注文処理を保証します。",
+    "posIntegrationPrimary": "POS統合",
+    "posIntegrationSecondary": "注文を直接販売点システムに送信し、オンライン注文と対面販売のギャップを埋める。",
+    "title": "Squareアカウントを接続する"
   },
-  "GoogleAuthButton": {
-    "text": "Googleで続行"
+  "StripeCheckoutCancelledCard": {
+    "body": "人生は忙しくなることがありますが、それを理解しています。設定を完了するために戻ることを選択した場合、進行状況は保存されていることを知ってください。上のナビゲーションを使用して、以前のステップをいつでも再訪することができます。質問や詳細については、下のFAQセクションや公開オプションが利用可能です。",
+    "title": "支払いが中断されたことに気付きました"
   },
-  "SignInForm": {
-    "submitButton": "メールアドレスでログイン"
+  "StripeCheckoutSuccessCard": {
+    "accountPrimary": "アカウントの設定",
+    "accountSecondary": "スムーズな統合を保証するために、アカウントを設定しています。",
+    "buildPrimary": "アプリの構築",
+    "buildSecondary": "あなたが選んだ機能で現在アプリを作成しています。",
+    "calendarPrimary": "月末までに確実に公開",
+    "calendarSecondary": "月末までにアプリを公開することを保証します。しかし、多くの場合、わずか2週間で公開されます！",
+    "editPrimary": "お待ちの間に",
+    "editSecondary": "私たちがそれを作成している間、アプリに変更を加えることができます。変更が実装されるようにします。",
+    "reviewPrimary": "資料のレビュー",
+    "reviewSecondary": "当社のチームが提供した資料を確認しています。",
+    "subheader": "あなたのために準備をしています",
+    "timerPrimary": "次の時間内に連絡が来ることを期待してください",
+    "timerSecondary": "次の48時間以内に当社のチームから連絡が来ることを期待してください。",
+    "title": "お買い上げありがとうございます！"
   },
-  "OnboardingStepper": {
-    "customize": "カスタマイズ",
-    "synchronize": "同期",
-    "publish": "公開"
+  "SubscribeCard": {
+    "customizationPrimary": "カスタマイズ可能なアプリ＆カタログ",
+    "customizationSecondary": "無料レベルのすべてのカスタマイズ機能、お客様を邪魔する広告なし。",
+    "perMonth": "/月",
+    "perfectForBody": "シンプルで手間のかからないアプローチを求める企業、そしてエキスパートのサポートとメンテナンスの追加の利点を評価する企業向け。",
+    "perfectForHeader": "こんな方に最適:",
+    "publishingPrimary": "手間いらずのアプリ公開",
+    "publishingSecondary": "iOSとAndroidの両プラットフォームでのアプリの公開を担当し、お客様に常に利用可能で最新の状態を保ちます。",
+    "subheader": "管理・サポート付き",
+    "supportPrimary": "プレミアムサポート",
+    "supportSecondary": "当社の開発チームがアプリの監視を行い、必要に応じてサポートを提供します。",
+    "title": "Pro"
   }
 }
