@@ -38,7 +38,7 @@ export default function Page() {
     <Stack spacing={2}>
       <OnboardingStepper
         activeStep={OnboardingSteps.configure}
-        sx={{ width: "100%", pt: isSmallScreen ? 0 : 2 }}
+        sx={{ width: "100%" }}
       />
       <TabLayout
         tabLabels={["Options", "Preview"]}

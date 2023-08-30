@@ -36,7 +36,7 @@ export default function Page() {
     <Stack spacing={2} alignItems={"center"}>
       <OnboardingStepper
         activeStep={OnboardingSteps.square}
-        sx={{ width: "100%", pt: isSmallScreen ? 0 : 2 }}
+        sx={{ width: "100%" }}
       />
 
       <SquareOauthExplainerCard

@@ -32,7 +32,7 @@ export default function Page() {
     <Stack spacing={2} justifyContent="center" alignItems="center">
       <OnboardingStepper
         activeStep={OnboardingSteps.checkout}
-        sx={{ width: "100%", pt: isSmallScreen ? 0 : 2 }}
+        sx={{ width: "100%" }}
       />
       <Stack
         direction={isSmallScreen ? "column-reverse" : "row"}

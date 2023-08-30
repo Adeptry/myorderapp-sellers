@@ -31,7 +31,7 @@ export default function Page() {
     <Stack>
       <OnboardingStepper
         activeStep={OnboardingSteps.signUp}
-        sx={{ width: "100%", pb: 2, pt: isSmallScreen ? 0 : 2 }}
+        sx={{ width: "100%", pb: 2 }}
       />
 
       <Grid container justifyContent="center">

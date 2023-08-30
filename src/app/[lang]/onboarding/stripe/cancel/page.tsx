@@ -10,10 +10,8 @@ import { StripeCheckoutCancelledCard } from "@/components/cards/StripeCheckoutCa
 import { SubscribeCard } from "@/components/cards/SubscribeCard";
 import { Stack, useMediaQuery, useTheme } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next-intl/client";
 
 export default function Page() {
-  const { push } = useRouter();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   const common = useTranslations("Common");
@@ -24,8 +22,6 @@ export default function Page() {
         activeStep={OnboardingSteps.checkout}
         sx={{
           width: "100%",
-          pt: isSmallScreen ? 0 : 2,
-          pb: isSmallScreen ? 0 : 3,
         }}
       />
       <StripeCheckoutCancelledCard

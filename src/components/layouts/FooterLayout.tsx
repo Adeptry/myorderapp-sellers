@@ -18,8 +18,7 @@ export const FooterLayout = () => {
   return (
     <Grid
       container
-      pr={2}
-      pl={isSmallScreen ? 2 : 0}
+      px={2}
       py={1}
       justifyContent="space-between"
       alignItems={"center"}

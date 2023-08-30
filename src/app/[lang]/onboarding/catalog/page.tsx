@@ -48,7 +48,7 @@ export default function Page() {
       ) : (
         <OnboardingStepper
           activeStep={OnboardingSteps.square}
-          sx={{ width: "100%", pt: isSmallScreen ? 0 : 2 }}
+          sx={{ width: "100%" }}
         />
       )}
 

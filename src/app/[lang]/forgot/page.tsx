@@ -3,7 +3,7 @@
 import { routes } from "@/app/routes";
 import { ForgotPasswordForm } from "@/components/forms/ForgotPasswordForm";
 import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, useMediaQuery, useTheme } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next-intl/client";
@@ -13,6 +13,8 @@ export default function Page() {
   const { push } = useRouter();
   const currentMerchantQueryState = useCurrentMerchantQuery();
   const common = useTranslations("Common");
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   useEffect(() => {
     if (currentMerchantQueryState.data) {

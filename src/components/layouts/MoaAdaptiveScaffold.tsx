@@ -18,7 +18,6 @@ import {
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import {
   Avatar,
-  BottomNavigation,
   Box,
   Container,
   IconButton,
@@ -317,14 +316,14 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
         sx={{
           flexGrow: 1,
           overflow: "auto",
-          height: `calc(100vh - 56px)`,
+          height: `calc(100vh)`,
         }}
       >
         <Container
           sx={{
-            minHeight: `calc(100vh - ${appBarHeight}px - 56px)`,
+            minHeight: `calc(100vh - ${appBarHeight}px - 57px)`,
             mt: `${appBarHeight}px`,
-            pt: isSmallScreen ? 2 : 0,
+            pt: 2,
             pb: 2,
           }}
         >
@@ -332,10 +331,6 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
         </Container>
         <Box
           sx={{
-            position: "fixed",
-            bottom: 0,
-            left: 0,
-            right: 0,
             borderTop: "1px",
             borderTopStyle: "solid",
             borderTopColor: "divider",
@@ -343,16 +338,14 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
               ? 0
               : drawerOpenState
               ? `${drawerWidth - 1}px`
-              : "55px",
+              : 0,
             transition: theme.transitions.create("margin", {
               easing: theme.transitions.easing.sharp,
               duration: theme.transitions.duration.enteringScreen,
             }),
           }}
         >
-          <BottomNavigation>
-            <FooterLayout />
-          </BottomNavigation>
+          <FooterLayout />
         </Box>
       </Box>
     </Box>

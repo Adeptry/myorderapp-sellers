@@ -51,9 +51,7 @@ export default function Page() {
 
   return (
     <Stack spacing={2} display="flex" alignItems="center">
-      <StripeCheckoutSuccessCard
-        sx={{ maxWidth: "sm", mt: isSmallScreen ? 0 : 2 }}
-      />
+      <StripeCheckoutSuccessCard sx={{ maxWidth: "sm" }} />
     </Stack>
   );
 }
