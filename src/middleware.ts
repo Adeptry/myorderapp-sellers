@@ -1,4 +1,3 @@
-import clm from "country-locale-map";
 import createMiddleware from "next-intl/middleware";
 import { NextRequest } from "next/server";
 import { constants } from "./constants";
@@ -13,8 +12,8 @@ export default async function middleware(request: NextRequest) {
   let currency = request.cookies.get(constants.currencyCookieName)?.value;
 
   if (!currency) {
-    const country = request.geo?.country || "US";
-    currency = clm.getCurrencyByAlpha2(country) || "USD";
+    // const country = request.geo?.country || "US";
+    currency = "USD";
   }
 
   response.cookies.set(constants.currencyCookieName, currency);
