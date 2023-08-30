@@ -255,7 +255,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <AdaptiveAppBar position="absolute" open={drawerOpenState}>
+      <AdaptiveAppBar position="fixed" open={drawerOpenState}>
         {appBarToolbar}
       </AdaptiveAppBar>
       <AdaptiveDrawer
