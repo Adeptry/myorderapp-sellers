@@ -10,6 +10,26 @@ export interface MoaEnv {
   backendApiKey: string;
   previewUrl: string;
   env: string;
+  stripe: {
+    priceIds: {
+      pro: {
+        usd: string;
+        eur: string;
+        gbp: string;
+        jpy: string;
+        cad: string;
+        aud: string;
+      };
+      free: {
+        usd: string;
+        eur: string;
+        gbp: string;
+        jpy: string;
+        cad: string;
+        aud: string;
+      };
+    };
+  };
 }
 
 export interface MoaConstants {

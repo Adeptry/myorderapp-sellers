@@ -8,12 +8,14 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import { useTranslations } from "next-intl";
 
 export const FooterLayout = () => {
   const year = new Date().getFullYear();
   const theme = useTheme();
   const isExtraSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const common = useTranslations("Common");
 
   return (
     <Grid
@@ -29,7 +31,8 @@ export const FooterLayout = () => {
       {!isExtraSmallScreen && (
         <Grid item textAlign="center" md={4} xs="auto">
           <Typography variant="body1">
-            {isSmallScreen ? "MOA" : "MyOrderApp"} &copy; {year}
+            {isSmallScreen ? common("brandNameShort") : common("brandName")}{" "}
+            &copy; {year}
           </Typography>
         </Grid>
       )}

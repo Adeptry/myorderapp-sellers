@@ -62,26 +62,29 @@
     }
   },
   "Common": {
+    "billing": "Facturation",
+    "brandName": "MyOrderApp",
+    "brandNameLong": "MyOrderApp for Sellers",
+    "brandNameShort": "MOA",
+    "catalog": "Catalogue",
     "country": "Pays",
     "currency": "Devise",
-    "email": "E-mail",
+    "email": "Courrier électronique",
+    "error": "Oups, quelque chose s'est mal passé. Ne vous inquiétez pas, vos données sont en sécurité. Nous avons été informés et travaillons à résoudre le problème.",
     "firstName": "Prénom",
-    "frequentlyAskedQuestions": "Questions fréquemment posées",
+    "frequentlyAskedQuestions": "Questions Fréquemment Posées",
     "language": "Langue",
-    "lastName": "Nom",
-    "locale": "fr",
+    "lastName": "Nom de famille",
+    "logIn": "Se connecter",
+    "logOut": "Se déconnecter",
+    "mainSite": "Site principal",
     "password": "Mot de passe",
+    "profile": "Profil",
+    "register": "S'inscrire",
     "resetPassword": "Réinitialiser le mot de passe",
     "saveAndContinue": "Enregistrer et Continuer",
-    "signIn": "Se connecter",
-    "signUp": "S'inscrire",
     "subscribe": "S'abonner",
-    "catalog": "Catalogue",
-    "appearance": "Apparence",
-    "homepage": "Page d'accueil",
-    "account": "Compte",
-    "billing": "Facturation",
-    "signOut": "Déconnexion"
+    "theme": "Thème"
   },
   "ForgotPasswordLink": {
     "text": "Mot de passe oublié?"
@@ -139,11 +142,28 @@
     "posIntegrationSecondary": "Envoyez des commandes directement à vos systèmes de point de vente, comblant le fossé entre les commandes en ligne et les ventes en personne.",
     "title": "Connectez votre compte Square"
   },
+  "StripeCheckoutButton": {
+    "free": "Commencer Gratuitement",
+    "pro": "Devenir Premium"
+  },
   "StripeCheckoutCancelledCard": {
     "body": "La vie est chargée, et nous le comprenons. Si vous choisissez de revenir et de finaliser votre installation, sachez que votre progression est sauvegardée. À tout moment, vous pouvez revoir les étapes précédentes en utilisant la navigation ci-dessus. Pour toute question ou pour plus d'informations, notre section FAQ et nos options de publication sont disponibles ci-dessous.",
     "title": "Nous avons remarqué que votre paiement a été interrompu"
   },
-  "StripeCheckoutSuccessCard": {
+  "StripeFreeCheckoutSuccessCard": {
+    "adSupportedPrimary": "Avec publicités",
+    "adSupportedSecondary": "Des publicités seront affichées dans votre application, soutenant l'offre gratuite.",
+    "buttonText": "Plongez dans les paramètres",
+    "customizationPrimary": "La personnalisation vous attend",
+    "customizationSecondary": "Ajoutez votre propre touche : logo, couleurs, polices. Synchronisez tout avec votre Catalogue Square.",
+    "selfPublishedPrimary": "Publication DIY",
+    "selfPublishedSecondary": "Vous êtes le capitaine maintenant. Nous fournissons le navire ; vous le dirigez vers l'App Store.",
+    "subheader": "Nous vous préparons pour le succès",
+    "timerPrimary": "Délai de réponse du support",
+    "timerSecondary": "Des questions ? Attendez-vous à une réponse dans les 72 heures en raison du volume élevé sur l'offre gratuite.",
+    "title": "Bienvenue dans votre offre gratuite !"
+  },
+  "StripeProCheckoutSuccessCard": {
     "accountPrimary": "Configuration du compte",
     "accountSecondary": "Nous configurons vos comptes pour assurer une intégration fluide.",
     "buildPrimary": "Construction de l'application",

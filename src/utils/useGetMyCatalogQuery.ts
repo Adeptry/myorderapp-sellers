@@ -4,6 +4,7 @@ import {
   CatalogsApiFp,
   GetMyCatalogActingAsEnum,
 } from "moa-merchants-ts-axios";
+import { useSession } from "next-auth/react";
 import { useSessionedApiConfiguration } from "./useSessionedApiConfiguration";
 
 export const useGetMyCatalogQuery = (params: {
@@ -18,7 +19,8 @@ export const useGetMyCatalogQuery = (params: {
   merchantId?: string;
   options?: AxiosRequestConfig;
 }) => {
-  const { configuration, status } = useSessionedApiConfiguration();
+  const { status } = useSession();
+  const sessionedApiConfiguration = useSessionedApiConfiguration();
 
   return useQuery({
     queryKey: [
@@ -37,7 +39,7 @@ export const useGetMyCatalogQuery = (params: {
     queryFn: async () => {
       return (
         await (
-          await CatalogsApiFp(configuration).getMyCatalog(
+          await CatalogsApiFp(sessionedApiConfiguration).getMyCatalog(
             params.page,
             params.limit,
             params.locationId,

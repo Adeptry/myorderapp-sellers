@@ -23,7 +23,7 @@ export function SquareOauthExplainerCard(props: { sx?: SxProps }) {
         </Typography>
 
         <List>
-          <ListItem disablePadding>
+          <ListItem>
             <ListItemIcon>
               <MenuBook />
             </ListItemIcon>
@@ -33,7 +33,7 @@ export function SquareOauthExplainerCard(props: { sx?: SxProps }) {
             />
           </ListItem>
 
-          <ListItem disablePadding>
+          <ListItem>
             <ListItemIcon>
               <Receipt />
             </ListItemIcon>
@@ -43,7 +43,7 @@ export function SquareOauthExplainerCard(props: { sx?: SxProps }) {
             />
           </ListItem>
 
-          <ListItem disablePadding>
+          <ListItem>
             <ListItemIcon>
               <PointOfSale />
             </ListItemIcon>
@@ -53,7 +53,7 @@ export function SquareOauthExplainerCard(props: { sx?: SxProps }) {
             />
           </ListItem>
 
-          <ListItem disablePadding>
+          <ListItem>
             <ListItemIcon>
               <Shield />
             </ListItemIcon>
@@ -65,7 +65,7 @@ export function SquareOauthExplainerCard(props: { sx?: SxProps }) {
         </List>
       </CardContent>
 
-      <CardActions sx={{ justifyContent: "center", pb: 2 }}>
+      <CardActions sx={{ justifyContent: "center", pb: 5 }}>
         <SquareOauthButton />
       </CardActions>
     </Card>

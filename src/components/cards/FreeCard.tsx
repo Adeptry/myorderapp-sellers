@@ -1,10 +1,10 @@
+import { StripeCheckoutButton } from "@/components/buttons/StripeCheckoutButton";
 import { useCookieContext } from "@/contexts/CookieContext";
-import AdUnitsIcon from "@mui/icons-material/AdUnits"; // Placeholder, replace with an appropriate icon
+import AdUnitsIcon from "@mui/icons-material/AdUnits";
 import PaletteIcon from "@mui/icons-material/Palette";
-import PublishIcon from "@mui/icons-material/Publish"; // Placeholder, replace with an appropriate icon
+import PublishIcon from "@mui/icons-material/Publish";
 import {
   Box,
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -16,10 +16,12 @@ import {
   Typography,
 } from "@mui/material";
 import { useFormatter, useTranslations } from "next-intl";
+import { useRouter } from "next-intl/client";
 
 export function FreeCard() {
   const { currencyCookieValue } = useCookieContext();
   const format = useFormatter();
+  const router = useRouter();
   const t = useTranslations("FreeCard");
 
   return (
@@ -92,9 +94,7 @@ export function FreeCard() {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button variant="outlined" fullWidth>
-          {t("buttonText")}
-        </Button>
+        <StripeCheckoutButton fullWidth isPro={false} />
       </CardActions>
     </Card>
   );

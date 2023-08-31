@@ -2,6 +2,7 @@
 
 import { routes } from "@/app/routes";
 import { useCookieContext } from "@/contexts/CookieContext";
+import { Currency } from "@/types/next";
 import { moaEnv } from "@/utils/config";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { ShoppingCartCheckout } from "@mui/icons-material";
@@ -9,34 +10,47 @@ import { LoadingButton } from "@mui/lab";
 import { loadStripe } from "@stripe/stripe-js";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import {
-  MerchantsApiFp,
-  StripeCheckoutCreateDtoCurrencyEnum,
-} from "moa-merchants-ts-axios";
+import { MerchantsApiFp } from "moa-merchants-ts-axios";
+import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next-intl/client";
 import { useState } from "react";
 
-export function StripeSubscribeButton(props: { fullWidth?: boolean }) {
-  const { configuration, status } = useSessionedApiConfiguration();
+export function StripeCheckoutButton(props: {
+  fullWidth?: boolean;
+  isPro: boolean;
+}) {
+  const { isPro } = props;
+  const { status } = useSession();
+  const sessionedApiConfiguration = useSessionedApiConfiguration();
   const { push } = useRouter();
   const locale = useLocale();
-  const t = useTranslations("Common");
+  const t = useTranslations("StripeCheckoutButton");
   const { currencyCookieValue } = useCookieContext();
 
-  const successUrl = `${moaEnv.frontendUrl}/${locale}${routes.onboarding.stripe.success}`;
-  const cancelUrl = `${moaEnv.frontendUrl}/${locale}${routes.onboarding.stripe.cancel}`;
-  console.log(`successUrl: ${successUrl}`);
+  const successRoute = isPro
+    ? routes.setup.pro.complete
+    : routes.setup.free.complete;
+  const successUrl = `${moaEnv.frontendUrl}/${locale}${successRoute}`;
+  const cancelUrl = `${moaEnv.frontendUrl}/${locale}${routes.setup.cancel}`;
+
   const createStripeCheckoutQuery = useQuery({
-    queryKey: ["createStripeCheckout", currencyCookieValue],
+    queryKey: ["createStripeCheckout", currencyCookieValue, isPro],
     queryFn: async () => {
+      const stripePriceId = isPro
+        ? moaEnv.stripe.priceIds.pro[
+            currencyCookieValue!.toLowerCase() as Currency
+          ]
+        : moaEnv.stripe.priceIds.free[
+            currencyCookieValue!.toLowerCase() as Currency
+          ];
+
       return (
         await (
-          await MerchantsApiFp(configuration).createStripeCheckout({
+          await MerchantsApiFp(sessionedApiConfiguration).createStripeCheckout({
             successUrl,
             cancelUrl,
-            currency:
-              currencyCookieValue as StripeCheckoutCreateDtoCurrencyEnum,
+            stripePriceId,
           })
         )()
       ).data;
@@ -57,7 +71,7 @@ export function StripeSubscribeButton(props: { fullWidth?: boolean }) {
       }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status == 401) {
-        push(routes.signin);
+        push(routes.login);
         return;
       }
     } finally {
@@ -77,7 +91,7 @@ export function StripeSubscribeButton(props: { fullWidth?: boolean }) {
   return (
     <LoadingButton
       fullWidth={props.fullWidth}
-      variant="contained"
+      variant={isPro ? "contained" : "outlined"}
       color="secondary"
       size="large"
       onClick={onClickCheckout}
@@ -85,7 +99,7 @@ export function StripeSubscribeButton(props: { fullWidth?: boolean }) {
       loading={buttonLoading}
       disabled={buttonLoading}
     >
-      {t("subscribe")}
+      {isPro ? t("pro") : t("free")}
     </LoadingButton>
   );
 }

@@ -63,15 +63,16 @@ export function AppConfigForm(props: {
   const theme = useTheme();
   const t = useTranslations("AppConfigForm");
   const common = useTranslations("Common");
-
-  const { configuration } = useSessionedApiConfiguration();
+  const sessionedApiConfiguration = useSessionedApiConfiguration();
   const [skeletonState, setSkeletonState] = useState(true);
 
   const updateConfigMutation = useMutation({
     mutationFn: async (appConfigUpdateDto: AppConfigUpdateDto) => {
       return (
         await (
-          await ConfigsApiFp(configuration).updateConfig(appConfigUpdateDto)
+          await ConfigsApiFp(sessionedApiConfiguration).updateConfig(
+            appConfigUpdateDto
+          )
         )()
       ).data;
     },

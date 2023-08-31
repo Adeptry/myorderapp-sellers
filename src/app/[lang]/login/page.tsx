@@ -22,18 +22,15 @@ export default function Page() {
   }, [data]);
 
   return (
-    <Grid container justifyContent="center">
+    <Grid container justifyContent="center" py={2}>
       <Grid item xs={12} sm={8} md={6} lg={4}>
         <Box display="flex" justifyContent="center">
           <Typography component="h1" variant="h4" pb={3}>
-            {common("signIn")}
+            {common("logIn")}
           </Typography>
         </Box>
 
-        <SignInForm
-          callbackUrl={routes.dashboard}
-          skeleton={status === "loading"}
-        />
+        <SignInForm callbackUrl={routes.home} skeleton={status === "loading"} />
       </Grid>
     </Grid>
   );

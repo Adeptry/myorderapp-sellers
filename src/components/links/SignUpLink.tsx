@@ -5,7 +5,7 @@ import { useTranslations } from "use-intl";
 export function SignUpLink() {
   const t = useTranslations("SignUpLink");
   return (
-    <MoaLink href={routes.signup} variant="body2" color="secondary">
+    <MoaLink href={routes.register} variant="body2" color="secondary">
       {t("text")}
     </MoaLink>
   );

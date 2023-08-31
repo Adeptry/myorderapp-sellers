@@ -22,18 +22,18 @@ export default function Page() {
   const { status } = useSession();
   useEffect(() => {
     if (status === "unauthenticated") {
-      push(routes.signin);
+      push(routes.login);
     }
   }, [status]);
 
   useEffect(() => {
     if (data?.squareId) {
-      push(routes.onboarding.catalog);
+      push(routes.setup.catalog);
     }
   }, [data]);
 
   return (
-    <Stack spacing={2} alignItems={"center"}>
+    <Stack spacing={2} alignItems={"center"} py={2}>
       <OnboardingStepper
         activeStep={OnboardingSteps.square}
         sx={{ width: "100%" }}

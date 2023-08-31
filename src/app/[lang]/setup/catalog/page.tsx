@@ -10,7 +10,6 @@ import { CategoriesLists } from "@/components/catalogs/CategoriesLists";
 import { TabLayout } from "@/components/layouts/TabLayout";
 import { moaEnv } from "@/utils/config";
 import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
-import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { Save } from "@mui/icons-material";
 import {
   Button,
@@ -21,6 +20,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { Category } from "moa-merchants-ts-axios";
+import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next-intl/client";
 import { useEffect, useState } from "react";
@@ -29,7 +29,7 @@ export default function Page() {
   const { push } = useRouter();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(780));
-  const { status } = useSessionedApiConfiguration();
+  const { status } = useSession();
   const [categoriesState, setCategoriesState] = useState<Category[]>([]);
   const skeleton = status === "loading" || categoriesState.length === 0;
   const { data: currentMerchantData } = useCurrentMerchantQuery();
@@ -37,7 +37,7 @@ export default function Page() {
 
   useEffect(() => {
     if (status === "unauthenticated") {
-      push(routes.signin);
+      push(routes.login);
     }
   }, [status]);
 
@@ -73,7 +73,7 @@ export default function Page() {
                 color="secondary"
                 startIcon={<Save />}
                 onClick={() => {
-                  push(routes.onboarding.stripe.index);
+                  push(routes.setup.tier);
                 }}
               >
                 {common("saveAndContinue")}

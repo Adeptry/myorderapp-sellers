@@ -1,4 +1,4 @@
-import { StripeSubscribeButton } from "@/components/buttons/StripeSubscribeButton";
+import { StripeCheckoutButton } from "@/components/buttons/StripeCheckoutButton";
 import { constants } from "@/constants";
 import { useCookieContext } from "@/contexts/CookieContext";
 import MobileFriendly from "@mui/icons-material/MobileFriendly";
@@ -20,9 +20,9 @@ import {
 import { useFormatter, useTranslations } from "next-intl";
 
 export function SubscribeCard() {
-  const { currencyCookieValue } = useCookieContext();
   const format = useFormatter();
   const t = useTranslations("SubscribeCard");
+  const { currencyCookieValue } = useCookieContext();
 
   return (
     <Card>
@@ -99,7 +99,7 @@ export function SubscribeCard() {
         </Typography>
       </CardContent>
       <CardActions>
-        <StripeSubscribeButton fullWidth />
+        <StripeCheckoutButton fullWidth isPro />
       </CardActions>
     </Card>
   );

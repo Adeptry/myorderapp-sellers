@@ -51,7 +51,7 @@ export function SquareOauthButton(props: SquareOauthButtonProps) {
     moaEnv.squareTestCode != undefined &&
     moaEnv.squareTestCode.length > 0
   ) {
-    urlString = `${routes.onboarding.square.oauth2}?code=${moaEnv.squareTestCode}`;
+    urlString = `${routes.setup.square.oauth2}?code=${moaEnv.squareTestCode}`;
   }
 
   if (!data?.id) {

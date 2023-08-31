@@ -11,6 +11,7 @@ import {
   VariationUpdateDto,
 } from "moa-merchants-ts-axios";
 import { nanoid } from "nanoid";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { Flipped, Flipper } from "react-flip-toolkit";
 
@@ -18,13 +19,14 @@ export function CategoriesLists(props: {
   onCatalogUpdate?: (categories: Category[]) => void;
 }) {
   const { onCatalogUpdate } = props;
-  const { configuration, status } = useSessionedApiConfiguration();
+  const sessionedApiConfiguration = useSessionedApiConfiguration();
+  const { status } = useSession();
   const queryClient = useQueryClient();
   const getMyCatalogQueryKey = ["getMyCatalogQuery"];
   const getMyCatalogQuery = useQuery({
     queryKey: getMyCatalogQueryKey,
     queryFn: async () => {
-      const catalogsApi = new CatalogsApi(configuration);
+      const catalogsApi = new CatalogsApi(sessionedApiConfiguration);
       return (
         await catalogsApi.getMyCatalog({
           items: true,
@@ -52,7 +54,9 @@ export function CategoriesLists(props: {
     mutationFn: async (itemUpdateAllDto: Array<ItemUpdateAllDto>) => {
       return (
         await (
-          await CatalogsApiFp(configuration).updateItems(itemUpdateAllDto)
+          await CatalogsApiFp(sessionedApiConfiguration).updateItems(
+            itemUpdateAllDto
+          )
         )()
       ).data;
     },
@@ -65,7 +69,7 @@ export function CategoriesLists(props: {
     mutationFn: async (categoryUpdateAllDto: Array<CategoryUpdateAllDto>) => {
       return (
         await (
-          await CatalogsApiFp(configuration).updateCategories(
+          await CatalogsApiFp(sessionedApiConfiguration).updateCategories(
             categoryUpdateAllDto
           )
         )()
@@ -86,7 +90,7 @@ export function CategoriesLists(props: {
       variationUpdateDto: VariationUpdateDto;
     }) => {
       return (
-        await CatalogsApiFp(configuration).updateVariation(
+        await CatalogsApiFp(sessionedApiConfiguration).updateVariation(
           params.id,
           params.variationUpdateDto
         )
@@ -107,7 +111,9 @@ export function CategoriesLists(props: {
       file?: File;
     }) => {
       return (
-        await CatalogsApiFp(configuration).uploadImageToSquareCatalog(
+        await CatalogsApiFp(
+          sessionedApiConfiguration
+        ).uploadImageToSquareCatalog(
           params.idempotencyKey,
           params.id,
           params.file

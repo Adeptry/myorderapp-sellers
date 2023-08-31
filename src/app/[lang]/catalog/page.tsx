@@ -22,7 +22,7 @@ export default function Page() {
 
   useEffect(() => {
     if (status === "unauthenticated") {
-      push(routes.signin);
+      push(routes.login);
     }
   }, [status]);
   return (

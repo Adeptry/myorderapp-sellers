@@ -34,7 +34,7 @@ export function OnboardingStepper(props: {
   function getTitleForStep(step: OnboardingSteps): string {
     switch (step) {
       case OnboardingSteps.signUp:
-        return common("signUp");
+        return common("register");
       case OnboardingSteps.configure:
         return t("customize");
       case OnboardingSteps.square:
@@ -51,9 +51,9 @@ export function OnboardingStepper(props: {
       case OnboardingSteps.signUp:
         return null;
       case OnboardingSteps.configure:
-        return routes.onboarding.appearance;
+        return routes.setup.theme;
       case OnboardingSteps.square:
-        return routes.onboarding.catalog;
+        return routes.setup.catalog;
       case OnboardingSteps.checkout:
         return null;
       default:

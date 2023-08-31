@@ -39,10 +39,12 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
     ),
   });
 
-  const { configuration } = useSessionedApiConfiguration();
+  const sessionedApiConfiguration = useSessionedApiConfiguration();
   const forgotPasswordMutation = useMutation({
     mutationFn: (authForgotPasswordDto: AuthForgotPasswordDto) => {
-      return AuthApiFp(configuration).forgotPassword(authForgotPasswordDto);
+      return AuthApiFp(sessionedApiConfiguration).forgotPassword(
+        authForgotPasswordDto
+      );
     },
   });
 

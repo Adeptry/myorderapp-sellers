@@ -62,26 +62,29 @@
     }
   },
   "Common": {
+    "billing": "Billing",
+    "brandName": "MyOrderApp",
+    "brandNameLong": "MyOrderApp for Sellers",
+    "brandNameShort": "MOA",
+    "catalog": "Catalog",
     "country": "Country",
     "currency": "Currency",
     "email": "Email",
+    "error": "Oops, something went wrong. Don't worry, your data is safe. We've been notified and are working to fix the issue.",
     "firstName": "First name",
     "frequentlyAskedQuestions": "Frequently Asked Questions",
     "language": "Language",
     "lastName": "Last name",
-    "locale": "en",
+    "logIn": "Log in",
+    "logOut": "Log out",
+    "mainSite": "Main site",
     "password": "Password",
+    "profile": "Profile",
+    "register": "Register",
     "resetPassword": "Reset Password",
     "saveAndContinue": "Save and Continue",
-    "signIn": "Sign in",
-    "signUp": "Sign up",
     "subscribe": "Subscribe",
-    "catalog": "Catalog",
-    "appearance": "Appearance",
-    "homepage": "Homepage",
-    "account": "Account",
-    "billing": "Billing",
-    "signOut": "Sign out"
+    "theme": "Theme"
   },
   "ForgotPasswordLink": {
     "text": "Forgot password?"
@@ -114,16 +117,16 @@
     "synchronize": "Synchronize"
   },
   "SignInForm": {
-    "submitButton": "Sign In with Email"
+    "submitButton": "Log In with Email"
   },
   "SignInLink": {
-    "text": "Have an account? Sign in"
+    "text": "Have an account? Log in"
   },
   "SignUpForm": {
-    "submitButton": "Sign Up with Email"
+    "submitButton": "Register with Email"
   },
   "SignUpLink": {
-    "text": "New here? Sign up"
+    "text": "New here? Register"
   },
   "SquareOauthButton": {
     "text": "Authorize Square"
@@ -137,13 +140,30 @@
     "orderSubmissionSecondary": "Allow us to submit orders on your customers' behalf, ensuring quick and smooth order processing.",
     "posIntegrationPrimary": "POS Integration",
     "posIntegrationSecondary": "Send orders directly to your point-of-sale systems, bridging the gap between online orders and in-person sales.",
-    "title": "Connect your Square Account"
+    "title": "Authorize us to access Square"
+  },
+  "StripeCheckoutButton": {
+    "free": "Get Started for Free",
+    "pro": "Get Premium"
   },
   "StripeCheckoutCancelledCard": {
     "body": "Life gets busy, and we understand that. Should you choose to return and finalize your setup, know that your progress is saved. At any point, you can revisit previous steps using the navigation above. For any queries or more insights, our FAQ section and publishing options are readily available below.",
     "title": "We noticed your checkout was interrupted"
   },
-  "StripeCheckoutSuccessCard": {
+  "StripeFreeCheckoutSuccessCard": {
+    "adSupportedPrimary": "Ads Included",
+    "adSupportedSecondary": "Ads will be displayed in your app, supporting the free tier.",
+    "buttonText": "Dive into Settings",
+    "customizationPrimary": "Personalization Awaits",
+    "customizationSecondary": "Add your own flair: logo, colors, fonts. Sync it all with your Square Catalog.",
+    "selfPublishedPrimary": "DIY Publishing",
+    "selfPublishedSecondary": "You’re the captain now. We provide the ship; you steer it to the App Store.",
+    "subheader": "We're Gearing You Up for Success",
+    "timerPrimary": "Support Response Time",
+    "timerSecondary": "Questions? Expect a response within 72 hours due to high volume on the free tier.",
+    "title": "Welcome to Your Free Tier!"
+  },
+  "StripeProCheckoutSuccessCard": {
     "accountPrimary": "Account Setup",
     "accountSecondary": "We're setting up your accounts to ensure a seamless integration.",
     "buildPrimary": "App Construction",

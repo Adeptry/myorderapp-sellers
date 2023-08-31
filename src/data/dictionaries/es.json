@@ -62,26 +62,29 @@
     }
   },
   "Common": {
+    "billing": "Facturación",
+    "brandName": "MyOrderApp",
+    "brandNameLong": "MyOrderApp for Sellers",
+    "brandNameShort": "MOA",
+    "catalog": "Catálogo",
     "country": "País",
-    "currency": "Divisa",
+    "currency": "Moneda",
     "email": "Correo electrónico",
+    "error": "Vaya, algo salió mal. No te preocupes, tus datos están seguros. Ya hemos sido notificados y estamos trabajando para solucionar el problema.",
     "firstName": "Nombre",
     "frequentlyAskedQuestions": "Preguntas Frecuentes",
     "language": "Idioma",
     "lastName": "Apellido",
-    "locale": "es",
+    "logIn": "Iniciar sesión",
+    "logOut": "Cerrar sesión",
+    "mainSite": "Sitio principal",
     "password": "Contraseña",
+    "profile": "Perfil",
+    "register": "Registrarse",
     "resetPassword": "Restablecer Contraseña",
     "saveAndContinue": "Guardar y Continuar",
-    "signIn": "Iniciar sesión",
-    "signUp": "Registrarse",
     "subscribe": "Suscribirse",
-    "catalog": "Catálogo",
-    "appearance": "Apariencia",
-    "homepage": "Página principal",
-    "account": "Cuenta",
-    "billing": "Facturación",
-    "signOut": "Cerrar sesión"
+    "theme": "Tema"
   },
   "ForgotPasswordLink": {
     "text": "¿Olvidaste tu contraseña?"
@@ -139,11 +142,28 @@
     "posIntegrationSecondary": "Envía pedidos directamente a tus sistemas de punto de venta, cerrando la brecha entre pedidos en línea y ventas en persona.",
     "title": "Conecta tu cuenta de Square"
   },
+  "StripeCheckoutButton": {
+    "free": "Comenzar Gratis",
+    "pro": "Obtener Premium"
+  },
   "StripeCheckoutCancelledCard": {
     "body": "La vida se pone ocupada y lo entendemos. Si decides regresar y finalizar tu configuración, ten en cuenta que tu progreso está guardado. En cualquier momento, puedes revisitar los pasos anteriores usando la navegación de arriba. Para cualquier consulta o más información, nuestra sección de preguntas frecuentes y opciones de publicación están disponibles a continuación.",
     "title": "Notamos que tu proceso de pago fue interrumpido"
   },
-  "StripeCheckoutSuccessCard": {
+  "StripeFreeCheckoutSuccessCard": {
+    "adSupportedPrimary": "Con publicidad",
+    "adSupportedSecondary": "Se mostrarán anuncios en tu aplicación, lo que respalda el nivel gratuito.",
+    "buttonText": "Sumérgete en la configuración",
+    "customizationPrimary": "La personalización te espera",
+    "customizationSecondary": "Añade tu propio estilo: logo, colores, fuentes. Sincronízalo todo con tu catálogo de Square.",
+    "selfPublishedPrimary": "Publicación DIY",
+    "selfPublishedSecondary": "Ahora eres el capitán. Te proporcionamos el barco; tú lo llevas a la App Store.",
+    "subheader": "Te estamos preparando para el éxito",
+    "timerPrimary": "Tiempo de respuesta del soporte",
+    "timerSecondary": "¿Preguntas? Espera una respuesta en un plazo de 72 horas debido al alto volumen en el nivel gratuito.",
+    "title": "¡Bienvenido a tu nivel gratuito!"
+  },
+  "StripeProCheckoutSuccessCard": {
     "accountPrimary": "Configuración de cuenta",
     "accountSecondary": "Estamos configurando tus cuentas para asegurar una integración sin problemas.",
     "buildPrimary": "Construcción de la aplicación",

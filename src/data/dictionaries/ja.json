@@ -62,26 +62,29 @@
     }
   },
   "Common": {
+    "billing": "課金",
+    "brandName": "MyOrderApp",
+    "brandNameLong": "MyOrderApp for Sellers",
+    "brandNameShort": "MOA",
+    "catalog": "カタログ",
     "country": "国",
     "currency": "通貨",
-    "email": "メールアドレス",
+    "email": "メール",
+    "error": "おっと、何か問題が発生しました。ご安心ください、あなたのデータは安全です。既に問題を報告され、修正作業中です。",
     "firstName": "名",
     "frequentlyAskedQuestions": "よくある質問",
     "language": "言語",
     "lastName": "姓",
-    "locale": "ja",
+    "logIn": "ログイン",
+    "logOut": "ログアウト",
+    "mainSite": "メインサイト",
     "password": "パスワード",
+    "profile": "プロフィール",
+    "register": "登録",
     "resetPassword": "パスワードをリセット",
-    "saveAndContinue": "保存して続行",
-    "signIn": "ログイン",
-    "signUp": "登録",
-    "subscribe": "購読する",
-    "catalog": "カタログ",
-    "appearance": "外観",
-    "homepage": "ホームページ",
-    "account": "アカウント",
-    "billing": "請求",
-    "signOut": "ログアウト"
+    "saveAndContinue": "保存して続ける",
+    "subscribe": "購読",
+    "theme": "テーマ"
   },
   "ForgotPasswordLink": {
     "text": "パスワードを忘れましたか？"
@@ -139,11 +142,28 @@
     "posIntegrationSecondary": "注文を直接販売点システムに送信し、オンライン注文と対面販売のギャップを埋める。",
     "title": "Squareアカウントを接続する"
   },
+  "StripeCheckoutButton": {
+    "free": "無料で始める",
+    "pro": "プレミアムを取得"
+  },
   "StripeCheckoutCancelledCard": {
     "body": "人生は忙しくなることがありますが、それを理解しています。設定を完了するために戻ることを選択した場合、進行状況は保存されていることを知ってください。上のナビゲーションを使用して、以前のステップをいつでも再訪することができます。質問や詳細については、下のFAQセクションや公開オプションが利用可能です。",
     "title": "支払いが中断されたことに気付きました"
   },
-  "StripeCheckoutSuccessCard": {
+  "StripeFreeCheckoutSuccessCard": {
+    "adSupportedPrimary": "広告が含まれています",
+    "adSupportedSecondary": "広告がアプリ内に表示され、無料プランをサポートします。",
+    "buttonText": "設定に飛び込む",
+    "customizationPrimary": "カスタマイズが待っています",
+    "customizationSecondary": "独自のスタイルを追加してください：ロゴ、色、フォント。それをすべてSquareカタログと同期させます。",
+    "selfPublishedPrimary": "DIY公開",
+    "selfPublishedSecondary": "今、あなたが船長です。私たちは船を提供し、あなたがそれをアプリストアへ導きます。",
+    "subheader": "成功に向けて準備中です",
+    "timerPrimary": "サポートの応答時間",
+    "timerSecondary": "質問がありますか？高いボリュームにより、無料プランでは72時間以内に返信を期待してください。",
+    "title": "無料プランへようこそ！"
+  },
+  "StripeProCheckoutSuccessCard": {
     "accountPrimary": "アカウントの設定",
     "accountSecondary": "スムーズな統合を保証するために、アカウントを設定しています。",
     "buildPrimary": "アプリの構築",

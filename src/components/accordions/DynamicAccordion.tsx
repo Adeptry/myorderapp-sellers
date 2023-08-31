@@ -14,16 +14,16 @@ export function DynamicAccordion(props: {
 }) {
   const content = props.content.map((item, index) => {
     return (
-      <Accordion>
+      <Accordion key={`${index}-accordio`}>
         <AccordionSummary
           expandIcon={<ExpandMore />}
           aria-controls={`${item.summary}-content`}
-          id={`${index}`}
+          key={`${index}-summary`}
         >
-          <Typography sx={{ fontWeight: "bold" }}>{item.summary}</Typography>
+          <Typography variant="h6">{item.summary}</Typography>
         </AccordionSummary>
-        <AccordionDetails>
-          <Typography>{item.details}</Typography>
+        <AccordionDetails key={`${index}-summary`}>
+          <Typography variant="body1">{item.details}</Typography>
         </AccordionDetails>
       </Accordion>
     );

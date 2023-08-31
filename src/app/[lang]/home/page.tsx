@@ -7,15 +7,17 @@ import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfigurati
 import { Stack, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { ConfigsApiFp } from "moa-merchants-ts-axios";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next-intl/client";
 import { useEffect } from "react";
 
 export default function Page() {
   const { push } = useRouter();
-  const { configuration, status } = useSessionedApiConfiguration();
+  const { status } = useSession();
+  const sessionedApiConfiguration = useSessionedApiConfiguration();
   useEffect(() => {
     if (status === "unauthenticated") {
-      push(routes.signin);
+      push(routes.login);
     }
   }, [status]);
   const getCurrentMerchantQueryState = useCurrentMerchantQuery();
@@ -24,7 +26,10 @@ export default function Page() {
     queryFn: async () => {
       return (
         await (
-          await ConfigsApiFp(configuration).getMyConfig(undefined, "merchant")
+          await ConfigsApiFp(sessionedApiConfiguration).getMyConfig(
+            undefined,
+            "merchant"
+          )
         )()
       ).data;
     },
@@ -38,18 +43,18 @@ export default function Page() {
 
   if (status === "authenticated") {
     if (getMyConfigQueryState.error) {
-      push(routes.onboarding.appearance);
+      push(routes.setup.theme);
     }
 
     if (!getCurrentMerchantQueryState.data?.squareId) {
-      push(routes.onboarding.square.index);
+      push(routes.setup.square.index);
     }
 
-    if (!getCurrentMerchantQueryState.data?.stripeCheckoutSessionId) {
-      push(routes.onboarding.stripe.index);
-    }
+    // if (!getCurrentMerchantQueryState.data?.stripeCheckoutSessionId) {
+    //   push(routes.setup.tier);
+    // }
   } else if (status === "unauthenticated") {
-    push(routes.signin);
+    push(routes.login);
   }
 
   return (

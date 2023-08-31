@@ -7,6 +7,8 @@ export const i18n = {
 
 export type Locale = (typeof i18n)["locales"][number];
 
+export type Currency = "usd" | "eur" | "gbp" | "jpy" | "cad" | "aud";
+
 export type NextPageProps = {
   children: ReactNode;
   params: { lang: Locale };

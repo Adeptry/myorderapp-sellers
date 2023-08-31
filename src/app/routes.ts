@@ -1,22 +1,26 @@
 export const routes = {
-  signin: "/signin",
-  signup: "/",
-  forgot: "/forgot",
-  dashboard: "/dashboard",
-  account: "/account",
-  appearance: "/appearance",
+  index: "/",
+  login: "/login",
+  register: "/register",
+  resetPassword: "/reset-password",
+  home: "/home",
+  profile: "/profile",
+  theme: "/theme",
   catalog: "/catalog",
-  onboarding: {
-    appearance: "/onboarding/appearance",
-    catalog: "/onboarding/catalog",
+  setup: {
+    theme: "/setup/theme",
+    catalog: "/setup/catalog",
     square: {
-      index: "/onboarding/square",
-      oauth2: "/onboarding/square/oauth2",
+      index: "/setup/square",
+      oauth2: "/setup/square/oauth2",
     },
-    stripe: {
-      index: "/onboarding/stripe",
-      cancel: "/onboarding/stripe/cancel",
-      success: "/onboarding/stripe/success",
+    tier: "/setup/tier",
+    cancel: "/setup/cancel",
+    pro: {
+      complete: "/setup/pro/complete",
+    },
+    free: {
+      complete: "/setup/free/complete",
     },
   },
 };

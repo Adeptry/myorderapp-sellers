@@ -11,7 +11,7 @@ export default function Page() {
   const { status } = useSession();
   useEffect(() => {
     if (status === "unauthenticated") {
-      push(routes.signin);
+      push(routes.login);
     }
   }, [status]);
   return (

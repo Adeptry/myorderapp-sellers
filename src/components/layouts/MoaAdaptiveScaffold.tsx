@@ -5,11 +5,12 @@ import { FooterLayout } from "@/components/layouts/FooterLayout";
 import { stringToColor } from "@/utils/stringToColor";
 import { useAppBarHeight } from "@/utils/useAppBarHeight";
 import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
+import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import {
   AccountBox,
   AppShortcut,
-  Home,
+  ArrowBack,
   Logout,
   MenuBook,
   Menu as MenuIcon,
@@ -42,7 +43,7 @@ import {
   MerchantsApiFp,
   StripeBillingPortalCreateInput,
 } from "moa-merchants-ts-axios";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next-intl/client";
 import { Fragment, ReactNode, useState } from "react";
@@ -101,23 +102,23 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   const common = useTranslations("Common");
   const appBarHeight = useAppBarHeight();
-
+  const maxHeightCssString = useMaxHeightCssString();
   const { push } = useRouter();
   const { value: drawerOpenState, toggle: toggleDrawerOpenState } =
     useBoolean(false);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-
+  const { status } = useSession();
   const { data: currentMerchantData } = useCurrentMerchantQuery();
-  const { configuration, status } = useSessionedApiConfiguration();
+  const sessionedApiConfiguration = useSessionedApiConfiguration();
 
   const createStripeBillingSessionUrlMutation = useMutation({
     mutationFn: async (
       stripeBillingPortalCreateInput: StripeBillingPortalCreateInput
     ) => {
       return (
-        await MerchantsApiFp(configuration).createStripeBillingSessionUrl(
-          stripeBillingPortalCreateInput
-        )
+        await MerchantsApiFp(
+          sessionedApiConfiguration
+        ).createStripeBillingSessionUrl(stripeBillingPortalCreateInput)
       )();
     },
   });
@@ -137,11 +138,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
   const initials = `${firstName ? firstName[0] : ""}${
     lastName ? lastName[0] : ""
   }`;
-  const hasFinishedOnboarding =
-    currentMerchantData?.catalogId &&
-    currentMerchantData?.squareId &&
-    currentMerchantData?.stripeId &&
-    currentMerchantData?.stripeCheckoutSessionId;
+  const hasFinishedOnboarding = true;
 
   const menuItems: Array<ReactNode> = [];
 
@@ -150,13 +147,13 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
       <MenuItem
         key="account-menu-item"
         onClick={() => {
-          signOut({ callbackUrl: routes.signin });
+          signOut({ callbackUrl: routes.login });
         }}
       >
         <ListItemIcon>
           <AccountBox fontSize="small" />
         </ListItemIcon>
-        <ListItemText>{common("account")}</ListItemText>
+        <ListItemText>{common("profile")}</ListItemText>
       </MenuItem>
     );
   }
@@ -188,13 +185,13 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
       <MenuItem
         key="sign-out-menu-item"
         onClick={() => {
-          signOut({ callbackUrl: routes.signin });
+          signOut({ callbackUrl: routes.login });
         }}
       >
         <ListItemIcon>
           <Logout fontSize="small" style={{ transform: "scaleX(-1)" }} />
         </ListItemIcon>
-        <ListItemText>{common("signOut")}</ListItemText>
+        <ListItemText>{common("logOut")}</ListItemText>
       </MenuItem>
     );
   }
@@ -213,7 +210,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
         </IconButton>
       </Box>
       <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-        MyOrderApp
+        {common("brandNameLong")}
       </Typography>
 
       <Box sx={{ flexGrow: 0 }}>
@@ -288,13 +285,13 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
                 <ListItem key={"app-configurator-list-item"} disablePadding>
                   <ListItemButton
                     onClick={() => {
-                      push(routes.appearance);
+                      push(routes.theme);
                     }}
                   >
                     <ListItemIcon>
                       <AppShortcut />
                     </ListItemIcon>
-                    <ListItemText primary={common("appearance")} />
+                    <ListItemText primary={common("theme")} />
                   </ListItemButton>
                 </ListItem>
               </Fragment>
@@ -303,9 +300,9 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
             <ListItem key={"home-list-item"} disablePadding>
               <ListItemButton onClick={() => {}}>
                 <ListItemIcon>
-                  <Home />
+                  <ArrowBack />
                 </ListItemIcon>
-                <ListItemText primary={common("homepage")} />
+                <ListItemText primary={common("mainSite")} />
               </ListItemButton>
             </ListItem>
           </Fragment>
@@ -321,10 +318,8 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
       >
         <Container
           sx={{
-            minHeight: `calc(100vh - ${appBarHeight}px - 57px)`,
+            minHeight: maxHeightCssString,
             mt: `${appBarHeight}px`,
-            pt: 2,
-            pb: 2,
           }}
         >
           {props.children}
@@ -334,15 +329,6 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
             borderTop: "1px",
             borderTopStyle: "solid",
             borderTopColor: "divider",
-            ml: isSmallScreen
-              ? 0
-              : drawerOpenState
-              ? `${drawerWidth - 1}px`
-              : 0,
-            transition: theme.transitions.create("margin", {
-              easing: theme.transitions.easing.sharp,
-              duration: theme.transitions.duration.enteringScreen,
-            }),
           }}
         >
           <FooterLayout />

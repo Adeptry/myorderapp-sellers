@@ -1,12 +1,5 @@
 import { routes } from "@/app/routes";
-import {
-  AccountCircle,
-  Build,
-  CalendarToday,
-  Edit,
-  Reviews,
-  Timer,
-} from "@mui/icons-material";
+import { AdUnits, Palette, Publish, Timer } from "@mui/icons-material"; // Assume these icons exist or replace them with actual ones
 import {
   Button,
   Card,
@@ -22,8 +15,8 @@ import {
 import { useTranslations } from "next-intl";
 import { useRouter } from "next-intl/client";
 
-export function StripeCheckoutSuccessCard(props: { sx?: SxProps }) {
-  const t = useTranslations("StripeCheckoutSuccessCard");
+export function StripeFreeCheckoutSuccessCard(props: { sx?: SxProps }) {
+  const t = useTranslations("StripeFreeCheckoutSuccessCard");
   const common = useTranslations("Common");
   const { push } = useRouter();
   return (
@@ -32,7 +25,7 @@ export function StripeCheckoutSuccessCard(props: { sx?: SxProps }) {
         title={t("title")}
         subheader={t("subheader")}
         titleTypographyProps={{ align: "center" }}
-        action={<Build />}
+        action={<AdUnits />} // Replaced the icon to signify ads
         subheaderTypographyProps={{
           align: "center",
         }}
@@ -44,29 +37,29 @@ export function StripeCheckoutSuccessCard(props: { sx?: SxProps }) {
         <List>
           <ListItem disablePadding>
             <ListItemIcon>
-              <Build />
+              <Palette />
             </ListItemIcon>
             <ListItemText
-              primary={t("buildPrimary")}
-              secondary={t("buildSecondary")}
+              primary={t("customizationPrimary")}
+              secondary={t("customizationSecondary")}
             />
           </ListItem>
           <ListItem disablePadding>
             <ListItemIcon>
-              <AccountCircle />
+              <AdUnits />
             </ListItemIcon>
             <ListItemText
-              primary={t("accountPrimary")}
-              secondary={t("accountSecondary")}
+              primary={t("adSupportedPrimary")}
+              secondary={t("adSupportedSecondary")}
             />
           </ListItem>
           <ListItem disablePadding>
             <ListItemIcon>
-              <Reviews />
+              <Publish />
             </ListItemIcon>
             <ListItemText
-              primary={t("reviewPrimary")}
-              secondary={t("reviewSecondary")}
+              primary={t("selfPublishedPrimary")}
+              secondary={t("selfPublishedSecondary")}
             />
           </ListItem>
           <ListItem disablePadding>
@@ -78,33 +71,13 @@ export function StripeCheckoutSuccessCard(props: { sx?: SxProps }) {
               secondary={t("timerSecondary")}
             />
           </ListItem>
-          <ListItem disablePadding>
-            <ListItemIcon>
-              <CalendarToday />
-            </ListItemIcon>
-            <ListItemText
-              primary={t("calendarPrimary")}
-              secondary={t("calendarSecondary")}
-            />
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemIcon>
-              <Edit />
-            </ListItemIcon>
-            <ListItemText
-              primary={t("editPrimary")}
-              secondary={t("editSecondary")}
-            />
-          </ListItem>
         </List>
       </CardContent>
       <CardActions>
         <Button onClick={() => push(routes.catalog)}>
           {common("catalog")}
         </Button>
-        <Button onClick={() => push(routes.appearance)}>
-          {common("appearance")}
-        </Button>
+        <Button onClick={() => push(routes.theme)}>{common("theme")}</Button>
       </CardActions>
     </Card>
   );
