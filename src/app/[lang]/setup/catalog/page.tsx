@@ -42,7 +42,7 @@ export default function Page() {
   }, [status]);
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={2} py={2}>
       {skeleton ? (
         <Skeleton height={"24px"} />
       ) : (

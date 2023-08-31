@@ -13,7 +13,6 @@ import {
 import { nanoid } from "nanoid";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { Flipped, Flipper } from "react-flip-toolkit";
 
 export function CategoriesLists(props: {
   onCatalogUpdate?: (categories: Category[]) => void;
@@ -251,47 +250,37 @@ export function CategoriesLists(props: {
         Array(8)
           .fill(null)
           .map((_, i) => <Skeleton key={i} height={"88px"} />)}
-      {!(status === "loading") && (
-        <Flipper
-          flipKey={categories.map((v) => v.id).join("")}
-          portalKey="categories"
-        >
-          {categories.map((entity) => {
-            const isLast = categories[categories.length - 1].id === entity.id;
-            return (
-              <Flipped key={entity.id} flipId={entity.id ?? ""}>
-                <Paper elevation={2} sx={{ mb: isLast ? 0 : 2 }}>
-                  <CategoryList
-                    onCategoryMove={onCategoryMove}
-                    entity={entity}
-                    isIn={currentCategoryIdState === entity.id}
-                    isFirst={categories[0].id === entity.id}
-                    isLast={isLast}
-                    setIsIn={(open) => {
-                      setCurrentCategoryIdState(
-                        open ? entity.id ?? null : null
-                      );
-                    }}
-                    getItems={(itemId) => {
-                      setCurrentItemIdState(itemId);
-                    }}
-                    items={itemsInCategory}
-                    onItemMove={onItemMove}
-                    variations={variationsInItem}
-                    getVariations={(itemId) => {
-                      setCurrentItemIdState(itemId);
-                    }}
-                    onVariationUpdate={onVariationUpdate}
-                    onItemUpdate={onItemUpdate}
-                    onCategoryUpdate={onCategoryUpdate}
-                    onObjectImageUpdate={onObjectImageUpdate}
-                  />
-                </Paper>
-              </Flipped>
-            );
-          })}
-        </Flipper>
-      )}
+      {!(status === "loading") &&
+        categories.map((entity) => {
+          const isLast = categories[categories.length - 1].id === entity.id;
+          return (
+            <Paper elevation={2} sx={{ mb: isLast ? 0 : 2 }}>
+              <CategoryList
+                onCategoryMove={onCategoryMove}
+                entity={entity}
+                isIn={currentCategoryIdState === entity.id}
+                isFirst={categories[0].id === entity.id}
+                isLast={isLast}
+                setIsIn={(open) => {
+                  setCurrentCategoryIdState(open ? entity.id ?? null : null);
+                }}
+                getItems={(itemId) => {
+                  setCurrentItemIdState(itemId);
+                }}
+                items={itemsInCategory}
+                onItemMove={onItemMove}
+                variations={variationsInItem}
+                getVariations={(itemId) => {
+                  setCurrentItemIdState(itemId);
+                }}
+                onVariationUpdate={onVariationUpdate}
+                onItemUpdate={onItemUpdate}
+                onCategoryUpdate={onCategoryUpdate}
+                onObjectImageUpdate={onObjectImageUpdate}
+              />
+            </Paper>
+          );
+        })}
     </Box>
   );
 }
