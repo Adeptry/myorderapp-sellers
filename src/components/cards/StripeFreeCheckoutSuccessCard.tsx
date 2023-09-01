@@ -25,7 +25,6 @@ export function StripeFreeCheckoutSuccessCard(props: { sx?: SxProps }) {
         title={t("title")}
         subheader={t("subheader")}
         titleTypographyProps={{ align: "center" }}
-        action={<AdUnits />} // Replaced the icon to signify ads
         subheaderTypographyProps={{
           align: "center",
         }}

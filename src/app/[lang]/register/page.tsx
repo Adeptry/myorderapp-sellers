@@ -6,7 +6,7 @@ import {
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
 import { SignUpForm } from "@/components/forms/SignUpForm";
-import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
+import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
 import { Grid, Typography, useMediaQuery } from "@mui/material";
 import { Box, Stack, useTheme } from "@mui/system";
 import { useSession } from "next-auth/react";

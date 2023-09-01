@@ -5,7 +5,7 @@ import {
   OnboardingStepper,
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
-import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
+import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { Alert, Box, CircularProgress, Stack } from "@mui/material";

@@ -2,7 +2,6 @@
 
 import { fontNames } from "@/data/fontNames";
 import { configurationForSession } from "@/utils/configurationForSession";
-import { logger } from "@/utils/logger";
 import { mapStringEnum } from "@/utils/mapStringEnum";
 import { randomColor } from "@/utils/randomColor";
 import { stringToColor } from "@/utils/stringToColor";
@@ -162,7 +161,6 @@ export function AppConfigForm(props: {
 
   useEffect(() => {
     const subscription = form.watch((value) => {
-      logger.info(value.useMaterial3, "PAUL HERE WEB");
       onChange ? onChange(value) : {};
     });
     return () => subscription.unsubscribe();

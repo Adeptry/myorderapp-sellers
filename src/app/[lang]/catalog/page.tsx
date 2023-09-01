@@ -1,24 +1,26 @@
 "use client";
 
 import { routes } from "@/app/routes";
+import { CatalogAccordion } from "@/components/accordions/CatalogAccordion";
 import { MyOrderAppPreview } from "@/components/app-preview/MyOrderAppPreview";
-import { CategoriesLists } from "@/components/catalogs/CategoriesLists";
 import { TabLayout } from "@/components/layouts/TabLayout";
+import { useCurrentCatalogQuery } from "@/queries/useCurrentCatalogQuery";
+import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
 import { moaEnv } from "@/utils/config";
-import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
 import { Stack, useMediaQuery, useTheme } from "@mui/material";
-import { Category } from "moa-merchants-ts-axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next-intl/client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function Page() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(780));
   const { data: currentMerchantData } = useCurrentMerchantQuery();
+  const currentCatalogQuery = useCurrentCatalogQuery();
+  const currentCatalogCategories = currentCatalogQuery.data?.data ?? [];
+
   const { push } = useRouter();
   const { status } = useSession();
-  const [categoriesState, setCategoriesState] = useState<Category[]>([]);
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -31,15 +33,11 @@ export default function Page() {
         tabLabels={["Catalog", "Preview"]}
         sx={{ pt: isSmallScreen ? 0 : 3, pb: 3 }}
       >
-        <CategoriesLists
-          onCatalogUpdate={(categories) => {
-            setCategoriesState(categories);
-          }}
-        />
+        <CatalogAccordion />
         <MyOrderAppPreview
           key="device-preview"
           sx={{ pb: 2, position: "sticky", top: "72px" }}
-          categories={categoriesState}
+          categories={currentCatalogCategories}
           environment={{
             apiBaseUrl: moaEnv.backendUrl!,
             apiKey: moaEnv.backendApiKey!,

@@ -2,9 +2,9 @@
 
 import { routes } from "@/app/routes";
 import { FooterLayout } from "@/components/layouts/FooterLayout";
+import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
 import { stringToColor } from "@/utils/stringToColor";
 import { useAppBarHeight } from "@/utils/useAppBarHeight";
-import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import {
@@ -104,8 +104,11 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
   const appBarHeight = useAppBarHeight();
   const maxHeightCssString = useMaxHeightCssString();
   const { push } = useRouter();
-  const { value: drawerOpenState, toggle: toggleDrawerOpenState } =
-    useBoolean(false);
+  const {
+    value: drawerOpenState,
+    toggle: toggleDrawerOpenState,
+    setFalse: setDrawerOpenStateFalse,
+  } = useBoolean(false);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const { status } = useSession();
   const { data: currentMerchantData } = useCurrentMerchantQuery();
@@ -138,7 +141,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
   const initials = `${firstName ? firstName[0] : ""}${
     lastName ? lastName[0] : ""
   }`;
-  const hasFinishedOnboarding = true;
+  const showSideMenu = currentMerchantData?.tier !== undefined;
 
   const menuItems: Array<ReactNode> = [];
 
@@ -253,6 +256,9 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
       <AdaptiveDrawer
         variant={isSmallScreen ? "temporary" : "permanent"}
         open={drawerOpenState}
+        onClose={(event) => {
+          setDrawerOpenStateFalse();
+        }}
       >
         <Toolbar
           sx={{
@@ -268,12 +274,15 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
         </Toolbar>
         <List>
           <Fragment>
-            {hasFinishedOnboarding && (
+            {showSideMenu && (
               <Fragment>
                 <ListItem key={"catalog-list-item"} disablePadding>
                   <ListItemButton
                     onClick={() => {
                       push(routes.catalog);
+                      if (isSmallScreen) {
+                        setDrawerOpenStateFalse();
+                      }
                     }}
                   >
                     <ListItemIcon>
@@ -286,6 +295,9 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
                   <ListItemButton
                     onClick={() => {
                       push(routes.theme);
+                      if (isSmallScreen) {
+                        setDrawerOpenStateFalse();
+                      }
                     }}
                   >
                     <ListItemIcon>
@@ -298,7 +310,13 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
             )}
 
             <ListItem key={"home-list-item"} disablePadding>
-              <ListItemButton onClick={() => {}}>
+              <ListItemButton
+                onClick={() => {
+                  if (isSmallScreen) {
+                    setDrawerOpenStateFalse();
+                  }
+                }}
+              >
                 <ListItemIcon>
                   <ArrowBack />
                 </ListItemIcon>

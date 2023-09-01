@@ -8,9 +8,9 @@ import {
 import { MyOrderAppPreview } from "@/components/app-preview/MyOrderAppPreview";
 import { AppConfigForm } from "@/components/forms/AppConfigForm";
 import { TabLayout } from "@/components/layouts/TabLayout";
+import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
 import { moaEnv } from "@/utils/config";
 import { logger } from "@/utils/logger";
-import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
 import { Stack, useMediaQuery, useTheme } from "@mui/material";
 import { AppConfig } from "moa-merchants-ts-axios";
 import { useSession } from "next-auth/react";
@@ -18,7 +18,7 @@ import { useRouter } from "next-intl/client";
 import { useEffect, useState } from "react";
 
 export default function Page() {
-  logger.info({}, "Rendering /onboarding/configure/page.tsx");
+  logger.debug({}, "Rendering /onboarding/configure/page.tsx");
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(780));

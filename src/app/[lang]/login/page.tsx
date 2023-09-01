@@ -2,7 +2,7 @@
 
 import { routes } from "@/app/routes";
 import { SignInForm } from "@/components/forms/SignInForm";
-import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
+import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
 import { Box, Grid, Typography } from "@mui/material";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
@@ -17,7 +17,7 @@ export default function Page() {
 
   useEffect(() => {
     if (data) {
-      push(routes.catalog);
+      push(routes.index);
     }
   }, [data]);
 

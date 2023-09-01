@@ -2,7 +2,7 @@
 
 import { routes } from "@/app/routes";
 import { ForgotPasswordForm } from "@/components/forms/ForgotPasswordForm";
-import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
+import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
 import { Box, Grid, useMediaQuery, useTheme } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useTranslations } from "next-intl";

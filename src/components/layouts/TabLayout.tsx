@@ -25,7 +25,7 @@ export const TabLayout: React.FC<Props> = ({
   preloading,
 }) => {
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down(780));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [tabValueState, setTabValueState] = useState("0");
 
   return (

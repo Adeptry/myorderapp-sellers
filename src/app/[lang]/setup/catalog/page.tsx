@@ -5,12 +5,14 @@ import {
   OnboardingStepper,
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
+import { CatalogAccordion } from "@/components/accordions/CatalogAccordion";
 import { MyOrderAppPreview } from "@/components/app-preview/MyOrderAppPreview";
-import { CategoriesLists } from "@/components/catalogs/CategoriesLists";
 import { TabLayout } from "@/components/layouts/TabLayout";
+import { useCurrentCatalogQuery } from "@/queries/useCurrentCatalogQuery";
+import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
 import { moaEnv } from "@/utils/config";
-import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
-import { Save } from "@mui/icons-material";
+import { logger } from "@/utils/logger";
+import { ArrowForward, CheckCircleOutline } from "@mui/icons-material";
 import {
   Button,
   Grid,
@@ -19,19 +21,21 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { Category } from "moa-merchants-ts-axios";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next-intl/client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function Page() {
+  logger.debug("rendering setup catalog page");
   const { push } = useRouter();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(780));
   const { status } = useSession();
-  const [categoriesState, setCategoriesState] = useState<Category[]>([]);
-  const skeleton = status === "loading" || categoriesState.length === 0;
+  const currentCatalogQuery = useCurrentCatalogQuery();
+  const currentCatalogCategories = currentCatalogQuery.data?.data ?? [];
+
+  const skeleton = status === "loading";
   const { data: currentMerchantData } = useCurrentMerchantQuery();
   const common = useTranslations("Common");
 
@@ -53,7 +57,7 @@ export default function Page() {
       )}
 
       <TabLayout
-        tabLabels={["Categories", "Preview"]}
+        tabLabels={[common("catalog"), common("preview")]}
         sx={{ pt: isSmallScreen ? 0 : 3 }}
       >
         <Grid
@@ -71,21 +75,18 @@ export default function Page() {
                 size="large"
                 variant="contained"
                 color="secondary"
-                startIcon={<Save />}
+                endIcon={<ArrowForward />}
+                startIcon={<CheckCircleOutline />}
                 onClick={() => {
                   push(routes.setup.tier);
                 }}
               >
-                {common("saveAndContinue")}
+                {common("acceptAndContinue")}
               </Button>
             )}
           </Grid>
           <Grid item key="categories-grid-item">
-            <CategoriesLists
-              onCatalogUpdate={(categories) => {
-                setCategoriesState(categories);
-              }}
-            />
+            <CatalogAccordion />
           </Grid>
         </Grid>
 
@@ -96,7 +97,7 @@ export default function Page() {
             position: "sticky",
             top: "72px", // Adjusted for the toolbar
           }}
-          categories={categoriesState}
+          categories={currentCatalogCategories}
           environment={{
             apiBaseUrl: moaEnv.backendUrl!,
             apiKey: moaEnv.backendApiKey!,
@@ -108,7 +109,4 @@ export default function Page() {
       </TabLayout>
     </Stack>
   );
-}
-{
-  /*  */
 }

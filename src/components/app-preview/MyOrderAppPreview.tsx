@@ -21,7 +21,7 @@ export function MyOrderAppPreview(props: {
   } | null;
 }) {
   const { sx } = props;
-  logger.info(props, "Rendering MyOrderAppPreview");
+  logger.debug(props, "Rendering MyOrderAppPreview");
 
   return (
     <Box

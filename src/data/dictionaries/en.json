@@ -62,6 +62,7 @@
     }
   },
   "Common": {
+    "acceptAndContinue": "Accept & Continue",
     "billing": "Billing",
     "brandName": "MyOrderApp",
     "brandNameLong": "MyOrderApp for Sellers",
@@ -79,6 +80,7 @@
     "logOut": "Log out",
     "mainSite": "Main site",
     "password": "Password",
+    "preview": "Preview",
     "profile": "Profile",
     "register": "Register",
     "resetPassword": "Reset Password",
@@ -177,7 +179,7 @@
     "subheader": "We're Getting Things Ready For You",
     "timerPrimary": "Expect Contact Within",
     "timerSecondary": "You can expect to hear from our team within the next 48 hours.",
-    "title": "Congratulations on Your Purchase!"
+    "title": "Welcome to Pro!"
   },
   "SubscribeCard": {
     "customizationPrimary": "Customizable App & Catalog",

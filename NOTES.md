@@ -7,3 +7,7 @@ UK GBP
 IE EUR
 FR EUR
 ES EUR
+
+App icon upload
+Google and Apple logins
+Dashboard

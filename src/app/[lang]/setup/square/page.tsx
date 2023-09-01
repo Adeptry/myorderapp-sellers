@@ -6,7 +6,7 @@ import {
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
 import { SquareOauthExplainerCard } from "@/components/cards/SquareOauthExplainerCard";
-import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
+import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
 import { Stack, useMediaQuery, useTheme } from "@mui/material";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next-intl/client";

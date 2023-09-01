@@ -1,8 +1,7 @@
 "use client";
 
 import { routes } from "@/app/routes";
-import { logger } from "@/utils/logger";
-import { useCurrentMerchantQuery } from "@/utils/useCurrentMerchantQuery";
+import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { Stack, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
@@ -37,10 +36,6 @@ export default function Page() {
     retry: false,
   });
 
-  logger.info(status, "status");
-  logger.info(getCurrentMerchantQueryState, "getCurrentMerchantQueryState");
-  logger.info(getMyConfigQueryState, "getMyConfigQueryState");
-
   if (status === "authenticated") {
     if (getMyConfigQueryState.error) {
       push(routes.setup.theme);
@@ -59,7 +54,7 @@ export default function Page() {
 
   return (
     <Stack spacing={2}>
-      <Typography>Hello, dashboard2.</Typography>
+      <Typography>Welcome back</Typography>
     </Stack>
   );
 }
