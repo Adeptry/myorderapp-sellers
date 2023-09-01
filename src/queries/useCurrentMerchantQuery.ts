@@ -1,24 +1,27 @@
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosRequestConfig } from "axios";
-import { MerchantsApiFp } from "moa-merchants-ts-axios";
+import {
+  MerchantsApi,
+  MerchantsApiGetCurrentMerchantRequest,
+} from "moa-merchants-ts-axios";
 import { useSession } from "next-auth/react";
 
-export const useCurrentMerchantQuery = (options?: AxiosRequestConfig) => {
+export const useCurrentMerchantQuery = (params?: {
+  params?: MerchantsApiGetCurrentMerchantRequest;
+  options?: AxiosRequestConfig;
+  retry?: boolean;
+}) => {
   const { status } = useSession();
   const sessionedApiConfigration = useSessionedApiConfiguration();
 
   return useQuery({
-    queryKey: ["getCurrentMerchant"],
+    queryKey: ["getCurrentMerchant", params],
     queryFn: async () => {
-      return (
-        await (
-          await MerchantsApiFp(sessionedApiConfigration).getCurrentMerchant(
-            options
-          )
-        )()
-      ).data;
+      const api = new MerchantsApi(sessionedApiConfigration);
+      return (await api.getCurrentMerchant(params?.params ?? {})).data;
     },
     enabled: status === "authenticated",
+    retry: params?.retry,
   });
 };

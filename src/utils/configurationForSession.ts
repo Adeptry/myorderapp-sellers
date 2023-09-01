@@ -1,4 +1,4 @@
-import { moaEnv } from "@/utils/config";
+import { moaEnv } from "@/utils/moaEnv";
 import { Configuration } from "moa-merchants-ts-axios";
 import { Session } from "next-auth";
 

@@ -1,4 +1,4 @@
-import { moaEnv } from "@/utils/config";
+import { moaEnv } from "@/utils/moaEnv";
 import {
   AuthApiFp,
   AuthRegisterLoginDto,

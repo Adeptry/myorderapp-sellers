@@ -9,12 +9,10 @@ import { FreeCard } from "@/components/cards/FreeCard";
 import { StripeCheckoutCancelledCard } from "@/components/cards/StripeCheckoutCancelledCard";
 import { SubscribeCard } from "@/components/cards/SubscribeCard";
 import { Stack, useMediaQuery, useTheme } from "@mui/material";
-import { useTranslations } from "next-intl";
 
 export default function Page() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const common = useTranslations("Common");
 
   return (
     <Stack spacing={2} alignItems={"center"}>

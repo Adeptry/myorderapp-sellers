@@ -3,7 +3,7 @@
 import { routes } from "@/app/routes";
 import { useCookieContext } from "@/contexts/CookieContext";
 import { Currency } from "@/types/next";
-import { moaEnv } from "@/utils/config";
+import { moaEnv } from "@/utils/moaEnv";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { ShoppingCartCheckout } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";

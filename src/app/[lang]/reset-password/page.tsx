@@ -1,26 +1,14 @@
 "use client";
 
-import { routes } from "@/app/routes";
 import { ForgotPasswordForm } from "@/components/forms/ForgotPasswordForm";
-import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
-import { Box, Grid, useMediaQuery, useTheme } from "@mui/material";
+import { useRedirectAuthenticatedSessions } from "@/routing/useRedirectAuthenticatedSessions";
+import { Box, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next-intl/client";
-import { useEffect } from "react";
 
 export default function Page() {
-  const { push } = useRouter();
-  const currentMerchantQueryState = useCurrentMerchantQuery();
+  useRedirectAuthenticatedSessions();
   const common = useTranslations("Common");
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
-
-  useEffect(() => {
-    if (currentMerchantQueryState.data) {
-      push(routes.catalog);
-    }
-  }, [currentMerchantQueryState.data]);
 
   return (
     <Grid container justifyContent="center" py={2}>

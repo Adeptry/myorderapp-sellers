@@ -2,24 +2,13 @@
 
 import { routes } from "@/app/routes";
 import { SignInForm } from "@/components/forms/SignInForm";
-import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
+import { useRedirectAuthenticatedSessions } from "@/routing/useRedirectAuthenticatedSessions";
 import { Box, Grid, Typography } from "@mui/material";
-import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next-intl/client";
-import { useEffect } from "react";
 
 export default function Page() {
-  const { push } = useRouter();
-  const { status } = useSession();
-  const { data } = useCurrentMerchantQuery();
+  const authStatus = useRedirectAuthenticatedSessions();
   const common = useTranslations("Common");
-
-  useEffect(() => {
-    if (data) {
-      push(routes.index);
-    }
-  }, [data]);
 
   return (
     <Grid container justifyContent="center" py={2}>
@@ -30,7 +19,10 @@ export default function Page() {
           </Typography>
         </Box>
 
-        <SignInForm callbackUrl={routes.home} skeleton={status === "loading"} />
+        <SignInForm
+          callbackUrl={routes.home}
+          skeleton={authStatus === "loading"}
+        />
       </Grid>
     </Grid>
   );

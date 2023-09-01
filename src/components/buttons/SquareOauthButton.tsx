@@ -2,7 +2,7 @@
 
 import { routes } from "@/app/routes";
 import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
-import { moaEnv } from "@/utils/config";
+import { moaEnv } from "@/utils/moaEnv";
 import { Button, Skeleton, SxProps } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { default as NextLink } from "next/link";

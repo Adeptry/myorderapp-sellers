@@ -3,6 +3,7 @@
 import { fontNames } from "@/data/fontNames";
 import { configurationForSession } from "@/utils/configurationForSession";
 import { mapStringEnum } from "@/utils/mapStringEnum";
+import { moaEnv } from "@/utils/moaEnv";
 import { randomColor } from "@/utils/randomColor";
 import { stringToColor } from "@/utils/stringToColor";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
@@ -48,36 +49,36 @@ import { default as NextLink } from "next/link";
 import { useEffect, useState } from "react";
 import { unstable_batchedUpdates } from "react-dom";
 import { Controller, useForm } from "react-hook-form";
-
+import { Merge } from "type-fest";
 import * as yup from "yup";
+
+type AppConfigFormType = Merge<
+  AppConfigUpdateDto,
+  { file: File | null | undefined }
+>;
 
 export function AppConfigForm(props: {
   buttonOnTop?: boolean;
-  submitButtonText?: string;
   successUrl?: string;
   onChange?: (appConfig: AppConfig) => void;
 }) {
-  const { onChange, submitButtonText, successUrl } = props;
+  const { onChange, successUrl } = props;
   const { push } = useRouter();
   const theme = useTheme();
   const t = useTranslations("AppConfigForm");
   const common = useTranslations("Common");
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const [skeletonState, setSkeletonState] = useState(true);
+  const [fontInputState, setFontInputState] = useState("");
 
-  const updateConfigMutation = useMutation({
-    mutationFn: async (appConfigUpdateDto: AppConfigUpdateDto) => {
-      return (
-        await (
-          await ConfigsApiFp(sessionedApiConfiguration).updateConfig(
-            appConfigUpdateDto
-          )
-        )()
-      ).data;
-    },
-  });
-
-  const form = useForm<AppConfigUpdateDto>({
+  const {
+    formState: { isDirty, errors, isSubmitting },
+    control,
+    watch,
+    setError,
+    handleSubmit,
+    setValue,
+  } = useForm<AppConfigFormType>({
     defaultValues: async () => {
       const session = await getSession();
 
@@ -90,19 +91,34 @@ export function AppConfigForm(props: {
             )
           )();
           const myConfig = myConfigResponse.data;
+          let file: File | undefined = undefined;
+          const iconFileUrlString = myConfig.iconFile?.url;
+          if (iconFileUrlString) {
+            const url = new URL(iconFileUrlString);
+
+            const filename = decodeURIComponent(
+              url.pathname.split("/").pop() ?? ""
+            ).replace(/^\d+-/, "");
+            const response = await fetch(iconFileUrlString);
+            const buffer = await response.arrayBuffer();
+            const blob = new Blob([buffer], { type: "image/*" });
+            file = new File([blob], filename, { type: "image/*" });
+          }
+
           onChange ? onChange(myConfig) : {};
           return {
             name: myConfig.name ?? "",
             seedColor: myConfig.seedColor ?? "#",
-            fontFamily: myConfig.fontFamily ?? "Roboto",
+            fontFamily: myConfig.fontFamily ?? moaEnv.defaultFontFamily,
             themeMode: myConfig.themeMode ?? ThemeModeEnum.Light,
             useMaterial3: myConfig.useMaterial3 ?? false,
+            file: file,
           };
         } catch (error) {
           const currentMerchantResponse = await (
             await MerchantsApiFp(
               configurationForSession(session)
-            ).getCurrentMerchant()
+            ).getCurrentMerchant(true)
           )();
           const currentMerchant = currentMerchantResponse?.data;
           const currentUser = currentMerchant?.user;
@@ -110,11 +126,12 @@ export function AppConfigForm(props: {
           const lastName = currentUser?.lastName;
           const fullName = `${firstName ?? ""} ${lastName ?? ""}`;
           return {
-            name: `${firstName}'s App`,
+            name: t("defaultName", { name: firstName }),
             seedColor: stringToColor(fullName),
-            fontFamily: "Roboto",
+            fontFamily: moaEnv.defaultFontFamily,
             themeMode: ThemeModeEnum.Light,
             useMaterial3: false,
+            file: null,
           };
         } finally {
           setSkeletonState(false);
@@ -123,16 +140,17 @@ export function AppConfigForm(props: {
         throw new Error("Session data not available");
       }
     },
-    resolver: yupResolver<AppConfigUpdateDto>(
+    resolver: yupResolver<AppConfigFormType>(
       yup
-        .object<AppConfigUpdateDto>()
+        .object<AppConfigFormType>()
         .shape({
           name: yup.string().min(3).label(t("nameLabel")).required(),
           seedColor: yup
             .string()
             .matches(/^#(?:[0-9a-fA-F]{3}){1,2}$/)
             .label(t("seedColorLabel"))
-            .required("Must be a hex color"),
+            .required(t("seedColorRequired")),
+          file: yup.mixed<File>().label(t("appIconLabel")).required(),
           fontFamily: yup.string().label(t("fontFamilyLabel")).required(),
           shortDescription: yup.string().optional(),
           fullDescription: yup.string().optional(),
@@ -145,28 +163,37 @@ export function AppConfigForm(props: {
     ),
   });
 
-  const [fontInputState, setFontInputState] = useState("");
-  const [appIconFileValue, setAppIconFileValue] = useState<File | null>(null);
+  const updateConfigMutation = useMutation({
+    mutationFn: async (data: AppConfigFormType) => {
+      if (!isDirty) {
+        return true;
+      }
+      await (
+        await ConfigsApiFp(sessionedApiConfiguration).updateConfig(data)
+      )();
+
+      if (data.file) {
+        await (
+          await ConfigsApiFp(sessionedApiConfiguration).uploadIcon(data.file)
+        )();
+      }
+
+      return true;
+    },
+  });
 
   const randomFont = () => {
     return fontNames[Math.floor(Math.random() * fontNames.length)];
   };
 
-  const handleFileChange = (newValue: File | null) => {
-    setAppIconFileValue(newValue);
-    if (newValue) {
-      // configs.uploadIcon({ file: newValue });
-    }
-  };
-
   useEffect(() => {
-    const subscription = form.watch((value) => {
+    const subscription = watch((value) => {
       onChange ? onChange(value) : {};
     });
     return () => subscription.unsubscribe();
-  }, [form.watch()]);
+  }, [watch()]);
 
-  async function handleOnValidSubmit(data: AppConfigUpdateDto) {
+  async function handleOnValidSubmit(data: AppConfigFormType) {
     try {
       const response = await updateConfigMutation.mutateAsync(data);
 
@@ -181,7 +208,7 @@ export function AppConfigForm(props: {
       if (axios.isAxiosError(error) && error?.response?.status === 422) {
         const serverErrors = (error?.response?.data as any).message;
         Object.keys(serverErrors).forEach((fieldName) => {
-          form.setError(fieldName as keyof AppConfigUpdateDto, {
+          setError(fieldName as keyof AppConfigUpdateDto, {
             type: "server",
             message: serverErrors[fieldName],
           });
@@ -202,9 +229,7 @@ export function AppConfigForm(props: {
           spacing={1}
         >
           <LoadingButton
-            loading={
-              updateConfigMutation.isLoading || form.formState.isSubmitting
-            }
+            loading={updateConfigMutation.isLoading || isSubmitting}
             size="large"
             startIcon={<Save />}
             disabled={updateConfigMutation.isLoading}
@@ -228,7 +253,7 @@ export function AppConfigForm(props: {
   return (
     <Box
       component="form"
-      onSubmit={form.handleSubmit(handleOnValidSubmit)}
+      onSubmit={handleSubmit(handleOnValidSubmit)}
       sx={{ width: "100%" }}
       noValidate
     >
@@ -237,7 +262,7 @@ export function AppConfigForm(props: {
         <Grid item xs={12}>
           <Controller
             name="name"
-            control={form.control}
+            control={control}
             render={({ field }) => {
               return skeletonState ? (
                 <Skeleton height="56px" />
@@ -246,22 +271,20 @@ export function AppConfigForm(props: {
                   {...field}
                   value={field.value ?? ""}
                   required
-                  helperText={
-                    !form.formState.errors.name?.message && t("nameHelperText")
-                  }
+                  helperText={!errors.name?.message && t("nameHelperText")}
                   label={t("nameLabel")}
                   inputProps={{
                     autoCorrect: "none",
                     spellCheck: false,
                   }}
                   fullWidth
-                  error={form.formState.errors.name ? true : false}
+                  error={errors.name ? true : false}
                 />
               );
             }}
           />
           <Typography variant="inherit" color="error">
-            {form.formState.errors.name?.message}
+            {errors.name?.message}
           </Typography>
         </Grid>
 
@@ -269,19 +292,30 @@ export function AppConfigForm(props: {
           {skeletonState ? (
             <Skeleton height="56px" />
           ) : (
-            <MuiFileInput
-              fullWidth
-              value={appIconFileValue}
-              onChange={handleFileChange}
-              helperText={t("appIconHelperText")}
-              label={t("appIconLabel")}
+            <Controller
+              name="file"
+              control={control}
+              render={(renderer) => (
+                <MuiFileInput
+                  {...renderer.field}
+                  fullWidth
+                  helperText={
+                    errors.file?.message
+                      ? errors.file?.message
+                      : t("appIconHelperText")
+                  }
+                  label={t("appIconLabel")}
+                  error={renderer.fieldState.invalid}
+                  hideSizeText
+                />
+              )}
             />
           )}
         </Grid>
         <Grid item xs={12}>
           <Controller
             name="seedColor"
-            control={form.control}
+            control={control}
             render={({ field }) => {
               return skeletonState ? (
                 <Skeleton height="56px" />
@@ -296,7 +330,7 @@ export function AppConfigForm(props: {
                     format="hex"
                     isAlphaHidden
                     label={t("seedColorLabel")}
-                    error={form.formState.errors.seedColor ? true : false}
+                    error={errors.seedColor ? true : false}
                     required
                     onChange={(value) => {
                       field.onChange({
@@ -314,8 +348,7 @@ export function AppConfigForm(props: {
                   >
                     <Grid item>
                       <FormHelperText sx={{ pl: 2 }}>
-                        {!form.formState.errors.seedColor?.message &&
-                          t("seedColorHelperText")}
+                        {!errors.seedColor?.message && t("seedColorHelperText")}
                       </FormHelperText>
                     </Grid>
                     <Grid item>
@@ -338,13 +371,13 @@ export function AppConfigForm(props: {
             }}
           />
           <Typography variant="inherit" color="error">
-            {form.formState.errors.seedColor?.message}
+            {errors.seedColor?.message}
           </Typography>
         </Grid>
         <Grid item xs={12}>
           <Controller
             name="fontFamily"
-            control={form.control}
+            control={control}
             render={({ field }) => {
               return skeletonState ? (
                 <Skeleton height="56px" />
@@ -382,7 +415,7 @@ export function AppConfigForm(props: {
                       );
                     }}
                   />
-                  {!form.formState.errors.fontFamily?.message && (
+                  {!errors.fontFamily?.message && (
                     <Grid
                       container
                       direction="row"
@@ -423,13 +456,13 @@ export function AppConfigForm(props: {
             }}
           />
           <Typography variant="inherit" color="error">
-            {form.formState.errors.fontFamily?.message}
+            {errors.fontFamily?.message}
           </Typography>
         </Grid>
         <Grid item xs={12}>
           <Controller
             name="useMaterial3"
-            control={form.control}
+            control={control}
             render={(renderer) =>
               skeletonState ? (
                 <Skeleton height="56px" />
@@ -446,10 +479,7 @@ export function AppConfigForm(props: {
                         : `${renderer.field.value}`
                     }
                     onChange={(event) => {
-                      form.setValue(
-                        "useMaterial3",
-                        event.target.value === "true"
-                      );
+                      setValue("useMaterial3", event.target.value === "true");
                     }}
                     row
                   >
@@ -474,7 +504,7 @@ export function AppConfigForm(props: {
         <Grid item xs={12}>
           <Controller
             name="themeMode"
-            control={form.control}
+            control={control}
             render={({ field }) => {
               return skeletonState ? (
                 <Skeleton height="56px" />
@@ -524,10 +554,10 @@ export function AppConfigForm(props: {
                 color="inherit"
                 onClick={() => {
                   unstable_batchedUpdates(() => {
-                    form.setValue("seedColor", randomColor());
-                    form.setValue("fontFamily", randomFont());
-                    form.setValue("useMaterial3", Math.random() < 0.5);
-                    form.setValue(
+                    setValue("seedColor", randomColor());
+                    setValue("fontFamily", randomFont());
+                    setValue("useMaterial3", Math.random() < 0.5);
+                    setValue(
                       "themeMode",
                       Math.random() < 0.5
                         ? ThemeModeEnum.Light

@@ -7,26 +7,18 @@ import {
 } from "@/components/OnboardingStepper";
 import { SignUpForm } from "@/components/forms/SignUpForm";
 import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
-import { Grid, Typography, useMediaQuery } from "@mui/material";
-import { Box, Stack, useTheme } from "@mui/system";
+import { useRedirectAuthenticatedSessions } from "@/routing/useRedirectAuthenticatedSessions";
+import { Grid, Typography } from "@mui/material";
+import { Box, Stack } from "@mui/system";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next-intl/client";
-import { useEffect } from "react";
 
 export default function Page() {
-  const { push } = useRouter();
+  useRedirectAuthenticatedSessions();
   const { status } = useSession();
   const { data } = useCurrentMerchantQuery();
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   const common = useTranslations("Common");
 
-  useEffect(() => {
-    if (data) {
-      push(routes.home);
-    }
-  }, [data]);
   return (
     <Stack py={2}>
       <OnboardingStepper

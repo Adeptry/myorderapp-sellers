@@ -10,8 +10,7 @@ import { MyOrderAppPreview } from "@/components/app-preview/MyOrderAppPreview";
 import { TabLayout } from "@/components/layouts/TabLayout";
 import { useCurrentCatalogQuery } from "@/queries/useCurrentCatalogQuery";
 import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
-import { moaEnv } from "@/utils/config";
-import { logger } from "@/utils/logger";
+import { moaEnv } from "@/utils/moaEnv";
 import { ArrowForward, CheckCircleOutline } from "@mui/icons-material";
 import {
   Button,
@@ -27,7 +26,6 @@ import { useRouter } from "next-intl/client";
 import { useEffect } from "react";
 
 export default function Page() {
-  logger.debug("rendering setup catalog page");
   const { push } = useRouter();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(780));

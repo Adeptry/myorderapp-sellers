@@ -10,6 +10,7 @@ export interface MoaEnv {
   backendApiKey: string;
   previewUrl: string;
   env: string;
+  defaultFontFamily: string;
   stripe: {
     priceIds: {
       pro: {

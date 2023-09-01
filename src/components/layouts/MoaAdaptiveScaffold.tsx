@@ -38,7 +38,7 @@ import MuiDrawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   MerchantsApiFp,
   StripeBillingPortalCreateInput,
@@ -111,7 +111,10 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
   } = useBoolean(false);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const { status } = useSession();
-  const { data: currentMerchantData } = useCurrentMerchantQuery();
+  const queryClient = useQueryClient();
+  const { data: currentMerchantData } = useCurrentMerchantQuery({
+    params: { user: true },
+  });
   const sessionedApiConfiguration = useSessionedApiConfiguration();
 
   const createStripeBillingSessionUrlMutation = useMutation({
@@ -147,12 +150,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
 
   if (currentMerchantData) {
     menuItems.push(
-      <MenuItem
-        key="account-menu-item"
-        onClick={() => {
-          signOut({ callbackUrl: routes.login });
-        }}
-      >
+      <MenuItem key="account-menu-item" onClick={() => {}}>
         <ListItemIcon>
           <AccountBox fontSize="small" />
         </ListItemIcon>
@@ -187,8 +185,9 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
     menuItems.push(
       <MenuItem
         key="sign-out-menu-item"
-        onClick={() => {
-          signOut({ callbackUrl: routes.login });
+        onClick={async () => {
+          queryClient.invalidateQueries();
+          await signOut({ callbackUrl: routes.login });
         }}
       >
         <ListItemIcon>

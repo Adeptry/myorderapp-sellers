@@ -1,7 +1,6 @@
 import { MessagingIframe } from "@/components/messaging-iframe/MessagingIframe";
 import { toWindowClonable } from "@/components/messaging-iframe/WindowClonable";
-import { moaEnv } from "@/utils/config";
-import { logger } from "@/utils/logger";
+import { moaEnv } from "@/utils/moaEnv";
 import { Box, SxProps } from "@mui/material";
 import { AppConfig, Category } from "moa-merchants-ts-axios";
 import { DeviceFrameset } from "react-device-frameset";
@@ -21,7 +20,6 @@ export function MyOrderAppPreview(props: {
   } | null;
 }) {
   const { sx } = props;
-  logger.debug(props, "Rendering MyOrderAppPreview");
 
   return (
     <Box

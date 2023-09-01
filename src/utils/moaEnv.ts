@@ -12,6 +12,7 @@ export const moaEnv: MoaEnv = {
   squareTestCode: process.env.NEXT_PUBLIC_SQUARE_TEST_CODE!,
   stripePublishableKey: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
   googleClientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+  defaultFontFamily: process.env.NEXT_PUBLIC_DEFAULT_FONT_FAMILY!,
   stripe: {
     priceIds: {
       pro: {

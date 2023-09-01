@@ -1,56 +1,10 @@
 "use client";
 
-import { routes } from "@/app/routes";
-import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
-import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
+import { useRedirectSetupSessions } from "@/routing/useRedirectSetupSessions";
 import { Stack, Typography } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
-import { ConfigsApiFp } from "moa-merchants-ts-axios";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next-intl/client";
-import { useEffect } from "react";
 
 export default function Page() {
-  const { push } = useRouter();
-  const { status } = useSession();
-  const sessionedApiConfiguration = useSessionedApiConfiguration();
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      push(routes.login);
-    }
-  }, [status]);
-  const getCurrentMerchantQueryState = useCurrentMerchantQuery();
-  const getMyConfigQueryState = useQuery({
-    queryKey: ["myConfig"],
-    queryFn: async () => {
-      return (
-        await (
-          await ConfigsApiFp(sessionedApiConfiguration).getMyConfig(
-            undefined,
-            "merchant"
-          )
-        )()
-      ).data;
-    },
-    enabled: status === "authenticated",
-    retry: false,
-  });
-
-  if (status === "authenticated") {
-    if (getMyConfigQueryState.error) {
-      push(routes.setup.theme);
-    }
-
-    if (!getCurrentMerchantQueryState.data?.squareId) {
-      push(routes.setup.square.index);
-    }
-
-    // if (!getCurrentMerchantQueryState.data?.stripeCheckoutSessionId) {
-    //   push(routes.setup.tier);
-    // }
-  } else if (status === "unauthenticated") {
-    push(routes.login);
-  }
+  useRedirectSetupSessions();
 
   return (
     <Stack spacing={2}>

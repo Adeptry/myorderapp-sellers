@@ -4,7 +4,10 @@ import { AxiosRequestConfig } from "axios";
 import { ConfigsApiFp } from "moa-merchants-ts-axios";
 import { useSession } from "next-auth/react";
 
-export const useCurrentConfigQuery = (options?: AxiosRequestConfig) => {
+export const useCurrentConfigQuery = (params?: {
+  options?: AxiosRequestConfig;
+  retry?: boolean;
+}) => {
   const { status } = useSession();
   const sessionedApiConfigration = useSessionedApiConfiguration();
 
@@ -16,11 +19,12 @@ export const useCurrentConfigQuery = (options?: AxiosRequestConfig) => {
           await ConfigsApiFp(sessionedApiConfigration).getMyConfig(
             undefined,
             "merchant",
-            options
+            params?.options
           )
         )()
       ).data;
     },
     enabled: status === "authenticated",
+    retry: params?.retry,
   });
 };

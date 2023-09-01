@@ -1,13 +1,38 @@
-Onboarding/non-onboarding modes
-US USD
-CA CAD
-AU AUD
-JP JPY
-UK GBP
-IE EUR
-FR EUR
-ES EUR
+# Notes
 
-App icon upload
-Google and Apple logins
-Dashboard
+## Merchant frontend
+
+- App icon upload
+- Google and Apple logins
+- Routing
+
+- Merchant orders view
+- Merchant customers view
+- Merchant profile view
+
+- Privacy policy
+- Terms of Service
+- GDPR
+
+## Customer frontend
+
+- Auth
+
+  - Register
+  - Login
+  - Reset password
+
+- Catalog
+
+  - Item detail
+
+- Cart
+- Checkout
+- Orders
+
+  - Order detail
+
+- Account
+- Push notifications
+
+uploadAppIconMutation.mutateAsync(file);
