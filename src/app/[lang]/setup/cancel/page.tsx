@@ -8,9 +8,11 @@ import CheckoutFaqAccordion from "@/components/accordions/CheckoutFaqAccordion";
 import { FreeCard } from "@/components/cards/FreeCard";
 import { StripeCheckoutCancelledCard } from "@/components/cards/StripeCheckoutCancelledCard";
 import { SubscribeCard } from "@/components/cards/SubscribeCard";
+import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { Stack, useMediaQuery, useTheme } from "@mui/material";
 
 export default function Page() {
+  useRedirectUnauthenticatedSessions();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 

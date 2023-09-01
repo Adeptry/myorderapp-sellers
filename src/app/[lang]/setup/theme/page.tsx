@@ -9,6 +9,7 @@ import { MyOrderAppPreview } from "@/components/app-preview/MyOrderAppPreview";
 import { AppConfigForm } from "@/components/forms/AppConfigForm";
 import { TabLayout } from "@/components/layouts/TabLayout";
 import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
+import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { moaEnv } from "@/utils/moaEnv";
 import { Stack, useMediaQuery, useTheme } from "@mui/material";
 import { AppConfig } from "moa-merchants-ts-axios";
@@ -18,6 +19,7 @@ import { useRouter } from "next-intl/client";
 import { useEffect, useState } from "react";
 
 export default function Page() {
+  useRedirectUnauthenticatedSessions();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(780));
   const [appConfigState, setAppConfigState] = useState<AppConfig | undefined>(

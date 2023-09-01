@@ -7,12 +7,14 @@ import {
 } from "@/components/OnboardingStepper";
 import { SquareOauthExplainerCard } from "@/components/cards/SquareOauthExplainerCard";
 import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
+import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { Stack, useMediaQuery, useTheme } from "@mui/material";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next-intl/client";
 import { useEffect } from "react";
 
 export default function Page() {
+  useRedirectUnauthenticatedSessions();
   const { push } = useRouter();
   const { data } = useCurrentMerchantQuery();
 

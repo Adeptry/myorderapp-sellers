@@ -10,6 +10,7 @@ import { MyOrderAppPreview } from "@/components/app-preview/MyOrderAppPreview";
 import { TabLayout } from "@/components/layouts/TabLayout";
 import { useCurrentCatalogQuery } from "@/queries/useCurrentCatalogQuery";
 import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
+import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { moaEnv } from "@/utils/moaEnv";
 import { ArrowForward, CheckCircleOutline } from "@mui/icons-material";
 import {
@@ -26,6 +27,7 @@ import { useRouter } from "next-intl/client";
 import { useEffect } from "react";
 
 export default function Page() {
+  useRedirectUnauthenticatedSessions();
   const { push } = useRouter();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(780));

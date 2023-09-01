@@ -1,32 +1,20 @@
 "use client";
 
-import { routes } from "@/app/routes";
 import {
   OnboardingStepper,
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
 import { Stack, useMediaQuery, useTheme } from "@mui/material";
-import { useRouter } from "next-intl/client";
-import { useEffect } from "react";
 
 import CheckoutFaqAccordion from "@/components/accordions/CheckoutFaqAccordion";
 import { FreeCard } from "@/components/cards/FreeCard";
 import { SubscribeCard } from "@/components/cards/SubscribeCard";
-import { useSession } from "next-auth/react";
-import { useTranslations } from "next-intl";
+import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 
 export default function Page() {
-  const { push } = useRouter();
-  const { status } = useSession();
+  useRedirectUnauthenticatedSessions();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const common = useTranslations("Common");
-
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      push(routes.login);
-    }
-  }, [status]);
 
   return (
     <Stack spacing={2} justifyContent="center" alignItems="center" py={2}>

@@ -5,7 +5,7 @@ import {
   OnboardingStepper,
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
-import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
+import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { Alert, Box, CircularProgress, Stack } from "@mui/material";
@@ -19,6 +19,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Page() {
+  useRedirectUnauthenticatedSessions();
   const searchParams = useSearchParams();
   const oauthAccessCode = searchParams.get("code");
   const sessionedApiConfiguration = useSessionedApiConfiguration();
@@ -26,12 +27,6 @@ export default function Page() {
   const common = useTranslations("Common");
   const { status } = useSession();
   const { push } = useRouter();
-
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      push(routes.login);
-    }
-  }, [status]);
 
   const confirmSquareOauthMutation = useMutation({
     mutationFn: async (oauthAccessCode: string) => {
@@ -58,9 +53,6 @@ export default function Page() {
       )();
     },
   });
-
-  const { data: currentMerchantData, isLoading: currentMerchantIsLoading } =
-    useCurrentMerchantQuery();
 
   const [errorString, setErrorString] = useState<string | null>(null);
 
@@ -113,7 +105,3 @@ export default function Page() {
     </Stack>
   );
 }
-
-/*
-      
-*/
