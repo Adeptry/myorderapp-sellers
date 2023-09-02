@@ -16,4 +16,6 @@ export const useRedirectUnauthenticatedSessions = () => {
       router.push(routes.login);
     }
   }, [authStatus, data, queryStatus]);
+
+  return authStatus;
 };

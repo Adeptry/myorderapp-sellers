@@ -84,13 +84,13 @@ export function AppConfigForm(props: {
 
       if (session) {
         try {
-          const myConfigResponse = await (
+          const response = await (
             await ConfigsApiFp(configurationForSession(session)).getMyConfig(
               undefined,
               "merchant"
             )
           )();
-          const myConfig = myConfigResponse.data;
+          const myConfig = response.data;
           let file: File | undefined = undefined;
           const iconFileUrlString = myConfig.iconFile?.url;
           if (iconFileUrlString) {

@@ -62,7 +62,7 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
           basePath: moaEnv.backendUrl,
         });
         const createUserResponse = await (
-          await AuthApiFp(configuration).createUser(requestParameters)
+          await AuthApiFp(configuration).register(requestParameters)
         )();
 
         configuration.accessToken = createUserResponse.data.token;

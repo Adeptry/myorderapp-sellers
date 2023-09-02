@@ -4,6 +4,7 @@ import { AxiosRequestConfig } from "axios";
 import { MerchantsApi } from "moa-merchants-ts-axios";
 import { useSession } from "next-auth/react";
 
+export const currentMerchantQueryKey = ["getCurrentMerchant"];
 export const useCurrentMerchantQuery = (params?: {
   options?: AxiosRequestConfig;
   retry?: boolean;
@@ -12,7 +13,7 @@ export const useCurrentMerchantQuery = (params?: {
   const sessionedApiConfigration = useSessionedApiConfiguration();
 
   return useQuery({
-    queryKey: ["getCurrentMerchant"],
+    queryKey: currentMerchantQueryKey,
     queryFn: async () => {
       const api = new MerchantsApi(sessionedApiConfigration);
       return (await api.getCurrentMerchant({ user: true, appConfig: true }))

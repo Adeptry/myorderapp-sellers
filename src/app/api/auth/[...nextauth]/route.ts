@@ -45,7 +45,7 @@ const handler = NextAuth({
                 apiKey: moaEnv.backendApiKey,
                 basePath: moaEnv.backendUrl,
               })
-            ).createSession(credentials as AuthRegisterLoginDto)
+            ).login(credentials as AuthRegisterLoginDto)
           )();
           const data = response.data;
           if (data) {

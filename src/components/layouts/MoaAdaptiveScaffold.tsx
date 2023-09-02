@@ -54,6 +54,7 @@ import { useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next-intl/client";
 import { Fragment, ReactNode, useState } from "react";
 import { useBoolean } from "usehooks-ts";
+import { MoaLink } from "../links/MoaLink";
 const drawerWidth: number = 240;
 
 interface AppBarProps extends MuiAppBarProps {
@@ -214,9 +215,20 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
           <MenuIcon />
         </IconButton>
       </Box>
-      <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-        {common("brandNameLong")}
-      </Typography>
+      <MoaLink
+        href={routes.home}
+        underline="none"
+        color="inherit"
+        sx={{ flexGrow: 1 }}
+      >
+        <Typography
+          variant="h6"
+          component="div"
+          onClick={() => console.log("hellos")}
+        >
+          {common("brandNameLong")}
+        </Typography>
+      </MoaLink>
 
       <Box sx={{ flexGrow: 0 }}>
         {skeleton && <Skeleton height="40px" width="40px" variant="circular" />}
