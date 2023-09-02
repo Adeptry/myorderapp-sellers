@@ -7,6 +7,8 @@ export const routes = {
   profile: "/profile",
   theme: "/theme",
   catalog: "/catalog",
+  customers: "/customers",
+  orders: "/orders",
   setup: {
     theme: "/setup/theme",
     catalog: "/setup/catalog",

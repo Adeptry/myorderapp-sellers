@@ -25,19 +25,20 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
   const [errorString, setErrorString] = useState<string | null>(null);
   const common = useTranslations("Common");
 
-  const form = useForm<AuthForgotPasswordDto>({
-    defaultValues: {
-      email: "",
-    },
-    resolver: yupResolver(
-      yup
-        .object<AuthForgotPasswordDto>()
-        .shape({
-          email: yup.string().email().label(common("email")).required(),
-        })
-        .required()
-    ),
-  });
+  const { setError, handleSubmit, formState, control } =
+    useForm<AuthForgotPasswordDto>({
+      defaultValues: {
+        email: "",
+      },
+      resolver: yupResolver(
+        yup
+          .object<AuthForgotPasswordDto>()
+          .shape({
+            email: yup.string().email().label(common("email")).required(),
+          })
+          .required()
+      ),
+    });
 
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const forgotPasswordMutation = useMutation({
@@ -58,7 +59,7 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
           setErrorString(message);
         } else {
           Object.keys(message).forEach((fieldName) => {
-            form.setError(fieldName as keyof AuthForgotPasswordDto, {
+            setError(fieldName as keyof AuthForgotPasswordDto, {
               type: "server",
               message: message[fieldName],
             });
@@ -74,7 +75,7 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
     <Box
       component="form"
       noValidate
-      onSubmit={form.handleSubmit(handleOnValidSubmit)}
+      onSubmit={handleSubmit(handleOnValidSubmit)}
       sx={{ width: "100%" }}
     >
       <Grid container spacing={2}>
@@ -93,7 +94,7 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
         <Grid item xs={12}>
           <Controller
             name="email"
-            control={form.control}
+            control={control}
             render={({ field }) => {
               return skeleton ? (
                 <Skeleton height="56px" />
@@ -109,13 +110,13 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
                   }}
                   fullWidth
                   autoFocus
-                  error={form.formState.errors.email ? true : false}
+                  error={formState.errors.email ? true : false}
                 />
               );
             }}
           />
           <Typography variant="inherit" color="error">
-            {form.formState.errors.email?.message}
+            {formState.errors.email?.message}
           </Typography>
         </Grid>
         <Grid item xs={12}>

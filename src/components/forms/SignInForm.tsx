@@ -24,7 +24,7 @@ export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
   const common = useTranslations("Common");
   const t = useTranslations("SignInForm");
 
-  const form = useForm<AuthEmailLoginDto>({
+  const { handleSubmit, control, formState } = useForm<AuthEmailLoginDto>({
     defaultValues: {
       email: "",
       password: "",
@@ -59,7 +59,7 @@ export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
 
   return (
     <Box
-      onSubmit={form.handleSubmit(handleOnValidSubmit)}
+      onSubmit={handleSubmit(handleOnValidSubmit)}
       sx={{ width: "100%" }}
       component="form"
       noValidate
@@ -79,7 +79,7 @@ export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
         <Grid item xs={12}>
           <Controller
             name="email"
-            control={form.control}
+            control={control}
             render={({ field }) => {
               return skeleton ? (
                 <Skeleton height="56px" />
@@ -96,19 +96,19 @@ export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
                   }}
                   fullWidth
                   autoFocus
-                  error={form.formState.errors.email ? true : false}
+                  error={formState.errors.email ? true : false}
                 />
               );
             }}
           />
           <Typography variant="inherit" color="error">
-            {form.formState.errors.email?.message}
+            {formState.errors.email?.message}
           </Typography>
         </Grid>
         <Grid item xs={12}>
           <Controller
             name="password"
-            control={form.control}
+            control={control}
             render={({ field }) => {
               return skeleton ? (
                 <Skeleton height="56px" />
@@ -125,13 +125,13 @@ export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
                   }}
                   fullWidth
                   autoComplete="current-password"
-                  error={form.formState.errors.password ? true : false}
+                  error={formState.errors.password ? true : false}
                 />
               );
             }}
           />
           <Typography variant="inherit" color="error">
-            {form.formState.errors.password?.message}
+            {formState.errors.password?.message}
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -140,15 +140,11 @@ export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
           ) : (
             <LoadingButton
               loading={
-                createSessionMutation.isLoading || form.formState.isSubmitting
+                createSessionMutation.isLoading || formState.isSubmitting
               }
               size="large"
               startIcon={createSessionMutation.data ? <Check /> : <Login />}
-              disabled={
-                (createSessionMutation.isLoading ||
-                  createSessionMutation.data) &&
-                true
-              }
+              disabled={createSessionMutation.isLoading}
               color="secondary"
               type="submit"
               fullWidth

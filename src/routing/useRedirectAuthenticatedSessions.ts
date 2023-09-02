@@ -9,9 +9,6 @@ export const useRedirectAuthenticatedSessions = () => {
   const { status: authStatus } = useSession();
   const { data, status: queryStatus } = useCurrentMerchantQuery({
     retry: false,
-    params: {
-      appConfig: true, // this enables us to use the cached appConfig if it exists
-    },
   });
 
   useEffect(() => {

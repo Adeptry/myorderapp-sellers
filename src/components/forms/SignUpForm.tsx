@@ -33,25 +33,26 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
   const t = useTranslations("SignUpForm");
   const common = useTranslations("Common");
 
-  const form = useForm<AuthRegisterLoginDto>({
-    defaultValues: {
-      email: "",
-      password: "",
-      firstName: "",
-      lastName: "",
-    },
-    resolver: yupResolver(
-      yup
-        .object<AuthRegisterLoginDto>()
-        .shape({
-          email: yup.string().email().label(common("email")).required(),
-          password: yup.string().min(6).label(common("password")).required(),
-          firstName: yup.string().label(common("firstName")).required(),
-          lastName: yup.string().label(common("lastName")).required(),
-        })
-        .required()
-    ),
-  });
+  const { formState, setError, handleSubmit, control, getValues } =
+    useForm<AuthRegisterLoginDto>({
+      defaultValues: {
+        email: "",
+        password: "",
+        firstName: "",
+        lastName: "",
+      },
+      resolver: yupResolver(
+        yup
+          .object<AuthRegisterLoginDto>()
+          .shape({
+            email: yup.string().email().label(common("email")).required(),
+            password: yup.string().min(6).label(common("password")).required(),
+            firstName: yup.string().label(common("firstName")).required(),
+            lastName: yup.string().label(common("lastName")).required(),
+          })
+          .required()
+      ),
+    });
 
   const createUserAndMerchantMutation = useMutation(
     async (requestParameters: AuthRegisterLoginDto) => {
@@ -79,7 +80,7 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
 
   async function handleOnValidSubmit(data: AuthRegisterLoginDto) {
     try {
-      await createUserAndMerchantMutation.mutateAsync(form.getValues());
+      await createUserAndMerchantMutation.mutateAsync(getValues());
       const response = await signIn("credentials", {
         ...data,
         callbackUrl,
@@ -94,7 +95,7 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
           setErrorString(message);
         } else {
           Object.keys(message).forEach((fieldName) => {
-            form.setError(fieldName as keyof AuthEmailLoginDto, {
+            setError(fieldName as keyof AuthEmailLoginDto, {
               type: "server",
               message: message[fieldName],
             });
@@ -109,7 +110,7 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
       sx={{ width: "100%" }}
       component="form"
       noValidate
-      onSubmit={form.handleSubmit(handleOnValidSubmit)}
+      onSubmit={handleSubmit(handleOnValidSubmit)}
     >
       <Grid
         container
@@ -126,7 +127,7 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
         <Grid item xs={12} sm={6}>
           <Controller
             name="firstName"
-            control={form.control}
+            control={control}
             render={({ field }) => {
               return skeleton ? (
                 <Skeleton height="56px" />
@@ -141,20 +142,20 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
                     autoCorrect: "none",
                     spellCheck: false,
                   }}
-                  error={form.formState.errors.firstName ? true : false}
+                  error={formState.errors.firstName ? true : false}
                   autoFocus
                 />
               );
             }}
           />
           <Typography variant="inherit" color="error">
-            {form.formState.errors.firstName?.message}
+            {formState.errors.firstName?.message}
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Controller
             name="lastName"
-            control={form.control}
+            control={control}
             render={({ field }) => {
               return skeleton ? (
                 <Skeleton height="56px" />
@@ -169,19 +170,19 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
                     autoCorrect: "none",
                     spellCheck: false,
                   }}
-                  error={form.formState.errors.lastName ? true : false}
+                  error={formState.errors.lastName ? true : false}
                 />
               );
             }}
           />
           <Typography variant="inherit" color="error">
-            {form.formState.errors.lastName?.message}
+            {formState.errors.lastName?.message}
           </Typography>
         </Grid>
         <Grid item xs={12}>
           <Controller
             name="email"
-            control={form.control}
+            control={control}
             render={({ field }) => {
               return skeleton ? (
                 <Skeleton height="56px" />
@@ -197,19 +198,19 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
                     spellCheck: false,
                   }}
                   fullWidth
-                  error={form.formState.errors.email ? true : false}
+                  error={formState.errors.email ? true : false}
                 />
               );
             }}
           />
           <Typography variant="inherit" color="error">
-            {form.formState.errors.email?.message}
+            {formState.errors.email?.message}
           </Typography>
         </Grid>
         <Grid item xs={12}>
           <Controller
             name="password"
-            control={form.control}
+            control={control}
             render={({ field }) => {
               return skeleton ? (
                 <Skeleton height="56px" />
@@ -226,13 +227,13 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
                     spellCheck: false,
                   }}
                   fullWidth
-                  error={form.formState.errors.password ? true : false}
+                  error={formState.errors.password ? true : false}
                 />
               );
             }}
           />
           <Typography variant="inherit" color="error">
-            {form.formState.errors.password?.message}
+            {formState.errors.password?.message}
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -242,17 +243,13 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
             <LoadingButton
               loading={
                 createUserAndMerchantMutation.isLoading ||
-                form.formState.isSubmitting
+                formState.isSubmitting
               }
               size="large"
               startIcon={
                 createUserAndMerchantMutation.data ? <Check /> : <Login />
               }
-              disabled={
-                (createUserAndMerchantMutation.isLoading ||
-                  createUserAndMerchantMutation.data) &&
-                true
-              }
+              disabled={createUserAndMerchantMutation.isLoading}
               color={"secondary"}
               type="submit"
               fullWidth

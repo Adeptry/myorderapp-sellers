@@ -3,6 +3,9 @@
 import { routes } from "@/app/routes";
 import { FooterLayout } from "@/components/layouts/FooterLayout";
 import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
+import { fullNameForMerchant } from "@/utils/fullNameForMerchant";
+import { initialsForMerchant } from "@/utils/initialsForMerchant";
+import { isMerchantSetupFn } from "@/utils/isMerchantSetup";
 import { stringToColor } from "@/utils/stringToColor";
 import { useAppBarHeight } from "@/utils/useAppBarHeight";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
@@ -11,6 +14,9 @@ import {
   AccountBox,
   AppShortcut,
   ArrowBack,
+  Dashboard,
+  Group,
+  ListAlt,
   Logout,
   MenuBook,
   Menu as MenuIcon,
@@ -45,7 +51,7 @@ import {
 } from "moa-merchants-ts-axios";
 import { signOut, useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next-intl/client";
+import { usePathname, useRouter } from "next-intl/client";
 import { Fragment, ReactNode, useState } from "react";
 import { useBoolean } from "usehooks-ts";
 const drawerWidth: number = 240;
@@ -104,6 +110,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
   const appBarHeight = useAppBarHeight();
   const maxHeightCssString = useMaxHeightCssString();
   const { push } = useRouter();
+  const pathname = usePathname();
   const {
     value: drawerOpenState,
     toggle: toggleDrawerOpenState,
@@ -112,9 +119,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const { status } = useSession();
   const queryClient = useQueryClient();
-  const { data: currentMerchantData } = useCurrentMerchantQuery({
-    params: { user: true },
-  });
+  const { data: currentMerchantData } = useCurrentMerchantQuery();
   const sessionedApiConfiguration = useSessionedApiConfiguration();
 
   const createStripeBillingSessionUrlMutation = useMutation({
@@ -137,20 +142,18 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
     setAnchorElUser(null);
   };
 
-  const currentUser = currentMerchantData?.user;
-  const firstName = currentUser?.firstName;
-  const lastName = currentUser?.lastName;
-  const fullName = `${firstName ?? ""} ${lastName ?? ""}`;
-  const initials = `${firstName ? firstName[0] : ""}${
-    lastName ? lastName[0] : ""
-  }`;
-  const showSideMenu = currentMerchantData?.tier !== undefined;
+  const isMerchantSetup = isMerchantSetupFn(currentMerchantData);
 
   const menuItems: Array<ReactNode> = [];
 
   if (currentMerchantData) {
     menuItems.push(
-      <MenuItem key="account-menu-item" onClick={() => {}}>
+      <MenuItem
+        key="account-menu-item"
+        onClick={() => {
+          push(routes.profile);
+        }}
+      >
         <ListItemIcon>
           <AccountBox fontSize="small" />
         </ListItemIcon>
@@ -221,10 +224,12 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
             <Avatar
               sx={{
-                bgcolor: stringToColor(fullName),
+                bgcolor: stringToColor(
+                  fullNameForMerchant(currentMerchantData)
+                ),
               }}
             >
-              {initials}
+              {initialsForMerchant(currentMerchantData)}
             </Avatar>
           </IconButton>
         )}
@@ -253,9 +258,9 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
         {appBarToolbar}
       </AdaptiveAppBar>
       <AdaptiveDrawer
-        variant={isSmallScreen ? "temporary" : "permanent"}
+        variant={isSmallScreen || !isMerchantSetup ? "temporary" : "permanent"}
         open={drawerOpenState}
-        onClose={(event) => {
+        onClose={() => {
           setDrawerOpenStateFalse();
         }}
       >
@@ -271,12 +276,29 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
             <ChevronLeftIcon />
           </IconButton>
         </Toolbar>
-        <List>
+        <List sx={{ pt: 0 }}>
           <Fragment>
-            {showSideMenu && (
+            {isMerchantSetup && (
               <Fragment>
                 <ListItem key={"catalog-list-item"} disablePadding>
                   <ListItemButton
+                    selected={pathname === routes.home}
+                    onClick={() => {
+                      push(routes.home);
+                      if (isSmallScreen) {
+                        setDrawerOpenStateFalse();
+                      }
+                    }}
+                  >
+                    <ListItemIcon>
+                      <Dashboard />
+                    </ListItemIcon>
+                    <ListItemText primary={common("dashboard")} />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem key={"catalog-list-item"} disablePadding>
+                  <ListItemButton
+                    selected={pathname === routes.catalog}
                     onClick={() => {
                       push(routes.catalog);
                       if (isSmallScreen) {
@@ -290,8 +312,41 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
                     <ListItemText primary={common("catalog")} />
                   </ListItemButton>
                 </ListItem>
+                <ListItem key={"orders-list-item"} disablePadding>
+                  <ListItemButton
+                    selected={pathname === routes.orders}
+                    onClick={() => {
+                      push(routes.orders);
+                      if (isSmallScreen) {
+                        setDrawerOpenStateFalse();
+                      }
+                    }}
+                  >
+                    <ListItemIcon>
+                      <ListAlt />
+                    </ListItemIcon>
+                    <ListItemText primary={common("orders")} />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem key={"customers-list-item"} disablePadding>
+                  <ListItemButton
+                    selected={pathname === routes.customers}
+                    onClick={() => {
+                      push(routes.customers);
+                      if (isSmallScreen) {
+                        setDrawerOpenStateFalse();
+                      }
+                    }}
+                  >
+                    <ListItemIcon>
+                      <Group />
+                    </ListItemIcon>
+                    <ListItemText primary={common("customers")} />
+                  </ListItemButton>
+                </ListItem>
                 <ListItem key={"app-configurator-list-item"} disablePadding>
                   <ListItemButton
+                    selected={pathname === routes.theme}
                     onClick={() => {
                       push(routes.theme);
                       if (isSmallScreen) {

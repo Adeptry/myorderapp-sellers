@@ -7,8 +7,8 @@ export default function Page() {
   useRedirectSetupSessions();
 
   return (
-    <Stack spacing={2} py={2}>
-      <Typography>Welcome back</Typography>
+    <Stack spacing={2}>
+      <Typography>Customers</Typography>
     </Stack>
   );
 }

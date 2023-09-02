@@ -2,13 +2,13 @@
 
 ## Merchant frontend
 
-- App icon upload
 - Google and Apple logins
-- Routing
 
 - Merchant orders view
 - Merchant customers view
 - Merchant profile view
+
+# Marketing website
 
 - Privacy policy
 - Terms of Service
