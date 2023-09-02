@@ -12,9 +12,6 @@ export const useRedirectSetupSessions = () => {
   const { status: authStatus } = useSession();
   const { data, status: queryStatus } = useCurrentMerchantQuery({
     retry: false,
-    params: {
-      appConfig: true,
-    },
   });
 
   useEffect(() => {
