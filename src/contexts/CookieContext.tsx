@@ -13,6 +13,10 @@ import {
 interface CookieContextProps {
   currencyCookieValue: string | undefined;
   setCurrencyCookieValue: (currency: string | undefined) => void;
+  colorModeCookieValue: "light" | "dark" | "system";
+  setColorModeCookieValue: (colorMode: "light" | "dark" | "system") => void;
+  colorCookieValue: string | undefined;
+  setColorCookieValue: (color: string) => void;
 }
 
 export const CookieContext = createContext<CookieContextProps | undefined>(
@@ -28,9 +32,23 @@ export function CookieProvider({ children }: CookieProviderProps) {
     undefined
   );
 
+  const [colorModeState, setColorModeState] = useState<
+    "light" | "dark" | "system"
+  >("light");
+
+  const [colorState, setColorState] = useState<string | undefined>(undefined);
+
   useEffect(() => {
-    const initialCurrency = getCookie(constants.currencyCookieName);
-    setCurrencyState(initialCurrency);
+    setCurrencyState(getCookie(constants.currencyCookieName));
+
+    const colorMode = getCookie(constants.colorModeCookieName);
+    if (colorMode === "dark" || colorMode === "system") {
+      setColorModeState(colorMode);
+    } else {
+      setColorModeState("light");
+    }
+
+    setColorState(getCookie(constants.colorCookieName));
   }, []);
 
   useEffect(() => {
@@ -44,11 +62,35 @@ export function CookieProvider({ children }: CookieProviderProps) {
     }
   }, [currencyState]);
 
+  useEffect(() => {
+    if (colorModeState !== undefined) {
+      const currentCurrencyCookieValue = getCookie(
+        constants.colorModeCookieName
+      );
+      if (currentCurrencyCookieValue !== colorModeState) {
+        setCookie(constants.colorModeCookieName, colorModeState);
+      }
+    }
+  }, [colorModeState]);
+
+  useEffect(() => {
+    if (colorState !== undefined) {
+      const currentCurrencyCookieValue = getCookie(constants.colorCookieName);
+      if (currentCurrencyCookieValue !== colorState) {
+        setCookie(constants.colorCookieName, colorState);
+      }
+    }
+  }, [colorState]);
+
   return (
     <CookieContext.Provider
       value={{
         currencyCookieValue: currencyState,
         setCurrencyCookieValue: setCurrencyState,
+        colorModeCookieValue: colorModeState,
+        setColorModeCookieValue: setColorModeState,
+        colorCookieValue: colorState,
+        setColorCookieValue: setColorState,
       }}
     >
       {children}

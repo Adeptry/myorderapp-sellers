@@ -20,18 +20,18 @@ export default async function RootLayout(props: NextPageProps) {
       />
 
       <body>
-        <ThemeRegistry>
-          <NextIntlClientProvider
-            locale={props.params.lang}
-            messages={dictionary}
-          >
-            <CookieProvider>
+        <CookieProvider>
+          <ThemeRegistry>
+            <NextIntlClientProvider
+              locale={props.params.lang}
+              messages={dictionary}
+            >
               <SessionedQueryProvider>
                 <MoaAdaptiveScaffold>{props.children}</MoaAdaptiveScaffold>
               </SessionedQueryProvider>
-            </CookieProvider>
-          </NextIntlClientProvider>
-        </ThemeRegistry>
+            </NextIntlClientProvider>
+          </ThemeRegistry>
+        </CookieProvider>
       </body>
     </html>
   );

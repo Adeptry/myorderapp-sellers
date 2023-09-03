@@ -2,6 +2,7 @@
 
 import { routes } from "@/app/routes";
 import { FooterLayout } from "@/components/layouts/FooterLayout";
+import { useCookieContext } from "@/contexts/CookieContext";
 import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
 import { fullNameForMerchant } from "@/utils/fullNameForMerchant";
 import { initialsForMerchant } from "@/utils/initialsForMerchant";
@@ -14,8 +15,11 @@ import {
   AccountBox,
   AppShortcut,
   ArrowBack,
+  Brightness6,
+  DarkMode,
   Dashboard,
   Group,
+  LightMode,
   ListAlt,
   Logout,
   MenuBook,
@@ -36,6 +40,8 @@ import {
   Menu,
   MenuItem,
   Skeleton,
+  ToggleButton,
+  ToggleButtonGroup,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
@@ -122,6 +128,8 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
   const queryClient = useQueryClient();
   const { data: currentMerchantData } = useCurrentMerchantQuery();
   const sessionedApiConfiguration = useSessionedApiConfiguration();
+  const { colorModeCookieValue, setColorModeCookieValue, colorCookieValue } =
+    useCookieContext();
 
   const createStripeBillingSessionUrlMutation = useMutation({
     mutationFn: async (
@@ -145,7 +153,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
 
   const isMerchantSetup = isMerchantSetupFn(currentMerchantData);
 
-  const menuItems: Array<ReactNode> = [];
+  const menuItems: Array<ReactNode> = [,];
 
   if (currentMerchantData) {
     menuItems.push(
@@ -201,6 +209,29 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
       </MenuItem>
     );
   }
+
+  menuItems.push([
+    <MenuItem key="color-mode-menu-item" disableRipple>
+      <ToggleButtonGroup
+        value={colorModeCookieValue}
+        exclusive
+        onChange={(event, value) => setColorModeCookieValue(value as any)}
+        aria-label="text alignment"
+        size="small"
+      >
+        <ToggleButton value="light" aria-label="light">
+          <LightMode />
+        </ToggleButton>
+        <ToggleButton value="system" aria-label="system">
+          <Brightness6 />
+        </ToggleButton>
+        <ToggleButton value="dark" aria-label="dark">
+          <DarkMode />
+        </ToggleButton>
+      </ToggleButtonGroup>
+    </MenuItem>,
+  ]);
+
   const skeleton = status === "loading";
   const appBarToolbar: ReactNode = (
     <Toolbar>
@@ -236,9 +267,9 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
             <Avatar
               sx={{
-                bgcolor: stringToColor(
-                  fullNameForMerchant(currentMerchantData)
-                ),
+                bgcolor:
+                  colorCookieValue ||
+                  stringToColor(fullNameForMerchant(currentMerchantData)),
               }}
             >
               {initialsForMerchant(currentMerchantData)}

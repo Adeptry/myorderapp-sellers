@@ -1,5 +1,6 @@
 "use client";
 
+import { useCookieContext } from "@/contexts/CookieContext";
 import { fontNames } from "@/data/fontNames";
 import { configurationForSession } from "@/utils/configurationForSession";
 import { mapStringEnum } from "@/utils/mapStringEnum";
@@ -70,6 +71,7 @@ export function AppConfigForm(props: {
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const [skeletonState, setSkeletonState] = useState(true);
   const [fontInputState, setFontInputState] = useState("");
+  const { setColorCookieValue, colorCookieValue } = useCookieContext();
 
   const {
     formState: { isDirty, errors, isSubmitting },
@@ -127,7 +129,7 @@ export function AppConfigForm(props: {
           const fullName = `${firstName ?? ""} ${lastName ?? ""}`;
           return {
             name: t("defaultName", { name: firstName }),
-            seedColor: stringToColor(fullName),
+            seedColor: colorCookieValue ?? stringToColor(fullName),
             fontFamily: moaEnv.defaultFontFamily,
             themeMode: ThemeModeEnum.Light,
             useMaterial3: false,
@@ -162,6 +164,14 @@ export function AppConfigForm(props: {
         .required()
     ),
   });
+
+  const watchedSeedColor = watch("seedColor");
+
+  useEffect(() => {
+    if (watchedSeedColor) {
+      setColorCookieValue(watchedSeedColor);
+    }
+  }, [watchedSeedColor]);
 
   const updateConfigMutation = useMutation({
     mutationFn: async (data: AppConfigFormType) => {

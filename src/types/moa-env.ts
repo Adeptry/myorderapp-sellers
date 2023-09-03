@@ -35,5 +35,7 @@ export interface MoaEnv {
 
 export interface MoaConstants {
   currencyCookieName: string;
+  colorModeCookieName: string;
+  colorCookieName: string;
   currencyToPriceDictionary: { [key: string]: number };
 }

@@ -1,12 +1,19 @@
 "use client";
 
 import EmotionCacheProvider from "@/components/theme/EmotionCacheProvider";
+import { useCookieContext } from "@/contexts/CookieContext";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { ReactNode, useMemo } from "react";
 
 export function ThemeRegistry({ children }: { children: ReactNode }) {
-  const prefersDarkMode = false; //useMediaQuery("(prefers-color-scheme: dark)");
+  const { colorModeCookieValue } = useCookieContext();
+  const prefersDarkMode =
+    colorModeCookieValue === "dark"
+      ? true
+      : colorModeCookieValue === "light"
+      ? false
+      : window.matchMedia("(prefers-color-scheme: dark)").matches;
 
   const theme = useMemo(
     () =>
