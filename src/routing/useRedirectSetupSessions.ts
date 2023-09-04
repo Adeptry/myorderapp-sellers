@@ -10,9 +10,7 @@ export const useRedirectSetupSessions = () => {
 
   const router = useRouter();
   const { status: authStatus } = useSession();
-  const { data, status: queryStatus } = useCurrentMerchantQuery({
-    retry: false,
-  });
+  const { data, status: queryStatus } = useCurrentMerchantQuery();
 
   useEffect(() => {
     if (queryStatus === "success") {

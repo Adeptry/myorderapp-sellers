@@ -7,6 +7,7 @@ import { ReactNode, useState } from "react";
 
 export function SessionedQueryProvider(props: { children: ReactNode }) {
   const [queryClient] = useState(() => new QueryClient());
+
   return (
     <SessionProvider>
       <QueryClientProvider client={queryClient}>

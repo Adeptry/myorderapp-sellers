@@ -7,9 +7,7 @@ import { useEffect } from "react";
 export const useRedirectAuthenticatedSessions = () => {
   const router = useRouter();
   const { status: authStatus } = useSession();
-  const { data, status: queryStatus } = useCurrentMerchantQuery({
-    retry: false,
-  });
+  const { data, status: queryStatus } = useCurrentMerchantQuery();
 
   useEffect(() => {
     if (authStatus === "authenticated") {

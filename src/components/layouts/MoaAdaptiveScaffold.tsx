@@ -161,6 +161,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
         key="account-menu-item"
         onClick={() => {
           push(routes.profile);
+          handleCloseUserMenu();
         }}
       >
         <ListItemIcon>
@@ -183,6 +184,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
           if (response.data?.url) {
             push(response.data.url);
           }
+          handleCloseUserMenu();
         }}
       >
         <ListItemIcon>
@@ -200,6 +202,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
         onClick={async () => {
           queryClient.invalidateQueries();
           await signOut({ callbackUrl: routes.login });
+          handleCloseUserMenu();
         }}
       >
         <ListItemIcon>

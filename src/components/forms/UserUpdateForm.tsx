@@ -1,6 +1,6 @@
 "use client";
 
-import { currentMerchantQueryKey } from "@/queries/useCurrentMerchantQuery";
+import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
 import { configurationForSession } from "@/utils/configurationForSession";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,7 +10,7 @@ import { Alert, Box, Skeleton } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { UserUpdateDto, UsersApi } from "moa-merchants-ts-axios";
 import { getSession } from "next-auth/react";
@@ -21,12 +21,12 @@ import * as yup from "yup";
 
 export type UserUpdateFormType = UserUpdateDto;
 
-export function UserUpdateForm(props: { skeleton?: boolean }) {
-  const { skeleton } = props;
-  const queryClient = useQueryClient();
+export function UserUpdateForm() {
+  const [skeletonState, setSkeletonState] = useState<boolean>(true);
   const [errorString, setErrorString] = useState<string | null>(null);
   const common = useTranslations("Common");
   const configuration = useSessionedApiConfiguration();
+  const currentMerchantQuery = useCurrentMerchantQuery();
 
   const { formState, setError, handleSubmit, control, getValues, reset } =
     useForm<UserUpdateFormType>({
@@ -34,6 +34,7 @@ export function UserUpdateForm(props: { skeleton?: boolean }) {
         const session = await getSession();
         const api = new UsersApi(configurationForSession(session));
         const response = await api.getCurrentUser();
+        setSkeletonState(false);
         return {
           email: response.data.email,
           firstName: response.data.firstName,
@@ -71,7 +72,7 @@ export function UserUpdateForm(props: { skeleton?: boolean }) {
       ).data;
     },
     onSettled: () => {
-      queryClient.invalidateQueries(currentMerchantQueryKey);
+      currentMerchantQuery.refetch();
     },
   });
 
@@ -116,8 +117,8 @@ export function UserUpdateForm(props: { skeleton?: boolean }) {
     >
       <Grid
         container
-        columnSpacing={skeleton ? 1 : 2}
-        rowSpacing={skeleton ? 0 : 2}
+        columnSpacing={skeletonState ? 1 : 2}
+        rowSpacing={skeletonState ? 0 : 2}
       >
         {errorString && (
           <Grid item xs={12}>
@@ -131,8 +132,8 @@ export function UserUpdateForm(props: { skeleton?: boolean }) {
             name="firstName"
             control={control}
             render={({ field }) => {
-              return skeleton ? (
-                <Skeleton height="56px" />
+              return skeletonState ? (
+                <Skeleton height="72px" />
               ) : (
                 <TextField
                   {...field}
@@ -160,8 +161,8 @@ export function UserUpdateForm(props: { skeleton?: boolean }) {
             name="lastName"
             control={control}
             render={({ field }) => {
-              return skeleton ? (
-                <Skeleton height="56px" />
+              return skeletonState ? (
+                <Skeleton height="72px" />
               ) : (
                 <TextField
                   {...field}
@@ -188,8 +189,8 @@ export function UserUpdateForm(props: { skeleton?: boolean }) {
             name="email"
             control={control}
             render={({ field }) => {
-              return skeleton ? (
-                <Skeleton height="56px" />
+              return skeletonState ? (
+                <Skeleton height="72px" />
               ) : (
                 <TextField
                   {...field}
@@ -213,8 +214,8 @@ export function UserUpdateForm(props: { skeleton?: boolean }) {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          {skeleton ? (
-            <Skeleton height="56px" width="100%" />
+          {skeletonState ? (
+            <Skeleton height="58px" width="100%" />
           ) : (
             <LoadingButton
               loading={mutation.isLoading || formState.isSubmitting}

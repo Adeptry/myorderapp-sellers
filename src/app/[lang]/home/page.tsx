@@ -8,7 +8,7 @@ export default function Page() {
 
   return (
     <Stack spacing={2} py={2}>
-      <Typography>Welcome back</Typography>
+      <Typography>Dashboard under construction</Typography>
     </Stack>
   );
 }

@@ -1,12 +1,10 @@
 "use client";
 
 import { UserUpdateForm } from "@/components/forms/UserUpdateForm";
-import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { Box, Grid, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 
 export default function Page() {
-  const authStatus = useRedirectUnauthenticatedSessions();
   const common = useTranslations("Common");
 
   return (
@@ -18,7 +16,7 @@ export default function Page() {
           </Typography>
         </Box>
 
-        <UserUpdateForm skeleton={authStatus === "loading"} />
+        <UserUpdateForm />
       </Grid>
     </Grid>
   );

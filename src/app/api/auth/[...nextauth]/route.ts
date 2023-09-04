@@ -4,14 +4,15 @@ import {
   AuthRegisterLoginDto,
   Configuration,
 } from "moa-merchants-ts-axios";
+import ms from "ms";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 const handler = NextAuth({
   session: {
     strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60, // 30 days
-    updateAge: 24 * 60 * 60, // 1 day
+    maxAge: ms(process.env.AUTH_REFRESH_TOKEN_EXPIRES_IN!) / 1000,
+    updateAge: ms(process.env.AUTH_JWT_TOKEN_EXPIRES_IN!) / 1000,
   },
   callbacks: {
     async session(params) {
@@ -26,6 +27,35 @@ const handler = NextAuth({
         params.token.refreshToken = params.user.refreshToken;
         params.token.tokenExpires = params.user.tokenExpires;
       }
+
+      if (
+        (params.token.tokenExpires &&
+          new Date().getTime() > params.token.tokenExpires) ||
+        params.trigger === "update"
+      ) {
+        try {
+          const response = await (
+            await AuthApiFp(
+              new Configuration({
+                apiKey: moaEnv.backendApiKey,
+                basePath: moaEnv.backendUrl,
+                accessToken: params.token.refreshToken,
+              })
+            ).refreshToken()
+          )();
+          const data = response.data;
+          if (data) {
+            params.token.token = data.token;
+            params.token.refreshToken = data.refreshToken;
+            params.token.tokenExpires = data.tokenExpires;
+          } else {
+            throw new Error("Token refresh failed");
+          }
+        } catch (e) {
+          throw new Error("Token refresh failed");
+        }
+      }
+
       return params.token;
     },
   },
