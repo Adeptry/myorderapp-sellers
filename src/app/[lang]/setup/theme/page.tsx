@@ -14,7 +14,7 @@ import { moaEnv } from "@/utils/moaEnv";
 import { Stack, useMediaQuery, useTheme } from "@mui/material";
 import { AppConfig } from "moa-merchants-ts-axios";
 import { useSession } from "next-auth/react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next-intl/client";
 import { useEffect, useState } from "react";
 
@@ -29,6 +29,7 @@ export default function Page() {
   const { data } = useCurrentMerchantQuery();
   const { push } = useRouter();
   const { status } = useSession();
+  const locale = useLocale();
   useEffect(() => {
     if (status === "unauthenticated") {
       push(routes.login);
@@ -67,6 +68,7 @@ export default function Page() {
             merchantFrontendUrl: moaEnv.frontendUrl,
             merchantId: data?.id ?? null,
             isPreview: true,
+            languageCodeOverride: locale,
           }}
         />
       </TabLayout>

@@ -17,6 +17,7 @@ export function MyOrderAppPreview(props: {
     merchantFrontendUrl: string | null;
     merchantId: string | null;
     isPreview: boolean | null;
+    languageCodeOverride: string | null;
   } | null;
 }) {
   const { sx } = props;

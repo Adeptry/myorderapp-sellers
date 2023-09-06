@@ -22,7 +22,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { useSession } from "next-auth/react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next-intl/client";
 import { useEffect } from "react";
 
@@ -34,6 +34,7 @@ export default function Page() {
   const { status } = useSession();
   const currentCatalogQuery = useCurrentCatalogQuery();
   const currentCatalogCategories = currentCatalogQuery.data?.data ?? [];
+  const locale = useLocale();
 
   const skeleton = status === "loading";
   const { data: currentMerchantData } = useCurrentMerchantQuery();
@@ -104,6 +105,7 @@ export default function Page() {
             merchantFrontendUrl: moaEnv.frontendUrl!,
             merchantId: currentMerchantData?.id ?? null,
             isPreview: true,
+            languageCodeOverride: locale,
           }}
         />
       </TabLayout>

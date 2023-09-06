@@ -8,6 +8,7 @@ import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { moaEnv } from "@/utils/moaEnv";
 import { Stack, useMediaQuery, useTheme } from "@mui/material";
+import { useLocale } from "next-intl";
 
 export default function Page() {
   useRedirectUnauthenticatedSessions();
@@ -16,6 +17,7 @@ export default function Page() {
   const { data: currentMerchantData } = useCurrentMerchantQuery();
   const currentCatalogQuery = useCurrentCatalogQuery();
   const currentCatalogCategories = currentCatalogQuery.data?.data ?? [];
+  const locale = useLocale();
 
   return (
     <Stack spacing={2}>
@@ -34,6 +36,7 @@ export default function Page() {
             merchantFrontendUrl: moaEnv.frontendUrl!,
             merchantId: currentMerchantData?.id ?? null,
             isPreview: true,
+            languageCodeOverride: locale,
           }}
         />
       </TabLayout>

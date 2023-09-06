@@ -8,6 +8,7 @@ import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthe
 import { moaEnv } from "@/utils/moaEnv";
 import { Stack, useMediaQuery, useTheme } from "@mui/material";
 import { AppConfig } from "moa-merchants-ts-axios";
+import { useLocale } from "next-intl";
 import { useState } from "react";
 
 export default function Page() {
@@ -18,6 +19,7 @@ export default function Page() {
     undefined
   );
   const { data } = useCurrentMerchantQuery();
+  const locale = useLocale();
 
   return (
     <Stack spacing={2}>
@@ -36,6 +38,7 @@ export default function Page() {
             merchantFrontendUrl: moaEnv.frontendUrl,
             merchantId: data?.id ?? null,
             isPreview: true,
+            languageCodeOverride: locale,
           }}
         />
       </TabLayout>
