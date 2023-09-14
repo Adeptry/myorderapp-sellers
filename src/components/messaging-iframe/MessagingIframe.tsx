@@ -20,7 +20,8 @@ export function MessagingIframe<
   const [updateCountState, setUpdateCountState] = useState(0);
 
   useEffect(() => {
-    logger.debug(props.sendMessageState, "Web sending message");
+    logger.info(props.sendMessageState, "Web sending message");
+    
     iframeRef.current?.contentWindow?.postMessage(
       props.sendMessageState,
       new URL(props.src).origin
@@ -35,7 +36,7 @@ export function MessagingIframe<
         return;
       }
 
-      logger.debug(event.data, "Web received message");
+      logger.info(event.data, "Web received message");
 
       try {
         const data = event.data.data;

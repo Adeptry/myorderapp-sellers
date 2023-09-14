@@ -106,6 +106,7 @@ export default function Page() {
             merchantId: currentMerchantData?.id ?? null,
             isPreview: true,
             languageCodeOverride: locale,
+            webUrl: moaEnv.previewUrl!,
           }}
         />
       </TabLayout>

@@ -39,6 +39,7 @@ export default function Page() {
             merchantId: data?.id ?? null,
             isPreview: true,
             languageCodeOverride: locale,
+            webUrl: moaEnv.previewUrl!,
           }}
         />
       </TabLayout>
