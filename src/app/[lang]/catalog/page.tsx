@@ -4,7 +4,6 @@ import { CatalogAccordion } from "@/components/accordions/CatalogAccordion";
 import { MyOrderAppPreview } from "@/components/app-preview/MyOrderAppPreview";
 import { TabLayout } from "@/components/layouts/TabLayout";
 import { useCurrentCatalogQuery } from "@/queries/useCurrentCatalogQuery";
-import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { moaEnv } from "@/utils/moaEnv";
 import { Stack, useMediaQuery, useTheme } from "@mui/material";
@@ -14,7 +13,7 @@ export default function Page() {
   useRedirectUnauthenticatedSessions();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(780));
-  const { data: currentMerchantData } = useCurrentMerchantQuery();
+
   const currentCatalogQuery = useCurrentCatalogQuery();
   const currentCatalogCategories = currentCatalogQuery.data?.data ?? [];
   const locale = useLocale();
@@ -33,11 +32,8 @@ export default function Page() {
           environment={{
             apiBaseUrl: moaEnv.backendUrl!,
             apiKey: moaEnv.backendApiKey!,
-            merchantFrontendUrl: moaEnv.frontendUrl!,
-            merchantId: currentMerchantData?.id ?? null,
             isPreview: true,
             languageCodeOverride: locale,
-            webUrl: moaEnv.previewUrl!,
           }}
         />
       </TabLayout>

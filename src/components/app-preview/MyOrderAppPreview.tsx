@@ -1,5 +1,6 @@
 import { MessagingIframe } from "@/components/messaging-iframe/MessagingIframe";
 import { toWindowClonable } from "@/components/messaging-iframe/WindowClonable";
+import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
 import { moaEnv } from "@/utils/moaEnv";
 import { Box, SxProps } from "@mui/material";
 import { AppConfig, Category } from "moa-merchants-ts-axios";
@@ -14,14 +15,12 @@ export function MyOrderAppPreview(props: {
   environment: {
     apiBaseUrl: string | null;
     apiKey: string | null;
-    merchantFrontendUrl: string | null;
-    merchantId: string | null;
     isPreview: boolean | null;
     languageCodeOverride: string | null;
-    webUrl: string | null;
   } | null;
 }) {
   const { sx } = props;
+  const { data: currentMerchantData } = useCurrentMerchantQuery();
 
   return (
     <Box
@@ -30,23 +29,25 @@ export function MyOrderAppPreview(props: {
       }}
     >
       <DeviceFrameset device="HTC One" color="black" style={{}}>
-        <MessagingIframe
-          id="flutter-iframe"
-          src={moaEnv.previewUrl}
-          sendMessageState={{
-            type: "state",
-            payload: {
-              categories: toWindowClonable(props.categories),
-              appConfig: toWindowClonable(props.appConfig),
-              environment: props.environment,
-            },
-          }}
-          style={{
-            width: "100%",
-            height: "100%",
-            border: 0,
-          }}
-        />
+        {currentMerchantData?.id && (
+          <MessagingIframe
+            id="flutter-iframe"
+            src={`${moaEnv.previewUrl}/#/${currentMerchantData?.id}/catalog`}
+            sendMessageState={{
+              type: "state",
+              payload: {
+                categories: toWindowClonable(props.categories),
+                appConfig: toWindowClonable(props.appConfig),
+                environment: props.environment,
+              },
+            }}
+            style={{
+              width: "100%",
+              height: "100%",
+              border: 0,
+            }}
+          />
+        )}
       </DeviceFrameset>
     </Box>
   );

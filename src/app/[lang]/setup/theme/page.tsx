@@ -65,11 +65,8 @@ export default function Page() {
           environment={{
             apiBaseUrl: moaEnv.backendUrl,
             apiKey: moaEnv.backendApiKey,
-            merchantFrontendUrl: moaEnv.frontendUrl,
-            merchantId: data?.id ?? null,
             isPreview: true,
             languageCodeOverride: locale,
-            webUrl: moaEnv.previewUrl!,
           }}
         />
       </TabLayout>

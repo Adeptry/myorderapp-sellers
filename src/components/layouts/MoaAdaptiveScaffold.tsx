@@ -12,7 +12,7 @@ import { useAppBarHeight } from "@/utils/useAppBarHeight";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import {
-  AccountBox,
+  AccountCircleOutlined,
   AppShortcut,
   ArrowBack,
   Brightness6,
@@ -165,7 +165,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
         }}
       >
         <ListItemIcon>
-          <AccountBox fontSize="small" />
+          <AccountCircleOutlined fontSize="small" />
         </ListItemIcon>
         <ListItemText>{common("profile")}</ListItemText>
       </MenuItem>
