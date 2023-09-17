@@ -3,6 +3,7 @@
 import { useCookieContext } from "@/contexts/CookieContext";
 import { fontNames } from "@/data/fontNames";
 import { configurationForSession } from "@/utils/configurationForSession";
+import { logger } from "@/utils/logger";
 import { mapStringEnum } from "@/utils/mapStringEnum";
 import { moaEnv } from "@/utils/moaEnv";
 import { randomColor } from "@/utils/randomColor";
@@ -488,9 +489,6 @@ export function AppConfigForm(props: {
                         ? null
                         : `${renderer.field.value}`
                     }
-                    onChange={(event) => {
-                      setValue("useMaterial3", event.target.value === "true");
-                    }}
                     row
                   >
                     <FormControlLabel
@@ -498,12 +496,32 @@ export function AppConfigForm(props: {
                       value={"true"}
                       control={<Radio />}
                       label={t("useMaterial3Labels.true")}
+                      onChange={() => {
+                        logger.info(
+                          `FormControlLabel set useMaterial3: ${true}`
+                        );
+                        renderer.field.onChange({
+                          target: {
+                            value: `true`,
+                          },
+                        });
+                      }}
                     />
                     <FormControlLabel
                       key={"classic"}
                       value={"false"}
                       control={<Radio />}
                       label={t("useMaterial3Labels.false")}
+                      onChange={() => {
+                        logger.info(
+                          `FormControlLabel set useMaterial3: ${false}`
+                        );
+                        renderer.field.onChange({
+                          target: {
+                            value: `false`,
+                          },
+                        });
+                      }}
                     />
                   </RadioGroup>
                 </FormControl>

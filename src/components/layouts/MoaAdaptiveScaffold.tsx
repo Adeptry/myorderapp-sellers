@@ -326,7 +326,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
           <Fragment>
             {isMerchantSetup && (
               <Fragment>
-                <ListItem key={"catalog-list-item"} disablePadding>
+                <ListItem key={"home-list-item"} disablePadding>
                   <ListItemButton
                     selected={pathname === routes.home}
                     onClick={() => {

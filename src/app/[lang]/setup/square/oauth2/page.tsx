@@ -38,19 +38,9 @@ export default function Page() {
     },
   });
 
-  const syncSquareCatalogMutation = useMutation({
+  const squareSyncMutation = useMutation({
     mutationFn: async () => {
-      return (
-        await MerchantsApiFp(sessionedApiConfiguration).syncSquareCatalog()
-      )();
-    },
-  });
-
-  const syncSquareLocationsMutation = useMutation({
-    mutationFn: async () => {
-      return (
-        await MerchantsApiFp(sessionedApiConfiguration).syncSquareLocations()
-      )();
+      return (await MerchantsApiFp(sessionedApiConfiguration).squareSync())();
     },
   });
 
@@ -61,8 +51,7 @@ export default function Page() {
       if (oauthAccessCode && status === "authenticated") {
         try {
           await confirmSquareOauthMutation.mutateAsync(oauthAccessCode);
-          await syncSquareCatalogMutation.mutateAsync();
-          await syncSquareLocationsMutation.mutateAsync();
+          await squareSyncMutation.mutateAsync();
           push(routes.setup.catalog);
         } catch (error) {
           if (axios.isAxiosError(error) && error?.response?.status === 422) {
