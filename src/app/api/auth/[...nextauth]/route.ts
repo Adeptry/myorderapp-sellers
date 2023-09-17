@@ -78,9 +78,9 @@ const handler = NextAuth({
             ).login(credentials as AuthRegisterLoginDto)
           )();
           const data = response.data;
-          if (data) {
+          if (data.user?.id) {
             const returnedData = {
-              id: data.user.id,
+              id: data.user?.id,
               token: data.token,
               refreshToken: data.refreshToken,
               tokenExpires: data.tokenExpires,
