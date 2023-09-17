@@ -33,26 +33,30 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
   const t = useTranslations("SignUpForm");
   const common = useTranslations("Common");
 
-  const { formState, setError, handleSubmit, control, getValues } =
-    useForm<AuthRegisterLoginDto>({
-      defaultValues: {
-        email: "",
-        password: "",
-        firstName: "",
-        lastName: "",
-      },
-      resolver: yupResolver(
-        yup
-          .object<AuthRegisterLoginDto>()
-          .shape({
-            email: yup.string().email().label(common("email")).required(),
-            password: yup.string().min(6).label(common("password")).required(),
-            firstName: yup.string().label(common("firstName")).required(),
-            lastName: yup.string().label(common("lastName")).required(),
-          })
-          .required()
-      ),
-    });
+  const { formState, setError, handleSubmit, control, getValues } = useForm<{
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+  }>({
+    defaultValues: {
+      email: "",
+      password: "",
+      firstName: "",
+      lastName: "",
+    },
+    resolver: yupResolver(
+      yup
+        .object<AuthRegisterLoginDto>()
+        .shape({
+          email: yup.string().email().label(common("email")).required(),
+          password: yup.string().min(6).label(common("password")).required(),
+          firstName: yup.string().label(common("firstName")).required(),
+          lastName: yup.string().label(common("lastName")).required(),
+        })
+        .required()
+    ),
+  });
 
   const createUserAndMerchantMutation = useMutation(
     async (requestParameters: AuthRegisterLoginDto) => {
