@@ -4,6 +4,7 @@ import { ThemeRegistry } from "@/components/theme/ThemeRegistry";
 import { CookieProvider } from "@/contexts/CookieContext";
 import { NextPageProps, i18n } from "@/types/next";
 import { getDictionary } from "@/utils/get-dictionary";
+import { Analytics } from "@vercel/analytics/react";
 import { NextIntlClientProvider } from "next-intl";
 
 export async function generateStaticParams() {
@@ -32,6 +33,7 @@ export default async function RootLayout(props: NextPageProps) {
             </NextIntlClientProvider>
           </ThemeRegistry>
         </CookieProvider>
+        <Analytics />
       </body>
     </html>
   );
