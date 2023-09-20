@@ -14,7 +14,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { UserUpdateDto, UsersApi } from "moa-merchants-ts-axios";
 import { getSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslations } from "use-intl";
 import * as yup from "yup";
@@ -28,7 +28,7 @@ export function UserUpdateForm() {
   const configuration = useSessionedApiConfiguration();
   const currentMerchantQuery = useCurrentMerchantQuery();
 
-  const { formState, setError, handleSubmit, control, getValues, reset } =
+  const { formState, setError, handleSubmit, control, reset, watch } =
     useForm<UserUpdateFormType>({
       defaultValues: async () => {
         const session = await getSession();
@@ -65,6 +65,11 @@ export function UserUpdateForm() {
       ),
     });
 
+  useEffect(() => {
+    const subscription = watch(() => setErrorString(null));
+    return () => subscription.unsubscribe();
+  }, [watch()]);
+
   const mutation = useMutation({
     mutationFn: async (userUpdateDto: UserUpdateFormType) => {
       return (
@@ -92,18 +97,21 @@ export function UserUpdateForm() {
         ...result,
       });
     } catch (error) {
-      if (axios.isAxiosError(error) && error?.response?.status === 422) {
-        const message = (error?.response?.data as any).message;
-        if (typeof message === "string") {
-          setErrorString(message);
-        } else {
-          Object.keys(message).forEach((fieldName) => {
+      if (axios.isAxiosError(error)) {
+        const fields = (error?.response?.data as any)?.fields;
+        const message = (error?.response?.data as any)?.message;
+        if (fields !== undefined) {
+          Object.keys(fields).forEach((fieldName) => {
             setError(fieldName as keyof UserUpdateFormType, {
               type: "server",
-              message: message[fieldName],
+              message: fields[fieldName],
             });
           });
+        } else if (message !== undefined) {
+          setErrorString(message);
         }
+      } else {
+        setErrorString(JSON.stringify(error));
       }
     }
   }

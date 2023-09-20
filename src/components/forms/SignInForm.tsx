@@ -11,10 +11,11 @@ import { Alert, Box, Grid, Skeleton } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 import { AuthEmailLoginDto } from "moa-merchants-ts-axios";
 import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 
@@ -24,21 +25,27 @@ export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
   const common = useTranslations("Common");
   const t = useTranslations("SignInForm");
 
-  const { handleSubmit, control, formState } = useForm<AuthEmailLoginDto>({
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-    resolver: yupResolver(
-      yup
-        .object<AuthEmailLoginDto>()
-        .shape({
-          email: yup.string().email().label(common("email")).required(),
-          password: yup.string().min(6).label(common("password")).required(),
-        })
-        .required()
-    ),
-  });
+  const { handleSubmit, control, formState, setError, watch } =
+    useForm<AuthEmailLoginDto>({
+      defaultValues: {
+        email: "",
+        password: "",
+      },
+      resolver: yupResolver(
+        yup
+          .object<AuthEmailLoginDto>()
+          .shape({
+            email: yup.string().email().label(common("email")).required(),
+            password: yup.string().min(6).label(common("password")).required(),
+          })
+          .required()
+      ),
+    });
+
+  useEffect(() => {
+    const subscription = watch(() => setErrorString(null));
+    return () => subscription.unsubscribe();
+  }, [watch()]);
 
   const createSessionMutation = useMutation({
     mutationFn: async (authEmailLoginDto: AuthEmailLoginDto) => {
@@ -51,9 +58,32 @@ export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
   });
 
   async function handleOnValidSubmit(data: AuthEmailLoginDto) {
-    const result = await createSessionMutation.mutateAsync(data);
-    if (result?.error) {
-      setErrorString(result?.error);
+    try {
+      const result = await createSessionMutation.mutateAsync(data);
+      if (result?.error) {
+        handleError(result?.error);
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  }
+
+  function handleError(error: any) {
+    if (axios.isAxiosError(error)) {
+      const fields = (error?.response?.data as any)?.fields;
+      const message = (error?.response?.data as any)?.message;
+      if (fields !== undefined) {
+        Object.keys(fields).forEach((fieldName) => {
+          setError(fieldName as keyof AuthEmailLoginDto, {
+            type: "server",
+            message: fields[fieldName],
+          });
+        });
+      } else if (message !== undefined) {
+        setErrorString(message);
+      }
+    } else {
+      setErrorString(JSON.stringify(error));
     }
   }
 

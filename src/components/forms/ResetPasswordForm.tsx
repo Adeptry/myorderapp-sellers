@@ -1,5 +1,4 @@
-import { SignInLink } from "@/components/links/SignInLink";
-import { SignUpLink } from "@/components/links/SignUpLink";
+import { routes } from "@/app/routes";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Password } from "@mui/icons-material";
@@ -14,27 +13,45 @@ import {
 } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { AuthApi, AuthForgotPasswordDto } from "moa-merchants-ts-axios";
+import { AuthApi, AuthResetPasswordDto } from "moa-merchants-ts-axios";
 import { useTranslations } from "next-intl";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
+import { ForgotPasswordLink } from "../links/ForgotPasswordLink";
+import { SignInLink } from "../links/SignInLink";
 
-export function ForgotPasswordForm(props: { preloading: boolean }) {
+export function ResetPasswordForm(props: { preloading: boolean }) {
   const { preloading: skeleton } = props;
+  const router = useRouter();
+
+  const searchParams = useSearchParams();
+  const hash = searchParams.get("hash");
   const [errorString, setErrorString] = useState<string | null>(null);
   const common = useTranslations("Common");
 
-  const { setError, handleSubmit, formState, control, watch } =
-    useForm<AuthForgotPasswordDto>({
+  const { setError, handleSubmit, formState, control, setValue, watch } =
+    useForm<AuthResetPasswordDto & { confirmPassword: string }>({
       defaultValues: {
-        email: "",
+        password: "",
+        hash: hash ?? "",
       },
       resolver: yupResolver(
         yup
-          .object<AuthForgotPasswordDto>()
+          .object<AuthResetPasswordDto & { confirmPassword: string }>()
           .shape({
-            email: yup.string().email().label(common("email")).required(),
+            hash: yup.string().required(),
+            password: yup
+              .string()
+              .min(6)
+              .label(common("newPassword"))
+              .required(),
+            confirmPassword: yup
+              .string()
+              .label(common("confirmPassword"))
+              .oneOf([yup.ref("password")], common("passwordsMustMatch"))
+              .required(),
           })
           .required()
       ),
@@ -42,23 +59,29 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
 
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const forgotPasswordMutation = useMutation({
-    mutationFn: async (authForgotPasswordDto: AuthForgotPasswordDto) => {
-      return await new AuthApi(sessionedApiConfiguration).forgotPassword({
-        authForgotPasswordDto: authForgotPasswordDto,
+    mutationFn: async (authResetPasswordDto: AuthResetPasswordDto) => {
+      return await new AuthApi(sessionedApiConfiguration).resetPassword({
+        authResetPasswordDto: {
+          hash: authResetPasswordDto.hash,
+          password: authResetPasswordDto.password,
+        },
       });
     },
   });
 
-  async function handleOnValidSubmit(data: AuthForgotPasswordDto) {
+  async function handleOnValidSubmit(data: AuthResetPasswordDto) {
     try {
       await forgotPasswordMutation.mutateAsync(data);
+      setTimeout(() => {
+        router.push(routes.login);
+      }, 3000);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const fields = (error?.response?.data as any)?.fields;
         const message = (error?.response?.data as any)?.message;
         if (fields !== undefined) {
           Object.keys(fields).forEach((fieldName) => {
-            setError(fieldName as keyof AuthForgotPasswordDto, {
+            setError(fieldName as keyof AuthResetPasswordDto, {
               type: "server",
               message: fields[fieldName],
             });
@@ -73,9 +96,19 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
   }
 
   useEffect(() => {
+    if (hash != undefined) {
+      setValue("hash", hash);
+    }
+  }, [hash]);
+
+  useEffect(() => {
     const subscription = watch(() => setErrorString(null));
     return () => subscription.unsubscribe();
   }, [watch()]);
+
+  const fieldsDisabled =
+    forgotPasswordMutation.data !== undefined ||
+    forgotPasswordMutation.isLoading;
 
   return (
     <Box
@@ -94,12 +127,12 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
         )}
         {forgotPasswordMutation.data !== undefined && (
           <Grid item xs={12}>
-            <Alert severity="success">{common("forgotPasswordSuccess")}</Alert>
+            <Alert severity="success">{common("resetPasswordSuccess")}</Alert>
           </Grid>
         )}
         <Grid item xs={12}>
           <Controller
-            name="email"
+            name="password"
             control={control}
             render={({ field }) => {
               return skeleton ? (
@@ -108,29 +141,63 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
                 <TextField
                   {...field}
                   required
-                  label={common("email")}
+                  label={common("newPassword")}
+                  type="password"
+                  disabled={fieldsDisabled}
                   inputProps={{
                     autoCapitalize: "none",
                     autoCorrect: "none",
                     spellCheck: false,
                   }}
                   fullWidth
-                  autoFocus
-                  error={formState.errors.email ? true : false}
+                  autoComplete="new-password"
+                  error={formState.errors.password ? true : false}
                 />
               );
             }}
           />
           <Typography variant="inherit" color="error">
-            {formState.errors.email?.message}
+            {formState.errors.password?.message}
           </Typography>
         </Grid>
+        <Grid item xs={12}>
+          <Controller
+            name="confirmPassword"
+            control={control}
+            render={({ field }) => {
+              return skeleton ? (
+                <Skeleton height="56px" />
+              ) : (
+                <TextField
+                  {...field}
+                  required
+                  label={common("confirmPassword")}
+                  type="password"
+                  disabled={fieldsDisabled}
+                  inputProps={{
+                    autoCapitalize: "none",
+                    autoCorrect: "none",
+                    spellCheck: false,
+                  }}
+                  fullWidth
+                  autoComplete="new-password"
+                  error={formState.errors.confirmPassword ? true : false}
+                />
+              );
+            }}
+          />
+          <Typography variant="inherit" color="error">
+            {formState.errors.confirmPassword?.message}
+          </Typography>
+        </Grid>
+
         <Grid item xs={12}>
           {skeleton ? (
             <Skeleton height="56px" width="100%" />
           ) : (
             <LoadingButton
               loading={forgotPasswordMutation.isLoading}
+              disabled={forgotPasswordMutation.data !== undefined}
               type="submit"
               size="large"
               fullWidth
@@ -142,6 +209,7 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
             </LoadingButton>
           )}
         </Grid>
+
         <Grid item xs={12}>
           <Grid container columnSpacing={1}>
             <Grid
@@ -154,7 +222,7 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
               {skeleton ? (
                 <Skeleton component={"a"} width={"100%"} />
               ) : (
-                <SignInLink />
+                <ForgotPasswordLink />
               )}
             </Grid>
             <Grid
@@ -163,11 +231,12 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
               display="flex"
               justifyContent="end"
               alignItems="center"
+              textAlign={"right"}
             >
               {skeleton ? (
                 <Skeleton component={"a"} width={"100%"} />
               ) : (
-                <SignUpLink />
+                <SignInLink />
               )}
             </Grid>
           </Grid>

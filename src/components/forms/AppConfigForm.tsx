@@ -14,6 +14,7 @@ import { Save } from "@mui/icons-material";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import { LoadingButton } from "@mui/lab";
 import {
+  Alert,
   Autocomplete,
   Button,
   FormControl,
@@ -69,6 +70,7 @@ export function AppConfigForm(props: {
   const theme = useTheme();
   const t = useTranslations("AppConfigForm");
   const common = useTranslations("Common");
+  const [errorString, setErrorString] = useState<string | null>(null);
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const [skeletonState, setSkeletonState] = useState(true);
   const [fontInputState, setFontInputState] = useState("");
@@ -174,6 +176,14 @@ export function AppConfigForm(props: {
     }
   }, [watchedSeedColor]);
 
+  useEffect(() => {
+    const subscription = watch((value) => {
+      onChange ? onChange(value) : {};
+      setErrorString(null);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch()]);
+
   const updateConfigMutation = useMutation({
     mutationFn: async (data: AppConfigFormType) => {
       if (!isDirty) {
@@ -197,13 +207,6 @@ export function AppConfigForm(props: {
     return fontNames[Math.floor(Math.random() * fontNames.length)];
   };
 
-  useEffect(() => {
-    const subscription = watch((value) => {
-      onChange ? onChange(value) : {};
-    });
-    return () => subscription.unsubscribe();
-  }, [watch()]);
-
   async function handleOnValidSubmit(data: AppConfigFormType) {
     try {
       const response = await updateConfigMutation.mutateAsync(data);
@@ -216,14 +219,21 @@ export function AppConfigForm(props: {
         push(successUrl);
       }
     } catch (error) {
-      if (axios.isAxiosError(error) && error?.response?.status === 422) {
-        const serverErrors = (error?.response?.data as any).message;
-        Object.keys(serverErrors).forEach((fieldName) => {
-          setError(fieldName as keyof AppConfigUpdateDto, {
-            type: "server",
-            message: serverErrors[fieldName],
+      if (axios.isAxiosError(error)) {
+        const fields = (error?.response?.data as any)?.fields;
+        const message = (error?.response?.data as any)?.message;
+        if (fields !== undefined) {
+          Object.keys(fields).forEach((fieldName) => {
+            setError(fieldName as keyof AppConfigFormType, {
+              type: "server",
+              message: fields[fieldName],
+            });
           });
-        });
+        } else if (message !== undefined) {
+          setErrorString(message);
+        }
+      } else {
+        setErrorString(JSON.stringify(error));
       }
     }
   }
@@ -239,6 +249,11 @@ export function AppConfigForm(props: {
           alignItems="center"
           spacing={1}
         >
+          {errorString && (
+            <Alert severity="error" style={{ width: "100%" }}>
+              {errorString}
+            </Alert>
+          )}
           <LoadingButton
             loading={updateConfigMutation.isLoading || isSubmitting}
             size="large"

@@ -22,7 +22,7 @@ import {
   MerchantsApiFp,
 } from "moa-merchants-ts-axios";
 import { signIn } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslations } from "use-intl";
 import * as yup from "yup";
@@ -33,30 +33,36 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
   const t = useTranslations("SignUpForm");
   const common = useTranslations("Common");
 
-  const { formState, setError, handleSubmit, control, getValues } = useForm<{
-    email: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-  }>({
-    defaultValues: {
-      email: "",
-      password: "",
-      firstName: "",
-      lastName: "",
-    },
-    resolver: yupResolver(
-      yup
-        .object<AuthRegisterLoginDto>()
-        .shape({
-          email: yup.string().email().label(common("email")).required(),
-          password: yup.string().min(6).label(common("password")).required(),
-          firstName: yup.string().label(common("firstName")).required(),
-          lastName: yup.string().label(common("lastName")).required(),
-        })
-        .required()
-    ),
-  });
+  const { formState, setError, handleSubmit, control, getValues, watch } =
+    useForm<{
+      email: string;
+      password: string;
+      firstName: string;
+      lastName: string;
+    }>({
+      defaultValues: {
+        email: "",
+        password: "",
+        firstName: "",
+        lastName: "",
+      },
+      resolver: yupResolver(
+        yup
+          .object<AuthRegisterLoginDto>()
+          .shape({
+            email: yup.string().email().label(common("email")).required(),
+            password: yup.string().min(6).label(common("password")).required(),
+            firstName: yup.string().label(common("firstName")).required(),
+            lastName: yup.string().label(common("lastName")).required(),
+          })
+          .required()
+      ),
+    });
+
+  useEffect(() => {
+    const subscription = watch(() => setErrorString(null));
+    return () => subscription.unsubscribe();
+  }, [watch()]);
 
   const createUserAndMerchantMutation = useMutation(
     async (requestParameters: AuthRegisterLoginDto) => {
@@ -93,18 +99,21 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
         setErrorString(response?.error);
       }
     } catch (error) {
-      if (axios.isAxiosError(error) && error?.response?.status === 422) {
-        const message = (error?.response?.data as any).message;
-        if (typeof message === "string") {
-          setErrorString(message);
-        } else {
-          Object.keys(message).forEach((fieldName) => {
+      if (axios.isAxiosError(error)) {
+        const fields = (error?.response?.data as any)?.fields;
+        const message = (error?.response?.data as any)?.message;
+        if (fields !== undefined) {
+          Object.keys(fields).forEach((fieldName) => {
             setError(fieldName as keyof AuthEmailLoginDto, {
               type: "server",
-              message: message[fieldName],
+              message: fields[fieldName],
             });
           });
+        } else if (message !== undefined) {
+          setErrorString(message);
         }
+      } else {
+        setErrorString(JSON.stringify(error));
       }
     }
   }
