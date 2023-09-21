@@ -9,6 +9,7 @@ export const routes = {
   catalog: "/catalog",
   customers: "/customers",
   orders: "/orders",
+  support: "/support",
   setup: {
     theme: "/setup/theme",
     catalog: "/setup/catalog",
@@ -20,6 +21,9 @@ export const routes = {
     cancel: "/setup/cancel",
     pro: {
       complete: "/setup/pro/complete",
+    },
+    starter: {
+      complete: "/setup/starter/complete",
     },
     free: {
       complete: "/setup/free/complete",

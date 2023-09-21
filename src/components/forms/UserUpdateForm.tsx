@@ -33,7 +33,7 @@ export function UserUpdateForm() {
       defaultValues: async () => {
         const session = await getSession();
         const api = new UsersApi(configurationForSession(session));
-        const response = await api.getCurrentUser();
+        const response = await api.getMeUser();
         setSkeletonState(false);
         return {
           email: response.data.email,
@@ -72,9 +72,8 @@ export function UserUpdateForm() {
 
   const mutation = useMutation({
     mutationFn: async (userUpdateDto: UserUpdateFormType) => {
-      return (
-        await new UsersApi(configuration).patchCurrentUser({ userUpdateDto })
-      ).data;
+      return (await new UsersApi(configuration).patchMeUser({ userUpdateDto }))
+        .data;
     },
     onSettled: () => {
       currentMerchantQuery.refetch();

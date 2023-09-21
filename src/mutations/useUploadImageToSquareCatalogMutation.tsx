@@ -18,7 +18,7 @@ export const useUploadImageToSquareCatalogMutation = (
       return (
         await CatalogsApiFp(
           sessionedApiConfiguration
-        ).uploadImageToSquareCatalog(
+        ).postItemSquareImageUpload(
           params.idempotencyKey,
           params.id,
           params.file

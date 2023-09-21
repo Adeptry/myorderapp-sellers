@@ -8,28 +8,18 @@ export interface MoaEnv {
   stripePublishableKey: string;
   googleClientId: string;
   backendApiKey: string;
-  previewUrl: string;
+  appUrl: string;
   env: string;
   defaultFontFamily: string;
   stripe: {
     priceIds: {
-      pro: {
-        usd: string;
-        eur: string;
-        gbp: string;
-        jpy: string;
-        cad: string;
-        aud: string;
-      };
-      free: {
-        usd: string;
-        eur: string;
-        gbp: string;
-        jpy: string;
-        cad: string;
-        aud: string;
-      };
-    };
+      usd: string;
+      eur: string;
+      gbp: string;
+      jpy: string;
+      cad: string;
+      aud: string;
+    }[];
   };
 }
 
@@ -37,5 +27,5 @@ export interface MoaConstants {
   currencyCookieName: string;
   colorModeCookieName: string;
   colorCookieName: string;
-  currencyToPriceDictionary: { [key: string]: number };
+  currencyToPriceDictionaries: { [key: string]: number }[];
 }

@@ -18,7 +18,7 @@ export const useCurrentCatalogQuery = (
     queryFn: async () => {
       const catalogsApi = new CatalogsApi(sessionedApiConfiguration);
       return (
-        await catalogsApi.getMyCatalog(
+        await catalogsApi.getCategoriesMe(
           {
             items: true,
             images: true,

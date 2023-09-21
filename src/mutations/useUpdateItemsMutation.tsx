@@ -15,7 +15,7 @@ export const useUpdateItemsMutation = (options?: AxiosRequestConfig) => {
     mutationFn: async (itemUpdateAllDto: Array<ItemUpdateAllDto>) => {
       return (
         await (
-          await CatalogsApiFp(sessionedApiConfiguration).updateItems(
+          await CatalogsApiFp(sessionedApiConfiguration).patchItems(
             itemUpdateAllDto,
             options
           )

@@ -9,6 +9,7 @@ import { initialsForMerchant } from "@/utils/initialsForMerchant";
 import { isMerchantSetupFn } from "@/utils/isMerchantSetup";
 import { stringToColor } from "@/utils/stringToColor";
 import { useAppBarHeight } from "@/utils/useAppBarHeight";
+import { useCurrentMerchantMoaUrl } from "@/utils/useCurrentMerchantMoaUrl";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import {
@@ -25,6 +26,8 @@ import {
   MenuBook,
   Menu as MenuIcon,
   Payment,
+  SupportAgent,
+  Web,
 } from "@mui/icons-material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import {
@@ -51,10 +54,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  MerchantsApiFp,
-  StripeBillingPortalCreateInput,
-} from "moa-merchants-ts-axios";
+import { MerchantsApiFp } from "moa-merchants-ts-axios";
 import { signOut, useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next-intl/client";
@@ -118,6 +118,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
   const maxHeightCssString = useMaxHeightCssString();
   const { push } = useRouter();
   const pathname = usePathname();
+  const moaUrl = useCurrentMerchantMoaUrl();
   const {
     value: drawerOpenState,
     toggle: toggleDrawerOpenState,
@@ -131,14 +132,12 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
   const { colorModeCookieValue, setColorModeCookieValue, colorCookieValue } =
     useCookieContext();
 
-  const createStripeBillingSessionUrlMutation = useMutation({
-    mutationFn: async (
-      stripeBillingPortalCreateInput: StripeBillingPortalCreateInput
-    ) => {
+  const getMeStripeBillingSessionMutation = useMutation({
+    mutationFn: async (returnUrl: string) => {
       return (
         await MerchantsApiFp(
           sessionedApiConfiguration
-        ).createStripeBillingSessionUrl(stripeBillingPortalCreateInput)
+        ).getMeStripeBillingSession(returnUrl)
       )();
     },
   });
@@ -177,10 +176,9 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
       <MenuItem
         key="manage-account-menu-item"
         onClick={async () => {
-          const response =
-            await createStripeBillingSessionUrlMutation.mutateAsync({
-              returnUrl: window.location.href,
-            });
+          const response = await getMeStripeBillingSessionMutation.mutateAsync(
+            window.location.href
+          );
           if (response.data?.url) {
             push(response.data.url);
           }
@@ -404,6 +402,38 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
                       <AppShortcut />
                     </ListItemIcon>
                     <ListItemText primary={common("theme")} />
+                  </ListItemButton>
+                </ListItem>
+
+                <ListItem key={"support-list-item"} disablePadding>
+                  <ListItemButton
+                    selected={pathname === routes.support}
+                    onClick={() => {
+                      push(routes.support);
+                      if (isSmallScreen) {
+                        setDrawerOpenStateFalse();
+                      }
+                    }}
+                  >
+                    <ListItemIcon>
+                      <SupportAgent />
+                    </ListItemIcon>
+                    <ListItemText primary={common("support")} />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem key={"view-myorderapp-list-item"} disablePadding>
+                  <ListItemButton
+                    onClick={() => {
+                      window.open(moaUrl, "_blank");
+                      if (isSmallScreen) {
+                        setDrawerOpenStateFalse();
+                      }
+                    }}
+                  >
+                    <ListItemIcon>
+                      <Web />
+                    </ListItemIcon>
+                    <ListItemText primary={common("useMyOrderApp")} />
                   </ListItemButton>
                 </ListItem>
               </Fragment>

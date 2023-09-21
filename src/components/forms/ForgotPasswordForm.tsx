@@ -43,7 +43,7 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const forgotPasswordMutation = useMutation({
     mutationFn: async (authForgotPasswordDto: AuthForgotPasswordDto) => {
-      return await new AuthApi(sessionedApiConfiguration).forgotPassword({
+      return await new AuthApi(sessionedApiConfiguration).postPasswordForgot({
         authForgotPasswordDto: authForgotPasswordDto,
       });
     },

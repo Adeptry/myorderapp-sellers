@@ -4,7 +4,7 @@ export function isMerchantSetupFn(merchant?: Merchant) {
   return (
     merchant?.appConfig != null &&
     merchant?.squareId != null &&
-    merchant?.catalogId != null &&
+    // merchant?.catalogId != null &&
     merchant?.tier != null
   );
 }

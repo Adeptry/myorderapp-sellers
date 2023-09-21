@@ -41,7 +41,7 @@ const handler = NextAuth({
                 basePath: moaEnv.backendUrl,
                 accessToken: params.token.refreshToken,
               })
-            ).refreshToken()
+            ).postRefresh()
           )();
           const data = response.data;
           if (data) {
@@ -75,7 +75,7 @@ const handler = NextAuth({
                 apiKey: moaEnv.backendApiKey,
                 basePath: moaEnv.backendUrl,
               })
-            ).login(credentials as AuthRegisterLoginDto)
+            ).postEmailLogin(credentials as AuthRegisterLoginDto)
           )();
           const data = response.data;
           if (data.user?.id) {

@@ -60,7 +60,7 @@ export function ResetPasswordForm(props: { preloading: boolean }) {
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const forgotPasswordMutation = useMutation({
     mutationFn: async (authResetPasswordDto: AuthResetPasswordDto) => {
-      return await new AuthApi(sessionedApiConfiguration).resetPassword({
+      return await new AuthApi(sessionedApiConfiguration).postPasswordReset({
         authResetPasswordDto: {
           hash: authResetPasswordDto.hash,
           password: authResetPasswordDto.password,

@@ -1,7 +1,7 @@
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosRequestConfig } from "axios";
-import { ConfigsApiFp } from "moa-merchants-ts-axios";
+import { AppConfigsApiFp } from "moa-merchants-ts-axios";
 import { useSession } from "next-auth/react";
 
 export const useCurrentConfigQuery = (params?: {
@@ -16,7 +16,7 @@ export const useCurrentConfigQuery = (params?: {
     queryFn: async () => {
       return (
         await (
-          await ConfigsApiFp(sessionedApiConfigration).getMyConfig(
+          await AppConfigsApiFp(sessionedApiConfigration).getMeAppConfig(
             undefined,
             "merchant",
             params?.options

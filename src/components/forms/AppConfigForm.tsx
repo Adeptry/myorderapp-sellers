@@ -8,6 +8,7 @@ import { mapStringEnum } from "@/utils/mapStringEnum";
 import { moaEnv } from "@/utils/moaEnv";
 import { randomColor } from "@/utils/randomColor";
 import { stringToColor } from "@/utils/stringToColor";
+import { toMoaAppUrl } from "@/utils/toMoaAppUrl";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Save } from "@mui/icons-material";
@@ -39,7 +40,8 @@ import {
   AppConfig,
   AppConfigUpdateDto,
   AppConfigUpdateDtoThemeModeEnum,
-  ConfigsApiFp,
+  AppConfigsApi,
+  AppConfigsApiFp,
   MerchantsApiFp,
   ThemeModeEnum,
 } from "moa-merchants-ts-axios";
@@ -90,10 +92,9 @@ export function AppConfigForm(props: {
       if (session) {
         try {
           const response = await (
-            await ConfigsApiFp(configurationForSession(session)).getMyConfig(
-              undefined,
-              "merchant"
-            )
+            await AppConfigsApiFp(
+              configurationForSession(session)
+            ).getMeAppConfig(undefined, "merchant")
           )();
           const myConfig = response.data;
           let file: File | undefined = undefined;
@@ -123,7 +124,7 @@ export function AppConfigForm(props: {
           const currentMerchantResponse = await (
             await MerchantsApiFp(
               configurationForSession(session)
-            ).getCurrentMerchant(true)
+            ).getMeMerchant(true)
           )();
           const currentMerchant = currentMerchantResponse?.data;
           const currentUser = currentMerchant?.user;
@@ -184,19 +185,17 @@ export function AppConfigForm(props: {
     return () => subscription.unsubscribe();
   }, [watch()]);
 
-  const updateConfigMutation = useMutation({
+  const patchMeAppConfigMutation = useMutation({
     mutationFn: async (data: AppConfigFormType) => {
       if (!isDirty) {
         return true;
       }
-      await (
-        await ConfigsApiFp(sessionedApiConfiguration).updateConfig(data)
-      )();
+      const api = new AppConfigsApi(sessionedApiConfiguration);
+
+      await api.patchMeAppConfig({ appConfigUpdateDto: data });
 
       if (data.file) {
-        await (
-          await ConfigsApiFp(sessionedApiConfiguration).uploadIcon(data.file)
-        )();
+        await api.postMeIconUpload({ file: data.file });
       }
 
       return true;
@@ -209,7 +208,7 @@ export function AppConfigForm(props: {
 
   async function handleOnValidSubmit(data: AppConfigFormType) {
     try {
-      const response = await updateConfigMutation.mutateAsync(data);
+      const response = await patchMeAppConfigMutation.mutateAsync(data);
 
       if (!response) {
         throw new Error("App config not updated");
@@ -222,14 +221,14 @@ export function AppConfigForm(props: {
       if (axios.isAxiosError(error)) {
         const fields = (error?.response?.data as any)?.fields;
         const message = (error?.response?.data as any)?.message;
-        if (fields !== undefined) {
+        if (fields !== undefined && Object.keys(fields).length > 0) {
           Object.keys(fields).forEach((fieldName) => {
             setError(fieldName as keyof AppConfigFormType, {
               type: "server",
               message: fields[fieldName],
             });
           });
-        } else if (message !== undefined) {
+        } else if (message != undefined) {
           setErrorString(message);
         }
       } else {
@@ -255,10 +254,10 @@ export function AppConfigForm(props: {
             </Alert>
           )}
           <LoadingButton
-            loading={updateConfigMutation.isLoading || isSubmitting}
+            loading={patchMeAppConfigMutation.isLoading || isSubmitting}
             size="large"
             startIcon={<Save />}
-            disabled={updateConfigMutation.isLoading}
+            disabled={patchMeAppConfigMutation.isLoading}
             color="secondary"
             type="submit"
             variant="contained"
@@ -297,7 +296,10 @@ export function AppConfigForm(props: {
                   {...field}
                   value={field.value ?? ""}
                   required
-                  helperText={!errors.name?.message && t("nameHelperText")}
+                  helperText={
+                    !errors.name?.message &&
+                    `${t("nameHelperText")} ${toMoaAppUrl(field.value ?? "")}`
+                  }
                   label={t("nameLabel")}
                   inputProps={{
                     autoCorrect: "none",

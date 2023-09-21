@@ -64,6 +64,7 @@
     }
   },
   "Common": {
+    "acceptAndContinue": "Aceptar y continuar",
     "billing": "Facturación",
     "brandName": "MyOrderApp",
     "brandNameLong": "MyOrderApp for Sellers",
@@ -89,6 +90,7 @@
     "orders": "Pedidos",
     "password": "Contraseña",
     "passwordsMustMatch": "Las contraseñas deben coincidir",
+    "perMonth": "/mes",
     "preview": "Avance",
     "profile": "Perfil",
     "register": "Registrarse",
@@ -101,19 +103,6 @@
   },
   "ForgotPasswordLink": {
     "text": "¿Olvidaste tu contraseña?"
-  },
-  "FreeCard": {
-    "adSupportedPrimary": "Con publicidad",
-    "adSupportedSecondary": "La versión gratuita está respaldada por anuncios, que se mostrarán a tus clientes.",
-    "buttonText": "Obtener mi app gratuita",
-    "customizationPrimary": "App & Catálogo Personalizables",
-    "customizationSecondary": "Personaliza tu aplicación con tu propio logo, colores y fuentes, y sincronízalo con tu Catálogo Square.",
-    "perMonth": "/mes",
-    "perfectForBody": "Empresas que comienzan con pedidos móviles o aquellas que prefieren un enfoque práctico en la gestión y publicación de su aplicación.",
-    "perfectForHeader": "Perfecto para:",
-    "selfPublishedPrimary": "Autopublicado",
-    "selfPublishedSecondary": "Este nivel requiere que publiques la aplicación tú mismo. ¡Nosotros proporcionamos la plataforma y tú la presentas al mundo!",
-    "title": "Gratis"
   },
   "GoogleAuthButton": {
     "text": "Continuar con Google"
@@ -156,14 +145,13 @@
     "title": "Conecta tu cuenta de Square"
   },
   "StripeCheckoutButton": {
-    "free": "Comenzar Gratis",
-    "pro": "Obtener Premium"
+    "text": "Subscribe"
   },
   "StripeCheckoutCancelledCard": {
     "body": "La vida se pone ocupada y lo entendemos. Si decides regresar y finalizar tu configuración, ten en cuenta que tu progreso está guardado. En cualquier momento, puedes revisitar los pasos anteriores usando la navegación de arriba. Para cualquier consulta o más información, nuestra sección de preguntas frecuentes y opciones de publicación están disponibles a continuación.",
     "title": "Notamos que tu proceso de pago fue interrumpido"
   },
-  "StripeFreeCheckoutSuccessCard": {
+  "Tier0SuccessCard": {
     "adSupportedPrimary": "Con publicidad",
     "adSupportedSecondary": "Se mostrarán anuncios en tu aplicación, lo que respalda el nivel gratuito.",
     "buttonText": "Sumérgete en la configuración",
@@ -176,7 +164,7 @@
     "timerSecondary": "¿Preguntas? Espera una respuesta en un plazo de 72 horas debido al alto volumen en el nivel gratuito.",
     "title": "¡Bienvenido a tu nivel gratuito!"
   },
-  "StripeProCheckoutSuccessCard": {
+  "Tier2SuccessCard": {
     "accountPrimary": "Configuración de cuenta",
     "accountSecondary": "Estamos configurando tus cuentas para asegurar una integración sin problemas.",
     "buildPrimary": "Construcción de la aplicación",
@@ -192,17 +180,34 @@
     "timerSecondary": "Puedes esperar noticias de nuestro equipo en las próximas 48 horas.",
     "title": "¡Felicidades por tu compra!"
   },
-  "SubscribeCard": {
-    "customizationPrimary": "App & Catálogo Personalizables",
-    "customizationSecondary": "Todas las características de personalización del nivel gratuito sin anuncios que distraigan a tus clientes.",
-    "perMonth": "/mes",
-    "perfectForBody": "Empresas que buscan un enfoque simplificado y automático y que valoran el beneficio adicional del soporte y mantenimiento de expertos.",
+  "Tier0CheckoutCard": {
+    "transactionFee": "+5% por transacción",
+    "buttonText": "Publicar mi app web",
+    "perfectForBody": "Pequeños negocios que apenas comienzan con pedidos móviles y se centran en tener solo una presencia web.",
     "perfectForHeader": "Perfecto para:",
-    "publishingPrimary": "Publicación de App Sin Complicaciones",
-    "publishingSecondary": "Nos encargamos de publicar tu aplicación en las plataformas iOS y Android, manteniendo tu app disponible para los clientes y actualizada.",
-    "subheader": "Gestionado y Soportado",
-    "supportPrimary": "Soporte Premium",
-    "supportSecondary": "Nuestro equipo de desarrollo monitoreará tu aplicación y brindará soporte cuando sea necesario.",
-    "title": "Pro"
+    "subheader": "Web",
+    "title": "Gratis",
+    "supportPrimary": "Soporte Básico",
+    "supportSecondary": "Soporte de mejor esfuerzo, respuesta en un plazo de 72 horas."
+  },
+  "Tier1CheckoutCard": {
+    "transactionFee": "+2.5% por transacción",
+    "buttonText": "Publicar mi app de Android",
+    "perfectForBody": "Negocios en crecimiento que apuntan a tener presencia en Android y desean una URL personalizada.",
+    "perfectForHeader": "Perfecto para:",
+    "subheader": "Web y Android",
+    "title": "Inicial",
+    "supportPrimary": "Soporte Mejorado",
+    "supportSecondary": "Respuesta de soporte garantizada en un plazo de 48 horas."
+  },
+  "Tier2CheckoutCard": {
+    "transactionFee": "Sin tarifas",
+    "buttonText": "Publicar mi suite ahora",
+    "perfectForBody": "Empresas establecidas que buscan una experiencia premium y multiplataforma sin tarifas de transacción.",
+    "perfectForHeader": "Perfecto para:",
+    "subheader": "Web, Android y iOS",
+    "title": "Completo",
+    "supportPrimary": "Soporte Prioritario",
+    "supportSecondary": "Soporte en vivo de nuestro equipo de desarrollo, respuesta en un plazo de 24 horas."
   }
 }

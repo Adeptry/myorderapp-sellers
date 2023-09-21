@@ -18,19 +18,21 @@ export default function ConfirmSquareOauthComponent() {
   const { status } = useSession();
   const { push } = useRouter();
 
-  const confirmSquareOauthMutation = useMutation({
+  const postMeSquareOauthMutation = useMutation({
     mutationFn: async (oauthAccessCode: string) => {
       return (
-        await MerchantsApiFp(sessionedApiConfiguration).confirmSquareOauth(
-          oauthAccessCode
-        )
+        await MerchantsApiFp(sessionedApiConfiguration).postMeSquareOauth({
+          oauthAccessCode,
+        })
       )();
     },
   });
 
   const squareSyncMutation = useMutation({
     mutationFn: async () => {
-      return (await MerchantsApiFp(sessionedApiConfiguration).squareSync())();
+      return (
+        await MerchantsApiFp(sessionedApiConfiguration).getMeSquareSync()
+      )();
     },
   });
 
@@ -40,7 +42,7 @@ export default function ConfirmSquareOauthComponent() {
     async function fetch() {
       if (oauthAccessCode && status === "authenticated") {
         try {
-          await confirmSquareOauthMutation.mutateAsync(oauthAccessCode);
+          await postMeSquareOauthMutation.mutateAsync(oauthAccessCode);
           await squareSyncMutation.mutateAsync();
           push(routes.setup.catalog);
         } catch (error) {

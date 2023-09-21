@@ -3,7 +3,7 @@ import { MoaEnv } from "@/types/moa-env";
 export const moaEnv: MoaEnv = {
   env: process.env.NEXT_PUBLIC_ENV!,
   frontendUrl: process.env.NEXT_PUBLIC_FRONTEND_URL!,
-  previewUrl: process.env.NEXT_PUBLIC_PREVIEW_URL!,
+  appUrl: process.env.NEXT_PUBLIC_APP_URL!,
   backendUrl: process.env.NEXT_PUBLIC_BACKEND_URL!,
   backendApiKey: process.env.NEXT_PUBLIC_BACKEND_API_KEY!,
   squareScope: process.env.NEXT_PUBLIC_SQUARE_SCOPE!,
@@ -14,23 +14,31 @@ export const moaEnv: MoaEnv = {
   googleClientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
   defaultFontFamily: process.env.NEXT_PUBLIC_DEFAULT_FONT_FAMILY!,
   stripe: {
-    priceIds: {
-      pro: {
-        usd: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PRO_USD!,
-        eur: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PRO_EUR!,
-        gbp: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PRO_GBP!,
-        jpy: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PRO_JPY!,
-        cad: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PRO_CAD!,
-        aud: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PRO_AUD!,
+    priceIds: [
+      {
+        usd: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_TIER_0_USD!,
+        eur: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_TIER_0_EUR!,
+        gbp: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_TIER_0_GBP!,
+        jpy: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_TIER_0_JPY!,
+        cad: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_TIER_0_CAD!,
+        aud: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_TIER_0_AUD!,
       },
-      free: {
-        usd: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_FREE_USD!,
-        eur: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_FREE_EUR!,
-        gbp: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_FREE_GBP!,
-        jpy: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_FREE_JPY!,
-        cad: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_FREE_CAD!,
-        aud: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_FREE_AUD!,
+      {
+        usd: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_TIER_1_USD!,
+        eur: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_TIER_1_EUR!,
+        gbp: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_TIER_1_GBP!,
+        jpy: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_TIER_1_JPY!,
+        cad: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_TIER_1_CAD!,
+        aud: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_TIER_1_AUD!,
       },
-    },
+      {
+        usd: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_TIER_2_USD!,
+        eur: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_TIER_2_EUR!,
+        gbp: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_TIER_2_GBP!,
+        jpy: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_TIER_2_JPY!,
+        cad: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_TIER_2_CAD!,
+        aud: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_TIER_2_AUD!,
+      },
+    ],
   },
 };

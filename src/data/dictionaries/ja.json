@@ -64,6 +64,7 @@
     }
   },
   "Common": {
+    "acceptAndContinue": "同意して続ける",
     "billing": "課金",
     "brandName": "MyOrderApp",
     "brandNameLong": "MyOrderApp for Sellers",
@@ -89,6 +90,7 @@
     "orders": "注文",
     "password": "パスワード",
     "passwordsMustMatch": "パスワードが一致しなければなりません",
+    "perMonth": "/月",
     "preview": "プレビュー",
     "profile": "プロフィール",
     "register": "登録",
@@ -101,19 +103,6 @@
   },
   "ForgotPasswordLink": {
     "text": "パスワードを忘れましたか？"
-  },
-  "FreeCard": {
-    "adSupportedPrimary": "広告サポート",
-    "adSupportedSecondary": "無料版は広告でサポートされており、お客様に表示されます。",
-    "buttonText": "無料アプリを入手",
-    "customizationPrimary": "カスタマイズ可能なアプリ＆カタログ",
-    "customizationSecondary": "独自のロゴ、色、フォントでアプリをカスタマイズし、Squareカタログと同期します。",
-    "perMonth": "/月",
-    "perfectForBody": "モバイルオーダリングを開始する企業や、アプリの管理と公開に積極的に取り組むことを好む企業向け。",
-    "perfectForHeader": "こんな方に最適:",
-    "selfPublishedPrimary": "セルフパブリッシュ",
-    "selfPublishedSecondary": "このレベルでは、アプリの公開を自分で行う必要があります。私たちがプラットフォームを提供し、あなたがそれを世界に持ってきます！",
-    "title": "無料"
   },
   "GoogleAuthButton": {
     "text": "Googleで続行"
@@ -156,14 +145,13 @@
     "title": "Squareアカウントを接続する"
   },
   "StripeCheckoutButton": {
-    "free": "無料で始める",
-    "pro": "プレミアムを取得"
+    "text": "Subscribe"
   },
   "StripeCheckoutCancelledCard": {
     "body": "人生は忙しくなることがありますが、それを理解しています。設定を完了するために戻ることを選択した場合、進行状況は保存されていることを知ってください。上のナビゲーションを使用して、以前のステップをいつでも再訪することができます。質問や詳細については、下のFAQセクションや公開オプションが利用可能です。",
     "title": "支払いが中断されたことに気付きました"
   },
-  "StripeFreeCheckoutSuccessCard": {
+  "Tier0SuccessCard": {
     "adSupportedPrimary": "広告が含まれています",
     "adSupportedSecondary": "広告がアプリ内に表示され、無料プランをサポートします。",
     "buttonText": "設定に飛び込む",
@@ -176,7 +164,7 @@
     "timerSecondary": "質問がありますか？高いボリュームにより、無料プランでは72時間以内に返信を期待してください。",
     "title": "無料プランへようこそ！"
   },
-  "StripeProCheckoutSuccessCard": {
+  "Tier2SuccessCard": {
     "accountPrimary": "アカウントの設定",
     "accountSecondary": "スムーズな統合を保証するために、アカウントを設定しています。",
     "buildPrimary": "アプリの構築",
@@ -192,17 +180,34 @@
     "timerSecondary": "次の48時間以内に当社のチームから連絡が来ることを期待してください。",
     "title": "お買い上げありがとうございます！"
   },
-  "SubscribeCard": {
-    "customizationPrimary": "カスタマイズ可能なアプリ＆カタログ",
-    "customizationSecondary": "無料レベルのすべてのカスタマイズ機能、お客様を邪魔する広告なし。",
-    "perMonth": "/月",
-    "perfectForBody": "シンプルで手間のかからないアプローチを求める企業、そしてエキスパートのサポートとメンテナンスの追加の利点を評価する企業向け。",
-    "perfectForHeader": "こんな方に最適:",
-    "publishingPrimary": "手間いらずのアプリ公開",
-    "publishingSecondary": "iOSとAndroidの両プラットフォームでのアプリの公開を担当し、お客様に常に利用可能で最新の状態を保ちます。",
-    "subheader": "管理・サポート付き",
-    "supportPrimary": "プレミアムサポート",
-    "supportSecondary": "当社の開発チームがアプリの監視を行い、必要に応じてサポートを提供します。",
-    "title": "Pro"
+  "Tier0CheckoutCard": {
+    "transactionFee": "トランザクションごとに+5%",
+    "buttonText": "今すぐ私のウェブアプリを公開",
+    "perfectForBody": "モバイルオーダリングを始めたばかりで、ウェブだけのプレゼンスに焦点を当てている小規模企業に最適。",
+    "perfectForHeader": "これに最適:",
+    "subheader": "ウェブ",
+    "title": "無料",
+    "supportPrimary": "基本サポート",
+    "supportSecondary": "最善努力のサポート、72時間以内の応答。"
+  },
+  "Tier1CheckoutCard": {
+    "transactionFee": "トランザクションごとに+2.5%",
+    "buttonText": "今すぐ私のAndroidアプリを公開",
+    "perfectForBody": "AndroidプレゼンスとバニティURLを望む成長中のビジネスに適しています。",
+    "perfectForHeader": "これに最適:",
+    "subheader": "ウェブ＆Android",
+    "title": "スターター",
+    "supportPrimary": "強化サポート",
+    "supportSecondary": "48時間以内のサポート応答が保証されています。"
+  },
+  "Tier2CheckoutCard": {
+    "transactionFee": "手数料なし",
+    "buttonText": "今すぐ私のスイートを公開",
+    "perfectForBody": "トランザクション手数料ゼロでプレミアムなマルチプラットフォーム体験を求める確立されたビジネスに最適。",
+    "perfectForHeader": "これに最適:",
+    "subheader": "ウェブ、Android、iOS",
+    "title": "コンプリート",
+    "supportPrimary": "優先サポート",
+    "supportSecondary": "開発チームからのライブサポート、24時間以内の応答。"
   }
 }

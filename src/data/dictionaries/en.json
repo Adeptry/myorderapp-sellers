@@ -6,7 +6,7 @@
     "defaultName": "{name}'s Order App",
     "fontFamilyHelperLinkText": "See all fonts",
     "fontFamilyLabel": "Font family",
-    "nameHelperText": "The name of your app",
+    "nameHelperText": "The name of your app, and your URL:",
     "nameLabel": "Name",
     "randomizeAllButtonText": "Randomize all",
     "seedColorHelperText": "Used to generate your theme",
@@ -89,7 +89,10 @@
     "options": "Options",
     "orders": "Orders",
     "password": "Password",
+    "support": "Support",
+    "useMyOrderApp": "Use MyOrderApp",
     "passwordsMustMatch": "Passwords must match",
+    "perMonth": "/mo",
     "preview": "Preview",
     "profile": "Account",
     "register": "Register",
@@ -102,19 +105,6 @@
   },
   "ForgotPasswordLink": {
     "text": "Forgot password?"
-  },
-  "FreeCard": {
-    "adSupportedPrimary": "Ad-supported",
-    "adSupportedSecondary": "The free version is supported by ads, which will be shown to your customers.",
-    "buttonText": "Get my free app",
-    "customizationPrimary": "Customizable App & Catalog",
-    "customizationSecondary": "Personalize your app with your own logo, colors, and fonts, and sync with your Square Catalog.",
-    "perMonth": "/mo",
-    "perfectForBody": "Businesses starting out with mobile ordering or those who prefer a hands-on approach in managing and publishing their app.",
-    "perfectForHeader": "Perfect for:",
-    "selfPublishedPrimary": "Self-Published",
-    "selfPublishedSecondary": "This tier requires you to publish the app yourself. We provide the platform, and you bring it to the world!",
-    "title": "Free"
   },
   "GoogleAuthButton": {
     "text": "Continue with Google"
@@ -157,53 +147,64 @@
     "title": "Authorize us to access Square"
   },
   "StripeCheckoutButton": {
-    "free": "Get Started for Free",
-    "pro": "Get Premium"
+    "text": "Subscribe"
   },
   "StripeCheckoutCancelledCard": {
     "body": "Life gets busy, and we understand that. Should you choose to return and finalize your setup, know that your progress is saved. At any point, you can revisit previous steps using the navigation above. For any queries or more insights, our FAQ section and publishing options are readily available below.",
     "title": "We noticed your checkout was interrupted"
   },
-  "StripeFreeCheckoutSuccessCard": {
-    "adSupportedPrimary": "Ads Included",
-    "adSupportedSecondary": "Ads will be displayed in your app, supporting the free tier.",
-    "buttonText": "Dive into Settings",
-    "customizationPrimary": "Personalization Awaits",
-    "customizationSecondary": "Add your own flair: logo, colors, fonts. Sync it all with your Square Catalog.",
-    "selfPublishedPrimary": "DIY Publishing",
-    "selfPublishedSecondary": "You’re the captain now. We provide the ship; you steer it to the App Store.",
-    "subheader": "We're Gearing You Up for Success",
-    "timerPrimary": "Support Response Time",
-    "timerSecondary": "Questions? Expect a response within 72 hours due to high volume on the free tier.",
-    "title": "Welcome to Your Free Tier!"
-  },
-  "StripeProCheckoutSuccessCard": {
-    "accountPrimary": "Account Setup",
-    "accountSecondary": "We're setting up your accounts to ensure a seamless integration.",
-    "buildPrimary": "App Construction",
-    "buildSecondary": "Your app is currently being built with the features you selected.",
-    "calendarPrimary": "Guaranteed Publishing By",
-    "calendarSecondary": "We guarantee to publish your app by the end of the month. However, often it's live within just 2 weeks!",
-    "editPrimary": "While you wait",
-    "editSecondary": "Feel free to make any changes to your app while we're building it, we'll make sure your changes are implemented.",
-    "reviewPrimary": "Material Review",
-    "reviewSecondary": "Our team is reviewing the materials you've provided.",
-    "subheader": "We're Getting Things Ready For You",
-    "timerPrimary": "Expect Contact Within",
-    "timerSecondary": "You can expect to hear from our team within the next 48 hours.",
-    "title": "Welcome to Pro!"
-  },
-  "SubscribeCard": {
-    "customizationPrimary": "Customizable App & Catalog",
-    "customizationSecondary": "All the personalization features of the free tier without ads distracting your customers.",
-    "perMonth": "/mo",
-    "perfectForBody": "Businesses looking for a streamlined, hands-off approach and who value the added benefit of expert support and maintenance.",
+  "Tier0CheckoutCard": {
+    "buttonText": "Publish my web app now",
+    "perfectForBody": "Small businesses just starting with mobile ordering and focused on having a web-only presence.",
     "perfectForHeader": "Perfect for:",
-    "publishingPrimary": "Hassle-free App Publishing",
-    "publishingSecondary": "We take care of publishing your app on both iOS and Android platforms, keeping your app available to customers and up-to-date.",
-    "subheader": "Managed and Supported",
-    "supportPrimary": "Premium Support",
-    "supportSecondary": "Our development team will monitor your app and provide support when needed.",
-    "title": "Pro"
+    "subheader": "Web",
+    "supportPrimary": "Basic Support",
+    "supportSecondary": "Best-effort support, response within 72 hours.",
+    "title": "Free",
+    "transactionFee": "+5% per transaction"
+  },
+  "Tier1CheckoutCard": {
+    "buttonText": "Publish my Android app now",
+    "perfectForBody": "Growing businesses aiming for an Android presence and desiring a vanity URL.",
+    "perfectForHeader": "Perfect for:",
+    "subheader": "Web & Android",
+    "supportPrimary": "Enhanced Support",
+    "supportSecondary": "Guaranteed support response within 48 hours.",
+    "title": "Starter",
+    "transactionFee": "+2.5% per transaction"
+  },
+  "Tier2CheckoutCard": {
+    "buttonText": "Publish my suite now",
+    "perfectForBody": "Established businesses looking for a premium, multi-platform experience with zero transaction fees.",
+    "perfectForHeader": "Perfect for:",
+    "subheader": "Web, Android, & iOS",
+    "supportPrimary": "Priority Support",
+    "supportSecondary": "Live support from our development team, response within 24 hours.",
+    "title": "Complete",
+    "transactionFee": "No fees"
+  },
+  "Tier0SuccessCard": {
+    "title": "Your Web App is Live!",
+    "subheader": "Way to go! Your web app is fully functional and ready to accept orders.",
+    "nextStepsPrimary": "Upcoming Milestones:",
+    "nextStepsSecondary": "Check your performance analytics and tweak your marketing accordingly. Want more? Upgrading is seamless for an even more robust experience.",
+    "supportPrimary": "Basic Support",
+    "supportSecondary": "Stuck? Don't hesitate to use our basic support. Expect a reply within 72 hours."
+  },
+  "Tier1SuccessCard": {
+    "title": "Web and Android—Coming Soon!",
+    "subheader": "Success! Your web app is operational. Sit tight; your Android app will be rolling out shortly.",
+    "nextStepsPrimary": "Immediate Priorities:",
+    "nextStepsSecondary": "Kickstart your promotional efforts for the web app and brace for the Android launch. We're on top of the tech, so you focus on sales.",
+    "supportPrimary": "Enhanced Support",
+    "supportSecondary": "Got Queries? Our enhanced support guarantees a 48-hour turnaround for your questions."
+  },
+  "Tier2SuccessCard": {
+    "title": "The Full Package—Web, Android, and iOS!",
+    "subheader": "Splendid! Your web app is live and serving customers. Android and iOS versions are in the pipeline.",
+    "nextStepsPrimary": "Action Items:",
+    "nextStepsSecondary": "Maximize your web app's visibility while we finalize your Android and iOS apps. Your cross-platform strategy is about to level up.",
+    "supportPrimary": "Priority Support",
+    "supportSecondary": "Need Prompt Assistance? Our priority support offers a 24-hour live response from our dev team."
   }
 }

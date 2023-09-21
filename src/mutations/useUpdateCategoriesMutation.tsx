@@ -15,7 +15,7 @@ export const useUpdateCategoriesMutation = (options?: AxiosRequestConfig) => {
     mutationFn: async (categoryUpdateAllDto: Array<CategoryUpdateAllDto>) => {
       return (
         await (
-          await CatalogsApiFp(sessionedApiConfiguration).updateCategories(
+          await CatalogsApiFp(sessionedApiConfiguration).patchCategories(
             categoryUpdateAllDto
           )
         )()

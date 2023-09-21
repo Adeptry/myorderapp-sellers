@@ -10,7 +10,7 @@ import { LoadingButton } from "@mui/lab";
 import { loadStripe } from "@stripe/stripe-js";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { MerchantsApiFp } from "moa-merchants-ts-axios";
+import { MerchantsApi } from "moa-merchants-ts-axios";
 import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next-intl/client";
@@ -18,41 +18,53 @@ import { useState } from "react";
 
 export function StripeCheckoutButton(props: {
   fullWidth?: boolean;
-  isPro: boolean;
+  tier: number;
+  text?: string;
 }) {
-  const { isPro } = props;
+  const { tier } = props;
   const { status } = useSession();
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const { push } = useRouter();
   const locale = useLocale();
-  const t = useTranslations("StripeCheckoutButton");
+  const t = useTranslations("Common");
   const { currencyCookieValue } = useCookieContext();
 
-  const successRoute = isPro
-    ? routes.setup.pro.complete
-    : routes.setup.free.complete;
-  const successUrl = `${moaEnv.frontendUrl}/${locale}${successRoute}`;
+  let sucessPathComponent = "";
+
+  switch (tier) {
+    case 0:
+      sucessPathComponent = routes.setup.free.complete;
+      break;
+    case 1:
+      sucessPathComponent = routes.setup.starter.complete;
+      break;
+    case 2:
+      sucessPathComponent = routes.setup.pro.complete;
+      break;
+    default:
+      break;
+  }
+
+  const successUrl = `${moaEnv.frontendUrl}/${locale}${sucessPathComponent}`;
   const cancelUrl = `${moaEnv.frontendUrl}/${locale}${routes.setup.cancel}`;
 
-  const createStripeCheckoutQuery = useQuery({
-    queryKey: ["createStripeCheckout", currencyCookieValue, isPro],
+  const postMeStripeCheckoutQuery = useQuery({
+    queryKey: ["postMeStripeCheckoutQuery", currencyCookieValue, tier],
     queryFn: async () => {
-      const stripePriceId = isPro
-        ? moaEnv.stripe.priceIds.pro[
-            currencyCookieValue!.toLowerCase() as Currency
-          ]
-        : moaEnv.stripe.priceIds.free[
-            currencyCookieValue!.toLowerCase() as Currency
-          ];
+      const stripePriceId =
+        moaEnv.stripe.priceIds[tier][
+          currencyCookieValue!.toLowerCase() as Currency
+        ];
 
+      const api = new MerchantsApi(sessionedApiConfiguration);
       return (
-        await (
-          await MerchantsApiFp(sessionedApiConfiguration).createStripeCheckout({
+        await api.postMeStripeCheckout({
+          stripeCheckoutCreateDto: {
             successUrl,
             cancelUrl,
             stripePriceId,
-          })
-        )()
+          },
+        })
       ).data;
     },
     enabled: status === "authenticated" && currencyCookieValue !== undefined,
@@ -64,9 +76,9 @@ export function StripeCheckoutButton(props: {
     try {
       const stripe = await loadStripe(moaEnv.stripePublishableKey!);
 
-      if (stripe && createStripeCheckoutQuery?.data?.checkoutSessionId) {
+      if (stripe && postMeStripeCheckoutQuery?.data?.checkoutSessionId) {
         stripe.redirectToCheckout({
-          sessionId: createStripeCheckoutQuery.data.checkoutSessionId,
+          sessionId: postMeStripeCheckoutQuery.data.checkoutSessionId,
         });
       }
     } catch (error) {
@@ -79,19 +91,19 @@ export function StripeCheckoutButton(props: {
     }
   };
 
-  if (createStripeCheckoutQuery?.error) {
-    return <div>Error: {JSON.stringify(createStripeCheckoutQuery?.error)}</div>;
+  if (postMeStripeCheckoutQuery?.error) {
+    return <div>Error: {JSON.stringify(postMeStripeCheckoutQuery?.error)}</div>;
   }
 
   const buttonLoading =
-    (createStripeCheckoutQuery.isLoading &&
-      !createStripeCheckoutQuery.isFetching &&
-      !createStripeCheckoutQuery.data) ||
+    (postMeStripeCheckoutQuery.isLoading &&
+      !postMeStripeCheckoutQuery.isFetching &&
+      !postMeStripeCheckoutQuery.data) ||
     stripeLoadingState;
   return (
     <LoadingButton
       fullWidth={props.fullWidth}
-      variant={isPro ? "contained" : "outlined"}
+      variant={"contained"}
       color="secondary"
       size="large"
       onClick={onClickCheckout}
@@ -99,7 +111,7 @@ export function StripeCheckoutButton(props: {
       loading={buttonLoading}
       disabled={buttonLoading}
     >
-      {isPro ? t("pro") : t("free")}
+      {props.text ?? t("subscribe")}
     </LoadingButton>
   );
 }

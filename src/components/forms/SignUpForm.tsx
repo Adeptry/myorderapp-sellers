@@ -72,13 +72,13 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
           basePath: moaEnv.backendUrl,
         });
         const createUserResponse = await (
-          await AuthApiFp(configuration).register(requestParameters)
+          await AuthApiFp(configuration).postEmailRegister(requestParameters)
         )();
 
         configuration.accessToken = createUserResponse.data.token;
 
         const merchantResponse = await (
-          await MerchantsApiFp(configuration).createMerchant()
+          await MerchantsApiFp(configuration).postMeMerchant()
         )();
 
         return merchantResponse;
