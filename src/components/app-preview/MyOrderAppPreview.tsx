@@ -32,7 +32,7 @@ export function MyOrderAppPreview(props: {
         {currentMerchantData?.id && (
           <MessagingIframe
             id="flutter-iframe"
-            src={`${moaEnv.appUrl}/#/${currentMerchantData?.id}/catalog`}
+            src={`${moaEnv.appUrl}/${currentMerchantData?.id}`}
             sendMessageState={{
               type: "state",
               payload: {

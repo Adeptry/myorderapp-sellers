@@ -89,8 +89,6 @@
     "options": "Options",
     "orders": "Orders",
     "password": "Password",
-    "support": "Support",
-    "useMyOrderApp": "Use MyOrderApp",
     "passwordsMustMatch": "Passwords must match",
     "perMonth": "/mo",
     "preview": "Preview",
@@ -101,7 +99,9 @@
     "save": "Save",
     "saveAndContinue": "Save and Continue",
     "subscribe": "Subscribe",
-    "theme": "Theme"
+    "support": "Support",
+    "theme": "Theme",
+    "useMyOrderApp": "Use MyOrderApp"
   },
   "ForgotPasswordLink": {
     "text": "Forgot password?"
@@ -163,6 +163,14 @@
     "title": "Free",
     "transactionFee": "+5% per transaction"
   },
+  "Tier0SuccessCard": {
+    "nextStepsPrimary": "Upcoming Milestones:",
+    "nextStepsSecondary": "Check your performance analytics and tweak your marketing accordingly. Want more? Upgrading is seamless for an even more robust experience.",
+    "subheader": "Way to go! Your web app is fully functional and ready to accept orders.",
+    "supportPrimary": "Basic Support",
+    "supportSecondary": "Stuck? Don't hesitate to use our basic support. Expect a reply within 72 hours.",
+    "title": "Your Web App is Live!"
+  },
   "Tier1CheckoutCard": {
     "buttonText": "Publish my Android app now",
     "perfectForBody": "Growing businesses aiming for an Android presence and desiring a vanity URL.",
@@ -172,6 +180,14 @@
     "supportSecondary": "Guaranteed support response within 48 hours.",
     "title": "Starter",
     "transactionFee": "+2.5% per transaction"
+  },
+  "Tier1SuccessCard": {
+    "nextStepsPrimary": "Immediate Priorities:",
+    "nextStepsSecondary": "Kickstart your promotional efforts for the web app and brace for the Android launch. We're on top of the tech, so you focus on sales.",
+    "subheader": "Success! Your web app is operational. Sit tight; your Android app will be rolling out shortly.",
+    "supportPrimary": "Enhanced Support",
+    "supportSecondary": "Got Queries? Our enhanced support guarantees a 48-hour turnaround for your questions.",
+    "title": "Web and Android—Coming Soon!"
   },
   "Tier2CheckoutCard": {
     "buttonText": "Publish my suite now",
@@ -183,28 +199,12 @@
     "title": "Complete",
     "transactionFee": "No fees"
   },
-  "Tier0SuccessCard": {
-    "title": "Your Web App is Live!",
-    "subheader": "Way to go! Your web app is fully functional and ready to accept orders.",
-    "nextStepsPrimary": "Upcoming Milestones:",
-    "nextStepsSecondary": "Check your performance analytics and tweak your marketing accordingly. Want more? Upgrading is seamless for an even more robust experience.",
-    "supportPrimary": "Basic Support",
-    "supportSecondary": "Stuck? Don't hesitate to use our basic support. Expect a reply within 72 hours."
-  },
-  "Tier1SuccessCard": {
-    "title": "Web and Android—Coming Soon!",
-    "subheader": "Success! Your web app is operational. Sit tight; your Android app will be rolling out shortly.",
-    "nextStepsPrimary": "Immediate Priorities:",
-    "nextStepsSecondary": "Kickstart your promotional efforts for the web app and brace for the Android launch. We're on top of the tech, so you focus on sales.",
-    "supportPrimary": "Enhanced Support",
-    "supportSecondary": "Got Queries? Our enhanced support guarantees a 48-hour turnaround for your questions."
-  },
   "Tier2SuccessCard": {
-    "title": "The Full Package—Web, Android, and iOS!",
-    "subheader": "Splendid! Your web app is live and serving customers. Android and iOS versions are in the pipeline.",
     "nextStepsPrimary": "Action Items:",
     "nextStepsSecondary": "Maximize your web app's visibility while we finalize your Android and iOS apps. Your cross-platform strategy is about to level up.",
+    "subheader": "Splendid! Your web app is live and serving customers. Android and iOS versions are in the pipeline.",
     "supportPrimary": "Priority Support",
-    "supportSecondary": "Need Prompt Assistance? Our priority support offers a 24-hour live response from our dev team."
+    "supportSecondary": "Need Prompt Assistance? Our priority support offers a 24-hour live response from our dev team.",
+    "title": "The Full Package—Web, Android, and iOS!"
   }
 }

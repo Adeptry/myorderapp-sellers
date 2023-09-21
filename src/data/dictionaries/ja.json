@@ -151,6 +151,16 @@
     "body": "人生は忙しくなることがありますが、それを理解しています。設定を完了するために戻ることを選択した場合、進行状況は保存されていることを知ってください。上のナビゲーションを使用して、以前のステップをいつでも再訪することができます。質問や詳細については、下のFAQセクションや公開オプションが利用可能です。",
     "title": "支払いが中断されたことに気付きました"
   },
+  "Tier0CheckoutCard": {
+    "buttonText": "今すぐ私のウェブアプリを公開",
+    "perfectForBody": "モバイルオーダリングを始めたばかりで、ウェブだけのプレゼンスに焦点を当てている小規模企業に最適。",
+    "perfectForHeader": "これに最適:",
+    "subheader": "ウェブ",
+    "supportPrimary": "基本サポート",
+    "supportSecondary": "最善努力のサポート、72時間以内の応答。",
+    "title": "無料",
+    "transactionFee": "トランザクションごとに+5%"
+  },
   "Tier0SuccessCard": {
     "adSupportedPrimary": "広告が含まれています",
     "adSupportedSecondary": "広告がアプリ内に表示され、無料プランをサポートします。",
@@ -163,6 +173,26 @@
     "timerPrimary": "サポートの応答時間",
     "timerSecondary": "質問がありますか？高いボリュームにより、無料プランでは72時間以内に返信を期待してください。",
     "title": "無料プランへようこそ！"
+  },
+  "Tier1CheckoutCard": {
+    "buttonText": "今すぐ私のAndroidアプリを公開",
+    "perfectForBody": "AndroidプレゼンスとバニティURLを望む成長中のビジネスに適しています。",
+    "perfectForHeader": "これに最適:",
+    "subheader": "ウェブ＆Android",
+    "supportPrimary": "強化サポート",
+    "supportSecondary": "48時間以内のサポート応答が保証されています。",
+    "title": "スターター",
+    "transactionFee": "トランザクションごとに+2.5%"
+  },
+  "Tier2CheckoutCard": {
+    "buttonText": "今すぐ私のスイートを公開",
+    "perfectForBody": "トランザクション手数料ゼロでプレミアムなマルチプラットフォーム体験を求める確立されたビジネスに最適。",
+    "perfectForHeader": "これに最適:",
+    "subheader": "ウェブ、Android、iOS",
+    "supportPrimary": "優先サポート",
+    "supportSecondary": "開発チームからのライブサポート、24時間以内の応答。",
+    "title": "コンプリート",
+    "transactionFee": "手数料なし"
   },
   "Tier2SuccessCard": {
     "accountPrimary": "アカウントの設定",
@@ -179,35 +209,5 @@
     "timerPrimary": "次の時間内に連絡が来ることを期待してください",
     "timerSecondary": "次の48時間以内に当社のチームから連絡が来ることを期待してください。",
     "title": "お買い上げありがとうございます！"
-  },
-  "Tier0CheckoutCard": {
-    "transactionFee": "トランザクションごとに+5%",
-    "buttonText": "今すぐ私のウェブアプリを公開",
-    "perfectForBody": "モバイルオーダリングを始めたばかりで、ウェブだけのプレゼンスに焦点を当てている小規模企業に最適。",
-    "perfectForHeader": "これに最適:",
-    "subheader": "ウェブ",
-    "title": "無料",
-    "supportPrimary": "基本サポート",
-    "supportSecondary": "最善努力のサポート、72時間以内の応答。"
-  },
-  "Tier1CheckoutCard": {
-    "transactionFee": "トランザクションごとに+2.5%",
-    "buttonText": "今すぐ私のAndroidアプリを公開",
-    "perfectForBody": "AndroidプレゼンスとバニティURLを望む成長中のビジネスに適しています。",
-    "perfectForHeader": "これに最適:",
-    "subheader": "ウェブ＆Android",
-    "title": "スターター",
-    "supportPrimary": "強化サポート",
-    "supportSecondary": "48時間以内のサポート応答が保証されています。"
-  },
-  "Tier2CheckoutCard": {
-    "transactionFee": "手数料なし",
-    "buttonText": "今すぐ私のスイートを公開",
-    "perfectForBody": "トランザクション手数料ゼロでプレミアムなマルチプラットフォーム体験を求める確立されたビジネスに最適。",
-    "perfectForHeader": "これに最適:",
-    "subheader": "ウェブ、Android、iOS",
-    "title": "コンプリート",
-    "supportPrimary": "優先サポート",
-    "supportSecondary": "開発チームからのライブサポート、24時間以内の応答。"
   }
 }

@@ -151,6 +151,16 @@
     "body": "La vie est chargée, et nous le comprenons. Si vous choisissez de revenir et de finaliser votre installation, sachez que votre progression est sauvegardée. À tout moment, vous pouvez revoir les étapes précédentes en utilisant la navigation ci-dessus. Pour toute question ou pour plus d'informations, notre section FAQ et nos options de publication sont disponibles ci-dessous.",
     "title": "Nous avons remarqué que votre paiement a été interrompu"
   },
+  "Tier0CheckoutCard": {
+    "buttonText": "Publier mon app web",
+    "perfectForBody": "Petites entreprises débutant avec la commande mobile et axées sur une présence uniquement sur le Web.",
+    "perfectForHeader": "Parfait pour :",
+    "subheader": "Web",
+    "supportPrimary": "Support de Base",
+    "supportSecondary": "Support au mieux, réponse dans un délai de 72 heures.",
+    "title": "Gratuit",
+    "transactionFee": "+5% par transaction"
+  },
   "Tier0SuccessCard": {
     "adSupportedPrimary": "Avec publicités",
     "adSupportedSecondary": "Des publicités seront affichées dans votre application, soutenant l'offre gratuite.",
@@ -163,6 +173,26 @@
     "timerPrimary": "Délai de réponse du support",
     "timerSecondary": "Des questions ? Attendez-vous à une réponse dans les 72 heures en raison du volume élevé sur l'offre gratuite.",
     "title": "Bienvenue dans votre offre gratuite !"
+  },
+  "Tier1CheckoutCard": {
+    "buttonText": "Publier mon app Android",
+    "perfectForBody": "Entreprises en croissance visant une présence Android et désirant une URL personnalisée.",
+    "perfectForHeader": "Parfait pour :",
+    "subheader": "Web & Android",
+    "supportPrimary": "Support Amélioré",
+    "supportSecondary": "Réponse de support garantie dans un délai de 48 heures.",
+    "title": "Débutant",
+    "transactionFee": "+2,5% par transaction"
+  },
+  "Tier2CheckoutCard": {
+    "buttonText": "Publier ma suite",
+    "perfectForBody": "Entreprises établies cherchant une expérience premium et multiplateforme sans frais de transaction.",
+    "perfectForHeader": "Parfait pour :",
+    "subheader": "Web, Android & iOS",
+    "supportPrimary": "Support Prioritaire",
+    "supportSecondary": "Support en direct de notre équipe de développement, réponse dans un délai de 24 heures.",
+    "title": "Complet",
+    "transactionFee": "Sans frais"
   },
   "Tier2SuccessCard": {
     "accountPrimary": "Configuration du compte",
@@ -179,35 +209,5 @@
     "timerPrimary": "Attendez un contact dans",
     "timerSecondary": "Vous pouvez vous attendre à avoir de nos nouvelles dans les 48 heures.",
     "title": "Félicitations pour votre achat !"
-  },
-  "Tier0CheckoutCard": {
-    "transactionFee": "+5% par transaction",
-    "buttonText": "Publier mon app web",
-    "perfectForBody": "Petites entreprises débutant avec la commande mobile et axées sur une présence uniquement sur le Web.",
-    "perfectForHeader": "Parfait pour :",
-    "subheader": "Web",
-    "title": "Gratuit",
-    "supportPrimary": "Support de Base",
-    "supportSecondary": "Support au mieux, réponse dans un délai de 72 heures."
-  },
-  "Tier1CheckoutCard": {
-    "transactionFee": "+2,5% par transaction",
-    "buttonText": "Publier mon app Android",
-    "perfectForBody": "Entreprises en croissance visant une présence Android et désirant une URL personnalisée.",
-    "perfectForHeader": "Parfait pour :",
-    "subheader": "Web & Android",
-    "title": "Débutant",
-    "supportPrimary": "Support Amélioré",
-    "supportSecondary": "Réponse de support garantie dans un délai de 48 heures."
-  },
-  "Tier2CheckoutCard": {
-    "transactionFee": "Sans frais",
-    "buttonText": "Publier ma suite",
-    "perfectForBody": "Entreprises établies cherchant une expérience premium et multiplateforme sans frais de transaction.",
-    "perfectForHeader": "Parfait pour :",
-    "subheader": "Web, Android & iOS",
-    "title": "Complet",
-    "supportPrimary": "Support Prioritaire",
-    "supportSecondary": "Support en direct de notre équipe de développement, réponse dans un délai de 24 heures."
   }
 }

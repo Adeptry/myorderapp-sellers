@@ -151,6 +151,16 @@
     "body": "La vida se pone ocupada y lo entendemos. Si decides regresar y finalizar tu configuración, ten en cuenta que tu progreso está guardado. En cualquier momento, puedes revisitar los pasos anteriores usando la navegación de arriba. Para cualquier consulta o más información, nuestra sección de preguntas frecuentes y opciones de publicación están disponibles a continuación.",
     "title": "Notamos que tu proceso de pago fue interrumpido"
   },
+  "Tier0CheckoutCard": {
+    "buttonText": "Publicar mi app web",
+    "perfectForBody": "Pequeños negocios que apenas comienzan con pedidos móviles y se centran en tener solo una presencia web.",
+    "perfectForHeader": "Perfecto para:",
+    "subheader": "Web",
+    "supportPrimary": "Soporte Básico",
+    "supportSecondary": "Soporte de mejor esfuerzo, respuesta en un plazo de 72 horas.",
+    "title": "Gratis",
+    "transactionFee": "+5% por transacción"
+  },
   "Tier0SuccessCard": {
     "adSupportedPrimary": "Con publicidad",
     "adSupportedSecondary": "Se mostrarán anuncios en tu aplicación, lo que respalda el nivel gratuito.",
@@ -163,6 +173,26 @@
     "timerPrimary": "Tiempo de respuesta del soporte",
     "timerSecondary": "¿Preguntas? Espera una respuesta en un plazo de 72 horas debido al alto volumen en el nivel gratuito.",
     "title": "¡Bienvenido a tu nivel gratuito!"
+  },
+  "Tier1CheckoutCard": {
+    "buttonText": "Publicar mi app de Android",
+    "perfectForBody": "Negocios en crecimiento que apuntan a tener presencia en Android y desean una URL personalizada.",
+    "perfectForHeader": "Perfecto para:",
+    "subheader": "Web y Android",
+    "supportPrimary": "Soporte Mejorado",
+    "supportSecondary": "Respuesta de soporte garantizada en un plazo de 48 horas.",
+    "title": "Inicial",
+    "transactionFee": "+2.5% por transacción"
+  },
+  "Tier2CheckoutCard": {
+    "buttonText": "Publicar mi suite ahora",
+    "perfectForBody": "Empresas establecidas que buscan una experiencia premium y multiplataforma sin tarifas de transacción.",
+    "perfectForHeader": "Perfecto para:",
+    "subheader": "Web, Android y iOS",
+    "supportPrimary": "Soporte Prioritario",
+    "supportSecondary": "Soporte en vivo de nuestro equipo de desarrollo, respuesta en un plazo de 24 horas.",
+    "title": "Completo",
+    "transactionFee": "Sin tarifas"
   },
   "Tier2SuccessCard": {
     "accountPrimary": "Configuración de cuenta",
@@ -179,35 +209,5 @@
     "timerPrimary": "Espera contacto en",
     "timerSecondary": "Puedes esperar noticias de nuestro equipo en las próximas 48 horas.",
     "title": "¡Felicidades por tu compra!"
-  },
-  "Tier0CheckoutCard": {
-    "transactionFee": "+5% por transacción",
-    "buttonText": "Publicar mi app web",
-    "perfectForBody": "Pequeños negocios que apenas comienzan con pedidos móviles y se centran en tener solo una presencia web.",
-    "perfectForHeader": "Perfecto para:",
-    "subheader": "Web",
-    "title": "Gratis",
-    "supportPrimary": "Soporte Básico",
-    "supportSecondary": "Soporte de mejor esfuerzo, respuesta en un plazo de 72 horas."
-  },
-  "Tier1CheckoutCard": {
-    "transactionFee": "+2.5% por transacción",
-    "buttonText": "Publicar mi app de Android",
-    "perfectForBody": "Negocios en crecimiento que apuntan a tener presencia en Android y desean una URL personalizada.",
-    "perfectForHeader": "Perfecto para:",
-    "subheader": "Web y Android",
-    "title": "Inicial",
-    "supportPrimary": "Soporte Mejorado",
-    "supportSecondary": "Respuesta de soporte garantizada en un plazo de 48 horas."
-  },
-  "Tier2CheckoutCard": {
-    "transactionFee": "Sin tarifas",
-    "buttonText": "Publicar mi suite ahora",
-    "perfectForBody": "Empresas establecidas que buscan una experiencia premium y multiplataforma sin tarifas de transacción.",
-    "perfectForHeader": "Perfecto para:",
-    "subheader": "Web, Android y iOS",
-    "title": "Completo",
-    "supportPrimary": "Soporte Prioritario",
-    "supportSecondary": "Soporte en vivo de nuestro equipo de desarrollo, respuesta en un plazo de 24 horas."
   }
 }
