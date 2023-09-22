@@ -48,8 +48,8 @@ export function StripeCheckoutButton(props: {
   const successUrl = `${moaEnv.frontendUrl}/${locale}${sucessPathComponent}`;
   const cancelUrl = `${moaEnv.frontendUrl}/${locale}${routes.setup.cancel}`;
 
-  const postMeStripeCheckoutQuery = useQuery({
-    queryKey: ["postMeStripeCheckoutQuery", currencyCookieValue, tier],
+  const postStripeCheckoutQueryMe = useQuery({
+    queryKey: ["postStripeCheckoutQueryMe", currencyCookieValue, tier],
     queryFn: async () => {
       const stripePriceId =
         moaEnv.stripe.priceIds[tier][
@@ -58,7 +58,7 @@ export function StripeCheckoutButton(props: {
 
       const api = new MerchantsApi(sessionedApiConfiguration);
       return (
-        await api.postMeStripeCheckout({
+        await api.postStripeCheckoutMe({
           stripeCheckoutCreateDto: {
             successUrl,
             cancelUrl,
@@ -76,9 +76,9 @@ export function StripeCheckoutButton(props: {
     try {
       const stripe = await loadStripe(moaEnv.stripePublishableKey!);
 
-      if (stripe && postMeStripeCheckoutQuery?.data?.checkoutSessionId) {
+      if (stripe && postStripeCheckoutQueryMe?.data?.checkoutSessionId) {
         stripe.redirectToCheckout({
-          sessionId: postMeStripeCheckoutQuery.data.checkoutSessionId,
+          sessionId: postStripeCheckoutQueryMe.data.checkoutSessionId,
         });
       }
     } catch (error) {
@@ -91,14 +91,14 @@ export function StripeCheckoutButton(props: {
     }
   };
 
-  if (postMeStripeCheckoutQuery?.error) {
-    return <div>Error: {JSON.stringify(postMeStripeCheckoutQuery?.error)}</div>;
+  if (postStripeCheckoutQueryMe?.error) {
+    return <div>Error: {JSON.stringify(postStripeCheckoutQueryMe?.error)}</div>;
   }
 
   const buttonLoading =
-    (postMeStripeCheckoutQuery.isLoading &&
-      !postMeStripeCheckoutQuery.isFetching &&
-      !postMeStripeCheckoutQuery.data) ||
+    (postStripeCheckoutQueryMe.isLoading &&
+      !postStripeCheckoutQueryMe.isFetching &&
+      !postStripeCheckoutQueryMe.data) ||
     stripeLoadingState;
   return (
     <LoadingButton

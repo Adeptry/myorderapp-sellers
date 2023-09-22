@@ -3,7 +3,7 @@ import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfigurati
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosRequestConfig } from "axios";
 import {
-  CatalogsApiFp,
+  CatalogsApi,
   CategoryPaginatedResponse,
   VariationUpdateDto,
 } from "moa-merchants-ts-axios";
@@ -16,13 +16,10 @@ export const useUpdateVariationMutation = (options?: AxiosRequestConfig) => {
       id: string;
       variationUpdateDto: VariationUpdateDto;
     }) => {
-      return (
-        await CatalogsApiFp(sessionedApiConfiguration).updateVariation(
-          params.id,
-          params.variationUpdateDto,
-          options
-        )
-      )();
+      return await new CatalogsApi(sessionedApiConfiguration).updateVariation(
+        { ...params },
+        options
+      );
     },
     onMutate: async ({ id, variationUpdateDto }) => {
       const oldData = queryClient.getQueryData<CategoryPaginatedResponse>(

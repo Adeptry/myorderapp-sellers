@@ -54,7 +54,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { MerchantsApiFp } from "moa-merchants-ts-axios";
+import { MerchantsApi } from "moa-merchants-ts-axios";
 import { signOut, useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next-intl/client";
@@ -132,13 +132,11 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
   const { colorModeCookieValue, setColorModeCookieValue, colorCookieValue } =
     useCookieContext();
 
-  const getMeStripeBillingSessionMutation = useMutation({
+  const getStripeBillingSessionMutationMe = useMutation({
     mutationFn: async (returnUrl: string) => {
-      return (
-        await MerchantsApiFp(
-          sessionedApiConfiguration
-        ).getMeStripeBillingSession(returnUrl)
-      )();
+      return await new MerchantsApi(
+        sessionedApiConfiguration
+      ).getStripeBillingSessionMe({ returnUrl });
     },
   });
 
@@ -176,7 +174,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
       <MenuItem
         key="manage-account-menu-item"
         onClick={async () => {
-          const response = await getMeStripeBillingSessionMutation.mutateAsync(
+          const response = await getStripeBillingSessionMutationMe.mutateAsync(
             window.location.href
           );
           if (response.data?.url) {

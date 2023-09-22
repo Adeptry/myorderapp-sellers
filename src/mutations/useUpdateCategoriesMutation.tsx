@@ -3,7 +3,7 @@ import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfigurati
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosRequestConfig } from "axios";
 import {
-  CatalogsApiFp,
+  CatalogsApi,
   CategoryPaginatedResponse,
   CategoryUpdateAllDto,
 } from "moa-merchants-ts-axios";
@@ -14,11 +14,9 @@ export const useUpdateCategoriesMutation = (options?: AxiosRequestConfig) => {
   return useMutation({
     mutationFn: async (categoryUpdateAllDto: Array<CategoryUpdateAllDto>) => {
       return (
-        await (
-          await CatalogsApiFp(sessionedApiConfiguration).patchCategories(
-            categoryUpdateAllDto
-          )
-        )()
+        await new CatalogsApi(sessionedApiConfiguration).patchCategories({
+          categoryUpdateAllDto,
+        })
       ).data;
     },
     onSettled: () => {

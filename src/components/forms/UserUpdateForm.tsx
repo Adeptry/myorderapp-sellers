@@ -33,7 +33,7 @@ export function UserUpdateForm() {
       defaultValues: async () => {
         const session = await getSession();
         const api = new UsersApi(configurationForSession(session));
-        const response = await api.getMeUser();
+        const response = await api.getUserMe();
         setSkeletonState(false);
         return {
           email: response.data.email,
@@ -72,7 +72,7 @@ export function UserUpdateForm() {
 
   const mutation = useMutation({
     mutationFn: async (userUpdateDto: UserUpdateFormType) => {
-      return (await new UsersApi(configuration).patchMeUser({ userUpdateDto }))
+      return (await new UsersApi(configuration).patchUserMe({ userUpdateDto }))
         .data;
     },
     onSettled: () => {

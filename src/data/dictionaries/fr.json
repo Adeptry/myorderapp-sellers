@@ -99,7 +99,9 @@
     "save": "Enregistrer",
     "saveAndContinue": "Enregistrer et Continuer",
     "subscribe": "S'abonner",
-    "theme": "Thème"
+    "support": "Support",
+    "theme": "Thème",
+    "useMyOrderApp": "Utiliser MyOrderApp"
   },
   "ForgotPasswordLink": {
     "text": "Mot de passe oublié?"
@@ -184,6 +186,14 @@
     "title": "Débutant",
     "transactionFee": "+2,5% par transaction"
   },
+  "Tier1SuccessCard": {
+    "nextStepsPrimary": "Priorités immédiates :",
+    "nextStepsSecondary": "Démarrez vos efforts promotionnels pour l'application web et préparez-vous pour le lancement sur Android. Nous nous occupons de la technologie, concentrez-vous sur les ventes.",
+    "subheader": "Succès ! Votre application web est opérationnelle. Patientez un peu ; votre application Android sera déployée sous peu.",
+    "supportPrimary": "Support amélioré",
+    "supportSecondary": "Des questions ? Notre support amélioré garantit un délai de réponse de 48 heures pour vos interrogations.",
+    "title": "Web et Android—Bientôt disponible !"
+  },
   "Tier2CheckoutCard": {
     "buttonText": "Publier ma suite",
     "perfectForBody": "Entreprises établies cherchant une expérience premium et multiplateforme sans frais de transaction.",
@@ -195,19 +205,11 @@
     "transactionFee": "Sans frais"
   },
   "Tier2SuccessCard": {
-    "accountPrimary": "Configuration du compte",
-    "accountSecondary": "Nous configurons vos comptes pour assurer une intégration fluide.",
-    "buildPrimary": "Construction de l'application",
-    "buildSecondary": "Votre application est actuellement en cours de construction avec les fonctionnalités que vous avez sélectionnées.",
-    "calendarPrimary": "Publication garantie avant le",
-    "calendarSecondary": "Nous garantissons de publier votre application d'ici la fin du mois. Cependant, elle est souvent en ligne en seulement 2 semaines !",
-    "editPrimary": "Pendant que vous attendez",
-    "editSecondary": "N'hésitez pas à apporter des modifications à votre application pendant que nous la construisons, nous nous assurerons que vos modifications sont prises en compte.",
-    "reviewPrimary": "Examen des matériaux",
-    "reviewSecondary": "Notre équipe examine les matériaux que vous avez fournis.",
-    "subheader": "Nous préparons tout pour vous",
-    "timerPrimary": "Attendez un contact dans",
-    "timerSecondary": "Vous pouvez vous attendre à avoir de nos nouvelles dans les 48 heures.",
-    "title": "Félicitations pour votre achat !"
+    "nextStepsPrimary": "Actions à entreprendre :",
+    "nextStepsSecondary": "Maximisez la visibilité de votre application web pendant que nous finalisons vos applications Android et iOS. Votre stratégie multiplateforme est sur le point de passer au niveau supérieur.",
+    "subheader": "Splendide ! Votre application web est en ligne et sert les clients. Les versions Android et iOS sont en cours de développement.",
+    "supportPrimary": "Support prioritaire",
+    "supportSecondary": "Besoin d'une assistance rapide ? Notre support prioritaire offre une réponse en direct de notre équipe de développement dans un délai de 24 heures.",
+    "title": "Le pack complet—Web, Android et iOS !"
   }
 }

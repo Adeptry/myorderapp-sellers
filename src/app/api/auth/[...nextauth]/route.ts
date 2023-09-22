@@ -1,6 +1,6 @@
 import { moaEnv } from "@/utils/moaEnv";
 import {
-  AuthApiFp,
+  AuthenticationApi,
   AuthRegisterLoginDto,
   Configuration,
 } from "moa-merchants-ts-axios";
@@ -34,15 +34,13 @@ const handler = NextAuth({
         params.trigger === "update"
       ) {
         try {
-          const response = await (
-            await AuthApiFp(
-              new Configuration({
-                apiKey: moaEnv.backendApiKey,
-                basePath: moaEnv.backendUrl,
-                accessToken: params.token.refreshToken,
-              })
-            ).postRefresh()
-          )();
+          const response = await new AuthenticationApi(
+            new Configuration({
+              apiKey: moaEnv.backendApiKey,
+              basePath: moaEnv.backendUrl,
+              accessToken: params.token.refreshToken,
+            })
+          ).postRefresh();
           const data = response.data;
           if (data) {
             params.token.token = data.token;
@@ -69,14 +67,14 @@ const handler = NextAuth({
       },
       authorize: async (credentials) => {
         try {
-          const response = await (
-            await AuthApiFp(
-              new Configuration({
-                apiKey: moaEnv.backendApiKey,
-                basePath: moaEnv.backendUrl,
-              })
-            ).postEmailLogin(credentials as AuthRegisterLoginDto)
-          )();
+          const response = await new AuthenticationApi(
+            new Configuration({
+              apiKey: moaEnv.backendApiKey,
+              basePath: moaEnv.backendUrl,
+            })
+          ).postEmailLogin({
+            authEmailLoginDto: credentials as AuthRegisterLoginDto,
+          });
           const data = response.data;
           if (data.user?.id) {
             const returnedData = {

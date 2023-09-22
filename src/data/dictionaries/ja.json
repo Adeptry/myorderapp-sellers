@@ -99,7 +99,9 @@
     "save": "保存",
     "saveAndContinue": "保存して続ける",
     "subscribe": "購読",
-    "theme": "テーマ"
+    "support": "サポート",
+    "theme": "テーマ",
+    "useMyOrderApp": "MyOrderAppを使用する"
   },
   "ForgotPasswordLink": {
     "text": "パスワードを忘れましたか？"
@@ -184,6 +186,14 @@
     "title": "スターター",
     "transactionFee": "トランザクションごとに+2.5%"
   },
+  "Tier1SuccessCard": {
+    "nextStepsPrimary": "直ちに優先すべき事項：",
+    "nextStepsSecondary": "ウェブアプリのプロモーションを始め、Androidのローンチに備えましょう。テクノロジーは私たちが担当するので、販売に集中してください。",
+    "subheader": "成功！あなたのウェブアプリは稼働中です。しばらくお待ちください；Androidアプリも近々ローンチされます。",
+    "supportPrimary": "強化されたサポート",
+    "supportSecondary": "質問がありますか？強化されたサポートは、あなたの質問に48時間以内に回答することを保証します。",
+    "title": "ウェブとAndroid—近日公開！"
+  },
   "Tier2CheckoutCard": {
     "buttonText": "今すぐ私のスイートを公開",
     "perfectForBody": "トランザクション手数料ゼロでプレミアムなマルチプラットフォーム体験を求める確立されたビジネスに最適。",
@@ -195,19 +205,11 @@
     "transactionFee": "手数料なし"
   },
   "Tier2SuccessCard": {
-    "accountPrimary": "アカウントの設定",
-    "accountSecondary": "スムーズな統合を保証するために、アカウントを設定しています。",
-    "buildPrimary": "アプリの構築",
-    "buildSecondary": "あなたが選んだ機能で現在アプリを作成しています。",
-    "calendarPrimary": "月末までに確実に公開",
-    "calendarSecondary": "月末までにアプリを公開することを保証します。しかし、多くの場合、わずか2週間で公開されます！",
-    "editPrimary": "お待ちの間に",
-    "editSecondary": "私たちがそれを作成している間、アプリに変更を加えることができます。変更が実装されるようにします。",
-    "reviewPrimary": "資料のレビュー",
-    "reviewSecondary": "当社のチームが提供した資料を確認しています。",
-    "subheader": "あなたのために準備をしています",
-    "timerPrimary": "次の時間内に連絡が来ることを期待してください",
-    "timerSecondary": "次の48時間以内に当社のチームから連絡が来ることを期待してください。",
-    "title": "お買い上げありがとうございます！"
+    "nextStepsPrimary": "アクションアイテム：",
+    "nextStepsSecondary": "AndroidとiOSアプリを完成させる間、ウェブアプリの可視性を最大化しましょう。あなたのクロスプラットフォーム戦略は次のレベルに進む予定です。",
+    "subheader": "素晴らしい！あなたのウェブアプリは稼働しており、顧客にサービスを提供しています。AndroidとiOSのバージョンは開発中です。",
+    "supportPrimary": "優先サポート",
+    "supportSecondary": "迅速な支援が必要ですか？優先サポートでは、開発チームから24時間以内にリアルタイムのレスポンスが得られます。",
+    "title": "フルパッケージ—ウェブ、Android、およびiOS！"
   }
 }

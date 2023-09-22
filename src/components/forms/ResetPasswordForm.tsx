@@ -13,7 +13,10 @@ import {
 } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { AuthApi, AuthResetPasswordDto } from "moa-merchants-ts-axios";
+import {
+  AuthResetPasswordDto,
+  AuthenticationApi,
+} from "moa-merchants-ts-axios";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -60,7 +63,9 @@ export function ResetPasswordForm(props: { preloading: boolean }) {
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const forgotPasswordMutation = useMutation({
     mutationFn: async (authResetPasswordDto: AuthResetPasswordDto) => {
-      return await new AuthApi(sessionedApiConfiguration).postPasswordReset({
+      return await new AuthenticationApi(
+        sessionedApiConfiguration
+      ).postPasswordReset({
         authResetPasswordDto: {
           hash: authResetPasswordDto.hash,
           password: authResetPasswordDto.password,

@@ -2,7 +2,7 @@ import { defaultCurrentCatalogQueryKey } from "@/queries/useCurrentCatalogQuery"
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosRequestConfig } from "axios";
-import { CatalogsApiFp } from "moa-merchants-ts-axios";
+import { CatalogsApi } from "moa-merchants-ts-axios";
 
 export const useUploadImageToSquareCatalogMutation = (
   options?: AxiosRequestConfig
@@ -15,15 +15,9 @@ export const useUploadImageToSquareCatalogMutation = (
       id: string;
       file?: File;
     }) => {
-      return (
-        await CatalogsApiFp(
-          sessionedApiConfiguration
-        ).postItemSquareImageUpload(
-          params.idempotencyKey,
-          params.id,
-          params.file
-        )
-      )();
+      return await new CatalogsApi(
+        sessionedApiConfiguration
+      ).postItemSquareImageUpload({ ...params });
     },
     onSuccess: () => {
       queryClient.invalidateQueries(defaultCurrentCatalogQueryKey);

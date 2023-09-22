@@ -3,7 +3,7 @@ import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfigurati
 import { Alert, Box, CircularProgress } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { MerchantsApiFp } from "moa-merchants-ts-axios";
+import { MerchantsApi } from "moa-merchants-ts-axios";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -18,21 +18,23 @@ export default function ConfirmSquareOauthComponent() {
   const { status } = useSession();
   const { push } = useRouter();
 
-  const postMeSquareOauthMutation = useMutation({
+  const postSquareOauthMutationMe = useMutation({
     mutationFn: async (oauthAccessCode: string) => {
-      return (
-        await MerchantsApiFp(sessionedApiConfiguration).postMeSquareOauth({
+      return await new MerchantsApi(
+        sessionedApiConfiguration
+      ).postSquareOauthMe({
+        squareConfirmOauthDto: {
           oauthAccessCode,
-        })
-      )();
+        },
+      });
     },
   });
 
   const squareSyncMutation = useMutation({
     mutationFn: async () => {
-      return (
-        await MerchantsApiFp(sessionedApiConfiguration).getMeSquareSync()
-      )();
+      return await new MerchantsApi(
+        sessionedApiConfiguration
+      ).getSquareSyncMe();
     },
   });
 
@@ -42,7 +44,7 @@ export default function ConfirmSquareOauthComponent() {
     async function fetch() {
       if (oauthAccessCode && status === "authenticated") {
         try {
-          await postMeSquareOauthMutation.mutateAsync(oauthAccessCode);
+          await postSquareOauthMutationMe.mutateAsync(oauthAccessCode);
           await squareSyncMutation.mutateAsync();
           push(routes.setup.catalog);
         } catch (error) {

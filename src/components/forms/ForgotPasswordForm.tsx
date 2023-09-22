@@ -14,7 +14,10 @@ import {
 } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { AuthApi, AuthForgotPasswordDto } from "moa-merchants-ts-axios";
+import {
+  AuthForgotPasswordDto,
+  AuthenticationApi,
+} from "moa-merchants-ts-axios";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -43,7 +46,9 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const forgotPasswordMutation = useMutation({
     mutationFn: async (authForgotPasswordDto: AuthForgotPasswordDto) => {
-      return await new AuthApi(sessionedApiConfiguration).postPasswordForgot({
+      return await new AuthenticationApi(
+        sessionedApiConfiguration
+      ).postPasswordForgot({
         authForgotPasswordDto: authForgotPasswordDto,
       });
     },

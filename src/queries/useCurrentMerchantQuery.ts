@@ -13,11 +13,11 @@ export const useCurrentMerchantQuery = (params?: {
   const { setColorCookieValue } = useCookieContext();
 
   return useQuery({
-    queryKey: ["getMeMerchant", sessionedApiConfiguration.accessToken],
+    queryKey: ["getMerchantMe", sessionedApiConfiguration.accessToken],
     queryFn: async () => {
       const api = new MerchantsApi(sessionedApiConfiguration);
       const data = (
-        await api.getMeMerchant(
+        await api.getMerchantMe(
           { user: true, appConfig: true, catalog: true },
           params?.options
         )

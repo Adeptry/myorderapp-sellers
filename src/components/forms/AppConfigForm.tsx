@@ -41,8 +41,7 @@ import {
   AppConfigUpdateDto,
   AppConfigUpdateDtoThemeModeEnum,
   AppConfigsApi,
-  AppConfigsApiFp,
-  MerchantsApiFp,
+  MerchantsApi,
   ThemeModeEnum,
 } from "moa-merchants-ts-axios";
 import { MuiColorInput } from "mui-color-input";
@@ -91,11 +90,9 @@ export function AppConfigForm(props: {
 
       if (session) {
         try {
-          const response = await (
-            await AppConfigsApiFp(
-              configurationForSession(session)
-            ).getMeAppConfig(undefined, "merchant")
-          )();
+          const response = await new AppConfigsApi(
+            configurationForSession(session)
+          ).getAppConfigMe({ actingAs: "merchant" });
           const myConfig = response.data;
           let file: File | undefined = undefined;
           const iconFileUrlString = myConfig.iconFile?.url;
@@ -121,11 +118,9 @@ export function AppConfigForm(props: {
             file: file,
           };
         } catch (error) {
-          const currentMerchantResponse = await (
-            await MerchantsApiFp(
-              configurationForSession(session)
-            ).getMeMerchant(true)
-          )();
+          const currentMerchantResponse = await new MerchantsApi(
+            configurationForSession(session)
+          ).getMerchantMe({ appConfig: true });
           const currentMerchant = currentMerchantResponse?.data;
           const currentUser = currentMerchant?.user;
           const firstName = currentUser?.firstName;
@@ -185,17 +180,17 @@ export function AppConfigForm(props: {
     return () => subscription.unsubscribe();
   }, [watch()]);
 
-  const patchMeAppConfigMutation = useMutation({
+  const patchAppConfigMeMutation = useMutation({
     mutationFn: async (data: AppConfigFormType) => {
       if (!isDirty) {
         return true;
       }
       const api = new AppConfigsApi(sessionedApiConfiguration);
 
-      await api.patchMeAppConfig({ appConfigUpdateDto: data });
+      await api.patchAppConfigMe({ appConfigUpdateDto: data });
 
       if (data.file) {
-        await api.postMeIconUpload({ file: data.file });
+        await api.postIconUploadMe({ file: data.file });
       }
 
       return true;
@@ -208,11 +203,7 @@ export function AppConfigForm(props: {
 
   async function handleOnValidSubmit(data: AppConfigFormType) {
     try {
-      const response = await patchMeAppConfigMutation.mutateAsync(data);
-
-      if (!response) {
-        throw new Error("App config not updated");
-      }
+      await patchAppConfigMeMutation.mutateAsync(data);
 
       if (successUrl) {
         push(successUrl);
@@ -254,10 +245,10 @@ export function AppConfigForm(props: {
             </Alert>
           )}
           <LoadingButton
-            loading={patchMeAppConfigMutation.isLoading || isSubmitting}
+            loading={patchAppConfigMeMutation.isLoading || isSubmitting}
             size="large"
             startIcon={<Save />}
-            disabled={patchMeAppConfigMutation.isLoading}
+            disabled={patchAppConfigMeMutation.isLoading}
             color="secondary"
             type="submit"
             variant="contained"

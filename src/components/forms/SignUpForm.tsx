@@ -15,11 +15,11 @@ import Typography from "@mui/material/Typography";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import {
-  AuthApiFp,
   AuthEmailLoginDto,
   AuthRegisterLoginDto,
+  AuthenticationApi,
   Configuration,
-  MerchantsApiFp,
+  MerchantsApi,
 } from "moa-merchants-ts-axios";
 import { signIn } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -65,23 +65,28 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
   }, [watch()]);
 
   const createUserAndMerchantMutation = useMutation(
-    async (requestParameters: AuthRegisterLoginDto) => {
+    async (authRegisterLoginDto: AuthRegisterLoginDto) => {
       try {
         const configuration = new Configuration({
           apiKey: moaEnv.backendApiKey,
           basePath: moaEnv.backendUrl,
         });
-        const createUserResponse = await (
-          await AuthApiFp(configuration).postEmailRegister(requestParameters)
-        )();
+        const createUserResponse = await new AuthenticationApi(
+          configuration
+        ).postEmailRegister({ authRegisterLoginDto });
 
         configuration.accessToken = createUserResponse.data.token;
+        try {
+          await new MerchantsApi(configuration).postMerchantMe();
+        } catch (error) {
+          if (axios.isAxiosError(error)) {
+            if ((error?.response?.status as number) !== 409) {
+              throw error;
+            }
+          }
+        }
 
-        const merchantResponse = await (
-          await MerchantsApiFp(configuration).postMeMerchant()
-        )();
-
-        return merchantResponse;
+        return true;
       } catch (error) {
         throw error;
       }

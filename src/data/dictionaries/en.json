@@ -79,6 +79,7 @@
     "error": "Oops, something went wrong. Don't worry, your data is safe. We've been notified and are working to fix the issue.",
     "firstName": "First name",
     "forgotPasswordSuccess": "Check your email for a link to reset your password.",
+    "forgotPasswordFailure": "We couldn't find an account with that email address.",
     "frequentlyAskedQuestions": "Frequently Asked Questions",
     "language": "Language",
     "lastName": "Last name",
@@ -99,8 +100,9 @@
     "save": "Save",
     "saveAndContinue": "Save and Continue",
     "subscribe": "Subscribe",
-    "support": "Support",
+
     "theme": "Theme",
+    "support": "Support",
     "useMyOrderApp": "Use MyOrderApp"
   },
   "ForgotPasswordLink": {
