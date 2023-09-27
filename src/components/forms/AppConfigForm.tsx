@@ -3,14 +3,12 @@
 import { useCookieContext } from "@/contexts/CookieContext";
 import { fontNames } from "@/data/fontNames";
 import { configurationForSession } from "@/utils/configurationForSession";
-import {
-  getBooleanNullOrThrow,
-  reactHookFormBooleanRadioGroupRegisterOptions,
-} from "@/utils/forceHtmlRadioOutputToBeBoolean";
+import { getBooleanNullOrThrow } from "@/utils/forceHtmlRadioOutputToBeBoolean";
 import { mapStringEnum } from "@/utils/mapStringEnum";
 import { moaEnv } from "@/utils/moaEnv";
 import { randomColor } from "@/utils/randomColor";
 import { stringToColor } from "@/utils/stringToColor";
+import { stringToThemeMode } from "@/utils/stringToThemeMode";
 import { toMoaAppUrl } from "@/utils/toMoaAppUrl";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -43,7 +41,6 @@ import { MuiColorInput } from "mui-color-input";
 import { MuiFileInput } from "mui-file-input";
 import {
   AppConfigEntity,
-  AppConfigUpdateBody,
   AppConfigsApi,
   MerchantsApi,
   ThemeModeEnum,
@@ -55,13 +52,16 @@ import { default as NextLink } from "next/link";
 import { useEffect, useState } from "react";
 import { unstable_batchedUpdates } from "react-dom";
 import { Controller, useForm } from "react-hook-form";
-import { Merge } from "type-fest";
 import * as yup from "yup";
 
-type AppConfigFormType = Merge<
-  AppConfigUpdateBody,
-  { file: File | null | undefined }
->;
+type AppConfigUpdateBodyFormType = {
+  fontFamily?: string | null;
+  name?: string | null;
+  seedColor?: string | null;
+  themeMode?: string | null;
+  useMaterial3?: string | null;
+  file?: File | null;
+};
 
 export function AppConfigForm(props: {
   buttonOnTop?: boolean;
@@ -87,7 +87,7 @@ export function AppConfigForm(props: {
     handleSubmit,
     setValue,
     register,
-  } = useForm<AppConfigFormType>({
+  } = useForm<AppConfigUpdateBodyFormType>({
     defaultValues: async () => {
       const session = await getSession();
 
@@ -116,8 +116,8 @@ export function AppConfigForm(props: {
             name: myConfig.name ?? "",
             seedColor: myConfig.seedColor ?? "#",
             fontFamily: myConfig.fontFamily ?? moaEnv.defaultFontFamily,
-            themeMode: myConfig.themeMode ?? ThemeModeEnum.Light,
-            useMaterial3: myConfig.useMaterial3 ?? false,
+            themeMode: String(myConfig.themeMode ?? ThemeModeEnum.Light),
+            useMaterial3: String(myConfig.useMaterial3 ?? false),
             file: file,
           };
         } catch (error) {
@@ -134,7 +134,7 @@ export function AppConfigForm(props: {
             seedColor: colorCookieValue ?? stringToColor(fullName),
             fontFamily: moaEnv.defaultFontFamily,
             themeMode: ThemeModeEnum.Light,
-            useMaterial3: false,
+            useMaterial3: String(false),
             file: null,
           };
         } finally {
@@ -144,9 +144,9 @@ export function AppConfigForm(props: {
         throw new Error("Session data not available");
       }
     },
-    resolver: yupResolver<AppConfigFormType>(
+    resolver: yupResolver<AppConfigUpdateBodyFormType>(
       yup
-        .object<AppConfigFormType>()
+        .object<AppConfigUpdateBodyFormType>()
         .shape({
           name: yup.string().min(3).label(t("nameLabel")).required(),
           seedColor: yup
@@ -160,8 +160,8 @@ export function AppConfigForm(props: {
           fullDescription: yup.string().optional(),
           keywords: yup.string().optional(),
           url: yup.string().optional(),
-          useMaterial3: yup.boolean().required(),
-          themeMode: yup.mixed<ThemeModeEnum>().required(),
+          useMaterial3: yup.string().required(),
+          themeMode: yup.string().required(),
         })
         .required()
     ),
@@ -183,7 +183,7 @@ export function AppConfigForm(props: {
             seedColor: value.seedColor,
             fontFamily: value.fontFamily,
             useMaterial3: getBooleanNullOrThrow(value.useMaterial3),
-            themeMode: value.themeMode,
+            themeMode: stringToThemeMode(value.themeMode),
           })
         : {};
       setErrorString(null);
@@ -192,13 +192,21 @@ export function AppConfigForm(props: {
   }, [watch()]);
 
   const patchAppConfigMeMutation = useMutation({
-    mutationFn: async (appConfigUpdateBody: AppConfigFormType) => {
+    mutationFn: async (appConfigUpdateBody: AppConfigUpdateBodyFormType) => {
       if (!isDirty) {
         return true;
       }
       const api = new AppConfigsApi(sessionedApiConfiguration);
 
-      await api.patchAppConfigMe({ appConfigUpdateBody });
+      await api.patchAppConfigMe({
+        appConfigUpdateBody: {
+          name: appConfigUpdateBody.name,
+          seedColor: appConfigUpdateBody.seedColor,
+          fontFamily: appConfigUpdateBody.fontFamily,
+          useMaterial3: getBooleanNullOrThrow(appConfigUpdateBody.useMaterial3),
+          themeMode: stringToThemeMode(appConfigUpdateBody.themeMode),
+        },
+      });
 
       // if (appConfigUpdateBody.file) {
       //   await api.postIconUploadMe({ file: appConfigUpdateBody.file });
@@ -212,7 +220,7 @@ export function AppConfigForm(props: {
     return fontNames[Math.floor(Math.random() * fontNames.length)];
   };
 
-  async function handleOnValidSubmit(data: AppConfigFormType) {
+  async function handleOnValidSubmit(data: AppConfigUpdateBodyFormType) {
     try {
       await patchAppConfigMeMutation.mutateAsync(data);
 
@@ -225,7 +233,7 @@ export function AppConfigForm(props: {
         const message = (error?.response?.data as any)?.message;
         if (fields !== undefined && Object.keys(fields).length > 0) {
           Object.keys(fields).forEach((fieldName) => {
-            setError(fieldName as keyof AppConfigFormType, {
+            setError(fieldName as keyof AppConfigUpdateBodyFormType, {
               type: "server",
               message: fields[fieldName],
             });
@@ -501,34 +509,18 @@ export function AppConfigForm(props: {
                   <FormLabel id="demo-row-radio-buttons-group-label">
                     {t("appearanceLabel")}
                   </FormLabel>
-                  <RadioGroup
-                    {...renderer.field}
-                    value={
-                      renderer.field.value == null
-                        ? null
-                        : `${renderer.field.value}`
-                    }
-                    row
-                  >
+                  <RadioGroup {...renderer.field} row>
                     <FormControlLabel
                       key={"modern"}
                       value={"true"}
                       control={<Radio />}
                       label={t("useMaterial3Labels.true")}
-                      {...register(
-                        "useMaterial3",
-                        reactHookFormBooleanRadioGroupRegisterOptions
-                      )}
                     />
                     <FormControlLabel
                       key={"classic"}
                       value={"false"}
                       control={<Radio />}
                       label={t("useMaterial3Labels.false")}
-                      {...register(
-                        "useMaterial3",
-                        reactHookFormBooleanRadioGroupRegisterOptions
-                      )}
                     />
                   </RadioGroup>
                 </FormControl>
@@ -591,7 +583,10 @@ export function AppConfigForm(props: {
                   unstable_batchedUpdates(() => {
                     setValue("seedColor", randomColor());
                     setValue("fontFamily", randomFont());
-                    setValue("useMaterial3", Math.random() < 0.5);
+                    setValue(
+                      "useMaterial3",
+                      Math.random() < 0.5 ? "true" : "false"
+                    );
                     setValue(
                       "themeMode",
                       Math.random() < 0.5
