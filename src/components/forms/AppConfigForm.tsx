@@ -3,7 +3,10 @@
 import { useCookieContext } from "@/contexts/CookieContext";
 import { fontNames } from "@/data/fontNames";
 import { configurationForSession } from "@/utils/configurationForSession";
-import { logger } from "@/utils/logger";
+import {
+  getBooleanNullOrThrow,
+  reactHookFormBooleanRadioGroupRegisterOptions,
+} from "@/utils/forceHtmlRadioOutputToBeBoolean";
 import { mapStringEnum } from "@/utils/mapStringEnum";
 import { moaEnv } from "@/utils/moaEnv";
 import { randomColor } from "@/utils/randomColor";
@@ -83,6 +86,7 @@ export function AppConfigForm(props: {
     setError,
     handleSubmit,
     setValue,
+    register,
   } = useForm<AppConfigFormType>({
     defaultValues: async () => {
       const session = await getSession();
@@ -173,7 +177,15 @@ export function AppConfigForm(props: {
 
   useEffect(() => {
     const subscription = watch((value) => {
-      onChange ? onChange(value) : {};
+      onChange
+        ? onChange({
+            name: value.name,
+            seedColor: value.seedColor,
+            fontFamily: value.fontFamily,
+            useMaterial3: getBooleanNullOrThrow(value.useMaterial3),
+            themeMode: value.themeMode,
+          })
+        : {};
       setErrorString(null);
     });
     return () => subscription.unsubscribe();
@@ -503,32 +515,20 @@ export function AppConfigForm(props: {
                       value={"true"}
                       control={<Radio />}
                       label={t("useMaterial3Labels.true")}
-                      onChange={() => {
-                        logger.info(
-                          `FormControlLabel set useMaterial3: ${true}`
-                        );
-                        renderer.field.onChange({
-                          target: {
-                            value: `true`,
-                          },
-                        });
-                      }}
+                      {...register(
+                        "useMaterial3",
+                        reactHookFormBooleanRadioGroupRegisterOptions
+                      )}
                     />
                     <FormControlLabel
                       key={"classic"}
                       value={"false"}
                       control={<Radio />}
                       label={t("useMaterial3Labels.false")}
-                      onChange={() => {
-                        logger.info(
-                          `FormControlLabel set useMaterial3: ${false}`
-                        );
-                        renderer.field.onChange({
-                          target: {
-                            value: `false`,
-                          },
-                        });
-                      }}
+                      {...register(
+                        "useMaterial3",
+                        reactHookFormBooleanRadioGroupRegisterOptions
+                      )}
                     />
                   </RadioGroup>
                 </FormControl>
