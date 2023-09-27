@@ -1,27 +1,25 @@
 import { defaultCurrentCatalogQueryKey } from "@/queries/useCurrentCatalogQuery";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { AxiosRequestConfig } from "axios";
 import {
   CatalogsApi,
   CategoryPaginatedResponse,
-  VariationUpdateDto,
-} from "moa-merchants-ts-axios";
+  VariationPatchBody,
+} from "myorderapp-square";
 
-export const useUpdateVariationMutation = (options?: AxiosRequestConfig) => {
+export const useUpdateVariationMutation = () => {
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (params: {
       id: string;
-      variationUpdateDto: VariationUpdateDto;
+      variationPatchBody: VariationPatchBody;
     }) => {
-      return await new CatalogsApi(sessionedApiConfiguration).updateVariation(
-        { ...params },
-        options
-      );
+      return await new CatalogsApi(sessionedApiConfiguration).updateVariation({
+        ...params,
+      });
     },
-    onMutate: async ({ id, variationUpdateDto }) => {
+    onMutate: async ({ id, variationPatchBody }) => {
       const oldData = queryClient.getQueryData<CategoryPaginatedResponse>(
         defaultCurrentCatalogQueryKey
       );
@@ -33,7 +31,7 @@ export const useUpdateVariationMutation = (options?: AxiosRequestConfig) => {
           for (const item of category.items ?? []) {
             for (const variation of item.variations ?? []) {
               if (variation.id === id) {
-                Object.assign(variation, variationUpdateDto);
+                Object.assign(variation, variationPatchBody);
                 break;
               }
             }

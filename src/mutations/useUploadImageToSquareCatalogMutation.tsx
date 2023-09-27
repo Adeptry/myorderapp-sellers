@@ -2,7 +2,7 @@ import { defaultCurrentCatalogQueryKey } from "@/queries/useCurrentCatalogQuery"
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosRequestConfig } from "axios";
-import { CatalogsApi } from "moa-merchants-ts-axios";
+import { CatalogsApi } from "myorderapp-square";
 
 export const useUploadImageToSquareCatalogMutation = (
   options?: AxiosRequestConfig

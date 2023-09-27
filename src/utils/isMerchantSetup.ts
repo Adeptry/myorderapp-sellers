@@ -1,6 +1,6 @@
-import { Merchant } from "moa-merchants-ts-axios";
+import { MerchantEntity } from "myorderapp-square";
 
-export function isMerchantSetupFn(merchant?: Merchant) {
+export function isMerchantSetupFn(merchant?: MerchantEntity) {
   return (
     merchant?.appConfig != null &&
     merchant?.squareId != null &&

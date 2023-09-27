@@ -12,7 +12,7 @@ import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { moaEnv } from "@/utils/moaEnv";
 import { Stack, useMediaQuery, useTheme } from "@mui/material";
-import { AppConfig } from "moa-merchants-ts-axios";
+import { AppConfigEntity } from "myorderapp-square";
 import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next-intl/client";
@@ -22,9 +22,9 @@ export default function Page() {
   useRedirectUnauthenticatedSessions();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(780));
-  const [appConfigState, setAppConfigState] = useState<AppConfig | undefined>(
-    undefined
-  );
+  const [appConfigState, setAppConfigState] = useState<
+    AppConfigEntity | undefined
+  >(undefined);
   const common = useTranslations("Common");
   const { data } = useCurrentMerchantQuery();
   const { push } = useRouter();

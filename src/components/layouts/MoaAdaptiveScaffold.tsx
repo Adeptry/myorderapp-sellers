@@ -54,7 +54,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { MerchantsApi } from "moa-merchants-ts-axios";
+import { MerchantsApi } from "myorderapp-square";
 import { signOut, useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next-intl/client";

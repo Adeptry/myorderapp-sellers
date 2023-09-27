@@ -331,7 +331,7 @@ export function CatalogAccordion() {
                                                           updateVariationMutation.mutateAsync(
                                                             {
                                                               id: variationInItemInCategory.id!,
-                                                              variationUpdateDto:
+                                                              variationPatchBody:
                                                                 {
                                                                   moaEnabled:
                                                                     !variationInItemInCategory.moaEnabled,

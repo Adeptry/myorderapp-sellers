@@ -12,14 +12,14 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { UserUpdateDto, UsersApi } from "moa-merchants-ts-axios";
+import { UserPatchBody, UsersApi } from "myorderapp-square";
 import { getSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslations } from "use-intl";
 import * as yup from "yup";
 
-export type UserUpdateFormType = UserUpdateDto;
+export type UserUpdateFormType = UserPatchBody;
 
 export function UserUpdateForm() {
   const [skeletonState, setSkeletonState] = useState<boolean>(true);
@@ -71,8 +71,8 @@ export function UserUpdateForm() {
   }, [watch()]);
 
   const mutation = useMutation({
-    mutationFn: async (userUpdateDto: UserUpdateFormType) => {
-      return (await new UsersApi(configuration).patchUserMe({ userUpdateDto }))
+    mutationFn: async (userPatchBody: UserUpdateFormType) => {
+      return (await new UsersApi(configuration).patchUserMe({ userPatchBody }))
         .data;
     },
     onSettled: () => {

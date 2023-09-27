@@ -1,26 +1,24 @@
 import { defaultCurrentCatalogQueryKey } from "@/queries/useCurrentCatalogQuery";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { AxiosRequestConfig } from "axios";
 import {
   CatalogsApi,
   CategoryPaginatedResponse,
-  ItemUpdateAllDto,
-} from "moa-merchants-ts-axios";
+  ItemsPatchBody,
+} from "myorderapp-square";
 
-export const useUpdateItemsMutation = (options?: AxiosRequestConfig) => {
+export const useUpdateItemsMutation = () => {
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (itemUpdateAllDto: Array<ItemUpdateAllDto>) => {
+    mutationFn: async (itemsPatchBody: Array<ItemsPatchBody>) => {
       return (
-        await new CatalogsApi(sessionedApiConfiguration).patchItems(
-          { itemUpdateAllDto },
-          options
-        )
+        await new CatalogsApi(sessionedApiConfiguration).patchItems({
+          itemsPatchBody,
+        })
       ).data;
     },
-    onMutate: async (itemUpdateAllDtos: Array<ItemUpdateAllDto>) => {
+    onMutate: async (itemsPatchBody: Array<ItemsPatchBody>) => {
       const oldResponse = queryClient.getQueryData(
         defaultCurrentCatalogQueryKey
       ) as CategoryPaginatedResponse;
@@ -34,7 +32,7 @@ export const useUpdateItemsMutation = (options?: AxiosRequestConfig) => {
 
       newCategories.forEach((category) => {
         category.items?.forEach((item) => {
-          const itemUpdateDto = itemUpdateAllDtos.find(
+          const itemUpdateDto = itemsPatchBody.find(
             (dto) => dto.id === item.id
           );
           if (itemUpdateDto) {

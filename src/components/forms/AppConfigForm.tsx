@@ -36,16 +36,15 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { MuiColorInput } from "mui-color-input";
+import { MuiFileInput } from "mui-file-input";
 import {
-  AppConfig,
-  AppConfigUpdateDto,
-  AppConfigUpdateDtoThemeModeEnum,
+  AppConfigEntity,
+  AppConfigUpdateBody,
   AppConfigsApi,
   MerchantsApi,
   ThemeModeEnum,
-} from "moa-merchants-ts-axios";
-import { MuiColorInput } from "mui-color-input";
-import { MuiFileInput } from "mui-file-input";
+} from "myorderapp-square";
 import { getSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next-intl/client";
@@ -57,14 +56,14 @@ import { Merge } from "type-fest";
 import * as yup from "yup";
 
 type AppConfigFormType = Merge<
-  AppConfigUpdateDto,
+  AppConfigUpdateBody,
   { file: File | null | undefined }
 >;
 
 export function AppConfigForm(props: {
   buttonOnTop?: boolean;
   successUrl?: string;
-  onChange?: (appConfig: AppConfig) => void;
+  onChange?: (appConfig: AppConfigEntity) => void;
 }) {
   const { onChange, successUrl } = props;
   const { push } = useRouter();
@@ -95,7 +94,7 @@ export function AppConfigForm(props: {
           ).getAppConfigMe({ actingAs: "merchant" });
           const myConfig = response.data;
           let file: File | undefined = undefined;
-          const iconFileUrlString = myConfig.iconFile?.url;
+          const iconFileUrlString = undefined; //myConfig.iconFile?.url;
           if (iconFileUrlString) {
             const url = new URL(iconFileUrlString);
 
@@ -120,7 +119,7 @@ export function AppConfigForm(props: {
         } catch (error) {
           const currentMerchantResponse = await new MerchantsApi(
             configurationForSession(session)
-          ).getMerchantMe({ appConfig: true });
+          ).getMerchantMe({ appConfig: true, user: true });
           const currentMerchant = currentMerchantResponse?.data;
           const currentUser = currentMerchant?.user;
           const firstName = currentUser?.firstName;
@@ -158,7 +157,7 @@ export function AppConfigForm(props: {
           keywords: yup.string().optional(),
           url: yup.string().optional(),
           useMaterial3: yup.boolean().required(),
-          themeMode: yup.mixed<AppConfigUpdateDtoThemeModeEnum>().required(),
+          themeMode: yup.mixed<ThemeModeEnum>().required(),
         })
         .required()
     ),
@@ -181,17 +180,17 @@ export function AppConfigForm(props: {
   }, [watch()]);
 
   const patchAppConfigMeMutation = useMutation({
-    mutationFn: async (data: AppConfigFormType) => {
+    mutationFn: async (appConfigUpdateBody: AppConfigFormType) => {
       if (!isDirty) {
         return true;
       }
       const api = new AppConfigsApi(sessionedApiConfiguration);
 
-      await api.patchAppConfigMe({ appConfigUpdateDto: data });
+      await api.patchAppConfigMe({ appConfigUpdateBody });
 
-      if (data.file) {
-        await api.postIconUploadMe({ file: data.file });
-      }
+      // if (appConfigUpdateBody.file) {
+      //   await api.postIconUploadMe({ file: appConfigUpdateBody.file });
+      // }
 
       return true;
     },

@@ -12,7 +12,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { AuthEmailLoginDto } from "moa-merchants-ts-axios";
+import { AuthenticationEmailLoginRequestBody } from "myorderapp-square";
 import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
@@ -26,14 +26,14 @@ export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
   const t = useTranslations("SignInForm");
 
   const { handleSubmit, control, formState, setError, watch } =
-    useForm<AuthEmailLoginDto>({
+    useForm<AuthenticationEmailLoginRequestBody>({
       defaultValues: {
         email: "",
         password: "",
       },
       resolver: yupResolver(
         yup
-          .object<AuthEmailLoginDto>()
+          .object<AuthenticationEmailLoginRequestBody>()
           .shape({
             email: yup.string().email().label(common("email")).required(),
             password: yup.string().min(6).label(common("password")).required(),
@@ -48,7 +48,9 @@ export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
   }, [watch()]);
 
   const createSessionMutation = useMutation({
-    mutationFn: async (authEmailLoginDto: AuthEmailLoginDto) => {
+    mutationFn: async (
+      authEmailLoginDto: AuthenticationEmailLoginRequestBody
+    ) => {
       return await signIn("credentials", {
         ...authEmailLoginDto,
         callbackUrl: props.callbackUrl,
@@ -57,7 +59,9 @@ export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
     },
   });
 
-  async function handleOnValidSubmit(data: AuthEmailLoginDto) {
+  async function handleOnValidSubmit(
+    data: AuthenticationEmailLoginRequestBody
+  ) {
     try {
       const result = await createSessionMutation.mutateAsync(data);
       if (result?.error) {
@@ -74,7 +78,7 @@ export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
       const message = (error?.response?.data as any)?.message;
       if (fields !== undefined) {
         Object.keys(fields).forEach((fieldName) => {
-          setError(fieldName as keyof AuthEmailLoginDto, {
+          setError(fieldName as keyof AuthenticationEmailLoginRequestBody, {
             type: "server",
             message: fields[fieldName],
           });

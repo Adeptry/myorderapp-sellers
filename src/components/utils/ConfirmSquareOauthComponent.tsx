@@ -3,7 +3,7 @@ import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfigurati
 import { Alert, Box, CircularProgress } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { MerchantsApi } from "moa-merchants-ts-axios";
+import { MerchantsApi } from "myorderapp-square";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -23,7 +23,7 @@ export default function ConfirmSquareOauthComponent() {
       return await new MerchantsApi(
         sessionedApiConfiguration
       ).postSquareOauthMe({
-        squareConfirmOauthDto: {
+        squarePostOauthBody: {
           oauthAccessCode,
         },
       });

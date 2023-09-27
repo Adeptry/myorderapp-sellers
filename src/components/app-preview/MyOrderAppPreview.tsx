@@ -3,15 +3,15 @@ import { toWindowClonable } from "@/components/messaging-iframe/WindowClonable";
 import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
 import { moaEnv } from "@/utils/moaEnv";
 import { Box, SxProps } from "@mui/material";
-import { AppConfig, Category } from "moa-merchants-ts-axios";
+import { AppConfigEntity, CategoryEntity } from "myorderapp-square";
 import { DeviceFrameset } from "react-device-frameset";
 import "react-device-frameset/styles/marvel-devices.min.css";
 import "./styles.css";
 
 export function MyOrderAppPreview(props: {
   sx?: SxProps;
-  categories?: Array<Category>;
-  appConfig?: AppConfig;
+  categories?: Array<CategoryEntity>;
+  appConfig?: AppConfigEntity;
   environment: {
     apiBaseUrl: string | null;
     apiKey: string | null;

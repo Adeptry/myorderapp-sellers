@@ -14,9 +14,9 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import {
-  AuthResetPasswordDto,
   AuthenticationApi,
-} from "moa-merchants-ts-axios";
+  AuthenticationPasswordResetRequestBody,
+} from "myorderapp-square";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -35,14 +35,18 @@ export function ResetPasswordForm(props: { preloading: boolean }) {
   const common = useTranslations("Common");
 
   const { setError, handleSubmit, formState, control, setValue, watch } =
-    useForm<AuthResetPasswordDto & { confirmPassword: string }>({
+    useForm<
+      AuthenticationPasswordResetRequestBody & { confirmPassword: string }
+    >({
       defaultValues: {
         password: "",
         hash: hash ?? "",
       },
       resolver: yupResolver(
         yup
-          .object<AuthResetPasswordDto & { confirmPassword: string }>()
+          .object<
+            AuthenticationPasswordResetRequestBody & { confirmPassword: string }
+          >()
           .shape({
             hash: yup.string().required(),
             password: yup
@@ -62,19 +66,20 @@ export function ResetPasswordForm(props: { preloading: boolean }) {
 
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const forgotPasswordMutation = useMutation({
-    mutationFn: async (authResetPasswordDto: AuthResetPasswordDto) => {
+    mutationFn: async (
+      authenticationPasswordResetRequestBody: AuthenticationPasswordResetRequestBody
+    ) => {
       return await new AuthenticationApi(
         sessionedApiConfiguration
       ).postPasswordReset({
-        authResetPasswordDto: {
-          hash: authResetPasswordDto.hash,
-          password: authResetPasswordDto.password,
-        },
+        authenticationPasswordResetRequestBody,
       });
     },
   });
 
-  async function handleOnValidSubmit(data: AuthResetPasswordDto) {
+  async function handleOnValidSubmit(
+    data: AuthenticationPasswordResetRequestBody
+  ) {
     try {
       await forgotPasswordMutation.mutateAsync(data);
       setTimeout(() => {
@@ -86,10 +91,13 @@ export function ResetPasswordForm(props: { preloading: boolean }) {
         const message = (error?.response?.data as any)?.message;
         if (fields !== undefined) {
           Object.keys(fields).forEach((fieldName) => {
-            setError(fieldName as keyof AuthResetPasswordDto, {
-              type: "server",
-              message: fields[fieldName],
-            });
+            setError(
+              fieldName as keyof AuthenticationPasswordResetRequestBody,
+              {
+                type: "server",
+                message: fields[fieldName],
+              }
+            );
           });
         } else if (message !== undefined) {
           setErrorString(message);

@@ -4,25 +4,25 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosRequestConfig } from "axios";
 import {
   CatalogsApi,
+  CategoriesPatchBody,
   CategoryPaginatedResponse,
-  CategoryUpdateAllDto,
-} from "moa-merchants-ts-axios";
+} from "myorderapp-square";
 
 export const useUpdateCategoriesMutation = (options?: AxiosRequestConfig) => {
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (categoryUpdateAllDto: Array<CategoryUpdateAllDto>) => {
+    mutationFn: async (categoriesPatchBody: Array<CategoriesPatchBody>) => {
       return (
         await new CatalogsApi(sessionedApiConfiguration).patchCategories({
-          categoryUpdateAllDto,
+          categoriesPatchBody,
         })
       ).data;
     },
     onSettled: () => {
       queryClient.invalidateQueries(defaultCurrentCatalogQueryKey);
     },
-    onMutate: async (categoryUpdateAllDtos: Array<CategoryUpdateAllDto>) => {
+    onMutate: async (categoriesPatchBody: Array<CategoriesPatchBody>) => {
       const oldResponse = queryClient.getQueryData(
         defaultCurrentCatalogQueryKey
       ) as CategoryPaginatedResponse;
@@ -32,7 +32,7 @@ export const useUpdateCategoriesMutation = (options?: AxiosRequestConfig) => {
       );
 
       newCategories.forEach((category) => {
-        const categoryUpdateAllDto = categoryUpdateAllDtos.find((value) => {
+        const categoryUpdateAllDto = categoriesPatchBody.find((value) => {
           return value.id === category.id;
         });
         if (categoryUpdateAllDto) {

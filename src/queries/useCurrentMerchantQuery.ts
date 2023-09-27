@@ -1,13 +1,11 @@
 import { useCookieContext } from "@/contexts/CookieContext";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { useQuery } from "@tanstack/react-query";
-import { AxiosError, AxiosRequestConfig } from "axios";
-import { MerchantsApi } from "moa-merchants-ts-axios";
+import { AxiosError } from "axios";
+import { MerchantsApi } from "myorderapp-square";
 import { useSession } from "next-auth/react";
 
-export const useCurrentMerchantQuery = (params?: {
-  options?: AxiosRequestConfig;
-}) => {
+export const useCurrentMerchantQuery = () => {
   const { status: authStatus, update, data: session } = useSession();
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const { setColorCookieValue } = useCookieContext();
@@ -17,10 +15,7 @@ export const useCurrentMerchantQuery = (params?: {
     queryFn: async () => {
       const api = new MerchantsApi(sessionedApiConfiguration);
       const data = (
-        await api.getMerchantMe(
-          { user: true, appConfig: true, catalog: true },
-          params?.options
-        )
+        await api.getMerchantMe({ user: true, appConfig: true, catalog: true })
       ).data;
       const seedColor = data.appConfig?.seedColor;
       if (seedColor) {

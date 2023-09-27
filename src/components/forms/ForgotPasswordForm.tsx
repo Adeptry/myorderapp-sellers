@@ -15,9 +15,9 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import {
-  AuthForgotPasswordDto,
   AuthenticationApi,
-} from "moa-merchants-ts-axios";
+  AuthenticationPasswordForgotRequestBody,
+} from "myorderapp-square";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -29,13 +29,13 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
   const common = useTranslations("Common");
 
   const { setError, handleSubmit, formState, control, watch } =
-    useForm<AuthForgotPasswordDto>({
+    useForm<AuthenticationPasswordForgotRequestBody>({
       defaultValues: {
         email: "",
       },
       resolver: yupResolver(
         yup
-          .object<AuthForgotPasswordDto>()
+          .object<AuthenticationPasswordForgotRequestBody>()
           .shape({
             email: yup.string().email().label(common("email")).required(),
           })
@@ -45,16 +45,20 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
 
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const forgotPasswordMutation = useMutation({
-    mutationFn: async (authForgotPasswordDto: AuthForgotPasswordDto) => {
+    mutationFn: async (
+      authenticationPasswordForgotRequestBody: AuthenticationPasswordForgotRequestBody
+    ) => {
       return await new AuthenticationApi(
         sessionedApiConfiguration
       ).postPasswordForgot({
-        authForgotPasswordDto: authForgotPasswordDto,
+        authenticationPasswordForgotRequestBody,
       });
     },
   });
 
-  async function handleOnValidSubmit(data: AuthForgotPasswordDto) {
+  async function handleOnValidSubmit(
+    data: AuthenticationPasswordForgotRequestBody
+  ) {
     try {
       await forgotPasswordMutation.mutateAsync(data);
     } catch (error) {
@@ -63,10 +67,13 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
         const message = (error?.response?.data as any)?.message;
         if (fields !== undefined) {
           Object.keys(fields).forEach((fieldName) => {
-            setError(fieldName as keyof AuthForgotPasswordDto, {
-              type: "server",
-              message: fields[fieldName],
-            });
+            setError(
+              fieldName as keyof AuthenticationPasswordForgotRequestBody,
+              {
+                type: "server",
+                message: fields[fieldName],
+              }
+            );
           });
         } else if (message !== undefined) {
           setErrorString(message);

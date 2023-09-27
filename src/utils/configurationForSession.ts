@@ -1,5 +1,5 @@
 import { moaEnv } from "@/utils/moaEnv";
-import { Configuration } from "moa-merchants-ts-axios";
+import { Configuration } from "myorderapp-square";
 import { Session } from "next-auth";
 
 export function configurationForSession(

@@ -1,6 +1,6 @@
-import { Merchant } from "moa-merchants-ts-axios";
+import { MerchantEntity } from "myorderapp-square";
 
-export function fullNameForMerchant(merchant?: Merchant) {
+export function fullNameForMerchant(merchant?: MerchantEntity) {
   const currentUser = merchant?.user;
   const firstName = currentUser?.firstName;
   const lastName = currentUser?.lastName;

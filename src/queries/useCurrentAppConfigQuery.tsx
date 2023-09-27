@@ -1,13 +1,9 @@
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { useQuery } from "@tanstack/react-query";
-import { AxiosRequestConfig } from "axios";
-import { AppConfigsApi } from "moa-merchants-ts-axios";
+import { AppConfigsApi } from "myorderapp-square";
 import { useSession } from "next-auth/react";
 
-export const useCurrentConfigQuery = (params?: {
-  options?: AxiosRequestConfig;
-  retry?: boolean;
-}) => {
+export const useCurrentConfigQuery = (params?: { retry?: boolean }) => {
   const { status } = useSession();
   const sessionedApiConfigration = useSessionedApiConfiguration();
 
@@ -16,12 +12,9 @@ export const useCurrentConfigQuery = (params?: {
     queryFn: async () => {
       const api = new AppConfigsApi(sessionedApiConfigration);
       return (
-        await api.getAppConfigMe(
-          {
-            actingAs: "merchant",
-          },
-          params?.options
-        )
+        await api.getAppConfigMe({
+          actingAs: "merchant",
+        })
       ).data;
     },
     enabled: status === "authenticated",

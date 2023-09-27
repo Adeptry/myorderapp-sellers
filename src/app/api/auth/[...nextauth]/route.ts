@@ -1,10 +1,6 @@
 import { moaEnv } from "@/utils/moaEnv";
-import {
-  AuthenticationApi,
-  AuthRegisterLoginDto,
-  Configuration,
-} from "moa-merchants-ts-axios";
 import ms from "ms";
+import { AuthenticationApi, Configuration } from "myorderapp-square";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -73,7 +69,10 @@ const handler = NextAuth({
               basePath: moaEnv.backendUrl,
             })
           ).postEmailLogin({
-            authEmailLoginDto: credentials as AuthRegisterLoginDto,
+            authenticationEmailLoginRequestBody: {
+              email: credentials?.email ?? "",
+              password: credentials?.password ?? "",
+            },
           });
           const data = response.data;
           if (data.user?.id) {

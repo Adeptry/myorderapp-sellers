@@ -10,7 +10,7 @@ import { LoadingButton } from "@mui/lab";
 import { loadStripe } from "@stripe/stripe-js";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { MerchantsApi } from "moa-merchants-ts-axios";
+import { MerchantsApi } from "myorderapp-square";
 import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next-intl/client";
@@ -59,7 +59,7 @@ export function StripeCheckoutButton(props: {
       const api = new MerchantsApi(sessionedApiConfiguration);
       return (
         await api.postStripeCheckoutMe({
-          stripeCheckoutCreateDto: {
+          stripePostCheckoutBody: {
             successUrl,
             cancelUrl,
             stripePriceId,

@@ -15,12 +15,11 @@ import Typography from "@mui/material/Typography";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import {
-  AuthEmailLoginDto,
-  AuthRegisterLoginDto,
   AuthenticationApi,
+  AuthenticationEmailLoginRequestBody,
   Configuration,
   MerchantsApi,
-} from "moa-merchants-ts-axios";
+} from "myorderapp-square";
 import { signIn } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -48,7 +47,7 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
       },
       resolver: yupResolver(
         yup
-          .object<AuthRegisterLoginDto>()
+          .object<AuthenticationEmailLoginRequestBody>()
           .shape({
             email: yup.string().email().label(common("email")).required(),
             password: yup.string().min(6).label(common("password")).required(),
@@ -65,7 +64,9 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
   }, [watch()]);
 
   const createUserAndMerchantMutation = useMutation(
-    async (authRegisterLoginDto: AuthRegisterLoginDto) => {
+    async (
+      authenticationEmailRegisterRequestBody: AuthenticationEmailLoginRequestBody
+    ) => {
       try {
         const configuration = new Configuration({
           apiKey: moaEnv.backendApiKey,
@@ -73,7 +74,7 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
         });
         const createUserResponse = await new AuthenticationApi(
           configuration
-        ).postEmailRegister({ authRegisterLoginDto });
+        ).postEmailRegister({ authenticationEmailRegisterRequestBody });
 
         configuration.accessToken = createUserResponse.data.token;
         try {
@@ -93,7 +94,9 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
     }
   );
 
-  async function handleOnValidSubmit(data: AuthRegisterLoginDto) {
+  async function handleOnValidSubmit(
+    data: AuthenticationEmailLoginRequestBody
+  ) {
     try {
       await createUserAndMerchantMutation.mutateAsync(getValues());
       const response = await signIn("credentials", {
@@ -109,7 +112,7 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
         const message = (error?.response?.data as any)?.message;
         if (fields !== undefined) {
           Object.keys(fields).forEach((fieldName) => {
-            setError(fieldName as keyof AuthEmailLoginDto, {
+            setError(fieldName as keyof AuthenticationEmailLoginRequestBody, {
               type: "server",
               message: fields[fieldName],
             });
