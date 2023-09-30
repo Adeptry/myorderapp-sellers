@@ -73,6 +73,7 @@
     "confirmPassword": "Confirmer le mot de passe",
     "country": "Pays",
     "currency": "Devise",
+    "customerSince": "Client depuis",
     "customers": "Clients",
     "dashboard": "Tableau de bord",
     "email": "Courrier électronique",
@@ -91,6 +92,7 @@
     "password": "Mot de passe",
     "passwordsMustMatch": "Les mots de passe doivent correspondre",
     "perMonth": "/mois",
+    "phoneNumber": "Numéro de téléphone",
     "preview": "Aperçu",
     "profile": "Profil",
     "register": "S'inscrire",
@@ -101,7 +103,11 @@
     "subscribe": "S'abonner",
     "support": "Support",
     "theme": "Thème",
-    "useMyOrderApp": "Utiliser MyOrderApp"
+    "useMyOrderApp": "Utiliser MyOrderApp",
+    "closedDate": "Date de clôture",
+    "id": "ID",
+    "location": "Emplacement",
+    "totalMoneyAmount": "Total"
   },
   "ForgotPasswordLink": {
     "text": "Mot de passe oublié?"

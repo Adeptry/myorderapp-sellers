@@ -19,7 +19,7 @@ import { useRouter } from "next-intl/client";
 
 export function Tier0CheckoutCard() {
   const { currencyCookieValue } = useCookieContext();
-  const format = useFormatter();
+  const formatter = useFormatter();
   const router = useRouter();
   const t = useTranslations("Tier0CheckoutCard");
   const common = useTranslations("Common");
@@ -47,7 +47,7 @@ export function Tier0CheckoutCard() {
           >
             <Typography component="h2" variant="h3" color="text.primary">
               {currencyCookieValue &&
-                format.number(0, {
+                formatter.number(0, {
                   style: "currency",
                   currency: currencyCookieValue,
                   trailingZeroDisplay: "stripIfInteger",

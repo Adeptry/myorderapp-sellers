@@ -86,7 +86,6 @@ export function AppConfigForm(props: {
     setError,
     handleSubmit,
     setValue,
-    register,
   } = useForm<AppConfigUpdateBodyFormType>({
     defaultValues: async () => {
       const session = await getSession();
@@ -98,14 +97,14 @@ export function AppConfigForm(props: {
           ).getAppConfigMe({ actingAs: "merchant" });
           const myConfig = response.data;
           let file: File | undefined = undefined;
-          const iconFileUrlString = undefined; //myConfig.iconFile?.url;
-          if (iconFileUrlString) {
-            const url = new URL(iconFileUrlString);
+          const iconFileFullUrl = myConfig.iconFileFullUrl;
+          if (iconFileFullUrl) {
+            const url = new URL(iconFileFullUrl);
 
             const filename = decodeURIComponent(
               url.pathname.split("/").pop() ?? ""
             ).replace(/^\d+-/, "");
-            const response = await fetch(iconFileUrlString);
+            const response = await fetch(iconFileFullUrl);
             const buffer = await response.arrayBuffer();
             const blob = new Blob([buffer], { type: "image/*" });
             file = new File([blob], filename, { type: "image/*" });
@@ -208,9 +207,9 @@ export function AppConfigForm(props: {
         },
       });
 
-      // if (appConfigUpdateBody.file) {
-      //   await api.postIconUploadMe({ file: appConfigUpdateBody.file });
-      // }
+      if (appConfigUpdateBody.file) {
+        await api.postIconUploadMe({ file: appConfigUpdateBody.file });
+      }
 
       return true;
     },

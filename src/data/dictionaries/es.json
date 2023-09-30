@@ -73,6 +73,7 @@
     "confirmPassword": "Confirmar contraseña",
     "country": "País",
     "currency": "Moneda",
+    "customerSince": "Cliente desde",
     "customers": "Clientes",
     "dashboard": "Panel de control",
     "email": "Correo electrónico",
@@ -91,6 +92,7 @@
     "password": "Contraseña",
     "passwordsMustMatch": "Las contraseñas deben coincidir",
     "perMonth": "/mes",
+    "phoneNumber": "Número de teléfono",
     "preview": "Avance",
     "profile": "Perfil",
     "register": "Registrarse",
@@ -99,9 +101,13 @@
     "save": "Guardar",
     "saveAndContinue": "Guardar y Continuar",
     "subscribe": "Suscribirse",
-    "theme": "Tema",
     "support": "Soporte",
-    "useMyOrderApp": "Usar MyOrderApp"
+    "theme": "Tema",
+    "useMyOrderApp": "Usar MyOrderApp",
+    "closedDate": "Fecha de cierre",
+    "id": "ID",
+    "location": "Ubicación",
+    "totalMoneyAmount": "Total"
   },
   "ForgotPasswordLink": {
     "text": "¿Olvidaste tu contraseña?"

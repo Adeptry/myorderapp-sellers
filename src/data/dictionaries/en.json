@@ -73,6 +73,7 @@
     "confirmPassword": "Confirm password",
     "country": "Country",
     "currency": "Currency",
+    "customerSince": "Customer since",
     "customers": "Customers",
     "dashboard": "Dashboard",
     "email": "Email",
@@ -92,6 +93,7 @@
     "password": "Password",
     "passwordsMustMatch": "Passwords must match",
     "perMonth": "/mo",
+    "phoneNumber": "Phone number",
     "preview": "Preview",
     "profile": "Account",
     "register": "Register",
@@ -102,7 +104,11 @@
     "subscribe": "Subscribe",
     "support": "Support",
     "theme": "Theme",
-    "useMyOrderApp": "Use MyOrderApp"
+    "useMyOrderApp": "Use MyOrderApp",
+    "closedDate": "Closed date",
+    "id": "ID",
+    "location": "Location",
+    "totalMoneyAmount": "Total"
   },
   "ForgotPasswordLink": {
     "text": "Forgot password?"
