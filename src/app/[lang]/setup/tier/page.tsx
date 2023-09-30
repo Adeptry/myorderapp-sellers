@@ -6,8 +6,8 @@ import {
 } from "@/components/OnboardingStepper";
 import { Stack } from "@mui/material";
 
-import CheckoutFaqAccordion from "@/components/accordions/CheckoutFaqAccordion";
-import PriceGrid from "@/components/grids/PriceGrid";
+import { FaqAccordion } from "@/components/accordions/CheckoutFaqAccordion";
+import { PriceGrid } from "@/components/grids/PriceGrid";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 
 export default function Page() {
@@ -21,7 +21,7 @@ export default function Page() {
       />
       <PriceGrid />
 
-      <CheckoutFaqAccordion sx={{ pl: 1 }} />
+      <FaqAccordion sx={{ pl: 1 }} />
     </Stack>
   );
 }

@@ -4,9 +4,9 @@ import {
   OnboardingStepper,
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
-import CheckoutFaqAccordion from "@/components/accordions/CheckoutFaqAccordion";
+import { FaqAccordion } from "@/components/accordions/CheckoutFaqAccordion";
 import { StripeCheckoutCancelledCard } from "@/components/cards/StripeCheckoutCancelledCard";
-import PriceGrid from "@/components/grids/PriceGrid";
+import { PriceGrid } from "@/components/grids/PriceGrid";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { Stack } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -30,9 +30,7 @@ export default function Page() {
           maxWidth: "sm",
         }}
       />
-      <CheckoutFaqAccordion
-        sx={{ maxWidth: "sm", py: isSmallScreen ? 0 : 3 }}
-      />
+      <FaqAccordion sx={{ maxWidth: "sm", py: isSmallScreen ? 0 : 3 }} />
       <PriceGrid />
     </Stack>
   );

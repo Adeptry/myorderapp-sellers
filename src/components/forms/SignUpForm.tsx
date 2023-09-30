@@ -1,17 +1,21 @@
 "use client";
 
-import AppleAuthButton from "@/components/buttons/AppleAuthButton";
-import GoogleAuthButton from "@/components/buttons/GoogleAuthButton";
+import { AppleAuthButton } from "@/components/buttons/AppleAuthButton";
+import { GoogleAuthButton } from "@/components/buttons/GoogleAuthButton";
 import { ForgotPasswordLink } from "@/components/links/ForgotPasswordLink";
 import { SignInLink } from "@/components/links/SignInLink";
 import { moaEnv } from "@/utils/moaEnv";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Check, Login } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
-import { Alert, Box, Skeleton } from "@mui/material";
-import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
+import {
+  Alert,
+  Box,
+  Grid,
+  Skeleton,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import {
@@ -27,6 +31,7 @@ import { useTranslations } from "use-intl";
 import * as yup from "yup";
 
 export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
+  type FormType = AuthenticationEmailLoginRequestBody;
   const { skeleton, callbackUrl } = props;
   const [errorString, setErrorString] = useState<string | null>(null);
   const t = useTranslations("SignUpForm");
@@ -47,7 +52,7 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
       },
       resolver: yupResolver(
         yup
-          .object<AuthenticationEmailLoginRequestBody>()
+          .object<FormType>()
           .shape({
             email: yup.string().email().label(common("email")).required(),
             password: yup.string().min(6).label(common("password")).required(),
@@ -64,9 +69,7 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
   }, [watch()]);
 
   const createUserAndMerchantMutation = useMutation(
-    async (
-      authenticationEmailRegisterRequestBody: AuthenticationEmailLoginRequestBody
-    ) => {
+    async (authenticationEmailRegisterRequestBody: FormType) => {
       try {
         const configuration = new Configuration({
           apiKey: moaEnv.backendApiKey,
@@ -94,9 +97,7 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
     }
   );
 
-  async function handleOnValidSubmit(
-    data: AuthenticationEmailLoginRequestBody
-  ) {
+  async function handleOnValidSubmit(data: FormType) {
     try {
       await createUserAndMerchantMutation.mutateAsync(getValues());
       const response = await signIn("credentials", {
@@ -109,15 +110,17 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const fields = (error?.response?.data as any)?.fields;
-        const message = (error?.response?.data as any)?.message;
         if (fields !== undefined) {
           Object.keys(fields).forEach((fieldName) => {
-            setError(fieldName as keyof AuthenticationEmailLoginRequestBody, {
+            setError(fieldName as keyof FormType, {
               type: "server",
               message: fields[fieldName],
             });
           });
-        } else if (message !== undefined) {
+        }
+
+        const message = (error?.response?.data as any)?.message;
+        if (message !== undefined) {
           setErrorString(message);
         }
       } else {

@@ -1,14 +1,13 @@
 import { defaultCurrentCatalogQueryKey } from "@/queries/useCurrentCatalogQuery";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { AxiosRequestConfig } from "axios";
 import {
   CatalogsApi,
   CategoriesPatchBody,
   CategoryPaginatedResponse,
 } from "myorderapp-square";
 
-export const useUpdateCategoriesMutation = (options?: AxiosRequestConfig) => {
+export const useUpdateCategoriesMutation = () => {
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const queryClient = useQueryClient();
   return useMutation({

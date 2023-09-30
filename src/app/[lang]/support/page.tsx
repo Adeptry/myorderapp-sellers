@@ -1,14 +1,29 @@
 "use client";
 
-import { useRedirectSetupSessions } from "@/routing/useRedirectSetupSessions";
-import { Stack, Typography } from "@mui/material";
+import { FaqAccordion } from "@/components/accordions/CheckoutFaqAccordion";
+import { SupportRequestForm } from "@/components/forms/SupportRequestForm";
+import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
+import { Box, Grid, Typography } from "@mui/material";
+import { useTranslations } from "next-intl";
 
 export default function Page() {
-  useRedirectSetupSessions();
+  useRedirectUnauthenticatedSessions();
+
+  const common = useTranslations("Common");
 
   return (
-    <Stack spacing={2} py={2}>
-      <Typography>Support under construction</Typography>
-    </Stack>
+    <Grid container justifyContent="center" py={2} spacing={2}>
+      <Grid item xs={12} sm={12} md={8} lg={6}>
+        <Box display="flex" justifyContent="center">
+          <Typography component="h1" variant="h4" pb={3}>
+            {common("support")}
+          </Typography>
+        </Box>
+        <SupportRequestForm />
+      </Grid>
+      <Grid item xs={12} sm={12} md={8} lg={6}>
+        <FaqAccordion />
+      </Grid>
+    </Grid>
   );
 }

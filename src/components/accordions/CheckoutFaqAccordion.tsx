@@ -2,8 +2,8 @@ import { SxProps } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { DynamicAccordion } from "./DynamicAccordion";
 
-export default function CheckoutFaqAccordion(props: { sx?: SxProps }) {
-  const t = useTranslations("CheckoutFaqAccordion");
+export function FaqAccordion(props: { sx?: SxProps }) {
+  const t = useTranslations("FaqAccordion");
   const keys = [
     "switching",
     "downgrading",

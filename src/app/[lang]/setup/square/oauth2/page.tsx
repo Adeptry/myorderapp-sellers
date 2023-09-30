@@ -4,7 +4,7 @@ import {
   OnboardingStepper,
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
-import ConfirmSquareOauthComponent from "@/components/utils/ConfirmSquareOauthComponent";
+import { ConfirmSquareOauthComponent } from "@/components/utils/ConfirmSquareOauthComponent";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { Stack } from "@mui/material";

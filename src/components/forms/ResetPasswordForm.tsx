@@ -26,6 +26,7 @@ import { ForgotPasswordLink } from "../links/ForgotPasswordLink";
 import { SignInLink } from "../links/SignInLink";
 
 export function ResetPasswordForm(props: { preloading: boolean }) {
+  type FormType = AuthenticationPasswordResetRequestBody;
   const { preloading: skeleton } = props;
   const router = useRouter();
 
@@ -35,18 +36,14 @@ export function ResetPasswordForm(props: { preloading: boolean }) {
   const common = useTranslations("Common");
 
   const { setError, handleSubmit, formState, control, setValue, watch } =
-    useForm<
-      AuthenticationPasswordResetRequestBody & { confirmPassword: string }
-    >({
+    useForm<FormType & { confirmPassword: string }>({
       defaultValues: {
         password: "",
         hash: hash ?? "",
       },
       resolver: yupResolver(
         yup
-          .object<
-            AuthenticationPasswordResetRequestBody & { confirmPassword: string }
-          >()
+          .object<FormType & { confirmPassword: string }>()
           .shape({
             hash: yup.string().required(),
             password: yup
@@ -66,9 +63,7 @@ export function ResetPasswordForm(props: { preloading: boolean }) {
 
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const forgotPasswordMutation = useMutation({
-    mutationFn: async (
-      authenticationPasswordResetRequestBody: AuthenticationPasswordResetRequestBody
-    ) => {
+    mutationFn: async (authenticationPasswordResetRequestBody: FormType) => {
       return await new AuthenticationApi(
         sessionedApiConfiguration
       ).postPasswordReset({
@@ -77,9 +72,7 @@ export function ResetPasswordForm(props: { preloading: boolean }) {
     },
   });
 
-  async function handleOnValidSubmit(
-    data: AuthenticationPasswordResetRequestBody
-  ) {
+  async function handleOnValidSubmit(data: FormType) {
     try {
       await forgotPasswordMutation.mutateAsync(data);
       setTimeout(() => {
@@ -88,18 +81,17 @@ export function ResetPasswordForm(props: { preloading: boolean }) {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const fields = (error?.response?.data as any)?.fields;
-        const message = (error?.response?.data as any)?.message;
         if (fields !== undefined) {
           Object.keys(fields).forEach((fieldName) => {
-            setError(
-              fieldName as keyof AuthenticationPasswordResetRequestBody,
-              {
-                type: "server",
-                message: fields[fieldName],
-              }
-            );
+            setError(fieldName as keyof FormType, {
+              type: "server",
+              message: fields[fieldName],
+            });
           });
-        } else if (message !== undefined) {
+        }
+
+        const message = (error?.response?.data as any)?.message;
+        if (message !== undefined) {
           setErrorString(message);
         }
       } else {

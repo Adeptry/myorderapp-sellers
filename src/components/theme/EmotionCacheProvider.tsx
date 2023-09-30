@@ -21,7 +21,7 @@ export type NextAppDirEmotionCacheProviderProps = {
 };
 
 // Adapted from https://github.com/garronej/tss-react/blob/main/src/next/appDir.tsx
-export default function EmotionCacheProvider(
+export function EmotionCacheProvider(
   props: NextAppDirEmotionCacheProviderProps
 ) {
   const { options, CacheProvider = DefaultCacheProvider, children } = props;

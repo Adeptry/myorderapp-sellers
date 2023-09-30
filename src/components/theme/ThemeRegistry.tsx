@@ -1,6 +1,6 @@
 "use client";
 
-import EmotionCacheProvider from "@/components/theme/EmotionCacheProvider";
+import { EmotionCacheProvider } from "@/components/theme/EmotionCacheProvider";
 import { useCookieContext } from "@/contexts/CookieContext";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material/styles";

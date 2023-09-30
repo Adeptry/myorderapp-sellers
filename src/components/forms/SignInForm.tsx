@@ -1,7 +1,7 @@
 "use client";
 
-import AppleAuthButton from "@/components/buttons/AppleAuthButton";
-import GoogleAuthButton from "@/components/buttons/GoogleAuthButton";
+import { AppleAuthButton } from "@/components/buttons/AppleAuthButton";
+import { GoogleAuthButton } from "@/components/buttons/GoogleAuthButton";
 import { ForgotPasswordLink } from "@/components/links/ForgotPasswordLink";
 import { SignUpLink } from "@/components/links/SignUpLink";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -20,20 +20,21 @@ import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 
 export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
+  type FormType = AuthenticationEmailLoginRequestBody;
   const { skeleton } = props;
   const [errorString, setErrorString] = useState<string | null>(null);
   const common = useTranslations("Common");
   const t = useTranslations("SignInForm");
 
   const { handleSubmit, control, formState, setError, watch } =
-    useForm<AuthenticationEmailLoginRequestBody>({
+    useForm<FormType>({
       defaultValues: {
         email: "",
         password: "",
       },
       resolver: yupResolver(
         yup
-          .object<AuthenticationEmailLoginRequestBody>()
+          .object<FormType>()
           .shape({
             email: yup.string().email().label(common("email")).required(),
             password: yup.string().min(6).label(common("password")).required(),
@@ -48,9 +49,7 @@ export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
   }, [watch()]);
 
   const createSessionMutation = useMutation({
-    mutationFn: async (
-      authEmailLoginDto: AuthenticationEmailLoginRequestBody
-    ) => {
+    mutationFn: async (authEmailLoginDto: FormType) => {
       return await signIn("credentials", {
         ...authEmailLoginDto,
         callbackUrl: props.callbackUrl,
@@ -59,9 +58,7 @@ export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
     },
   });
 
-  async function handleOnValidSubmit(
-    data: AuthenticationEmailLoginRequestBody
-  ) {
+  async function handleOnValidSubmit(data: FormType) {
     try {
       const result = await createSessionMutation.mutateAsync(data);
       if (result?.error) {
@@ -75,15 +72,17 @@ export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
   function handleError(error: any) {
     if (axios.isAxiosError(error)) {
       const fields = (error?.response?.data as any)?.fields;
-      const message = (error?.response?.data as any)?.message;
       if (fields !== undefined) {
         Object.keys(fields).forEach((fieldName) => {
-          setError(fieldName as keyof AuthenticationEmailLoginRequestBody, {
+          setError(fieldName as keyof FormType, {
             type: "server",
             message: fields[fieldName],
           });
         });
-      } else if (message !== undefined) {
+      }
+
+      const message = (error?.response?.data as any)?.message;
+      if (message !== undefined) {
         setErrorString(message);
       }
     } else {

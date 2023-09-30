@@ -14,7 +14,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { UserPatchBody, UsersApi } from "myorderapp-square";
 import { getSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslations } from "use-intl";
 import * as yup from "yup";
@@ -98,7 +98,6 @@ export function UserUpdateForm() {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const fields = (error?.response?.data as any)?.fields;
-        const message = (error?.response?.data as any)?.message;
         if (fields !== undefined) {
           Object.keys(fields).forEach((fieldName) => {
             setError(fieldName as keyof UserUpdateFormType, {
@@ -106,7 +105,10 @@ export function UserUpdateForm() {
               message: fields[fieldName],
             });
           });
-        } else if (message !== undefined) {
+        }
+
+        const message = (error?.response?.data as any)?.message;
+        if (message !== undefined) {
           setErrorString(message);
         }
       } else {
@@ -116,129 +118,131 @@ export function UserUpdateForm() {
   }
 
   return (
-    <Box
-      sx={{ width: "100%" }}
-      component="form"
-      noValidate
-      onSubmit={handleSubmit(handleOnValidSubmit)}
-    >
-      <Grid
-        container
-        columnSpacing={skeletonState ? 1 : 2}
-        rowSpacing={skeletonState ? 0 : 2}
+    <Fragment>
+      <Box
+        sx={{ width: "100%" }}
+        component="form"
+        noValidate
+        onSubmit={handleSubmit(handleOnValidSubmit)}
       >
-        {errorString && (
-          <Grid item xs={12}>
-            <Alert severity="error" style={{ width: "100%" }}>
-              {errorString}
-            </Alert>
-          </Grid>
-        )}
-        <Grid item xs={12}>
-          <Controller
-            name="firstName"
-            control={control}
-            render={({ field }) => {
-              return skeletonState ? (
-                <Skeleton height="72px" />
-              ) : (
-                <TextField
-                  {...field}
-                  value={field.value ?? ""}
-                  required
-                  fullWidth
-                  label={common("firstName")}
-                  autoComplete="given-name"
-                  inputProps={{
-                    autoCorrect: "none",
-                    spellCheck: false,
-                  }}
-                  error={formState.errors.firstName ? true : false}
-                  autoFocus
-                />
-              );
-            }}
-          />
-          <Typography variant="inherit" color="error">
-            {formState.errors.firstName?.message}
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Controller
-            name="lastName"
-            control={control}
-            render={({ field }) => {
-              return skeletonState ? (
-                <Skeleton height="72px" />
-              ) : (
-                <TextField
-                  {...field}
-                  value={field.value ?? ""}
-                  required
-                  fullWidth
-                  label={common("lastName")}
-                  autoComplete="family-name"
-                  inputProps={{
-                    autoCorrect: "none",
-                    spellCheck: false,
-                  }}
-                  error={formState.errors.lastName ? true : false}
-                />
-              );
-            }}
-          />
-          <Typography variant="inherit" color="error">
-            {formState.errors.lastName?.message}
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Controller
-            name="email"
-            control={control}
-            render={({ field }) => {
-              return skeletonState ? (
-                <Skeleton height="72px" />
-              ) : (
-                <TextField
-                  {...field}
-                  value={field.value ?? ""}
-                  required
-                  label={common("email")}
-                  autoComplete="email"
-                  inputProps={{
-                    autoCapitalize: "none",
-                    autoCorrect: "none",
-                    spellCheck: false,
-                  }}
-                  fullWidth
-                  error={formState.errors.email ? true : false}
-                />
-              );
-            }}
-          />
-          <Typography variant="inherit" color="error">
-            {formState.errors.email?.message}
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          {skeletonState ? (
-            <Skeleton height="58px" width="100%" />
-          ) : (
-            <LoadingButton
-              loading={mutation.isLoading || formState.isSubmitting}
-              size="large"
-              startIcon={<Save />}
-              disabled={mutation.isLoading || !formState.isDirty}
-              color="secondary"
-              type="submit"
-              fullWidth
-              variant="contained"
-            >
-              {common("save")}
-            </LoadingButton>
+        <Grid
+          container
+          columnSpacing={skeletonState ? 1 : 2}
+          rowSpacing={skeletonState ? 0 : 2}
+        >
+          {errorString && (
+            <Grid item xs={12}>
+              <Alert severity="error" style={{ width: "100%" }}>
+                {errorString}
+              </Alert>
+            </Grid>
           )}
+          <Grid item xs={12}>
+            <Controller
+              name="firstName"
+              control={control}
+              render={({ field }) => {
+                return skeletonState ? (
+                  <Skeleton height="72px" />
+                ) : (
+                  <TextField
+                    {...field}
+                    value={field.value ?? ""}
+                    required
+                    fullWidth
+                    label={common("firstName")}
+                    autoComplete="given-name"
+                    inputProps={{
+                      autoCorrect: "none",
+                      spellCheck: false,
+                    }}
+                    error={formState.errors.firstName ? true : false}
+                    autoFocus
+                  />
+                );
+              }}
+            />
+            <Typography variant="inherit" color="error">
+              {formState.errors.firstName?.message}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Controller
+              name="lastName"
+              control={control}
+              render={({ field }) => {
+                return skeletonState ? (
+                  <Skeleton height="72px" />
+                ) : (
+                  <TextField
+                    {...field}
+                    value={field.value ?? ""}
+                    required
+                    fullWidth
+                    label={common("lastName")}
+                    autoComplete="family-name"
+                    inputProps={{
+                      autoCorrect: "none",
+                      spellCheck: false,
+                    }}
+                    error={formState.errors.lastName ? true : false}
+                  />
+                );
+              }}
+            />
+            <Typography variant="inherit" color="error">
+              {formState.errors.lastName?.message}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Controller
+              name="email"
+              control={control}
+              render={({ field }) => {
+                return skeletonState ? (
+                  <Skeleton height="72px" />
+                ) : (
+                  <TextField
+                    {...field}
+                    value={field.value ?? ""}
+                    required
+                    label={common("email")}
+                    autoComplete="email"
+                    inputProps={{
+                      autoCapitalize: "none",
+                      autoCorrect: "none",
+                      spellCheck: false,
+                    }}
+                    fullWidth
+                    error={formState.errors.email ? true : false}
+                  />
+                );
+              }}
+            />
+            <Typography variant="inherit" color="error">
+              {formState.errors.email?.message}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            {skeletonState ? (
+              <Skeleton height="58px" width="100%" />
+            ) : (
+              <LoadingButton
+                loading={mutation.isLoading || formState.isSubmitting}
+                size="large"
+                startIcon={<Save />}
+                disabled={mutation.isLoading || !formState.isDirty}
+                color="secondary"
+                type="submit"
+                fullWidth
+                variant="contained"
+              >
+                {common("save")}
+              </LoadingButton>
+            )}
+          </Grid>
         </Grid>
-      </Grid>
-    </Box>
+      </Box>
+    </Fragment>
   );
 }

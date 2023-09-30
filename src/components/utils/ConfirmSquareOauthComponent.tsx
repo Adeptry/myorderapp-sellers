@@ -9,7 +9,7 @@ import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function ConfirmSquareOauthComponent() {
+export function ConfirmSquareOauthComponent() {
   const searchParams = useSearchParams();
   const oauthAccessCode = searchParams.get("code");
   const sessionedApiConfiguration = useSessionedApiConfiguration();

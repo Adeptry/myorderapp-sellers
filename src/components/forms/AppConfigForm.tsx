@@ -54,7 +54,7 @@ import { unstable_batchedUpdates } from "react-dom";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 
-type AppConfigUpdateBodyFormType = {
+type FormType = {
   fontFamily?: string | null;
   name?: string | null;
   seedColor?: string | null;
@@ -86,7 +86,7 @@ export function AppConfigForm(props: {
     setError,
     handleSubmit,
     setValue,
-  } = useForm<AppConfigUpdateBodyFormType>({
+  } = useForm<FormType>({
     defaultValues: async () => {
       const session = await getSession();
 
@@ -143,9 +143,9 @@ export function AppConfigForm(props: {
         throw new Error("Session data not available");
       }
     },
-    resolver: yupResolver<AppConfigUpdateBodyFormType>(
+    resolver: yupResolver<FormType>(
       yup
-        .object<AppConfigUpdateBodyFormType>()
+        .object<FormType>()
         .shape({
           name: yup.string().min(3).label(t("nameLabel")).required(),
           seedColor: yup
@@ -191,7 +191,7 @@ export function AppConfigForm(props: {
   }, [watch()]);
 
   const patchAppConfigMeMutation = useMutation({
-    mutationFn: async (appConfigUpdateBody: AppConfigUpdateBodyFormType) => {
+    mutationFn: async (appConfigUpdateBody: FormType) => {
       if (!isDirty) {
         return true;
       }
@@ -219,7 +219,7 @@ export function AppConfigForm(props: {
     return fontNames[Math.floor(Math.random() * fontNames.length)];
   };
 
-  async function handleOnValidSubmit(data: AppConfigUpdateBodyFormType) {
+  async function handleOnValidSubmit(data: FormType) {
     try {
       await patchAppConfigMeMutation.mutateAsync(data);
 
@@ -229,15 +229,17 @@ export function AppConfigForm(props: {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const fields = (error?.response?.data as any)?.fields;
-        const message = (error?.response?.data as any)?.message;
-        if (fields !== undefined && Object.keys(fields).length > 0) {
+        if (fields !== undefined) {
           Object.keys(fields).forEach((fieldName) => {
-            setError(fieldName as keyof AppConfigUpdateBodyFormType, {
+            setError(fieldName as keyof FormType, {
               type: "server",
               message: fields[fieldName],
             });
           });
-        } else if (message != undefined) {
+        }
+
+        const message = (error?.response?.data as any)?.message;
+        if (message !== undefined) {
           setErrorString(message);
         }
       } else {

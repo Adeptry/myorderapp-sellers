@@ -24,18 +24,19 @@ import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 
 export function ForgotPasswordForm(props: { preloading: boolean }) {
+  type FormType = AuthenticationPasswordForgotRequestBody;
   const { preloading: skeleton } = props;
   const [errorString, setErrorString] = useState<string | null>(null);
   const common = useTranslations("Common");
 
   const { setError, handleSubmit, formState, control, watch } =
-    useForm<AuthenticationPasswordForgotRequestBody>({
+    useForm<FormType>({
       defaultValues: {
         email: "",
       },
       resolver: yupResolver(
         yup
-          .object<AuthenticationPasswordForgotRequestBody>()
+          .object<FormType>()
           .shape({
             email: yup.string().email().label(common("email")).required(),
           })
@@ -45,9 +46,7 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
 
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const forgotPasswordMutation = useMutation({
-    mutationFn: async (
-      authenticationPasswordForgotRequestBody: AuthenticationPasswordForgotRequestBody
-    ) => {
+    mutationFn: async (authenticationPasswordForgotRequestBody: FormType) => {
       return await new AuthenticationApi(
         sessionedApiConfiguration
       ).postPasswordForgot({
@@ -56,26 +55,23 @@ export function ForgotPasswordForm(props: { preloading: boolean }) {
     },
   });
 
-  async function handleOnValidSubmit(
-    data: AuthenticationPasswordForgotRequestBody
-  ) {
+  async function handleOnValidSubmit(data: FormType) {
     try {
       await forgotPasswordMutation.mutateAsync(data);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const fields = (error?.response?.data as any)?.fields;
-        const message = (error?.response?.data as any)?.message;
         if (fields !== undefined) {
           Object.keys(fields).forEach((fieldName) => {
-            setError(
-              fieldName as keyof AuthenticationPasswordForgotRequestBody,
-              {
-                type: "server",
-                message: fields[fieldName],
-              }
-            );
+            setError(fieldName as keyof FormType, {
+              type: "server",
+              message: fields[fieldName],
+            });
           });
-        } else if (message !== undefined) {
+        }
+
+        const message = (error?.response?.data as any)?.message;
+        if (message !== undefined) {
           setErrorString(message);
         }
       } else {
