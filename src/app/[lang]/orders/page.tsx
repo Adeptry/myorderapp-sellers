@@ -40,6 +40,8 @@ export default function Page() {
               ).toLocaleDateString(),
               location: order.location?.name,
               lastName: order.squareFulfillmentStatus,
+              customer:
+                order.customer?.user?.fullName ?? order.customer?.user?.email,
               totalMoneyAmount: formatter.number(
                 (order.totalMoneyAmount ?? 0) / 100,
                 {
@@ -68,6 +70,13 @@ export default function Page() {
           {
             field: "location",
             headerName: common("location"),
+            flex: 1,
+            sortable: false,
+            filterable: false,
+          },
+          {
+            field: "customer",
+            headerName: common("customer"),
             flex: 1,
             sortable: false,
             filterable: false,

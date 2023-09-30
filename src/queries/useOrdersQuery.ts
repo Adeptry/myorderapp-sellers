@@ -31,6 +31,7 @@ export const useOrdersQuery = (params: {
           orderField: field,
           lineItems: true,
           location: true,
+          customer: true,
           actingAs: "merchant",
         })
       ).data;
