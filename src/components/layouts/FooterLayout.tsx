@@ -1,13 +1,10 @@
 import { LegalMenu } from "@/components/menus/LegalMenu";
 import { CurrencySelector } from "@/components/selectors/CurrencySelector";
 import { LanguageSelector } from "@/components/selectors/LanguageSelector";
-import {
-  Grid,
-  Stack,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Grid, Stack, Typography } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
+
 import { useTranslations } from "next-intl";
 
 export const FooterLayout = () => {

@@ -13,14 +13,9 @@ import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { moaEnv } from "@/utils/moaEnv";
 import { ArrowForward, CheckCircleOutline } from "@mui/icons-material";
-import {
-  Button,
-  Grid,
-  Skeleton,
-  Stack,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Button, Grid, Skeleton, Stack } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next-intl/client";

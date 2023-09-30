@@ -1,14 +1,6 @@
-import {
-  Box,
-  Grid,
-  Skeleton,
-  Stack,
-  SxProps,
-  Tab,
-  Tabs,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Box, Grid, Skeleton, Stack, SxProps, Tab, Tabs } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 import { useState } from "react";
 
 interface Props {

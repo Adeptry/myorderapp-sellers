@@ -8,7 +8,9 @@ import CheckoutFaqAccordion from "@/components/accordions/CheckoutFaqAccordion";
 import { StripeCheckoutCancelledCard } from "@/components/cards/StripeCheckoutCancelledCard";
 import PriceGrid from "@/components/grids/PriceGrid";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
-import { Stack, useMediaQuery, useTheme } from "@mui/material";
+import { Stack } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 
 export default function Page() {
   useRedirectUnauthenticatedSessions();

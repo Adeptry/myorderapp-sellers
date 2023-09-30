@@ -1,15 +1,15 @@
 import { routes } from "@/app/routes";
 import { mapNumberEnum } from "@/utils/mapNumberEnum";
 import {
+  Step,
   StepButton,
   StepLabel,
+  Stepper,
   SxProps,
   Typography,
-  useMediaQuery,
-  useTheme,
 } from "@mui/material";
-import Step from "@mui/material/Step";
-import Stepper from "@mui/material/Stepper";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next-intl/client";
 

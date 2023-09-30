@@ -8,7 +8,9 @@ import {
 import { SquareOauthExplainerCard } from "@/components/cards/SquareOauthExplainerCard";
 import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
-import { Stack, useMediaQuery, useTheme } from "@mui/material";
+import { Stack } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next-intl/client";
 import { useEffect } from "react";

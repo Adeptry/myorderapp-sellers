@@ -170,17 +170,12 @@
     "transactionFee": "トランザクションごとに+5%"
   },
   "Tier0SuccessCard": {
-    "adSupportedPrimary": "広告が含まれています",
-    "adSupportedSecondary": "広告がアプリ内に表示され、無料プランをサポートします。",
-    "buttonText": "設定に飛び込む",
-    "customizationPrimary": "カスタマイズが待っています",
-    "customizationSecondary": "独自のスタイルを追加してください：ロゴ、色、フォント。それをすべてSquareカタログと同期させます。",
-    "selfPublishedPrimary": "DIY公開",
-    "selfPublishedSecondary": "今、あなたが船長です。私たちは船を提供し、あなたがそれをアプリストアへ導きます。",
-    "subheader": "成功に向けて準備中です",
-    "timerPrimary": "サポートの応答時間",
-    "timerSecondary": "質問がありますか？高いボリュームにより、無料プランでは72時間以内に返信を期待してください。",
-    "title": "無料プランへようこそ！"
+    "nextStepsPrimary": "今後のマイルストーン:",
+    "nextStepsSecondary": "パフォーマンス分析をチェックし、それに応じてマーケティングを調整してください。もっと欲しい場合は、さらに充実した体験のためにシームレスにアップグレードできます。",
+    "subheader": "よくやった！あなたのウェブアプリは完全に機能しており、注文を受け付ける準備ができています。",
+    "supportPrimary": "基本サポート",
+    "supportSecondary": "困ったら、基本サポートを利用してください。72時間以内に返信を期待してください。",
+    "title": "あなたのウェブアプリはライブです！"
   },
   "Tier1CheckoutCard": {
     "buttonText": "今すぐ私のAndroidアプリを公開",

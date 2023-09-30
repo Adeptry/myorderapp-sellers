@@ -45,14 +45,13 @@ import {
   Skeleton,
   ToggleButton,
   ToggleButtonGroup,
-  useMediaQuery,
-  useTheme,
 } from "@mui/material";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import MuiDrawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { styled } from "@mui/material/styles";
+import { styled, useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { MerchantsApi } from "myorderapp-square";
 import { signOut, useSession } from "next-auth/react";

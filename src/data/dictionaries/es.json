@@ -170,17 +170,12 @@
     "transactionFee": "+5% por transacción"
   },
   "Tier0SuccessCard": {
-    "adSupportedPrimary": "Con publicidad",
-    "adSupportedSecondary": "Se mostrarán anuncios en tu aplicación, lo que respalda el nivel gratuito.",
-    "buttonText": "Sumérgete en la configuración",
-    "customizationPrimary": "La personalización te espera",
-    "customizationSecondary": "Añade tu propio estilo: logo, colores, fuentes. Sincronízalo todo con tu catálogo de Square.",
-    "selfPublishedPrimary": "Publicación DIY",
-    "selfPublishedSecondary": "Ahora eres el capitán. Te proporcionamos el barco; tú lo llevas a la App Store.",
-    "subheader": "Te estamos preparando para el éxito",
-    "timerPrimary": "Tiempo de respuesta del soporte",
-    "timerSecondary": "¿Preguntas? Espera una respuesta en un plazo de 72 horas debido al alto volumen en el nivel gratuito.",
-    "title": "¡Bienvenido a tu nivel gratuito!"
+    "nextStepsPrimary": "Próximos hitos:",
+    "nextStepsSecondary": "Revisa tus análisis de rendimiento y ajusta tu marketing en consecuencia. ¿Quieres más? Actualizar es sencillo para una experiencia aún más robusta.",
+    "subheader": "¡Bien hecho! Tu aplicación web está completamente funcional y lista para aceptar pedidos.",
+    "supportPrimary": "Soporte básico",
+    "supportSecondary": "¿Atascado? No dudes en utilizar nuestro soporte básico. Espera una respuesta en un plazo de 72 horas.",
+    "title": "¡Tu aplicación web está en vivo!"
   },
   "Tier1CheckoutCard": {
     "buttonText": "Publicar mi app de Android",

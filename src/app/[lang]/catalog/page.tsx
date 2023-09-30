@@ -6,7 +6,9 @@ import { TabLayout } from "@/components/layouts/TabLayout";
 import { useCurrentCatalogQuery } from "@/queries/useCurrentCatalogQuery";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { moaEnv } from "@/utils/moaEnv";
-import { Stack, useMediaQuery, useTheme } from "@mui/material";
+import { Stack } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 import { useLocale } from "next-intl";
 
 export default function Page() {
