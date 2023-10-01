@@ -3,7 +3,7 @@
 import { CatalogAccordion } from "@/components/accordions/CatalogAccordion";
 import { MyOrderAppPreview } from "@/components/app-preview/MyOrderAppPreview";
 import { TabLayout } from "@/components/layouts/TabLayout";
-import { useCurrentCatalogQuery } from "@/queries/useCurrentCatalogQuery";
+import { useGetCategoriesMeQuery } from "@/queries/useGetCategoriesMeQuery";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { moaEnv } from "@/utils/moaEnv";
 import { Stack } from "@mui/material";
@@ -16,7 +16,7 @@ export default function Page() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(780));
 
-  const currentCatalogQuery = useCurrentCatalogQuery();
+  const currentCatalogQuery = useGetCategoriesMeQuery();
   const currentCatalogCategories = currentCatalogQuery.data?.data ?? [];
   const locale = useLocale();
 

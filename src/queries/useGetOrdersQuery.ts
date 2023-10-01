@@ -7,9 +7,9 @@ import {
 } from "myorderapp-square";
 import { useSession } from "next-auth/react";
 
-export const defaultCurrentCatalogQueryKey = "useOrdersQuery";
+export const GetOrdersQueryKey = "useOrdersQuery";
 
-export const useOrdersQuery = (params: {
+export const useGetOrdersQuery = (params: {
   page: number;
   pageSize: number;
   sort?: GetOrdersOrderSortEnum;
@@ -20,11 +20,10 @@ export const useOrdersQuery = (params: {
   const sessionedApiConfiguration = useSessionedApiConfiguration();
 
   return useQuery({
-    queryKey: [defaultCurrentCatalogQueryKey, page, pageSize],
+    queryKey: [GetOrdersQueryKey, page, pageSize],
     queryFn: async () => {
-      const api = new OrdersApi(sessionedApiConfiguration);
       return (
-        await api.getOrders({
+        await new OrdersApi(sessionedApiConfiguration).getOrders({
           page: page,
           limit: pageSize,
           orderSort: sort,

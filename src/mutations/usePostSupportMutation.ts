@@ -2,7 +2,7 @@ import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfigurati
 import { useMutation } from "@tanstack/react-query";
 import { UsersApi, UsersApiPostSupportRequest } from "myorderapp-square";
 
-export const useSupportRequestMutation = () => {
+export const usePostSupportMutation = () => {
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   return useMutation({
     mutationFn: async (requestParameters: UsersApiPostSupportRequest) => {

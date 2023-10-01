@@ -6,7 +6,7 @@ import {
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
 import { SquareOauthExplainerCard } from "@/components/cards/SquareOauthExplainerCard";
-import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
+import { useGetMerchantMeQuery } from "@/queries/useGetMerchantMeQuery";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { Stack } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -18,7 +18,7 @@ import { useEffect } from "react";
 export default function Page() {
   useRedirectUnauthenticatedSessions();
   const { push } = useRouter();
-  const { data } = useCurrentMerchantQuery();
+  const { data } = useGetMerchantMeQuery();
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));

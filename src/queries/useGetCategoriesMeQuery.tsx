@@ -3,18 +3,17 @@ import { useQuery } from "@tanstack/react-query";
 import { CatalogsApi } from "myorderapp-square";
 import { useSession } from "next-auth/react";
 
-export const defaultCurrentCatalogQueryKey = ["getMyCatalog"];
+export const GetCategoriesQueryKey = ["getCategoriesMe"];
 
-export const useCurrentCatalogQuery = (queryKey?: string[] | undefined) => {
+export const useGetCategoriesMeQuery = () => {
   const { status } = useSession();
   const sessionedApiConfiguration = useSessionedApiConfiguration();
 
   return useQuery({
-    queryKey: queryKey ?? defaultCurrentCatalogQueryKey,
+    queryKey: GetCategoriesQueryKey,
     queryFn: async () => {
-      const catalogsApi = new CatalogsApi(sessionedApiConfiguration);
       return (
-        await catalogsApi.getCategoriesMe({
+        await new CatalogsApi(sessionedApiConfiguration).getCategoriesMe({
           items: true,
           images: true,
           variations: true,

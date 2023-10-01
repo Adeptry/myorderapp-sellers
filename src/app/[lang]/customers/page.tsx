@@ -1,6 +1,6 @@
 "use client";
 
-import { useCustomersQuery } from "@/queries/useCustomersQuery";
+import { useGetCustomersQuery } from "@/queries/useGetCustomersQuery";
 import { useRedirectSetupSessions } from "@/routing/useRedirectSetupSessions";
 import { Stack } from "@mui/material";
 import { DataGrid, GridPaginationModel, GridSortModel } from "@mui/x-data-grid";
@@ -22,7 +22,7 @@ export default function Page() {
     { field: "createDate", sort: "asc" },
   ]);
 
-  const { data } = useCustomersQuery({
+  const { data } = useGetCustomersQuery({
     page: paginationModel.page,
     pageSize: paginationModel.pageSize,
     sort:

@@ -1,4 +1,4 @@
-import { defaultCurrentCatalogQueryKey } from "@/queries/useCurrentCatalogQuery";
+import { GetCategoriesQueryKey } from "@/queries/useGetCategoriesMeQuery";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
@@ -21,7 +21,7 @@ export const useUpdateVariationMutation = () => {
     },
     onMutate: async ({ id, variationPatchBody }) => {
       const oldData = queryClient.getQueryData<CategoryPaginatedResponse>(
-        defaultCurrentCatalogQueryKey
+        GetCategoriesQueryKey
       );
 
       if (oldData) {
@@ -38,16 +38,16 @@ export const useUpdateVariationMutation = () => {
           }
         }
 
-        queryClient.setQueryData(defaultCurrentCatalogQueryKey, newData);
+        queryClient.setQueryData(GetCategoriesQueryKey, newData);
 
         return () => {
-          queryClient.setQueryData(defaultCurrentCatalogQueryKey, oldData);
+          queryClient.setQueryData(GetCategoriesQueryKey, oldData);
         };
       }
     },
 
     onSettled: () => {
-      queryClient.invalidateQueries(defaultCurrentCatalogQueryKey);
+      queryClient.invalidateQueries(GetCategoriesQueryKey);
     },
   });
 };

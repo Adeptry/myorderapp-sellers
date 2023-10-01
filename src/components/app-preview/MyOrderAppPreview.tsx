@@ -1,6 +1,6 @@
 import { MessagingIframe } from "@/components/messaging-iframe/MessagingIframe";
 import { toWindowClonable } from "@/components/messaging-iframe/WindowClonable";
-import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
+import { useGetMerchantMeQuery } from "@/queries/useGetMerchantMeQuery";
 import { moaEnv } from "@/utils/moaEnv";
 import { Box, SxProps } from "@mui/material";
 import { AppConfigEntity, CategoryEntity } from "myorderapp-square";
@@ -20,7 +20,7 @@ export function MyOrderAppPreview(props: {
   } | null;
 }) {
   const { sx } = props;
-  const { data: currentMerchantData } = useCurrentMerchantQuery();
+  const { data: currentMerchantData } = useGetMerchantMeQuery();
 
   return (
     <Box

@@ -8,8 +8,8 @@ import {
 import { CatalogAccordion } from "@/components/accordions/CatalogAccordion";
 import { MyOrderAppPreview } from "@/components/app-preview/MyOrderAppPreview";
 import { TabLayout } from "@/components/layouts/TabLayout";
-import { useCurrentCatalogQuery } from "@/queries/useCurrentCatalogQuery";
-import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
+import { useGetCategoriesMeQuery } from "@/queries/useGetCategoriesMeQuery";
+import { useGetMerchantMeQuery } from "@/queries/useGetMerchantMeQuery";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { moaEnv } from "@/utils/moaEnv";
 import { ArrowForward, CheckCircleOutline } from "@mui/icons-material";
@@ -27,12 +27,12 @@ export default function Page() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(780));
   const { status } = useSession();
-  const currentCatalogQuery = useCurrentCatalogQuery();
+  const currentCatalogQuery = useGetCategoriesMeQuery();
   const currentCatalogCategories = currentCatalogQuery.data?.data ?? [];
   const locale = useLocale();
 
   const skeleton = status === "loading";
-  const { data: currentMerchantData } = useCurrentMerchantQuery();
+  const { data: currentMerchantData } = useGetMerchantMeQuery();
   const common = useTranslations("Common");
 
   useEffect(() => {

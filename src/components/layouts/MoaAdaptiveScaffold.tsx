@@ -3,7 +3,7 @@
 import { routes } from "@/app/routes";
 import { FooterLayout } from "@/components/layouts/FooterLayout";
 import { useCookieContext } from "@/contexts/CookieContext";
-import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
+import { useGetMerchantMeQuery } from "@/queries/useGetMerchantMeQuery";
 import { fullNameForMerchant } from "@/utils/fullNameForMerchant";
 import { initialsForMerchant } from "@/utils/initialsForMerchant";
 import { isMerchantSetupFn } from "@/utils/isMerchantSetup";
@@ -52,6 +52,8 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { styled, useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { MerchantsApi } from "myorderapp-square";
 import { signOut, useSession } from "next-auth/react";
@@ -60,6 +62,7 @@ import { usePathname, useRouter } from "next-intl/client";
 import { Fragment, ReactNode, useState } from "react";
 import { useBoolean } from "usehooks-ts";
 import { MoaLink } from "../links/MoaLink";
+
 const drawerWidth: number = 240;
 
 interface AppBarProps extends MuiAppBarProps {
@@ -126,7 +129,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const { status } = useSession();
   const queryClient = useQueryClient();
-  const { data: currentMerchantData } = useCurrentMerchantQuery();
+  const { data: currentMerchantData } = useGetMerchantMeQuery();
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const { colorModeCookieValue, setColorModeCookieValue, colorCookieValue } =
     useCookieContext();
@@ -467,7 +470,9 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
             mt: `${appBarHeight}px`,
           }}
         >
-          {props.children}
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            {props.children}
+          </LocalizationProvider>
         </Container>
         <Box
           sx={{

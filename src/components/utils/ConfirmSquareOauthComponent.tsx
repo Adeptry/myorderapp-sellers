@@ -6,7 +6,8 @@ import axios from "axios";
 import { MerchantsApi } from "myorderapp-square";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next-intl/client";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export function ConfirmSquareOauthComponent() {

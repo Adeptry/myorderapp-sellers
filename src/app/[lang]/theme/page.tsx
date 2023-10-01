@@ -3,7 +3,7 @@
 import { MyOrderAppPreview } from "@/components/app-preview/MyOrderAppPreview";
 import { AppConfigForm } from "@/components/forms/AppConfigForm";
 import { TabLayout } from "@/components/layouts/TabLayout";
-import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
+import { useGetMerchantMeQuery } from "@/queries/useGetMerchantMeQuery";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { moaEnv } from "@/utils/moaEnv";
 import { Stack } from "@mui/material";
@@ -20,7 +20,7 @@ export default function Page() {
   const [appConfigState, setAppConfigState] = useState<
     AppConfigEntity | undefined
   >(undefined);
-  const { data } = useCurrentMerchantQuery();
+  const { data } = useGetMerchantMeQuery();
   const locale = useLocale();
 
   return (

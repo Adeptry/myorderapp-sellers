@@ -74,7 +74,8 @@
     "support": "Soporte",
     "theme": "Tema",
     "totalMoneyAmount": "Total",
-    "useMyOrderApp": "Usar MyOrderApp"
+    "useMyOrderApp": "Usar MyOrderApp",
+    "See more": "Voir plus"
   },
   "FaqAccordion": {
     "ads": {
@@ -115,6 +116,16 @@
   },
   "GoogleAuthButton": {
     "text": "Continuar con Google"
+  },
+  "HomePage": {
+    "endDatePickerLabel": "Fecha de fin",
+    "moneyAmountSumLabel": "Ingresos recaudados",
+    "moneyAppFeeAmountSumLabel": "Tarifas de la aplicación pagadas",
+    "moneyTaxAmountSumLabel": "Impuestos sobre ventas recaudados",
+    "moneyTipAmountSumLabel": "Propinas recaudadas",
+    "recentCustomersLabel": "Clientes recientes",
+    "recentOrdersLabel": "Pedidos recientes",
+    "startDatePickerLabel": "Fecha de inicio"
   },
   "LegalMenu": {
     "gdpr": "RGPD",

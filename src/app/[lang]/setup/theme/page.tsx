@@ -8,7 +8,7 @@ import {
 import { MyOrderAppPreview } from "@/components/app-preview/MyOrderAppPreview";
 import { AppConfigForm } from "@/components/forms/AppConfigForm";
 import { TabLayout } from "@/components/layouts/TabLayout";
-import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
+import { useGetMerchantMeQuery } from "@/queries/useGetMerchantMeQuery";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { moaEnv } from "@/utils/moaEnv";
 import { Stack } from "@mui/material";
@@ -28,7 +28,7 @@ export default function Page() {
     AppConfigEntity | undefined
   >(undefined);
   const common = useTranslations("Common");
-  const { data } = useCurrentMerchantQuery();
+  const { data } = useGetMerchantMeQuery();
   const { push } = useRouter();
   const { status } = useSession();
   const locale = useLocale();

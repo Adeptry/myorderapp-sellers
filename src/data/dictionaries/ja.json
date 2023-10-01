@@ -30,6 +30,7 @@
     "text": "Appleで続行"
   },
   "Common": {
+    "See more": "もっと見る",
     "acceptAndContinue": "同意して続ける",
     "billing": "課金",
     "brandName": "MyOrderApp",
@@ -115,6 +116,16 @@
   },
   "GoogleAuthButton": {
     "text": "Googleで続行"
+  },
+  "HomePage": {
+    "endDatePickerLabel": "終了日",
+    "moneyAmountSumLabel": "収集された収益",
+    "moneyAppFeeAmountSumLabel": "支払ったアプリ料金",
+    "moneyTaxAmountSumLabel": "収集された消費税",
+    "moneyTipAmountSumLabel": "収集されたチップ",
+    "recentCustomersLabel": "最近の顧客",
+    "recentOrdersLabel": "最近の注文",
+    "startDatePickerLabel": "開始日"
   },
   "LegalMenu": {
     "gdpr": "GDPR",

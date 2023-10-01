@@ -1,6 +1,6 @@
 "use client";
 
-import { useOrdersQuery } from "@/queries/useOrdersQuery";
+import { useGetOrdersQuery } from "@/queries/useGetOrdersQuery";
 import { useRedirectSetupSessions } from "@/routing/useRedirectSetupSessions";
 import { Stack } from "@mui/material";
 import { DataGrid, GridPaginationModel, GridSortModel } from "@mui/x-data-grid";
@@ -22,7 +22,7 @@ export default function Page() {
     { field: "closedDate", sort: "asc" },
   ]);
 
-  const { data } = useOrdersQuery({
+  const { data } = useGetOrdersQuery({
     page: paginationModel.page + 1,
     pageSize: paginationModel.pageSize,
   });

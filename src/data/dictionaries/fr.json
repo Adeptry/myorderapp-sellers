@@ -116,6 +116,16 @@
   "GoogleAuthButton": {
     "text": "Continuer avec Google"
   },
+  "HomePage": {
+    "endDatePickerLabel": "Date de fin",
+    "moneyAmountSumLabel": "Revenus collectés",
+    "moneyAppFeeAmountSumLabel": "Frais d'application payés",
+    "moneyTaxAmountSumLabel": "Taxes sur les ventes collectées",
+    "moneyTipAmountSumLabel": "Pourboires collectés",
+    "recentCustomersLabel": "Clients récents",
+    "recentOrdersLabel": "Commandes récentes",
+    "startDatePickerLabel": "Date de début"
+  },
   "LegalMenu": {
     "gdpr": "RGPD",
     "legal": "Juridique",

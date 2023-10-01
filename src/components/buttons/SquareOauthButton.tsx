@@ -1,7 +1,7 @@
 "use client";
 
 import { routes } from "@/app/routes";
-import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
+import { useGetMerchantMeQuery } from "@/queries/useGetMerchantMeQuery";
 import { moaEnv } from "@/utils/moaEnv";
 import { Button, Skeleton, SxProps } from "@mui/material";
 import { useTranslations } from "next-intl";
@@ -26,7 +26,7 @@ export function SquareOauthButton(props: SquareOauthButtonProps) {
     redirect_uri,
   } = props;
 
-  const { data } = useCurrentMerchantQuery();
+  const { data } = useGetMerchantMeQuery();
 
   const t = useTranslations("SquareOauthButton");
 

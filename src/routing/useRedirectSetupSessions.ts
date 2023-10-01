@@ -1,7 +1,7 @@
 import { routes } from "@/app/routes";
-import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
+import { useGetMerchantMeQuery } from "@/queries/useGetMerchantMeQuery";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-intl/client";
 import { useEffect } from "react";
 import { useRedirectUnauthenticatedSessions } from "./useRedirectUnauthenticatedSessions";
 
@@ -10,7 +10,7 @@ export const useRedirectSetupSessions = () => {
 
   const router = useRouter();
   const { status: authStatus } = useSession();
-  const { data, status: queryStatus } = useCurrentMerchantQuery();
+  const { data, status: queryStatus } = useGetMerchantMeQuery();
 
   useEffect(() => {
     if (queryStatus === "success") {

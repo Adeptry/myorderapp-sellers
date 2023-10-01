@@ -20,7 +20,7 @@ import {
 import { useFormatter, useTranslations } from "next-intl";
 
 export function Tier2CheckoutCard() {
-  const format = useFormatter();
+  const formatter = useFormatter();
   const t = useTranslations("Tier2CheckoutCard");
   const common = useTranslations("Common");
   const { currencyCookieValue } = useCookieContext();
@@ -48,7 +48,7 @@ export function Tier2CheckoutCard() {
           >
             <Typography component="h2" variant="h3" color="text.primary">
               {currencyCookieValue &&
-                format.number(
+                formatter.number(
                   constants.currencyToPriceDictionaries[2][currencyCookieValue],
                   {
                     style: "currency",

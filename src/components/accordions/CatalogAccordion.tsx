@@ -1,8 +1,8 @@
-import { useUpdateCategoriesMutation } from "@/mutations/useUpdateCategoriesMutation";
-import { useUpdateItemsMutation } from "@/mutations/useUpdateItemsMutation";
+import { usePatchCategoriesMutation } from "@/mutations/usePatchCategoriesMutation";
+import { usePatchItemsMutation } from "@/mutations/usePatchItemsMutation";
+import { usePostItemSquareImageUploadMutation } from "@/mutations/usePostItemSquareImageUploadMutation";
 import { useUpdateVariationMutation } from "@/mutations/useUpdateVariationMutation";
-import { useUploadImageToSquareCatalogMutation } from "@/mutations/useUploadImageToSquareCatalogMutation";
-import { useCurrentCatalogQuery } from "@/queries/useCurrentCatalogQuery";
+import { useGetCategoriesMeQuery } from "@/queries/useGetCategoriesMeQuery";
 import { StrictModeDroppable } from "@/utils/StrictModeDroppable";
 import { logger } from "@/utils/logger";
 import { Add, DragHandle, ExpandMore } from "@mui/icons-material";
@@ -24,14 +24,14 @@ import { nanoid } from "nanoid";
 import { DragDropContext, Draggable, DropResult } from "react-beautiful-dnd";
 
 export function CatalogAccordion() {
-  const currentCatalogQuery = useCurrentCatalogQuery();
+  const currentCatalogQuery = useGetCategoriesMeQuery();
   const currentCatalogCategories = currentCatalogQuery.data?.data ?? [];
 
-  const updateItemsMutation = useUpdateItemsMutation();
-  const updateCategoriesMutation = useUpdateCategoriesMutation();
+  const updateItemsMutation = usePatchItemsMutation();
+  const updateCategoriesMutation = usePatchCategoriesMutation();
   const updateVariationMutation = useUpdateVariationMutation();
   const uploadImageToSquareCatalogMutation =
-    useUploadImageToSquareCatalogMutation();
+    usePostItemSquareImageUploadMutation();
 
   const handleCategoryDragEnd = (result: DropResult) => {
     const { source, destination } = result;

@@ -18,7 +18,8 @@ import {
   AuthenticationPasswordResetRequestBody,
 } from "myorderapp-square";
 import { useTranslations } from "next-intl";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next-intl/client";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";

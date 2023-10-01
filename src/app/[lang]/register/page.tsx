@@ -6,7 +6,7 @@ import {
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
 import { SignUpForm } from "@/components/forms/SignUpForm";
-import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
+import { useGetMerchantMeQuery } from "@/queries/useGetMerchantMeQuery";
 import { useRedirectAuthenticatedSessions } from "@/routing/useRedirectAuthenticatedSessions";
 import { Grid, Typography } from "@mui/material";
 import { Box, Stack } from "@mui/system";
@@ -16,7 +16,7 @@ import { useTranslations } from "next-intl";
 export default function Page() {
   useRedirectAuthenticatedSessions();
   const { status } = useSession();
-  const { data } = useCurrentMerchantQuery();
+  const { data } = useGetMerchantMeQuery();
   const common = useTranslations("Common");
 
   return (

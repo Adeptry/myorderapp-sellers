@@ -1,4 +1,4 @@
-import { defaultCurrentCatalogQueryKey } from "@/queries/useCurrentCatalogQuery";
+import { GetCategoriesQueryKey } from "@/queries/useGetCategoriesMeQuery";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
@@ -7,7 +7,7 @@ import {
   ItemsPatchBody,
 } from "myorderapp-square";
 
-export const useUpdateItemsMutation = () => {
+export const usePatchItemsMutation = () => {
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const queryClient = useQueryClient();
   return useMutation({
@@ -20,7 +20,7 @@ export const useUpdateItemsMutation = () => {
     },
     onMutate: async (itemsPatchBody: Array<ItemsPatchBody>) => {
       const oldResponse = queryClient.getQueryData(
-        defaultCurrentCatalogQueryKey
+        GetCategoriesQueryKey
       ) as CategoryPaginatedResponse;
 
       const newCategories = Array.from(
@@ -49,15 +49,14 @@ export const useUpdateItemsMutation = () => {
         );
       });
 
-      queryClient.setQueryData(defaultCurrentCatalogQueryKey, {
+      queryClient.setQueryData(GetCategoriesQueryKey, {
         data: newCategories,
       });
 
-      return () =>
-        queryClient.setQueryData(defaultCurrentCatalogQueryKey, oldResponse);
+      return () => queryClient.setQueryData(GetCategoriesQueryKey, oldResponse);
     },
     onSettled: () => {
-      queryClient.invalidateQueries(defaultCurrentCatalogQueryKey);
+      queryClient.invalidateQueries(GetCategoriesQueryKey);
     },
   });
 };

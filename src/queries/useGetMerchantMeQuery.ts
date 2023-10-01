@@ -5,17 +5,22 @@ import { AxiosError } from "axios";
 import { MerchantsApi } from "myorderapp-square";
 import { useSession } from "next-auth/react";
 
-export const useCurrentMerchantQuery = () => {
+export const GetMerchantsMeQueryKey = "getMerchantMe";
+
+export const useGetMerchantMeQuery = () => {
   const { status: authStatus, update, data: session } = useSession();
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const { setColorCookieValue } = useCookieContext();
 
   return useQuery({
-    queryKey: ["getMerchantMe", sessionedApiConfiguration.accessToken],
+    queryKey: [GetMerchantsMeQueryKey, sessionedApiConfiguration.accessToken],
     queryFn: async () => {
-      const api = new MerchantsApi(sessionedApiConfiguration);
       const data = (
-        await api.getMerchantMe({ user: true, appConfig: true, catalog: true })
+        await new MerchantsApi(sessionedApiConfiguration).getMerchantMe({
+          user: true,
+          appConfig: true,
+          catalog: true,
+        })
       ).data;
       const seedColor = data.appConfig?.seedColor;
       if (seedColor) {

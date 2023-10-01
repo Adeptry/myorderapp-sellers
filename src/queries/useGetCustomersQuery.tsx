@@ -3,9 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import { CustomersApi, GetOrdersOrderSortEnum } from "myorderapp-square";
 import { useSession } from "next-auth/react";
 
-export const defaultCurrentCatalogQueryKey = "useCustomersQuery";
+export const GetCustomersQueryKey = "getCustomers";
 
-export const useCustomersQuery = (params: {
+export const useGetCustomersQuery = (params: {
   page: number;
   pageSize: number;
   sort: GetOrdersOrderSortEnum;
@@ -15,11 +15,10 @@ export const useCustomersQuery = (params: {
   const sessionedApiConfiguration = useSessionedApiConfiguration();
 
   return useQuery({
-    queryKey: [defaultCurrentCatalogQueryKey, page, pageSize],
+    queryKey: [GetCustomersQueryKey, page, pageSize],
     queryFn: async () => {
-      const api = new CustomersApi(sessionedApiConfiguration);
       return (
-        await api.getCustomers({
+        await new CustomersApi(sessionedApiConfiguration).getCustomers({
           page,
           limit: pageSize,
           orderSort: sort,

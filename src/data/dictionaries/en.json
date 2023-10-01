@@ -30,6 +30,7 @@
     "text": "Continue with Apple"
   },
   "Common": {
+    "See more": "Ver más",
     "acceptAndContinue": "Accept & Continue",
     "billing": "Billing",
     "brandName": "MyOrderApp",
@@ -71,6 +72,7 @@
     "resetPasswordSuccess": "Your password has been reset. You can now log in.",
     "save": "Save",
     "saveAndContinue": "Save and Continue",
+    "seeMore": "See more",
     "subscribe": "Subscribe",
     "support": "Support",
     "theme": "Theme",
@@ -116,6 +118,16 @@
   },
   "GoogleAuthButton": {
     "text": "Continue with Google"
+  },
+  "HomePage": {
+    "endDatePickerLabel": "End date",
+    "moneyAmountSumLabel": "Revenue collected",
+    "moneyAppFeeAmountSumLabel": "App fees paid",
+    "moneyTaxAmountSumLabel": "Sales tax collected",
+    "moneyTipAmountSumLabel": "Tips collected",
+    "recentCustomersLabel": "Recent customers",
+    "recentOrdersLabel": "Recent orders",
+    "startDatePickerLabel": "Start date"
   },
   "LegalMenu": {
     "gdpr": "GDPR",

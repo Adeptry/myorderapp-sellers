@@ -1,9 +1,9 @@
-import { defaultCurrentCatalogQueryKey } from "@/queries/useCurrentCatalogQuery";
+import { GetCategoriesQueryKey } from "@/queries/useGetCategoriesMeQuery";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CatalogsApi } from "myorderapp-square";
 
-export const useUploadImageToSquareCatalogMutation = () => {
+export const usePostItemSquareImageUploadMutation = () => {
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const queryClient = useQueryClient();
   return useMutation({
@@ -17,7 +17,7 @@ export const useUploadImageToSquareCatalogMutation = () => {
       ).postItemSquareImageUpload({ ...params });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(defaultCurrentCatalogQueryKey);
+      queryClient.invalidateQueries(GetCategoriesQueryKey);
     },
   });
 };

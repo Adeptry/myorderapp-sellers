@@ -1,6 +1,6 @@
 "use client";
 
-import { useCurrentMerchantQuery } from "@/queries/useCurrentMerchantQuery";
+import { useGetMerchantMeQuery } from "@/queries/useGetMerchantMeQuery";
 import { configurationForSession } from "@/utils/configurationForSession";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -26,7 +26,7 @@ export function UserUpdateForm() {
   const [errorString, setErrorString] = useState<string | null>(null);
   const common = useTranslations("Common");
   const configuration = useSessionedApiConfiguration();
-  const currentMerchantQuery = useCurrentMerchantQuery();
+  const currentMerchantQuery = useGetMerchantMeQuery();
 
   const { formState, setError, handleSubmit, control, reset, watch } =
     useForm<UserUpdateFormType>({

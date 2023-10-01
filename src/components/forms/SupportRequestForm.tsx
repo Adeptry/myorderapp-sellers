@@ -1,6 +1,6 @@
 "use client";
 
-import { useSupportRequestMutation } from "@/mutations/useSupportRequestMutation";
+import { usePostSupportMutation } from "@/mutations/usePostSupportMutation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Send } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
@@ -40,7 +40,7 @@ export function SupportRequestForm() {
     return () => subscription.unsubscribe();
   }, [watch()]);
 
-  const mutation = useSupportRequestMutation();
+  const mutation = usePostSupportMutation();
 
   async function handleOnValidSubmit(supportRequestPostBody: FormType) {
     try {
