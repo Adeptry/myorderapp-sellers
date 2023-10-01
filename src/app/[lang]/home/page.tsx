@@ -78,7 +78,7 @@ export default function Page() {
         />
       </Stack>
       <Grid container spacing={2}>
-        <Grid item xs={6} md={3}>
+        <Grid item xs={12} sm={6} md={3}>
           <Card>
             <CardContent>
               <Typography color="text.secondary" gutterBottom>
@@ -98,7 +98,7 @@ export default function Page() {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={6} md={3}>
+        <Grid item xs={12} sm={6} md={3}>
           <Card>
             <CardContent>
               <Typography color="text.secondary" gutterBottom>
@@ -118,7 +118,7 @@ export default function Page() {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={6} md={3}>
+        <Grid item xs={12} sm={6} md={3}>
           <Card>
             <CardContent>
               <Typography color="text.secondary" gutterBottom>
@@ -138,7 +138,7 @@ export default function Page() {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={6} md={3}>
+        <Grid item xs={12} sm={6} md={3}>
           <Card>
             <CardContent>
               <Typography color="text.secondary" gutterBottom>

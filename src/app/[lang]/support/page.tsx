@@ -13,7 +13,7 @@ export default function Page() {
 
   return (
     <Grid container justifyContent="center" py={2} spacing={2}>
-      <Grid item xs={12} sm={12} md={8} lg={6}>
+      <Grid item xs={12} sm={12} md={6}>
         <Box display="flex" justifyContent="center">
           <Typography component="h1" variant="h4" pb={3}>
             {common("support")}
@@ -21,7 +21,12 @@ export default function Page() {
         </Box>
         <SupportRequestForm />
       </Grid>
-      <Grid item xs={12} sm={12} md={8} lg={6}>
+      <Grid item xs={12} sm={12} md={6}>
+        <Box display="flex" justifyContent="center">
+          <Typography component="h1" variant="h4" pb={3}>
+            {common("frequentlyAskedQuestions")}
+          </Typography>
+        </Box>
         <FaqAccordion />
       </Grid>
     </Grid>

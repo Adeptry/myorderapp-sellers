@@ -158,7 +158,7 @@ export function CatalogAccordion() {
               >
                 {(provided) => (
                   <Paper
-                    elevation={2}
+                    elevation={1}
                     sx={{ mb: 2 }}
                     ref={provided.innerRef}
                     {...provided.draggableProps}
@@ -219,7 +219,7 @@ export function CatalogAccordion() {
                                   >
                                     {(provided) => (
                                       <Accordion
-                                        elevation={4}
+                                        elevation={2}
                                         ref={provided.innerRef}
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}
@@ -303,7 +303,7 @@ export function CatalogAccordion() {
                                           </Box>
                                         </AccordionSummary>
                                         <AccordionDetails>
-                                          <Paper elevation={6}>
+                                          <Paper elevation={3}>
                                             <List>
                                               {(
                                                 itemInCategory.variations ?? []
