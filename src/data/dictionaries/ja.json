@@ -30,7 +30,6 @@
     "text": "Appleで続行"
   },
   "Common": {
-    "See more": "もっと見る",
     "acceptAndContinue": "同意して続ける",
     "billing": "課金",
     "brandName": "MyOrderApp",
@@ -71,6 +70,7 @@
     "resetPasswordSuccess": "パスワードがリセットされました。これでログインできます。",
     "save": "保存",
     "saveAndContinue": "保存して続ける",
+    "seeMore": "もっと見る",
     "subscribe": "購読",
     "support": "サポート",
     "theme": "テーマ",
