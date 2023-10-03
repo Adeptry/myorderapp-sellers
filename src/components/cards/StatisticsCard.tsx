@@ -7,8 +7,6 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 import { useTranslations } from "next-intl";
 import { Fragment } from "react";
 
@@ -24,8 +22,6 @@ export function StatisticsCard(props: {
   const { title, sum, average, maximum, minimum, tooltipTitle, loading } =
     props;
   const t = useTranslations("StatisticsCard");
-  const theme = useTheme();
-  const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
 
   return (
     <Card variant="outlined">

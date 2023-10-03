@@ -13,7 +13,9 @@ export function ThemeRegistry({ children }: { children: ReactNode }) {
       ? true
       : colorModeCookieValue === "light"
       ? false
-      : window.matchMedia("(prefers-color-scheme: dark)").matches;
+      : typeof window !== "undefined"
+      ? window.matchMedia("(prefers-color-scheme: dark)").matches
+      : false;
 
   const theme = useMemo(
     () =>
