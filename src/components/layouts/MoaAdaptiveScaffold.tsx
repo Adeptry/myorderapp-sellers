@@ -10,7 +10,6 @@ import { isMerchantSetupFn } from "@/utils/isMerchantSetup";
 import { stringToColor } from "@/utils/stringToColor";
 import { useAppBarHeight } from "@/utils/useAppBarHeight";
 import { useCurrentMerchantMoaUrl } from "@/utils/useCurrentMerchantMoaUrl";
-import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import {
   AccountCircleOutlined,
@@ -33,7 +32,6 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import {
   Avatar,
   Box,
-  Container,
   IconButton,
   List,
   ListItem,
@@ -42,7 +40,6 @@ import {
   ListItemText,
   Menu,
   MenuItem,
-  Skeleton,
   ToggleButton,
   ToggleButtonGroup,
 } from "@mui/material";
@@ -117,7 +114,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   const common = useTranslations("Common");
   const appBarHeight = useAppBarHeight();
-  const maxHeightCssString = useMaxHeightCssString();
+
   const { push } = useRouter();
   const pathname = usePathname();
   const moaUrl = useCurrentMerchantMoaUrl();
@@ -216,7 +213,11 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
       <ToggleButtonGroup
         value={colorModeCookieValue}
         exclusive
-        onChange={(event, value) => setColorModeCookieValue(value as any)}
+        onChange={(event, value: string | null) => {
+          if (value === "system" || value === "dark" || value === "light") {
+            setColorModeCookieValue(value);
+          }
+        }}
         aria-label="text alignment"
         size="small"
       >
@@ -263,7 +264,6 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
       </MoaLink>
 
       <Box sx={{ flexGrow: 0 }}>
-        {skeleton && <Skeleton height="40px" width="40px" variant="circular" />}
         {currentMerchantData && (
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
             <Avatar
@@ -464,16 +464,15 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
           height: isSmallScreen ? "inherit" : `calc(100vh)`,
         }}
       >
-        <Container
+        <Box
           sx={{
-            minHeight: maxHeightCssString,
             mt: `${appBarHeight}px`,
           }}
         >
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             {props.children}
           </LocalizationProvider>
-        </Container>
+        </Box>
         <Box
           sx={{
             borderTop: "1px",

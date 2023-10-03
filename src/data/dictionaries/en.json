@@ -30,7 +30,6 @@
     "text": "Continue with Apple"
   },
   "Common": {
-    "See more": "Ver más",
     "acceptAndContinue": "Accept & Continue",
     "billing": "Billing",
     "brandName": "MyOrderApp",
@@ -45,6 +44,7 @@
     "customerSince": "Customer since",
     "customers": "Customers",
     "dashboard": "Dashboard",
+    "date": "Date",
     "email": "Email",
     "error": "Oops, something went wrong. Don't worry, your data is safe. We've been notified and are working to fix the issue.",
     "firstName": "First name",
@@ -52,12 +52,14 @@
     "forgotPasswordSuccess": "Check your email for a link to reset your password.",
     "frequentlyAskedQuestions": "Frequently Asked Questions",
     "id": "ID",
+    "joined": "Joined",
     "language": "Language",
     "lastName": "Last name",
     "location": "Location",
     "logIn": "Log in",
     "logOut": "Log out",
     "mainSite": "Main site",
+    "name": "Name",
     "newPassword": "New password",
     "options": "Options",
     "orders": "Orders",
@@ -78,6 +80,27 @@
     "theme": "Theme",
     "totalMoneyAmount": "Total",
     "useMyOrderApp": "Use MyOrderApp"
+  },
+  "CustomersDataGrid": {
+    "createDateHeaderName": "Customer since",
+    "emailHeaderName": "Email",
+    "nameHeaderName": "Name",
+    "phoneNumberHeaderName": "Phone number",
+    "noData": "Customers will appear here."
+  },
+  "Dashboard": {
+    "endDatePickerLabel": "End date",
+    "moneyAmountLabel": "Revenue",
+    "moneyAmountTooltip": "The sum of the total amount of money collected for app orders in the date range.",
+    "moneyAppFeeAmountLabel": "App fees",
+    "moneyAppFeeAmountTooltip": "The sum of the total amount of app fee money collected from app orders in the date range.",
+    "moneyTaxAmountLabel": "Sales tax",
+    "moneyTaxAmountTooltip": "The sum of the total amount of tax money collected for app orders in the date range.",
+    "moneyTipAmountLabel": "Tips",
+    "moneyTipAmountTooltip": "The sum of the total amount of tip money collected for app orders in the date range.",
+    "recentCustomersLabel": "Customers",
+    "recentOrdersLabel": "Orders",
+    "startDatePickerLabel": "Start date"
   },
   "FaqAccordion": {
     "ads": {
@@ -119,16 +142,6 @@
   "GoogleAuthButton": {
     "text": "Continue with Google"
   },
-  "HomePage": {
-    "endDatePickerLabel": "End date",
-    "moneyAmountSumLabel": "Revenue collected",
-    "moneyAppFeeAmountSumLabel": "App fees paid",
-    "moneyTaxAmountSumLabel": "Sales tax collected",
-    "moneyTipAmountSumLabel": "Tips collected",
-    "recentCustomersLabel": "Recent customers",
-    "recentOrdersLabel": "Recent orders",
-    "startDatePickerLabel": "Start date"
-  },
   "LegalMenu": {
     "gdpr": "GDPR",
     "legal": "Legal",
@@ -139,6 +152,14 @@
     "customize": "Customize",
     "publish": "Publish",
     "synchronize": "Synchronize"
+  },
+  "OrdersDataGrid": {
+    "closedDateHeaderName": "Closed date",
+    "customerHeaderName": "Customer",
+    "idHeaderName": "Order ID",
+    "locationHeaderName": "Location",
+    "totalMoneyAmountHeaderName": "Total",
+    "noData": "Orders will appear here."
   },
   "SignInForm": {
     "submitButton": "Log In with Email"
@@ -165,6 +186,11 @@
     "posIntegrationPrimary": "POS Integration",
     "posIntegrationSecondary": "Send orders directly to your point-of-sale systems, bridging the gap between online orders and in-person sales.",
     "title": "Authorize us to access Square"
+  },
+  "StatisticsCard": {
+    "averageAbbreviation": "Avg",
+    "maximumAbbreviation": "Max",
+    "minimumAbbreviation": "Min"
   },
   "StripeCheckoutButton": {
     "text": "Subscribe"

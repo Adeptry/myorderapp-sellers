@@ -8,8 +8,9 @@ import {
 import { SignUpForm } from "@/components/forms/SignUpForm";
 import { useGetMerchantMeQuery } from "@/queries/useGetMerchantMeQuery";
 import { useRedirectAuthenticatedSessions } from "@/routing/useRedirectAuthenticatedSessions";
-import { Grid, Typography } from "@mui/material";
-import { Box, Stack } from "@mui/system";
+import { useMaxHeightCssString } from "@/utils/useMaxHeight";
+import { Container, Grid, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 
@@ -18,9 +19,10 @@ export default function Page() {
   const { status } = useSession();
   const { data } = useGetMerchantMeQuery();
   const common = useTranslations("Common");
+  const maxHeightCssString = useMaxHeightCssString();
 
   return (
-    <Stack py={2}>
+    <Container sx={{ minHeight: maxHeightCssString }}>
       <OnboardingStepper
         activeStep={OnboardingSteps.signUp}
         sx={{ width: "100%", pb: 2 }}
@@ -39,6 +41,6 @@ export default function Page() {
           />
         </Grid>
       </Grid>
-    </Stack>
+    </Container>
   );
 }

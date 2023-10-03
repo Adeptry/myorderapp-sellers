@@ -7,7 +7,7 @@ import {
   VariationPatchBody,
 } from "myorderapp-square";
 
-export const useUpdateVariationMutation = () => {
+export const usePatchVariationMutation = () => {
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const queryClient = useQueryClient();
   return useMutation({
@@ -15,7 +15,7 @@ export const useUpdateVariationMutation = () => {
       id: string;
       variationPatchBody: VariationPatchBody;
     }) => {
-      return await new CatalogsApi(sessionedApiConfiguration).updateVariation({
+      return await new CatalogsApi(sessionedApiConfiguration).patchVariation({
         ...params,
       });
     },

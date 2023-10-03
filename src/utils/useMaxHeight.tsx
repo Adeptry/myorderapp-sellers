@@ -1,6 +1,15 @@
 import { useAppBarHeight } from "./useAppBarHeight";
 
-export function useMaxHeightCssString(): string {
+export function useFooterHeight(): number {
+  return 57;
+}
+
+export function useHeaderAndFooterHeight(): number {
   const appBarHeight = useAppBarHeight();
-  return `calc(100vh - ${appBarHeight ?? 0}px - 57px)`;
+  const footerHeight = useFooterHeight();
+  return (appBarHeight ?? 0) + footerHeight;
+}
+
+export function useMaxHeightCssString(): string {
+  return `calc(100vh - ${useHeaderAndFooterHeight()}px)`; // 57 is footer
 }

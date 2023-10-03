@@ -13,7 +13,7 @@ import {
 interface CookieContextProps {
   currencyCookieValue: string | undefined;
   setCurrencyCookieValue: (currency: string | undefined) => void;
-  colorModeCookieValue: "light" | "dark" | "system";
+  colorModeCookieValue: "light" | "dark" | "system" | undefined;
   setColorModeCookieValue: (colorMode: "light" | "dark" | "system") => void;
   colorCookieValue: string | undefined;
   setColorCookieValue: (color: string) => void;
@@ -33,8 +33,8 @@ export function CookieProvider({ children }: CookieProviderProps) {
   );
 
   const [colorModeState, setColorModeState] = useState<
-    "light" | "dark" | "system"
-  >("light");
+    "light" | "dark" | "system" | undefined
+  >(undefined);
 
   const [colorState, setColorState] = useState<string | undefined>(undefined);
 
@@ -42,10 +42,12 @@ export function CookieProvider({ children }: CookieProviderProps) {
     setCurrencyState(getCookie(constants.currencyCookieName));
 
     const colorMode = getCookie(constants.colorModeCookieName);
-    if (colorMode === "dark" || colorMode === "system") {
+    if (
+      colorMode === "dark" ||
+      colorMode === "system" ||
+      colorMode === "light"
+    ) {
       setColorModeState(colorMode);
-    } else {
-      setColorModeState("light");
     }
 
     setColorState(getCookie(constants.colorCookieName));
@@ -64,12 +66,8 @@ export function CookieProvider({ children }: CookieProviderProps) {
 
   useEffect(() => {
     if (colorModeState !== undefined) {
-      const currentCurrencyCookieValue = getCookie(
-        constants.colorModeCookieName
-      );
-      if (currentCurrencyCookieValue !== colorModeState) {
-        setCookie(constants.colorModeCookieName, colorModeState);
-      }
+      console.log(`setting color mode cookie to ${colorModeState}`);
+      setCookie(constants.colorModeCookieName, colorModeState);
     }
   }, [colorModeState]);
 

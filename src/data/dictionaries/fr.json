@@ -30,7 +30,6 @@
     "text": "Continuer avec Apple"
   },
   "Common": {
-    "seeMore": "Voir plus",
     "acceptAndContinue": "Accepter & Continuer",
     "billing": "Facturation",
     "brandName": "MyOrderApp",
@@ -45,6 +44,7 @@
     "customerSince": "Client depuis",
     "customers": "Clients",
     "dashboard": "Tableau de bord",
+    "date": "Date",
     "email": "Courrier électronique",
     "error": "Oups, quelque chose s'est mal passé. Ne vous inquiétez pas, vos données sont en sécurité. Nous avons été informés et travaillons à résoudre le problème.",
     "firstName": "Prénom",
@@ -71,11 +71,33 @@
     "resetPasswordSuccess": "Votre mot de passe a été réinitialisé. Vous pouvez maintenant vous connecter.",
     "save": "Enregistrer",
     "saveAndContinue": "Enregistrer et Continuer",
+    "seeMore": "Voir plus",
     "subscribe": "S'abonner",
     "support": "Support",
     "theme": "Thème",
     "totalMoneyAmount": "Total",
     "useMyOrderApp": "Utiliser MyOrderApp"
+  },
+  "CustomersDataGrid": {
+    "createDateHeaderName": "Client depuis",
+    "emailHeaderName": "E-mail",
+    "nameHeaderName": "Nom",
+    "phoneNumberHeaderName": "Numéro de téléphone",
+    "noData": "Les clients apparaîtront ici."
+  },
+  "Dashboard": {
+    "endDatePickerLabel": "Date de fin",
+    "moneyAmountLabel": "Revenus",
+    "moneyAmountTooltip": "La somme du montant total d'argent collecté pour les commandes de l'application dans la plage de dates.",
+    "moneyAppFeeAmountLabel": "Frais de l'application",
+    "moneyAppFeeAmountTooltip": "La somme du montant total des frais de l'application collectés pour les commandes de l'application dans la plage de dates.",
+    "moneyTaxAmountLabel": "Taxes sur les ventes",
+    "moneyTaxAmountTooltip": "La somme du montant total des taxes collectées pour les commandes de l'application dans la plage de dates.",
+    "moneyTipAmountLabel": "Pourboires",
+    "moneyTipAmountTooltip": "La somme du montant total des pourboires collectés pour les commandes de l'application dans la plage de dates.",
+    "recentCustomersLabel": "Clients",
+    "recentOrdersLabel": "Commandes",
+    "startDatePickerLabel": "Date de début"
   },
   "FaqAccordion": {
     "ads": {
@@ -117,16 +139,6 @@
   "GoogleAuthButton": {
     "text": "Continuer avec Google"
   },
-  "HomePage": {
-    "endDatePickerLabel": "Date de fin",
-    "moneyAmountSumLabel": "Revenus collectés",
-    "moneyAppFeeAmountSumLabel": "Frais d'application payés",
-    "moneyTaxAmountSumLabel": "Taxes sur les ventes collectées",
-    "moneyTipAmountSumLabel": "Pourboires collectés",
-    "recentCustomersLabel": "Clients récents",
-    "recentOrdersLabel": "Commandes récentes",
-    "startDatePickerLabel": "Date de début"
-  },
   "LegalMenu": {
     "gdpr": "RGPD",
     "legal": "Juridique",
@@ -137,6 +149,14 @@
     "customize": "Personnaliser",
     "publish": "Publier",
     "synchronize": "Synchroniser"
+  },
+  "OrdersDataGrid": {
+    "closedDateHeaderName": "Date de clôture",
+    "customerHeaderName": "Client",
+    "idHeaderName": "ID de commande",
+    "locationHeaderName": "Emplacement",
+    "totalMoneyAmountHeaderName": "Total",
+    "noData": "Les commandes apparaîtront ici."
   },
   "SignInForm": {
     "submitButton": "Se connecter avec l'e-mail"
@@ -163,6 +183,11 @@
     "posIntegrationPrimary": "Intégration POS",
     "posIntegrationSecondary": "Envoyez des commandes directement à vos systèmes de point de vente, comblant le fossé entre les commandes en ligne et les ventes en personne.",
     "title": "Connectez votre compte Square"
+  },
+  "StatisticsCard": {
+    "averageAbbreviation": "Moy",
+    "maximumAbbreviation": "Max",
+    "minimumAbbreviation": "Min"
   },
   "StripeCheckoutButton": {
     "text": "Subscribe"

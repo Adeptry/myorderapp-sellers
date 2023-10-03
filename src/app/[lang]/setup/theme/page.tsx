@@ -8,10 +8,10 @@ import {
 import { MyOrderAppPreview } from "@/components/app-preview/MyOrderAppPreview";
 import { AppConfigForm } from "@/components/forms/AppConfigForm";
 import { TabLayout } from "@/components/layouts/TabLayout";
-import { useGetMerchantMeQuery } from "@/queries/useGetMerchantMeQuery";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { moaEnv } from "@/utils/moaEnv";
-import { Stack } from "@mui/material";
+import { useMaxHeightCssString } from "@/utils/useMaxHeight";
+import { Container, Stack } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 import { AppConfigEntity } from "myorderapp-square";
@@ -28,7 +28,8 @@ export default function Page() {
     AppConfigEntity | undefined
   >(undefined);
   const common = useTranslations("Common");
-  const { data } = useGetMerchantMeQuery();
+  const maxHeightCssString = useMaxHeightCssString();
+
   const { push } = useRouter();
   const { status } = useSession();
   const locale = useLocale();
@@ -39,39 +40,41 @@ export default function Page() {
   }, [status]);
 
   return (
-    <Stack spacing={2} py={2}>
-      <OnboardingStepper
-        activeStep={OnboardingSteps.configure}
-        sx={{ width: "100%" }}
-      />
-      <TabLayout
-        tabLabels={[common("options"), common("preview")]}
-        sx={{ pt: isSmallScreen ? 0 : 3, pb: 3 }}
-      >
-        <AppConfigForm
-          key="app-config-form"
-          buttonOnTop={true}
-          successUrl={routes.setup.square.index}
-          onChange={(appConfig) => {
-            setAppConfigState(appConfig);
-          }}
+    <Container sx={{ minHeight: maxHeightCssString }}>
+      <Stack spacing={2} py={2}>
+        <OnboardingStepper
+          activeStep={OnboardingSteps.configure}
+          sx={{ width: "100%" }}
         />
-        <MyOrderAppPreview
-          key="myorderapp-preview"
-          sx={{
-            py: 2,
-            position: "sticky",
-            top: "72px", // Adjusted for the toolbar
-          }}
-          appConfig={appConfigState}
-          environment={{
-            apiBaseUrl: moaEnv.backendUrl,
-            apiKey: moaEnv.backendApiKey,
-            isPreview: true,
-            languageCodeOverride: locale,
-          }}
-        />
-      </TabLayout>
-    </Stack>
+        <TabLayout
+          tabLabels={[common("options"), common("preview")]}
+          sx={{ pt: isSmallScreen ? 0 : 3, pb: 3 }}
+        >
+          <AppConfigForm
+            key="app-config-form"
+            buttonOnTop={true}
+            successUrl={routes.setup.square.index}
+            onChange={(appConfig) => {
+              setAppConfigState(appConfig);
+            }}
+          />
+          <MyOrderAppPreview
+            key="myorderapp-preview"
+            sx={{
+              py: 2,
+              position: "sticky",
+              top: "72px", // Adjusted for the toolbar
+            }}
+            appConfig={appConfigState}
+            environment={{
+              apiBaseUrl: moaEnv.backendUrl,
+              apiKey: moaEnv.backendApiKey,
+              isPreview: true,
+              languageCodeOverride: locale,
+            }}
+          />
+        </TabLayout>
+      </Stack>
+    </Container>
   );
 }

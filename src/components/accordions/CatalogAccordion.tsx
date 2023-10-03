@@ -1,7 +1,7 @@
 import { usePatchCategoriesMutation } from "@/mutations/usePatchCategoriesMutation";
 import { usePatchItemsMutation } from "@/mutations/usePatchItemsMutation";
+import { usePatchVariationMutation } from "@/mutations/usePatchVariationMutation";
 import { usePostItemSquareImageUploadMutation } from "@/mutations/usePostItemSquareImageUploadMutation";
-import { useUpdateVariationMutation } from "@/mutations/useUpdateVariationMutation";
 import { useGetCategoriesMeQuery } from "@/queries/useGetCategoriesMeQuery";
 import { StrictModeDroppable } from "@/utils/StrictModeDroppable";
 import { logger } from "@/utils/logger";
@@ -29,7 +29,7 @@ export function CatalogAccordion() {
 
   const updateItemsMutation = usePatchItemsMutation();
   const updateCategoriesMutation = usePatchCategoriesMutation();
-  const updateVariationMutation = useUpdateVariationMutation();
+  const updateVariationMutation = usePatchVariationMutation();
   const uploadImageToSquareCatalogMutation =
     usePostItemSquareImageUploadMutation();
 

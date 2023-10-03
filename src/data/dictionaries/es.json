@@ -44,6 +44,7 @@
     "customerSince": "Cliente desde",
     "customers": "Clientes",
     "dashboard": "Panel de control",
+    "date": "Fecha",
     "email": "Correo electrónico",
     "error": "Vaya, algo salió mal. No te preocupes, tus datos están seguros. Ya hemos sido notificados y estamos trabajando para solucionar el problema.",
     "firstName": "Nombre",
@@ -76,6 +77,27 @@
     "theme": "Tema",
     "totalMoneyAmount": "Total",
     "useMyOrderApp": "Usar MyOrderApp"
+  },
+  "CustomersDataGrid": {
+    "createDateHeaderName": "Cliente desde",
+    "emailHeaderName": "Correo electrónico",
+    "nameHeaderName": "Nombre",
+    "phoneNumberHeaderName": "Número de teléfono",
+    "noData": "Los clientes aparecerán aquí."
+  },
+  "Dashboard": {
+    "endDatePickerLabel": "Fecha de fin",
+    "moneyAmountLabel": "Ingresos",
+    "moneyAmountTooltip": "La suma del monto total de dinero recaudado por pedidos de la aplicación en el rango de fechas.",
+    "moneyAppFeeAmountLabel": "Tarifas de la aplicación",
+    "moneyAppFeeAmountTooltip": "La suma del monto total de las tarifas de la aplicación recaudadas por pedidos de la aplicación en el rango de fechas.",
+    "moneyTaxAmountLabel": "Impuesto sobre ventas",
+    "moneyTaxAmountTooltip": "La suma del monto total del dinero del impuesto recaudado por pedidos de la aplicación en el rango de fechas.",
+    "moneyTipAmountLabel": "Propinas",
+    "moneyTipAmountTooltip": "La suma del monto total del dinero de las propinas recaudado por pedidos de la aplicación en el rango de fechas.",
+    "recentCustomersLabel": "Clientes",
+    "recentOrdersLabel": "Pedidos",
+    "startDatePickerLabel": "Fecha de inicio"
   },
   "FaqAccordion": {
     "ads": {
@@ -117,16 +139,6 @@
   "GoogleAuthButton": {
     "text": "Continuar con Google"
   },
-  "HomePage": {
-    "endDatePickerLabel": "Fecha de fin",
-    "moneyAmountSumLabel": "Ingresos recaudados",
-    "moneyAppFeeAmountSumLabel": "Tarifas de la aplicación pagadas",
-    "moneyTaxAmountSumLabel": "Impuestos sobre ventas recaudados",
-    "moneyTipAmountSumLabel": "Propinas recaudadas",
-    "recentCustomersLabel": "Clientes recientes",
-    "recentOrdersLabel": "Pedidos recientes",
-    "startDatePickerLabel": "Fecha de inicio"
-  },
   "LegalMenu": {
     "gdpr": "RGPD",
     "legal": "Legal",
@@ -137,6 +149,14 @@
     "customize": "Personalizar",
     "publish": "Publicar",
     "synchronize": "Sincronizar"
+  },
+  "OrdersDataGrid": {
+    "closedDateHeaderName": "Fecha de cierre",
+    "customerHeaderName": "Cliente",
+    "idHeaderName": "ID de pedido",
+    "locationHeaderName": "Ubicación",
+    "totalMoneyAmountHeaderName": "Total",
+    "noData": "Los pedidos aparecerán aquí."
   },
   "SignInForm": {
     "submitButton": "Iniciar sesión con Correo Electrónico"
@@ -163,6 +183,11 @@
     "posIntegrationPrimary": "Integración con POS",
     "posIntegrationSecondary": "Envía pedidos directamente a tus sistemas de punto de venta, cerrando la brecha entre pedidos en línea y ventas en persona.",
     "title": "Conecta tu cuenta de Square"
+  },
+  "StatisticsCard": {
+    "averageAbbreviation": "Prom",
+    "maximumAbbreviation": "Máx",
+    "minimumAbbreviation": "Mín"
   },
   "StripeCheckoutButton": {
     "text": "Subscribe"

@@ -44,6 +44,7 @@
     "customerSince": "顧客登録日",
     "customers": "顧客",
     "dashboard": "ダッシュボード",
+    "date": "日付",
     "email": "メール",
     "error": "おっと、何か問題が発生しました。ご安心ください、あなたのデータは安全です。既に問題を報告され、修正作業中です。",
     "firstName": "名",
@@ -76,6 +77,27 @@
     "theme": "テーマ",
     "totalMoneyAmount": "合計",
     "useMyOrderApp": "MyOrderAppを使用する"
+  },
+  "CustomersDataGrid": {
+    "createDateHeaderName": "顧客登録日",
+    "emailHeaderName": "メールアドレス",
+    "nameHeaderName": "名前",
+    "phoneNumberHeaderName": "電話番号",
+    "noData": "顧客はここに表示されます。"
+  },
+  "Dashboard": {
+    "endDatePickerLabel": "終了日",
+    "moneyAmountLabel": "収益",
+    "moneyAmountTooltip": "日付範囲内でアプリの注文に対して集められた合計金額の和。",
+    "moneyAppFeeAmountLabel": "アプリ料金",
+    "moneyAppFeeAmountTooltip": "日付範囲内でアプリの注文から集められたアプリ料金の合計金額の和。",
+    "moneyTaxAmountLabel": "消費税",
+    "moneyTaxAmountTooltip": "日付範囲内でアプリの注文に対して集められた税金の合計金額の和。",
+    "moneyTipAmountLabel": "チップ",
+    "moneyTipAmountTooltip": "日付範囲内でアプリの注文に対して集められたチップの合計金額の和。",
+    "recentCustomersLabel": "最近の顧客",
+    "recentOrdersLabel": "最近の注文",
+    "startDatePickerLabel": "開始日"
   },
   "FaqAccordion": {
     "ads": {
@@ -117,16 +139,6 @@
   "GoogleAuthButton": {
     "text": "Googleで続行"
   },
-  "HomePage": {
-    "endDatePickerLabel": "終了日",
-    "moneyAmountSumLabel": "収集された収益",
-    "moneyAppFeeAmountSumLabel": "支払ったアプリ料金",
-    "moneyTaxAmountSumLabel": "収集された消費税",
-    "moneyTipAmountSumLabel": "収集されたチップ",
-    "recentCustomersLabel": "最近の顧客",
-    "recentOrdersLabel": "最近の注文",
-    "startDatePickerLabel": "開始日"
-  },
   "LegalMenu": {
     "gdpr": "GDPR",
     "legal": "法的",
@@ -137,6 +149,14 @@
     "customize": "カスタマイズ",
     "publish": "公開",
     "synchronize": "同期"
+  },
+  "OrdersDataGrid": {
+    "closedDateHeaderName": "閉鎖日",
+    "customerHeaderName": "顧客",
+    "idHeaderName": "注文ID",
+    "locationHeaderName": "場所",
+    "totalMoneyAmountHeaderName": "合計",
+    "noData": "注文はここに表示されます。"
   },
   "SignInForm": {
     "submitButton": "メールアドレスでログイン"
@@ -163,6 +183,11 @@
     "posIntegrationPrimary": "POS統合",
     "posIntegrationSecondary": "注文を直接販売点システムに送信し、オンライン注文と対面販売のギャップを埋める。",
     "title": "Squareアカウントを接続する"
+  },
+  "StatisticsCard": {
+    "averageAbbreviation": "平均",
+    "maximumAbbreviation": "最大",
+    "minimumAbbreviation": "最小"
   },
   "StripeCheckoutButton": {
     "text": "Subscribe"

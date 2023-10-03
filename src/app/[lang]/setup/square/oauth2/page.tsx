@@ -7,7 +7,7 @@ import {
 import { ConfirmSquareOauthComponent } from "@/components/utils/ConfirmSquareOauthComponent";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
-import { Stack } from "@mui/material";
+import { Container, Stack } from "@mui/material";
 import { Suspense } from "react";
 
 export default function Page() {
@@ -15,14 +15,16 @@ export default function Page() {
   const maxHeightCssString = useMaxHeightCssString();
 
   return (
-    <Stack height={maxHeightCssString}>
-      <OnboardingStepper
-        activeStep={OnboardingSteps.square}
-        sx={{ width: "100%", py: 2 }}
-      />
-      <Suspense>
-        <ConfirmSquareOauthComponent />
-      </Suspense>
-    </Stack>
+    <Container sx={{ minHeight: maxHeightCssString }}>
+      <Stack height={maxHeightCssString}>
+        <OnboardingStepper
+          activeStep={OnboardingSteps.square}
+          sx={{ width: "100%", py: 2 }}
+        />
+        <Suspense>
+          <ConfirmSquareOauthComponent />
+        </Suspense>
+      </Stack>
+    </Container>
   );
 }

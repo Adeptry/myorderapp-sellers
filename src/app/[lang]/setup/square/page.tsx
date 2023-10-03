@@ -8,7 +8,8 @@ import {
 import { SquareOauthExplainerCard } from "@/components/cards/SquareOauthExplainerCard";
 import { useGetMerchantMeQuery } from "@/queries/useGetMerchantMeQuery";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
-import { Stack } from "@mui/material";
+import { useMaxHeightCssString } from "@/utils/useMaxHeight";
+import { Container, Stack } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 import { useSession } from "next-auth/react";
@@ -22,6 +23,7 @@ export default function Page() {
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const maxHeightCssString = useMaxHeightCssString();
 
   const { status } = useSession();
   useEffect(() => {
@@ -37,17 +39,19 @@ export default function Page() {
   }, [data]);
 
   return (
-    <Stack spacing={2} alignItems={"center"} py={2}>
-      <OnboardingStepper
-        activeStep={OnboardingSteps.square}
-        sx={{ width: "100%" }}
-      />
+    <Container sx={{ minHeight: maxHeightCssString }}>
+      <Stack spacing={2} alignItems={"center"} py={2}>
+        <OnboardingStepper
+          activeStep={OnboardingSteps.square}
+          sx={{ width: "100%" }}
+        />
 
-      <SquareOauthExplainerCard
-        sx={{
-          maxWidth: "sm",
-        }}
-      />
-    </Stack>
+        <SquareOauthExplainerCard
+          sx={{
+            maxWidth: "sm",
+          }}
+        />
+      </Stack>
+    </Container>
   );
 }

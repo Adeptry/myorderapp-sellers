@@ -6,7 +6,8 @@ import { TabLayout } from "@/components/layouts/TabLayout";
 import { useGetCategoriesMeQuery } from "@/queries/useGetCategoriesMeQuery";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { moaEnv } from "@/utils/moaEnv";
-import { Stack } from "@mui/material";
+import { useMaxHeightCssString } from "@/utils/useMaxHeight";
+import { Container } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 import { useLocale } from "next-intl";
@@ -15,13 +16,14 @@ export default function Page() {
   useRedirectUnauthenticatedSessions();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(780));
+  const maxHeightCssString = useMaxHeightCssString();
 
   const currentCatalogQuery = useGetCategoriesMeQuery();
   const currentCatalogCategories = currentCatalogQuery.data?.data ?? [];
   const locale = useLocale();
 
   return (
-    <Stack spacing={2}>
+    <Container sx={{ minHeight: maxHeightCssString }}>
       <TabLayout
         tabLabels={["Catalog", "Preview"]}
         sx={{ pt: isSmallScreen ? 0 : 3, pb: 3 }}
@@ -39,6 +41,6 @@ export default function Page() {
           }}
         />
       </TabLayout>
-    </Stack>
+    </Container>
   );
 }
