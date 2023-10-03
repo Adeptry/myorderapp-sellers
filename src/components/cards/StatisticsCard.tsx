@@ -6,9 +6,9 @@ import {
   Skeleton,
   Tooltip,
   Typography,
-  useMediaQuery,
-  useTheme,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 import { useTranslations } from "next-intl";
 import { Fragment } from "react";
 
