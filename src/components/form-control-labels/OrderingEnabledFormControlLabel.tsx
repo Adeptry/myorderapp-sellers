@@ -15,7 +15,7 @@ export default function OrderingEnabledFormControlLabel() {
         <Switch
           checked={appConfig?.enabled ?? false}
           onChange={async (_event, checked) =>
-            patchAppConfigMe({ appConfigUpdateBody: {} })
+            patchAppConfigMe({ appConfigUpdateBody: { enabled: checked } })
           }
         />
       }

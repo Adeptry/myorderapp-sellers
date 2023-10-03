@@ -76,7 +76,7 @@ export function OrdersDataGrid(props: {
       }}
       columns={[
         {
-          field: "id",
+          field: "squareId",
           headerName: t("idHeaderName"),
           flex: 1,
           sortable: true,
@@ -101,7 +101,7 @@ export function OrdersDataGrid(props: {
           minWidth: 125,
         },
         {
-          field: "customer",
+          field: "customerId",
           headerName: t("customerHeaderName"),
           flex: 1,
           sortable: true,
@@ -109,7 +109,7 @@ export function OrdersDataGrid(props: {
           minWidth: 200,
         },
         {
-          field: "location",
+          field: "locationId",
           headerName: t("locationHeaderName"),
           flex: 1,
           sortable: true,
@@ -120,13 +120,14 @@ export function OrdersDataGrid(props: {
       rows={
         getOrdersResponse?.data?.map((order) => {
           return {
-            id: order.displayId,
+            id: order.id,
+            squareId: order.displayId,
             closedDate: new Date(
               order.closedDate ?? new Date()
             ).toLocaleDateString(),
-            location: order.location?.name,
+            locationId: order.location?.name,
             lastName: order.squareFulfillmentStatus,
-            customer:
+            customerId:
               order.customer?.user?.fullName ?? order.customer?.user?.email,
             totalMoneyAmount: formatter.number(
               (order.totalMoneyAmount ?? 0) / 100,
