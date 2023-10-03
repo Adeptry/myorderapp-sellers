@@ -20,7 +20,7 @@ export function MyOrderAppPreview(props: {
   } | null;
 }) {
   const { sx } = props;
-  const { data: currentMerchantData } = useGetMerchantMeQuery();
+  const { data: merchantMe } = useGetMerchantMeQuery();
 
   return (
     <Box
@@ -29,10 +29,10 @@ export function MyOrderAppPreview(props: {
       }}
     >
       <DeviceFrameset device="HTC One" color="black" style={{}}>
-        {currentMerchantData?.id && (
+        {merchantMe?.id && (
           <MessagingIframe
             id="flutter-iframe"
-            src={`${moaEnv.appUrl}/${currentMerchantData?.id}`}
+            src={`${moaEnv.appUrl}/${merchantMe?.id}`}
             sendMessageState={{
               type: "state",
               payload: {

@@ -9,10 +9,12 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 export function CustomersDataGrid(props: {
-  autoPageSize?: boolean | undefined;
-  initialPageSize?: number | undefined;
+  autoPageSize?: boolean;
+  initialPageSize?: number;
+  startDate?: Date;
+  endDate?: Date;
 }) {
-  const { autoPageSize, initialPageSize } = props;
+  const { autoPageSize, initialPageSize, startDate, endDate } = props;
   const theme = useTheme();
   const t = useTranslations("CustomersDataGrid");
   const isMdOrUp = useMediaQuery(theme.breakpoints.up("sm"));
@@ -32,6 +34,8 @@ export function CustomersDataGrid(props: {
   } = useGetCustomersQuery({
     page: paginationModel.page,
     pageSize: paginationModel.pageSize,
+    startDate,
+    endDate,
     sort:
       sortModel.at(0)?.sort === "asc"
         ? GetOrdersOrderSortEnum.Asc

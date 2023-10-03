@@ -9,19 +9,23 @@ export const useGetCustomersQuery = (params: {
   page: number;
   pageSize: number;
   sort: GetOrdersOrderSortEnum;
+  startDate?: Date;
+  endDate?: Date;
 }) => {
-  const { page, pageSize, sort } = params;
+  const { page, pageSize, sort, startDate, endDate } = params;
   const { status } = useSession();
   const sessionedApiConfiguration = useSessionedApiConfiguration();
 
   return useQuery({
-    queryKey: [GetCustomersQueryKey, page, pageSize],
+    queryKey: [GetCustomersQueryKey, params],
     queryFn: async () => {
       return (
         await new CustomersApi(sessionedApiConfiguration).getCustomers({
           page,
           limit: pageSize,
           orderSort: sort,
+          startDate: startDate?.toISOString(),
+          endDate: endDate?.toISOString(),
           user: true,
         })
       ).data;

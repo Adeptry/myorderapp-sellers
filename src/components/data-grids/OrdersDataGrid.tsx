@@ -1,17 +1,18 @@
 import { useGetMerchantMeQuery } from "@/queries/useGetMerchantMeQuery";
 import { useGetOrdersQuery } from "@/queries/useGetOrdersQuery";
 import { Box, Typography } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 import { DataGrid, GridPaginationModel, GridSortModel } from "@mui/x-data-grid";
+import { GetOrdersOrderFieldEnum } from "myorderapp-square";
 import { useFormatter, useTranslations } from "next-intl";
 import { useState } from "react";
 
 export function OrdersDataGrid(props: {
   autoPageSize?: boolean | undefined;
   initialPageSize?: number | undefined;
+  startDate?: Date | undefined;
+  endDate?: Date | undefined;
 }) {
-  const { autoPageSize, initialPageSize } = props;
-  const theme = useTheme();
+  const { autoPageSize, initialPageSize, startDate, endDate } = props;
   const t = useTranslations("OrdersDataGrid");
   const formatter = useFormatter();
   const { data: merchantMe } = useGetMerchantMeQuery();
@@ -22,13 +23,25 @@ export function OrdersDataGrid(props: {
   });
 
   const [sortModel, setGridSortModel] = useState<GridSortModel>([
-    { field: "closedDate", sort: "asc" },
+    { field: "closedDate", sort: "desc" },
   ]);
 
   const { data: getOrdersResponse, isLoading: getOrdersIsLoading } =
     useGetOrdersQuery({
       page: paginationModel.page + 1,
       pageSize: paginationModel.pageSize,
+      startDate,
+      endDate,
+      sort:
+        sortModel.length > 0
+          ? sortModel[0].sort === "asc"
+            ? "ASC"
+            : "DESC"
+          : undefined,
+      field:
+        sortModel.length > 0
+          ? (sortModel[0].field as GetOrdersOrderFieldEnum)
+          : undefined,
     });
 
   const noDataOverlay = (
@@ -71,7 +84,7 @@ export function OrdersDataGrid(props: {
           field: "closedDate",
           headerName: t("closedDateHeaderName"),
           flex: 1,
-          sortable: false,
+          sortable: true,
           filterable: false,
           minWidth: 125,
         },

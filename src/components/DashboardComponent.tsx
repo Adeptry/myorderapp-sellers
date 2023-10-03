@@ -143,7 +143,12 @@ export function Dashboard() {
           md={6}
           height={isMdUp ? dataGridHeightCssString : "439px"}
         >
-          <OrdersDataGrid initialPageSize={6} autoPageSize={isMdUp} />
+          <OrdersDataGrid
+            initialPageSize={6}
+            autoPageSize={isMdUp}
+            startDate={startDateState}
+            endDate={endDateState}
+          />
         </Grid>
         <Grid
           item
@@ -152,7 +157,12 @@ export function Dashboard() {
           md={6}
           height={isMdUp ? dataGridHeightCssString : "439px"}
         >
-          <CustomersDataGrid initialPageSize={6} autoPageSize={isMdUp} />
+          <CustomersDataGrid
+            initialPageSize={6}
+            autoPageSize={isMdUp}
+            startDate={startDateState}
+            endDate={endDateState}
+          />
         </Grid>
       </Grid>
     </Grid>
