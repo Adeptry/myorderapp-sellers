@@ -38,7 +38,7 @@ export function OrdersDataGrid(props: {
       justifyContent="center"
       height="100%"
     >
-      <Typography>{t("noRows")}</Typography>
+      <Typography>{t("noData")}</Typography>
     </Box>
   );
 
