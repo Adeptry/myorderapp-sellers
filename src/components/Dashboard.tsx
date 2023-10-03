@@ -4,13 +4,23 @@ import { OrdersDataGrid } from "@/components/data-grids/OrdersDataGrid";
 import { useGetOrderStatisticsMeQuery } from "@/queries/useGetOrderStatisticsMeQuery";
 import { useHeaderAndFooterHeight } from "@/utils/useMaxHeight";
 import { useMerchantCurrencyFormatter } from "@/utils/useMerchantCurrencyFormatter";
-import { Grid } from "@mui/material";
+import { InfoOutlined } from "@mui/icons-material";
+import {
+  Box,
+  Card,
+  CardHeader,
+  Grid,
+  Skeleton,
+  Stack,
+  Tooltip,
+} from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 import { DatePicker } from "@mui/x-date-pickers";
-import { subDays } from "date-fns";
+import { endOfMonth, startOfMonth } from "date-fns";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import OrderingEnabledFormControlLabel from "./form-control-labels/OrderingEnabledFormControlLabel";
 
 const headerHeight = 151 + 16 + 56 + 16 + 46; // 46 is a magic number
 
@@ -26,9 +36,11 @@ export function Dashboard() {
   const { currencyFormatter } = useMerchantCurrencyFormatter();
 
   const [startDateState, setStartDateState] = useState<Date>(
-    subDays(new Date(), 30)
+    startOfMonth(new Date())
   );
-  const [endDateState, setEndDateState] = useState<Date>(new Date());
+  const [endDateState, setEndDateState] = useState<Date>(
+    endOfMonth(new Date())
+  );
 
   const { data: orderStatisticsData, isLoading: orderStatisticsLoading } =
     useGetOrderStatisticsMeQuery({
@@ -37,6 +49,42 @@ export function Dashboard() {
     });
   return (
     <Grid container spacing={2}>
+      <Grid item xs={12} md={3}>
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          height="100%"
+        >
+          <Stack direction="row" justifyContent="center" alignItems="center">
+            <OrderingEnabledFormControlLabel />
+            <Tooltip title={t("appConfigEnabledTooltip")}>
+              <InfoOutlined />
+            </Tooltip>
+          </Stack>
+        </Box>
+      </Grid>
+      <Grid item xs={12} md={3}>
+        <Card variant="outlined" sx={{ height: "56px" }}>
+          <CardHeader
+            sx={{ paddingY: "12px" }}
+            action={
+              <Tooltip title={t("orderCountTooltip")}>
+                <InfoOutlined />
+              </Tooltip>
+            }
+            title={
+              orderStatisticsLoading ? (
+                <Skeleton />
+              ) : (
+                t("orderCountTitle", {
+                  count: orderStatisticsData?.count ?? 0,
+                })
+              )
+            }
+          />
+        </Card>
+      </Grid>
       <Grid item xs={6} md={3}>
         <DatePicker
           sx={{ width: "100%" }}

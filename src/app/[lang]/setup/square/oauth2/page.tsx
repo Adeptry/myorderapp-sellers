@@ -1,10 +1,10 @@
 "use client";
 
+import { ConfirmSquareOauthComponent } from "@/components/ConfirmSquareOauthComponent";
 import {
   OnboardingStepper,
   OnboardingSteps,
 } from "@/components/OnboardingStepper";
-import { ConfirmSquareOauthComponent } from "@/components/utils/ConfirmSquareOauthComponent";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { Container, Stack } from "@mui/material";

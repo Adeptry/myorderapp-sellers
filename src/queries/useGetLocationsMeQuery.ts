@@ -1,19 +1,25 @@
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { useQuery } from "@tanstack/react-query";
-import { OrdersApi, OrdersApiGetOrdersRequest } from "myorderapp-square";
+import {
+  LocationsApi,
+  LocationsApiGetLocationsMeRequest,
+} from "myorderapp-square";
 import { useSession } from "next-auth/react";
 
-export const GetOrdersQueryKey = "useOrdersQuery";
+export const GetLocationsMeQueryKey = ["getLocationsMe"];
 
-export const useGetOrdersQuery = (params: OrdersApiGetOrdersRequest) => {
+export const useGetLocationsMeQuery = (
+  params: LocationsApiGetLocationsMeRequest
+) => {
   const { status } = useSession();
   const sessionedApiConfiguration = useSessionedApiConfiguration();
 
   return useQuery({
-    queryKey: [GetOrdersQueryKey, params],
+    queryKey: GetLocationsMeQueryKey,
     queryFn: async () => {
-      return (await new OrdersApi(sessionedApiConfiguration).getOrders(params))
-        .data;
+      return (
+        await new LocationsApi(sessionedApiConfiguration).getLocationsMe(params)
+      ).data;
     },
     enabled: status === "authenticated",
   });

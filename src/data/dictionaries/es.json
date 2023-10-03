@@ -82,22 +82,23 @@
     "createDateHeaderName": "Cliente desde",
     "emailHeaderName": "Correo electrónico",
     "nameHeaderName": "Nombre",
-    "phoneNumberHeaderName": "Número de teléfono",
-    "noData": "Los clientes aparecerán aquí."
+    "noData": "Los clientes aparecerán aquí.",
+    "phoneNumberHeaderName": "Número de teléfono"
   },
   "Dashboard": {
-    "endDatePickerLabel": "Fecha de fin",
-    "moneyAmountLabel": "Ingresos",
-    "moneyAmountTooltip": "La suma del monto total de dinero recaudado por pedidos de la aplicación en el rango de fechas.",
-    "moneyAppFeeAmountLabel": "Tarifas de la aplicación",
-    "moneyAppFeeAmountTooltip": "La suma del monto total de las tarifas de la aplicación recaudadas por pedidos de la aplicación en el rango de fechas.",
-    "moneyTaxAmountLabel": "Impuesto sobre ventas",
-    "moneyTaxAmountTooltip": "La suma del monto total del dinero del impuesto recaudado por pedidos de la aplicación en el rango de fechas.",
+    "appConfigEnabledTooltip": "Alternar para habilitar o deshabilitar pedidos. Útil para días festivos o cierres repentinos.",
+    "endDatePickerLabel": "Fin",
+    "moneyAmountLabel": "Ingresos Totales",
+    "moneyAmountTooltip": "Ingresos totales de pedidos de la aplicación dentro del rango de fechas.",
+    "moneyAppFeeAmountLabel": "Tarifas de la Aplicación",
+    "moneyAppFeeAmountTooltip": "Total de tarifas de transacción de MyOrderApp pagadas dentro del rango de fechas.",
+    "moneyTaxAmountLabel": "Impuesto sobre Ventas",
+    "moneyTaxAmountTooltip": "Impuesto sobre ventas total recaudado dentro del rango de fechas.",
     "moneyTipAmountLabel": "Propinas",
-    "moneyTipAmountTooltip": "La suma del monto total del dinero de las propinas recaudado por pedidos de la aplicación en el rango de fechas.",
-    "recentCustomersLabel": "Clientes",
-    "recentOrdersLabel": "Pedidos",
-    "startDatePickerLabel": "Fecha de inicio"
+    "moneyTipAmountTooltip": "Total de propinas recaudadas dentro del rango de fechas.",
+    "orderCountTitle": "{count} Pedidos",
+    "orderCountTooltip": "Total de pedidos dentro del rango de fechas seleccionado.",
+    "startDatePickerLabel": "Inicio"
   },
   "FaqAccordion": {
     "ads": {
@@ -145,18 +146,25 @@
     "privacy": "Privacidad",
     "terms": "Términos"
   },
+  "LocationsPage": {
+    "title": "Ubicaciones",
+    "tooltipTitle": "Deshabilitar selectivamente los pedidos para ubicaciones específicas. Útil para días festivos o cierres repentinos."
+  },
   "OnboardingStepper": {
     "customize": "Personalizar",
     "publish": "Publicar",
     "synchronize": "Sincronizar"
+  },
+  "OrderingEnabledFormControlLabel": {
+    "label": "Pedidos Habilitados"
   },
   "OrdersDataGrid": {
     "closedDateHeaderName": "Fecha de cierre",
     "customerHeaderName": "Cliente",
     "idHeaderName": "ID de pedido",
     "locationHeaderName": "Ubicación",
-    "totalMoneyAmountHeaderName": "Total",
-    "noData": "Los pedidos aparecerán aquí."
+    "noData": "Los pedidos aparecerán aquí.",
+    "totalMoneyAmountHeaderName": "Total"
   },
   "SignInForm": {
     "submitButton": "Iniciar sesión con Correo Electrónico"

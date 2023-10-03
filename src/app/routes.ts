@@ -4,10 +4,11 @@ export const routes = {
   register: "/register",
   resetPassword: "/reset-password",
   home: "/home",
-  profile: "/profile",
+  account: "/account",
   theme: "/theme",
   catalog: "/catalog",
   customers: "/customers",
+  locations: "/locations",
   orders: "/orders",
   support: "/support",
   setup: {

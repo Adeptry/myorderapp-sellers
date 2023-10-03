@@ -56,6 +56,7 @@
     "language": "Language",
     "lastName": "Last name",
     "location": "Location",
+    "locations": "Locations",
     "logIn": "Log in",
     "logOut": "Log out",
     "mainSite": "Main site",
@@ -85,22 +86,23 @@
     "createDateHeaderName": "Customer since",
     "emailHeaderName": "Email",
     "nameHeaderName": "Name",
-    "phoneNumberHeaderName": "Phone number",
-    "noData": "Customers will appear here."
+    "noData": "Customers will appear here.",
+    "phoneNumberHeaderName": "Phone number"
   },
   "Dashboard": {
-    "endDatePickerLabel": "End date",
-    "moneyAmountLabel": "Revenue",
-    "moneyAmountTooltip": "The sum of the total amount of money collected for app orders in the date range.",
-    "moneyAppFeeAmountLabel": "App fees",
-    "moneyAppFeeAmountTooltip": "The sum of the total amount of app fee money collected from app orders in the date range.",
-    "moneyTaxAmountLabel": "Sales tax",
-    "moneyTaxAmountTooltip": "The sum of the total amount of tax money collected for app orders in the date range.",
+    "appConfigEnabledTooltip": "Toggle to enable or disable ordering. Useful for holidays or sudden closures.",
+    "endDatePickerLabel": "End",
+    "moneyAmountLabel": "Total Revenue",
+    "moneyAmountTooltip": "Total revenue from app orders within the date range.",
+    "moneyAppFeeAmountLabel": "App Fees",
+    "moneyAppFeeAmountTooltip": "Total MyOrderApp transactions fees paid out within the date range.",
+    "moneyTaxAmountLabel": "Sales Tax",
+    "moneyTaxAmountTooltip": "Total sales tax collected within the date range.",
     "moneyTipAmountLabel": "Tips",
-    "moneyTipAmountTooltip": "The sum of the total amount of tip money collected for app orders in the date range.",
-    "recentCustomersLabel": "Customers",
-    "recentOrdersLabel": "Orders",
-    "startDatePickerLabel": "Start date"
+    "moneyTipAmountTooltip": "Total tips collected within the date range.",
+    "orderCountTitle": "{count} Orders",
+    "orderCountTooltip": "Total orders within the selected date range.",
+    "startDatePickerLabel": "Start"
   },
   "FaqAccordion": {
     "ads": {
@@ -148,18 +150,25 @@
     "privacy": "Privacy",
     "terms": "Terms"
   },
+  "LocationsPage": {
+    "title": "Locations",
+    "tooltipTitle": "Selectively disable ordering for specific locations. Useful for holidays or sudden closures."
+  },
   "OnboardingStepper": {
     "customize": "Customize",
     "publish": "Publish",
     "synchronize": "Synchronize"
+  },
+  "OrderingEnabledFormControlLabel": {
+    "label": "Ordering Enabled"
   },
   "OrdersDataGrid": {
     "closedDateHeaderName": "Closed date",
     "customerHeaderName": "Customer",
     "idHeaderName": "Order ID",
     "locationHeaderName": "Location",
-    "totalMoneyAmountHeaderName": "Total",
-    "noData": "Orders will appear here."
+    "noData": "Orders will appear here.",
+    "totalMoneyAmountHeaderName": "Total"
   },
   "SignInForm": {
     "submitButton": "Log In with Email"

@@ -1,6 +1,6 @@
+import { SessionedQueryProvider } from "@/components/SessionedQueryProvider";
+import { ThemeRegistry } from "@/components/ThemeRegistry";
 import { MoaAdaptiveScaffold } from "@/components/layouts/MoaAdaptiveScaffold";
-import { SessionedQueryProvider } from "@/components/networking/SessionedQueryProvider";
-import { ThemeRegistry } from "@/components/theme/ThemeRegistry";
 import { CookieProvider } from "@/contexts/CookieContext";
 import { NextPageProps, i18n } from "@/types/next";
 import { getDictionary } from "@/utils/get-dictionary";

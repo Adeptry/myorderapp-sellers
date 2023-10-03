@@ -82,22 +82,23 @@
     "createDateHeaderName": "顧客登録日",
     "emailHeaderName": "メールアドレス",
     "nameHeaderName": "名前",
-    "phoneNumberHeaderName": "電話番号",
-    "noData": "顧客はここに表示されます。"
+    "noData": "顧客はここに表示されます。",
+    "phoneNumberHeaderName": "電話番号"
   },
   "Dashboard": {
-    "endDatePickerLabel": "終了日",
-    "moneyAmountLabel": "収益",
-    "moneyAmountTooltip": "日付範囲内でアプリの注文に対して集められた合計金額の和。",
-    "moneyAppFeeAmountLabel": "アプリ料金",
-    "moneyAppFeeAmountTooltip": "日付範囲内でアプリの注文から集められたアプリ料金の合計金額の和。",
+    "appConfigEnabledTooltip": "注文を有効または無効にするために切り替えます。祝日や急な閉店に便利です。",
+    "endDatePickerLabel": "終了",
+    "moneyAmountLabel": "総収益",
+    "moneyAmountTooltip": "選択した日付範囲内のアプリからの総収益。",
+    "moneyAppFeeAmountLabel": "アプリ手数料",
+    "moneyAppFeeAmountTooltip": "日付範囲内で支払われたMyOrderAppの取引手数料の合計。",
     "moneyTaxAmountLabel": "消費税",
-    "moneyTaxAmountTooltip": "日付範囲内でアプリの注文に対して集められた税金の合計金額の和。",
+    "moneyTaxAmountTooltip": "選択した日付範囲内で集められた総消費税。",
     "moneyTipAmountLabel": "チップ",
-    "moneyTipAmountTooltip": "日付範囲内でアプリの注文に対して集められたチップの合計金額の和。",
-    "recentCustomersLabel": "最近の顧客",
-    "recentOrdersLabel": "最近の注文",
-    "startDatePickerLabel": "開始日"
+    "moneyTipAmountTooltip": "選択した日付範囲内で集められた総チップ。",
+    "orderCountTitle": "{count}件の注文",
+    "orderCountTooltip": "選択した日付範囲内の総注文数。",
+    "startDatePickerLabel": "開始"
   },
   "FaqAccordion": {
     "ads": {
@@ -145,18 +146,25 @@
     "privacy": "プライバシー",
     "terms": "利用規約"
   },
+  "LocationsPage": {
+    "title": "場所",
+    "tooltipTitle": "特定の場所での注文を選択的に無効にします。祝日や急な閉店に便利です。"
+  },
   "OnboardingStepper": {
     "customize": "カスタマイズ",
     "publish": "公開",
     "synchronize": "同期"
+  },
+  "OrderingEnabledFormControlLabel": {
+    "label": "注文有効"
   },
   "OrdersDataGrid": {
     "closedDateHeaderName": "閉鎖日",
     "customerHeaderName": "顧客",
     "idHeaderName": "注文ID",
     "locationHeaderName": "場所",
-    "totalMoneyAmountHeaderName": "合計",
-    "noData": "注文はここに表示されます。"
+    "noData": "注文はここに表示されます。",
+    "totalMoneyAmountHeaderName": "合計"
   },
   "SignInForm": {
     "submitButton": "メールアドレスでログイン"

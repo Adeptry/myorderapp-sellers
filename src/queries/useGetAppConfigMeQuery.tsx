@@ -1,22 +1,30 @@
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { useQuery } from "@tanstack/react-query";
-import { AppConfigsApi } from "myorderapp-square";
+import {
+  AppConfigsApi,
+  AppConfigsApiGetAppConfigMeRequest,
+} from "myorderapp-square";
 import { useSession } from "next-auth/react";
 
-export const useGetAppConfigMeQuery = (params?: { retry?: boolean }) => {
+export const getAppConfigMeQueryKeyBuilder = (
+  params: AppConfigsApiGetAppConfigMeRequest
+) => {
+  return ["getAppConfigMe", params];
+};
+
+export const useGetAppConfigMeQuery = (
+  params: AppConfigsApiGetAppConfigMeRequest
+) => {
   const { status } = useSession();
   const sessionedApiConfigration = useSessionedApiConfiguration();
 
   return useQuery({
-    queryKey: ["getAppConfigMe"],
+    queryKey: getAppConfigMeQueryKeyBuilder(params),
     queryFn: async () => {
       return (
-        await new AppConfigsApi(sessionedApiConfigration).getAppConfigMe({
-          actingAs: "merchant",
-        })
+        await new AppConfigsApi(sessionedApiConfigration).getAppConfigMe(params)
       ).data;
     },
     enabled: status === "authenticated",
-    retry: params?.retry,
   });
 };

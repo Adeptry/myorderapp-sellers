@@ -4,7 +4,10 @@ import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 import { DataGrid, GridPaginationModel, GridSortModel } from "@mui/x-data-grid";
-import { GetOrdersOrderSortEnum } from "myorderapp-square";
+import {
+  GetCustomersOrderFieldEnum,
+  GetOrdersOrderSortEnum,
+} from "myorderapp-square";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
@@ -25,7 +28,7 @@ export function CustomersDataGrid(props: {
   });
 
   const [sortModel, setGridSortModel] = useState<GridSortModel>([
-    { field: "createDate", sort: "asc" },
+    { field: "createDate", sort: "desc" },
   ]);
 
   const {
@@ -33,10 +36,15 @@ export function CustomersDataGrid(props: {
     isLoading: getCustomersQueryIsLoading,
   } = useGetCustomersQuery({
     page: paginationModel.page,
-    pageSize: paginationModel.pageSize,
-    startDate,
-    endDate,
-    sort:
+    limit: paginationModel.pageSize,
+    startDate: startDate?.toISOString(),
+    endDate: endDate?.toISOString(),
+    user: true,
+    orderField:
+      sortModel.length > 0
+        ? (sortModel[0].field as GetCustomersOrderFieldEnum)
+        : undefined,
+    orderSort:
       sortModel.at(0)?.sort === "asc"
         ? GetOrdersOrderSortEnum.Asc
         : GetOrdersOrderSortEnum.Desc,
@@ -44,7 +52,7 @@ export function CustomersDataGrid(props: {
 
   const noDataOverlay = (
     <Box
-      display={"flex"}
+      display="flex"
       alignItems="center"
       justifyContent="center"
       height="100%"
@@ -91,21 +99,21 @@ export function CustomersDataGrid(props: {
           field: "createDate",
           headerName: t("createDateHeaderName"),
           flex: 1,
-          sortable: false,
+          sortable: true,
           filterable: false,
-          minWidth: 150,
+          minWidth: 175,
         },
         {
-          field: "name",
-          headerName: t("nameHeaderName"),
+          field: "email",
+          headerName: t("emailHeaderName"),
           flex: 1,
           sortable: false,
           filterable: false,
           minWidth: 200,
         },
         {
-          field: "email",
-          headerName: t("emailHeaderName"),
+          field: "name",
+          headerName: t("nameHeaderName"),
           flex: 1,
           sortable: false,
           filterable: false,

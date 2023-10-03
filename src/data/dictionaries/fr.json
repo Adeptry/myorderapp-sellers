@@ -82,22 +82,23 @@
     "createDateHeaderName": "Client depuis",
     "emailHeaderName": "E-mail",
     "nameHeaderName": "Nom",
-    "phoneNumberHeaderName": "Numéro de téléphone",
-    "noData": "Les clients apparaîtront ici."
+    "noData": "Les clients apparaîtront ici.",
+    "phoneNumberHeaderName": "Numéro de téléphone"
   },
   "Dashboard": {
-    "endDatePickerLabel": "Date de fin",
-    "moneyAmountLabel": "Revenus",
-    "moneyAmountTooltip": "La somme du montant total d'argent collecté pour les commandes de l'application dans la plage de dates.",
-    "moneyAppFeeAmountLabel": "Frais de l'application",
-    "moneyAppFeeAmountTooltip": "La somme du montant total des frais de l'application collectés pour les commandes de l'application dans la plage de dates.",
-    "moneyTaxAmountLabel": "Taxes sur les ventes",
-    "moneyTaxAmountTooltip": "La somme du montant total des taxes collectées pour les commandes de l'application dans la plage de dates.",
+    "appConfigEnabledTooltip": "Basculer pour activer ou désactiver la commande. Utile pour les jours fériés ou les fermetures soudaines.",
+    "endDatePickerLabel": "Fin",
+    "moneyAmountLabel": "Revenu Total",
+    "moneyAmountTooltip": "Revenu total des commandes de l'application dans la plage de dates.",
+    "moneyAppFeeAmountLabel": "Frais de l'Application",
+    "moneyAppFeeAmountTooltip": "Total des frais de transaction MyOrderApp payés dans la plage de dates.",
+    "moneyTaxAmountLabel": "Taxe de Vente",
+    "moneyTaxAmountTooltip": "Total de la taxe de vente collectée dans la plage de dates.",
     "moneyTipAmountLabel": "Pourboires",
-    "moneyTipAmountTooltip": "La somme du montant total des pourboires collectés pour les commandes de l'application dans la plage de dates.",
-    "recentCustomersLabel": "Clients",
-    "recentOrdersLabel": "Commandes",
-    "startDatePickerLabel": "Date de début"
+    "moneyTipAmountTooltip": "Total des pourboires collectés dans la plage de dates.",
+    "orderCountTitle": "{count} Commandes",
+    "orderCountTooltip": "Nombre total de commandes dans la plage de dates sélectionnée.",
+    "startDatePickerLabel": "Début"
   },
   "FaqAccordion": {
     "ads": {
@@ -145,18 +146,25 @@
     "privacy": "Confidentialité",
     "terms": "Conditions"
   },
+  "LocationsPage": {
+    "title": "Emplacements",
+    "tooltipTitle": "Désactiver sélectivement la commande pour des emplacements spécifiques. Utile pour les jours fériés ou les fermetures soudaines."
+  },
   "OnboardingStepper": {
     "customize": "Personnaliser",
     "publish": "Publier",
     "synchronize": "Synchroniser"
+  },
+  "OrderingEnabledFormControlLabel": {
+    "label": "Commande Activée"
   },
   "OrdersDataGrid": {
     "closedDateHeaderName": "Date de clôture",
     "customerHeaderName": "Client",
     "idHeaderName": "ID de commande",
     "locationHeaderName": "Emplacement",
-    "totalMoneyAmountHeaderName": "Total",
-    "noData": "Les commandes apparaîtront ici."
+    "noData": "Les commandes apparaîtront ici.",
+    "totalMoneyAmountHeaderName": "Total"
   },
   "SignInForm": {
     "submitButton": "Se connecter avec l'e-mail"

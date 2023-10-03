@@ -28,17 +28,20 @@ export function OrdersDataGrid(props: {
 
   const { data: getOrdersResponse, isLoading: getOrdersIsLoading } =
     useGetOrdersQuery({
+      actingAs: "merchant",
       page: paginationModel.page + 1,
-      pageSize: paginationModel.pageSize,
-      startDate,
-      endDate,
-      sort:
+      limit: paginationModel.pageSize,
+      startDate: startDate?.toISOString(),
+      endDate: endDate?.toISOString(),
+      customer: true,
+      location: true,
+      orderSort:
         sortModel.length > 0
           ? sortModel[0].sort === "asc"
             ? "ASC"
             : "DESC"
           : undefined,
-      field:
+      orderField:
         sortModel.length > 0
           ? (sortModel[0].field as GetOrdersOrderFieldEnum)
           : undefined,
@@ -76,9 +79,9 @@ export function OrdersDataGrid(props: {
           field: "id",
           headerName: t("idHeaderName"),
           flex: 1,
-          sortable: false,
+          sortable: true,
           filterable: false,
-          minWidth: 100,
+          minWidth: 125,
         },
         {
           field: "closedDate",
@@ -86,22 +89,22 @@ export function OrdersDataGrid(props: {
           flex: 1,
           sortable: true,
           filterable: false,
-          minWidth: 125,
+          minWidth: 150,
         },
 
         {
           field: "totalMoneyAmount",
           headerName: t("totalMoneyAmountHeaderName"),
           flex: 1,
-          sortable: false,
+          sortable: true,
           filterable: false,
-          minWidth: 100,
+          minWidth: 125,
         },
         {
           field: "customer",
           headerName: t("customerHeaderName"),
           flex: 1,
-          sortable: false,
+          sortable: true,
           filterable: false,
           minWidth: 200,
         },
@@ -109,7 +112,7 @@ export function OrdersDataGrid(props: {
           field: "location",
           headerName: t("locationHeaderName"),
           flex: 1,
-          sortable: false,
+          sortable: true,
           filterable: false,
           minWidth: 200,
         },

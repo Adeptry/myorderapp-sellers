@@ -1,6 +1,6 @@
 "use client";
 
-import { Dashboard } from "@/components/DashboardComponent";
+import { Dashboard } from "@/components/Dashboard";
 import { useRedirectSetupSessions } from "@/routing/useRedirectSetupSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { Container } from "@mui/material";

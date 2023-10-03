@@ -1,18 +1,16 @@
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { useQuery } from "@tanstack/react-query";
-import { CustomersApi, GetOrdersOrderSortEnum } from "myorderapp-square";
+import {
+  CustomersApi,
+  CustomersApiGetCustomersRequest,
+} from "myorderapp-square";
 import { useSession } from "next-auth/react";
 
 export const GetCustomersQueryKey = "getCustomers";
 
-export const useGetCustomersQuery = (params: {
-  page: number;
-  pageSize: number;
-  sort: GetOrdersOrderSortEnum;
-  startDate?: Date;
-  endDate?: Date;
-}) => {
-  const { page, pageSize, sort, startDate, endDate } = params;
+export const useGetCustomersQuery = (
+  params: CustomersApiGetCustomersRequest
+) => {
   const { status } = useSession();
   const sessionedApiConfiguration = useSessionedApiConfiguration();
 
@@ -20,14 +18,7 @@ export const useGetCustomersQuery = (params: {
     queryKey: [GetCustomersQueryKey, params],
     queryFn: async () => {
       return (
-        await new CustomersApi(sessionedApiConfiguration).getCustomers({
-          page,
-          limit: pageSize,
-          orderSort: sort,
-          startDate: startDate?.toISOString(),
-          endDate: endDate?.toISOString(),
-          user: true,
-        })
+        await new CustomersApi(sessionedApiConfiguration).getCustomers(params)
       ).data;
     },
     enabled: status === "authenticated",

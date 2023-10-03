@@ -25,6 +25,7 @@ import {
   MenuBook,
   Menu as MenuIcon,
   Payment,
+  Store,
   SupportAgent,
   Web,
 } from "@mui/icons-material";
@@ -156,7 +157,7 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
       <MenuItem
         key="account-menu-item"
         onClick={() => {
-          push(routes.profile);
+          push(routes.account);
           handleCloseUserMenu();
         }}
       >
@@ -370,6 +371,22 @@ export function MoaAdaptiveScaffold(props: { children: ReactNode }) {
                       <ListAlt />
                     </ListItemIcon>
                     <ListItemText primary={common("orders")} />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem key={"locations-list-item"} disablePadding>
+                  <ListItemButton
+                    selected={pathname === routes.locations}
+                    onClick={() => {
+                      push(routes.locations);
+                      if (isSmallScreen) {
+                        setDrawerOpenStateFalse();
+                      }
+                    }}
+                  >
+                    <ListItemIcon>
+                      <Store />
+                    </ListItemIcon>
+                    <ListItemText primary={common("locations")} />
                   </ListItemButton>
                 </ListItem>
                 <ListItem key={"customers-list-item"} disablePadding>
