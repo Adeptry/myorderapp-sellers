@@ -48,6 +48,9 @@ export function CookieProvider({ children }: CookieProviderProps) {
       colorMode === "light"
     ) {
       setColorModeState(colorMode);
+    } else {
+      setCookie(constants.colorModeCookieName, "light");
+      setColorModeState("light");
     }
 
     setColorState(getCookie(constants.colorCookieName));

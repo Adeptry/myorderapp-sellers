@@ -4,18 +4,18 @@ import { EmotionCacheProvider } from "@/components/EmotionCacheProvider";
 import { useCookieContext } from "@/contexts/CookieContext";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 import { ReactNode, useMemo } from "react";
 
 export function ThemeRegistry({ children }: { children: ReactNode }) {
   const { colorModeCookieValue } = useCookieContext();
-  const prefersDarkMode =
+  const systemPrefersDark = useMediaQuery("(prefers-color-scheme: dark)");
+  const cookieOrSystemPrefersDark =
     colorModeCookieValue === "dark"
       ? true
       : colorModeCookieValue === "light"
       ? false
-      : typeof window !== "undefined"
-      ? window.matchMedia("(prefers-color-scheme: dark)").matches
-      : false;
+      : systemPrefersDark;
 
   const theme = useMemo(
     () =>
@@ -26,20 +26,20 @@ export function ThemeRegistry({ children }: { children: ReactNode }) {
           "Helvetica Neue", sans-serif`,
         },
         palette: {
-          mode: prefersDarkMode ? "dark" : "light",
+          mode: cookieOrSystemPrefersDark ? "dark" : "light",
           primary: {
-            main: prefersDarkMode ? "#90caf9" : "#1976d2",
-            dark: prefersDarkMode ? "#5e92f3" : "#1565c0",
-            light: prefersDarkMode ? "#9be7ff" : "#42a5f5",
+            main: cookieOrSystemPrefersDark ? "#90caf9" : "#1976d2",
+            dark: cookieOrSystemPrefersDark ? "#5e92f3" : "#1565c0",
+            light: cookieOrSystemPrefersDark ? "#9be7ff" : "#42a5f5",
           },
           secondary: {
-            main: prefersDarkMode ? "#e0e0e0" : "#1e1e1e",
-            dark: prefersDarkMode ? "#aeaeae" : "#1b1b1b",
-            light: prefersDarkMode ? "#ffffff" : "#6d6d6d",
+            main: cookieOrSystemPrefersDark ? "#e0e0e0" : "#1e1e1e",
+            dark: cookieOrSystemPrefersDark ? "#aeaeae" : "#1b1b1b",
+            light: cookieOrSystemPrefersDark ? "#ffffff" : "#6d6d6d",
           },
         },
       }),
-    [prefersDarkMode]
+    [cookieOrSystemPrefersDark, systemPrefersDark]
   );
 
   return (
