@@ -1,5 +1,6 @@
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import {
   OrdersApi,
   OrdersApiGetOrderStatisticsMeRequest,
@@ -11,7 +12,11 @@ export const GetOrderStatisticsMeKey = "useOrderStatisticsMe";
 export const useGetOrderStatisticsMeQuery = (
   params: OrdersApiGetOrderStatisticsMeRequest
 ) => {
-  const { status } = useSession();
+  const {
+    status: authStatus,
+    update: updateAuth,
+    data: session,
+  } = useSession();
   const sessionedApiConfiguration = useSessionedApiConfiguration();
 
   return useQuery({
@@ -23,6 +28,13 @@ export const useGetOrderStatisticsMeQuery = (
         )
       ).data;
     },
-    enabled: status === "authenticated",
+    enabled: authStatus === "authenticated",
+    retry: (failureCount, error: AxiosError) => {
+      if (error?.response?.status === 401 && session !== null) {
+        updateAuth();
+        return failureCount < 3;
+      }
+      return false;
+    },
   });
 };

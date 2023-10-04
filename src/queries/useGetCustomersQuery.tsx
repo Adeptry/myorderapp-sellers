@@ -1,5 +1,6 @@
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import {
   CustomersApi,
   CustomersApiGetCustomersRequest,
@@ -11,7 +12,11 @@ export const GetCustomersQueryKey = "getCustomers";
 export const useGetCustomersQuery = (
   params: CustomersApiGetCustomersRequest
 ) => {
-  const { status } = useSession();
+  const {
+    status: authStatus,
+    update: updateAuth,
+    data: session,
+  } = useSession();
   const sessionedApiConfiguration = useSessionedApiConfiguration();
 
   return useQuery({
@@ -21,6 +26,13 @@ export const useGetCustomersQuery = (
         await new CustomersApi(sessionedApiConfiguration).getCustomers(params)
       ).data;
     },
-    enabled: status === "authenticated",
+    enabled: authStatus === "authenticated",
+    retry: (failureCount, error: AxiosError) => {
+      if (error?.response?.status === 401 && session !== null) {
+        updateAuth();
+        return failureCount < 3;
+      }
+      return false;
+    },
   });
 };

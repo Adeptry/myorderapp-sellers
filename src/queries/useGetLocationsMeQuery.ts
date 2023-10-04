@@ -1,5 +1,6 @@
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import {
   LocationsApi,
   LocationsApiGetLocationsMeRequest,
@@ -11,7 +12,11 @@ export const GetLocationsMeQueryKey = ["getLocationsMe"];
 export const useGetLocationsMeQuery = (
   params: LocationsApiGetLocationsMeRequest
 ) => {
-  const { status } = useSession();
+  const {
+    status: authStatus,
+    update: updateAuth,
+    data: session,
+  } = useSession();
   const sessionedApiConfiguration = useSessionedApiConfiguration();
 
   return useQuery({
@@ -21,6 +26,13 @@ export const useGetLocationsMeQuery = (
         await new LocationsApi(sessionedApiConfiguration).getLocationsMe(params)
       ).data;
     },
-    enabled: status === "authenticated",
+    enabled: authStatus === "authenticated",
+    retry: (failureCount, error: AxiosError) => {
+      if (error?.response?.status === 401 && session !== null) {
+        updateAuth();
+        return failureCount < 3;
+      }
+      return false;
+    },
   });
 };

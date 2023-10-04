@@ -8,7 +8,11 @@ import { useSession } from "next-auth/react";
 export const GetMerchantsMeQueryKey = "getMerchantMe";
 
 export const useGetMerchantMeQuery = () => {
-  const { status: authStatus, update, data: session } = useSession();
+  const {
+    status: authStatus,
+    update: updateAuth,
+    data: session,
+  } = useSession();
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const { setColorCookieValue } = useCookieContext();
 
@@ -31,7 +35,7 @@ export const useGetMerchantMeQuery = () => {
     enabled: authStatus !== "loading",
     retry: (failureCount, error: AxiosError) => {
       if (error?.response?.status === 401 && session !== null) {
-        update();
+        updateAuth();
         return failureCount < 3;
       }
       return false;

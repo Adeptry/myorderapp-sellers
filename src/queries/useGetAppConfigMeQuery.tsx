@@ -1,5 +1,6 @@
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import {
   AppConfigsApi,
   AppConfigsApiGetAppConfigMeRequest,
@@ -15,7 +16,7 @@ export const getAppConfigMeQueryKeyBuilder = (
 export const useGetAppConfigMeQuery = (
   params: AppConfigsApiGetAppConfigMeRequest
 ) => {
-  const { status } = useSession();
+  const { status, update, data: session } = useSession();
   const sessionedApiConfigration = useSessionedApiConfiguration();
 
   return useQuery({
@@ -26,5 +27,12 @@ export const useGetAppConfigMeQuery = (
       ).data;
     },
     enabled: status === "authenticated",
+    retry: (failureCount, error: AxiosError) => {
+      if (error?.response?.status === 401 && session !== null) {
+        update();
+        return failureCount < 3;
+      }
+      return false;
+    },
   });
 };

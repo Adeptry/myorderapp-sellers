@@ -1,6 +1,10 @@
 import { moaEnv } from "@/utils/moaEnv";
 import ms from "ms";
-import { AuthenticationApi, Configuration } from "myorderapp-square";
+import {
+  AuthenticationApi,
+  Configuration,
+  ConfigurationParameters,
+} from "myorderapp-square";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -30,12 +34,14 @@ const handler = NextAuth({
         params.trigger === "update"
       ) {
         try {
+          const parameters: ConfigurationParameters = {
+            apiKey: moaEnv.backendApiKey,
+            basePath: moaEnv.backendUrl,
+            accessToken: params.token.refreshToken,
+          };
+          console.log(JSON.stringify(parameters, null, 2));
           const response = await new AuthenticationApi(
-            new Configuration({
-              apiKey: moaEnv.backendApiKey,
-              basePath: moaEnv.backendUrl,
-              accessToken: params.token.refreshToken,
-            })
+            new Configuration(parameters)
           ).postRefresh();
           const data = response.data;
           if (data) {
@@ -43,10 +49,11 @@ const handler = NextAuth({
             params.token.refreshToken = data.refreshToken;
             params.token.tokenExpires = data.tokenExpires;
           } else {
-            throw new Error("Token refresh failed");
+            throw new Error("Token refresh failed because no data");
           }
         } catch (e) {
-          throw new Error("Token refresh failed");
+          console.error(JSON.stringify(e, null, 2));
+          throw new Error("Token refresh failed", { cause: e });
         }
       }
 

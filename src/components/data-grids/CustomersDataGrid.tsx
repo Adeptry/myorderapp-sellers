@@ -23,7 +23,7 @@ export function CustomersDataGrid(props: {
   const isMdOrUp = useMediaQuery(theme.breakpoints.up("sm"));
 
   const [paginationModel, setPaginationModel] = useState<GridPaginationModel>({
-    page: 1,
+    page: 0,
     pageSize: initialPageSize ?? 25,
   });
 
@@ -35,7 +35,7 @@ export function CustomersDataGrid(props: {
     data: getCustomersQueryResponse,
     isLoading: getCustomersQueryIsLoading,
   } = useGetCustomersQuery({
-    page: paginationModel.page,
+    page: paginationModel.page + 1,
     limit: paginationModel.pageSize,
     startDate: startDate?.toISOString(),
     endDate: endDate?.toISOString(),
