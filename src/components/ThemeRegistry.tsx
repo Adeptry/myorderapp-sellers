@@ -2,6 +2,7 @@
 
 import { EmotionCacheProvider } from "@/components/EmotionCacheProvider";
 import { useCookieContext } from "@/contexts/CookieContext";
+import { moaEnv } from "@/utils/moaEnv";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
@@ -10,41 +11,36 @@ import { ReactNode, useMemo } from "react";
 export function ThemeRegistry({ children }: { children: ReactNode }) {
   const { colorModeCookieValue } = useCookieContext();
   const systemPrefersDark = useMediaQuery("(prefers-color-scheme: dark)");
-  const cookieOrSystemPrefersDark =
+  const prefersDark =
     colorModeCookieValue === "dark"
       ? true
       : colorModeCookieValue === "light"
       ? false
       : systemPrefersDark;
+  const theme = moaEnv.theme;
 
-  const theme = useMemo(
+  const themeMemo = useMemo(
     () =>
       createTheme({
         typography: {
-          fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI",
-          Oxygen-Sans, Ubuntu, Cantarell, Roboto,
-          "Helvetica Neue", sans-serif`,
+          fontFamily: theme.typography.fontFamily,
         },
         palette: {
-          mode: cookieOrSystemPrefersDark ? "dark" : "light",
-          primary: {
-            main: cookieOrSystemPrefersDark ? "#90caf9" : "#1976d2",
-            dark: cookieOrSystemPrefersDark ? "#5e92f3" : "#1565c0",
-            light: cookieOrSystemPrefersDark ? "#9be7ff" : "#42a5f5",
-          },
-          secondary: {
-            main: cookieOrSystemPrefersDark ? "#e0e0e0" : "#1e1e1e",
-            dark: cookieOrSystemPrefersDark ? "#aeaeae" : "#1b1b1b",
-            light: cookieOrSystemPrefersDark ? "#ffffff" : "#6d6d6d",
-          },
+          mode: prefersDark ? "dark" : "light",
+          primary: prefersDark
+            ? theme.palette.dark.primary
+            : theme.palette.light.primary,
+          secondary: prefersDark
+            ? theme.palette.dark.secondary
+            : theme.palette.light.secondary,
         },
       }),
-    [cookieOrSystemPrefersDark, systemPrefersDark]
+    [prefersDark, systemPrefersDark]
   );
 
   return (
     <EmotionCacheProvider options={{ key: "mui" }}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={themeMemo}>
         <CssBaseline />
         {children}
       </ThemeProvider>

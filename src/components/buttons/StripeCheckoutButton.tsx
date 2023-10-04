@@ -74,7 +74,7 @@ export function StripeCheckoutButton(props: {
   const onClickCheckout = async () => {
     setStripeLoadingState(true);
     try {
-      const stripe = await loadStripe(moaEnv.stripePublishableKey!);
+      const stripe = await loadStripe(moaEnv.stripe.publishableKey);
 
       if (stripe && postStripeCheckoutQueryMe?.data?.checkoutSessionId) {
         stripe.redirectToCheckout({

@@ -6,14 +6,53 @@ export const moaEnv: MoaEnv = {
   appUrl: process.env.NEXT_PUBLIC_APP_URL!,
   backendUrl: process.env.NEXT_PUBLIC_BACKEND_URL!,
   backendApiKey: process.env.NEXT_PUBLIC_BACKEND_API_KEY!,
-  squareScope: process.env.NEXT_PUBLIC_SQUARE_SCOPE!,
-  squareBaseUrl: process.env.NEXT_PUBLIC_SQUARE_BASE_URL!,
-  squareClientId: process.env.NEXT_PUBLIC_SQUARE_CLIENT_ID!,
-  squareTestCode: process.env.NEXT_PUBLIC_SQUARE_TEST_CODE!,
-  stripePublishableKey: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
-  googleClientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
-  defaultFontFamily: process.env.NEXT_PUBLIC_DEFAULT_FONT_FAMILY!,
+  name: process.env.NEXT_PUBLIC_NAME!,
+  shortName: process.env.NEXT_PUBLIC_SHORT_NAME!,
+  description: process.env.NEXT_PUBLIC_DESCRIPTION!,
+  appConfig: {
+    defaultFontFamily: process.env.NEXT_PUBLIC_APP_CONFIG_DEFAULT_FONT_FAMILY!,
+  },
+  square: {
+    scope: process.env.NEXT_PUBLIC_SQUARE_SCOPE!,
+    baseUrl: process.env.NEXT_PUBLIC_SQUARE_BASE_URL!,
+    clientId: process.env.NEXT_PUBLIC_SQUARE_CLIENT_ID!,
+    testCode: process.env.NEXT_PUBLIC_SQUARE_TEST_CODE!,
+  },
+  google: { clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID! },
+  theme: {
+    typography: {
+      fontFamily:
+        process.env.NEXT_PUBLIC_THEME_TYPOGRAPHY_FONT_FAMILY_CSS_STRING!,
+    },
+    palette: {
+      light: {
+        primary: {
+          main: process.env.NEXT_PUBLIC_THEME_PALETTE_LIGHT_PRIMARY_MAIN!,
+          dark: process.env.NEXT_PUBLIC_THEME_PALETTE_LIGHT_PRIMARY_DARK!,
+          light: process.env.NEXT_PUBLIC_THEME_PALETTE_LIGHT_PRIMARY_LIGHT!,
+        },
+        secondary: {
+          main: process.env.NEXT_PUBLIC_THEME_PALETTE_LIGHT_SECONDARY_MAIN!,
+          dark: process.env.NEXT_PUBLIC_THEME_PALETTE_LIGHT_SECONDARY_DARK!,
+          light: process.env.NEXT_PUBLIC_THEME_PALETTE_LIGHT_SECONDARY_LIGHT!,
+        },
+      },
+      dark: {
+        primary: {
+          main: process.env.NEXT_PUBLIC_THEME_PALETTE_DARK_PRIMARY_MAIN!,
+          dark: process.env.NEXT_PUBLIC_THEME_PALETTE_DARK_PRIMARY_DARK!,
+          light: process.env.NEXT_PUBLIC_THEME_PALETTE_DARK_PRIMARY_LIGHT!,
+        },
+        secondary: {
+          main: process.env.NEXT_PUBLIC_THEME_PALETTE_DARK_SECONDARY_MAIN!,
+          dark: process.env.NEXT_PUBLIC_THEME_PALETTE_DARK_SECONDARY_DARK!,
+          light: process.env.NEXT_PUBLIC_THEME_PALETTE_DARK_SECONDARY_LIGHT!,
+        },
+      },
+    },
+  },
   stripe: {
+    publishableKey: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
     priceIds: [
       {
         usd: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_TIER_0_USD!,

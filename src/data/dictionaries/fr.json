@@ -265,5 +265,12 @@
     "supportPrimary": "Support prioritaire",
     "supportSecondary": "Besoin d'une assistance rapide ? Notre support prioritaire offre une réponse en direct de notre équipe de développement dans un délai de 24 heures.",
     "title": "Le pack complet—Web, Android et iOS !"
+  },
+  "meta": {
+    "applicationName": "MyOrderApp for Sellers",
+    "creator": "Équipe MyOrderApp",
+    "description": "Découvrez la puissance de la commande mobile sur mesure. MyOrderApp offre aux vendeurs Square une expérience d'application personnalisée sur les plateformes web, Android et iOS.",
+    "keywords": "commande mobile,intégration Square,application personnalisée,iOS,Android,plateforme web",
+    "title": "MyOrderApp : Commande Mobile Sur Mesure pour les Vendeurs Square"
   }
 }

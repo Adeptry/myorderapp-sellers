@@ -265,5 +265,12 @@
     "supportPrimary": "優先サポート",
     "supportSecondary": "迅速な支援が必要ですか？優先サポートでは、開発チームから24時間以内にリアルタイムのレスポンスが得られます。",
     "title": "フルパッケージ—ウェブ、Android、およびiOS！"
+  },
+  "meta": {
+    "applicationName": "MyOrderApp for Sellers",
+    "creator": "MyOrderAppチーム",
+    "description": "カスタマイズされたモバイル注文の力を解放します。MyOrderAppは、Web、Android、およびiOSプラットフォームでブランド化されたアプリ体験でSquare販売者を強化します。",
+    "keywords": "モバイル注文,Square統合,ブランドアプリ,iOS,Android,Webプラットフォーム",
+    "title": "MyOrderApp: Square販売者向けのカスタマイズされたモバイル注文"
   }
 }

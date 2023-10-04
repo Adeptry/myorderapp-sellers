@@ -265,5 +265,16 @@
     "supportPrimary": "Soporte Prioritario",
     "supportSecondary": "¿Necesitas asistencia rápida? Nuestro soporte prioritario ofrece una respuesta en vivo de nuestro equipo de desarrollo en un plazo de 24 horas.",
     "title": "El paquete completo—Web, Android e iOS!"
+  },
+  "meta": {
+    "applicationName": "MyOrderApp for Sellers",
+    "authors": {
+      "name": "Adeptry",
+      "url": "https://adeptry.com"
+    },
+    "creator": "Equipo de MyOrderApp",
+    "description": "Descubre el poder de los pedidos móviles personalizados. MyOrderApp potencia a los vendedores de Square con una experiencia de aplicación con marca en las plataformas web, Android e iOS.",
+    "keywords": "pedidos móviles,integración con Square,aplicación con marca,iOS,Android,plataforma web",
+    "title": "MyOrderApp: Pedidos Móviles Personalizados para Vendedores de Square"
   }
 }

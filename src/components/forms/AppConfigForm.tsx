@@ -114,7 +114,8 @@ export function AppConfigForm(props: {
           return {
             name: myConfig.name ?? "",
             seedColor: myConfig.seedColor ?? "#",
-            fontFamily: myConfig.fontFamily ?? moaEnv.defaultFontFamily,
+            fontFamily:
+              myConfig.fontFamily ?? moaEnv.appConfig.defaultFontFamily,
             themeMode: String(myConfig.themeMode ?? ThemeModeEnum.Light),
             useMaterial3: String(myConfig.useMaterial3 ?? false),
             file: file,
@@ -131,7 +132,7 @@ export function AppConfigForm(props: {
           return {
             name: t("defaultName", { name: firstName }),
             seedColor: colorCookieValue ?? stringToColor(fullName),
-            fontFamily: moaEnv.defaultFontFamily,
+            fontFamily: moaEnv.appConfig.defaultFontFamily,
             themeMode: ThemeModeEnum.Light,
             useMaterial3: String(false),
             file: null,

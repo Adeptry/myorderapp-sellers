@@ -1,17 +1,55 @@
 export interface MoaEnv {
   frontendUrl: string;
   backendUrl: string;
-  squareScope: string;
-  squareBaseUrl: string;
-  squareClientId: string;
-  squareTestCode: string;
-  stripePublishableKey: string;
-  googleClientId: string;
   backendApiKey: string;
   appUrl: string;
   env: string;
-  defaultFontFamily: string;
+  name: string;
+  shortName: string;
+  description: string;
+  appConfig: {
+    defaultFontFamily: string;
+  };
+  square: {
+    scope: string;
+    baseUrl: string;
+    clientId: string;
+    testCode: string;
+  };
+  google: { clientId: string };
+  theme: {
+    typography: {
+      fontFamily: string;
+    };
+    palette: {
+      light: {
+        primary: {
+          main: string;
+          light: string;
+          dark: string;
+        };
+        secondary: {
+          main: string;
+          light: string;
+          dark: string;
+        };
+      };
+      dark: {
+        primary: {
+          main: string;
+          light: string;
+          dark: string;
+        };
+        secondary: {
+          main: string;
+          light: string;
+          dark: string;
+        };
+      };
+    };
+  };
   stripe: {
+    publishableKey: string;
     priceIds: {
       usd: string;
       eur: string;

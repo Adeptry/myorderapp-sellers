@@ -269,5 +269,16 @@
     "supportPrimary": "Priority Support",
     "supportSecondary": "Need Prompt Assistance? Our priority support offers a 24-hour live response from our dev team.",
     "title": "The Full Package—Web, Android, and iOS!"
+  },
+  "meta": {
+    "applicationName": "MyOrderApp for Square Sellers",
+    "authors": {
+      "name": "Adeptry",
+      "url": "https://adeptry.com"
+    },
+    "creator": "MyOrderApp Team",
+    "description": "Unlock the power of tailored mobile ordering. MyOrderApp empowers Square sellers with a branded app experience across web, Android, and iOS platforms.",
+    "keywords": "mobile ordering,Square integration,branded app,iOS,Android,web platform",
+    "title": "MyOrderApp: Tailored Mobile Ordering for Square Sellers"
   }
 }

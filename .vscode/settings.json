@@ -1,5 +1,6 @@
 {
   "i18n-ally.localesPaths": ["src/data/dictionaries"],
   "i18n-ally.keystyle": "nested",
-  "i18n-ally.extract.ignored": ["Common"]
+  "i18n-ally.extract.ignored": ["Common"],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

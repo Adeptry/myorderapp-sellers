@@ -49,22 +49,27 @@ export function Dashboard() {
     });
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12} md={3}>
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          height="100%"
-        >
-          <Stack direction="row" justifyContent="center" alignItems="center">
-            <OrderingEnabledFormControlLabel />
-            <Tooltip title={t("appConfigEnabledTooltip")}>
-              <InfoOutlined />
-            </Tooltip>
-          </Stack>
-        </Box>
+      <Grid item xs={6} md={3}>
+        <DatePicker
+          sx={{ width: "100%" }}
+          label={t("startDatePickerLabel")}
+          value={startDateState}
+          onChange={(newValue) => {
+            newValue && setStartDateState(newValue);
+          }}
+        />
       </Grid>
-      <Grid item xs={12} md={3}>
+      <Grid item xs={6} md={3}>
+        <DatePicker
+          sx={{ width: "100%" }}
+          label={t("endDatePickerLabel")}
+          value={endDateState}
+          onChange={(newValue) => {
+            newValue && setEndDateState(newValue);
+          }}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6} md={3}>
         <Card variant="outlined" sx={{ height: "56px" }}>
           <CardHeader
             sx={{ paddingY: "12px" }}
@@ -85,25 +90,20 @@ export function Dashboard() {
           />
         </Card>
       </Grid>
-      <Grid item xs={6} md={3}>
-        <DatePicker
-          sx={{ width: "100%" }}
-          label={t("startDatePickerLabel")}
-          value={startDateState}
-          onChange={(newValue) => {
-            newValue && setStartDateState(newValue);
-          }}
-        />
-      </Grid>
-      <Grid item xs={6} md={3}>
-        <DatePicker
-          sx={{ width: "100%" }}
-          label={t("endDatePickerLabel")}
-          value={endDateState}
-          onChange={(newValue) => {
-            newValue && setEndDateState(newValue);
-          }}
-        />
+      <Grid item xs={12} sm={6} md={3}>
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          height="100%"
+        >
+          <Stack direction="row" justifyContent="center" alignItems="center">
+            <OrderingEnabledFormControlLabel />
+            <Tooltip title={t("appConfigEnabledTooltip")}>
+              <InfoOutlined />
+            </Tooltip>
+          </Stack>
+        </Box>
       </Grid>
 
       <Grid container item xs={12} spacing={2}>

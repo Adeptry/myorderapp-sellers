@@ -19,7 +19,7 @@ interface SquareOauthButtonProps {
 
 export function SquareOauthButton(props: SquareOauthButtonProps) {
   const {
-    scope = moaEnv.squareScope,
+    scope = moaEnv.square.scope,
     locale,
     session = true,
     code_challenge,
@@ -30,7 +30,7 @@ export function SquareOauthButton(props: SquareOauthButtonProps) {
 
   const t = useTranslations("SquareOauthButton");
 
-  let urlString = `${moaEnv.squareBaseUrl}/oauth2/authorize?client_id=${moaEnv.squareClientId}&scope=${scope}&state=${data?.id}`;
+  let urlString = `${moaEnv.square.baseUrl}/oauth2/authorize?client_id=${moaEnv.square.clientId}&scope=${scope}&state=${data?.id}`;
 
   if (locale) {
     urlString += `&locale=${locale}`;
@@ -48,10 +48,10 @@ export function SquareOauthButton(props: SquareOauthButtonProps) {
 
   if (
     moaEnv.env !== "production" &&
-    moaEnv.squareTestCode != undefined &&
-    moaEnv.squareTestCode.length > 0
+    moaEnv.square.testCode != undefined &&
+    moaEnv.square.testCode.length > 0
   ) {
-    urlString = `${routes.setup.square.oauth2}?code=${moaEnv.squareTestCode}`;
+    urlString = `${routes.setup.square.oauth2}?code=${moaEnv.square.testCode}`;
   }
 
   if (!data?.id) {
