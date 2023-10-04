@@ -275,6 +275,12 @@
     "creator": "Equipo de MyOrderApp",
     "description": "Descubre el poder de los pedidos móviles personalizados. MyOrderApp potencia a los vendedores de Square con una experiencia de aplicación con marca en las plataformas web, Android e iOS.",
     "keywords": "pedidos móviles,integración con Square,aplicación con marca,iOS,Android,plataforma web",
+    "openGraph": {
+      "description": "Descubre el poder de los pedidos móviles personalizados. MyOrderApp potencia a los vendedores de Square con una experiencia de aplicación con marca en las plataformas web, Android e iOS.",
+      "siteName": "MyOrderApp for Sellers",
+      "title": "MyOrderApp for Sellers",
+      "type": "website"
+    },
     "title": "MyOrderApp: Pedidos Móviles Personalizados para Vendedores de Square"
   }
 }

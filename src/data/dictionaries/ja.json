@@ -271,6 +271,12 @@
     "creator": "MyOrderAppチーム",
     "description": "カスタマイズされたモバイル注文の力を解放します。MyOrderAppは、Web、Android、およびiOSプラットフォームでブランド化されたアプリ体験でSquare販売者を強化します。",
     "keywords": "モバイル注文,Square統合,ブランドアプリ,iOS,Android,Webプラットフォーム",
+    "openGraph": {
+      "description": "カスタマイズされたモバイル注文の力を解放します。MyOrderAppは、Web、Android、およびiOSプラットフォームでブランド化されたアプリ体験でSquare販売者を強化します。",
+      "siteName": "MyOrderApp for Sellers",
+      "title": "MyOrderApp for Sellers",
+      "type": "website"
+    },
     "title": "MyOrderApp: Square販売者向けのカスタマイズされたモバイル注文"
   }
 }

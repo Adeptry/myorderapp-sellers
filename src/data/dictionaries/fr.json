@@ -271,6 +271,12 @@
     "creator": "Équipe MyOrderApp",
     "description": "Découvrez la puissance de la commande mobile sur mesure. MyOrderApp offre aux vendeurs Square une expérience d'application personnalisée sur les plateformes web, Android et iOS.",
     "keywords": "commande mobile,intégration Square,application personnalisée,iOS,Android,plateforme web",
+    "openGraph": {
+      "description": "Découvrez la puissance de la commande mobile sur mesure. MyOrderApp offre aux vendeurs Square une expérience d'application personnalisée sur les plateformes web, Android et iOS.",
+      "siteName": "MyOrderApp for Sellers",
+      "title": "MyOrderApp for Sellers",
+      "type": "website"
+    },
     "title": "MyOrderApp : Commande Mobile Sur Mesure pour les Vendeurs Square"
   }
 }

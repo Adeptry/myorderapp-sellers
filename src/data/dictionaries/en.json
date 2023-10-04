@@ -271,7 +271,7 @@
     "title": "The Full Package—Web, Android, and iOS!"
   },
   "meta": {
-    "applicationName": "MyOrderApp for Square Sellers",
+    "applicationName": "MyOrderApp for Sellers",
     "authors": {
       "name": "Adeptry",
       "url": "https://adeptry.com"
@@ -279,6 +279,12 @@
     "creator": "MyOrderApp Team",
     "description": "Unlock the power of tailored mobile ordering. MyOrderApp empowers Square sellers with a branded app experience across web, Android, and iOS platforms.",
     "keywords": "mobile ordering,Square integration,branded app,iOS,Android,web platform",
+    "openGraph": {
+      "description": "Unlock the power of tailored mobile ordering. MyOrderApp empowers Square sellers with a branded app experience across web, Android, and iOS platforms.",
+      "siteName": "MyOrderApp for Sellers",
+      "title": "MyOrderApp for Sellers",
+      "type": "website"
+    },
     "title": "MyOrderApp: Tailored Mobile Ordering for Square Sellers"
   }
 }
