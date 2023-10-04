@@ -10,6 +10,7 @@ import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { Container } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
+import { useSession } from "next-auth/react";
 import { useLocale } from "next-intl";
 
 export default function Page() {
@@ -21,6 +22,7 @@ export default function Page() {
   const currentCatalogQuery = useGetCategoriesMeQuery();
   const currentCatalogCategories = currentCatalogQuery.data?.data ?? [];
   const locale = useLocale();
+  const { data } = useSession();
 
   return (
     <Container sx={{ minHeight: maxHeightCssString }}>
@@ -33,9 +35,11 @@ export default function Page() {
           key="device-preview"
           sx={{ pb: 2, position: "sticky", top: "72px" }}
           categories={currentCatalogCategories}
+          authentication={data?.user}
           environment={{
             apiBaseUrl: moaEnv.backendUrl!,
             apiKey: moaEnv.backendApiKey!,
+
             isPreview: true,
             languageCodeOverride: locale,
           }}

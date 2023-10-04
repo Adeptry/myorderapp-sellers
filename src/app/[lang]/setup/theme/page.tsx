@@ -31,7 +31,7 @@ export default function Page() {
   const maxHeightCssString = useMaxHeightCssString();
 
   const { push } = useRouter();
-  const { status } = useSession();
+  const { status, data } = useSession();
   const locale = useLocale();
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -65,6 +65,7 @@ export default function Page() {
               position: "sticky",
               top: "72px", // Adjusted for the toolbar
             }}
+            authentication={data?.user}
             appConfig={appConfigState}
             environment={{
               apiBaseUrl: moaEnv.backendUrl,

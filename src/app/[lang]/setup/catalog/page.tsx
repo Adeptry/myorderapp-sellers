@@ -36,6 +36,7 @@ export default function Page() {
   const { data: currentMerchantData } = useGetMerchantMeQuery();
   const common = useTranslations("Common");
   const maxHeightCssString = useMaxHeightCssString();
+  const { data } = useSession();
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -96,6 +97,7 @@ export default function Page() {
               position: "sticky",
               top: "72px", // Adjusted for the toolbar
             }}
+            authentication={data?.user}
             categories={currentCatalogCategories}
             environment={{
               apiBaseUrl: moaEnv.backendUrl!,

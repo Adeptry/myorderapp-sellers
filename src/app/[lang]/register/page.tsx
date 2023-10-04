@@ -25,7 +25,7 @@ export default function Page() {
     <Container sx={{ minHeight: maxHeightCssString }}>
       <OnboardingStepper
         activeStep={OnboardingSteps.signUp}
-        sx={{ width: "100%", pb: 2 }}
+        sx={{ width: "100%", py: 2 }}
       />
 
       <Grid container justifyContent="center">

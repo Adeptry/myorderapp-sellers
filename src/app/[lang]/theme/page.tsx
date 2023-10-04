@@ -10,6 +10,7 @@ import { Container } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 import { AppConfigEntity } from "myorderapp-square";
+import { useSession } from "next-auth/react";
 import { useLocale } from "next-intl";
 import { useState } from "react";
 
@@ -22,6 +23,7 @@ export default function Page() {
   >(undefined);
   const locale = useLocale();
   const maxHeightCssString = useMaxHeightCssString();
+  const { data } = useSession();
 
   return (
     <Container sx={{ minHeight: maxHeightCssString }}>
@@ -34,6 +36,7 @@ export default function Page() {
           key="myorderapp-preview"
           sx={{ pb: 2 }}
           appConfig={appConfigState}
+          authentication={data?.user}
           environment={{
             apiBaseUrl: moaEnv.backendUrl,
             apiKey: moaEnv.backendApiKey,

@@ -3,7 +3,11 @@ import { toWindowClonable } from "@/components/messaging-iframe/WindowClonable";
 import { useGetMerchantMeQuery } from "@/queries/useGetMerchantMeQuery";
 import { moaEnv } from "@/utils/moaEnv";
 import { Box, SxProps } from "@mui/material";
-import { AppConfigEntity, CategoryEntity } from "myorderapp-square";
+import {
+  AppConfigEntity,
+  AuthenticationResponse,
+  CategoryEntity,
+} from "myorderapp-square";
 import { DeviceFrameset } from "react-device-frameset";
 import "react-device-frameset/styles/marvel-devices.min.css";
 import "./styles.css";
@@ -12,6 +16,7 @@ export function MyOrderAppPreview(props: {
   sx?: SxProps;
   categories?: Array<CategoryEntity>;
   appConfig?: AppConfigEntity;
+  authentication?: AuthenticationResponse;
   environment: {
     apiBaseUrl: string | null;
     apiKey: string | null;
@@ -36,6 +41,7 @@ export function MyOrderAppPreview(props: {
             sendMessageState={{
               type: "state",
               payload: {
+                authentication: toWindowClonable(props.authentication),
                 categories: toWindowClonable(props.categories),
                 appConfig: toWindowClonable(props.appConfig),
                 environment: props.environment,
