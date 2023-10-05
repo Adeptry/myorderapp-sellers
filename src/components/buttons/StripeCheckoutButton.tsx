@@ -1,8 +1,10 @@
 "use client";
 
 import { routes } from "@/app/routes";
+import { constants } from "@/constants";
 import { useCookieContext } from "@/contexts/CookieContext";
 import { Currency } from "@/types/next";
+import { gtagEvent } from "@/utils/gtag-event";
 import { moaEnv } from "@/utils/moaEnv";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { ShoppingCartCheckout } from "@mui/icons-material";
@@ -45,7 +47,7 @@ export function StripeCheckoutButton(props: {
       break;
   }
 
-  const successUrl = `${moaEnv.frontendUrl}/${locale}${sucessPathComponent}`;
+  const successUrl = `${moaEnv.frontendUrl}/${locale}${sucessPathComponent}?session_id={CHECKOUT_SESSION_ID}`;
   const cancelUrl = `${moaEnv.frontendUrl}/${locale}${routes.setup.cancel}`;
 
   const postStripeCheckoutQueryMe = useQuery({
@@ -77,6 +79,26 @@ export function StripeCheckoutButton(props: {
       const stripe = await loadStripe(moaEnv.stripe.publishableKey);
 
       if (stripe && postStripeCheckoutQueryMe?.data?.checkoutSessionId) {
+        gtagEvent("begin_checkout", {
+          currency: currencyCookieValue,
+          value:
+            constants.currencyToPriceDictionaries[tier][
+              currencyCookieValue as Currency
+            ],
+          items: [
+            {
+              value:
+                constants.currencyToPriceDictionaries[2][
+                  currencyCookieValue as Currency
+                ],
+              item_id:
+                moaEnv.stripe.priceIds[tier][
+                  currencyCookieValue?.toLowerCase() as Currency
+                ],
+              quantity: 1,
+            },
+          ],
+        });
         stripe.redirectToCheckout({
           sessionId: postStripeCheckoutQueryMe.data.checkoutSessionId,
         });

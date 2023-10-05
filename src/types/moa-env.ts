@@ -16,7 +16,7 @@ export interface MoaEnv {
     clientId: string;
     testCode: string;
   };
-  google: { clientId: string };
+  google: { measurementId: string };
   theme: {
     typography: {
       fontFamily: string;

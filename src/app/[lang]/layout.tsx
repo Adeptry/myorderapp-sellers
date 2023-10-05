@@ -1,3 +1,4 @@
+import GoogleAnalyticsProvider from "@/components/GoogleAnalyticsProvider";
 import { SessionedQueryProvider } from "@/components/SessionedQueryProvider";
 import { ThemeRegistry } from "@/components/ThemeRegistry";
 import { MoaAdaptiveScaffold } from "@/components/layouts/MoaAdaptiveScaffold";
@@ -33,6 +34,7 @@ export async function generateStaticParams() {
 
 export default async function RootLayout(props: NextPageProps) {
   const dictionary = await getDictionary(props.params.lang);
+
   return (
     <html lang={props.params.lang}>
       <body>
@@ -43,7 +45,9 @@ export default async function RootLayout(props: NextPageProps) {
               messages={dictionary}
             >
               <SessionedQueryProvider>
-                <MoaAdaptiveScaffold>{props.children}</MoaAdaptiveScaffold>
+                <GoogleAnalyticsProvider>
+                  <MoaAdaptiveScaffold>{props.children}</MoaAdaptiveScaffold>
+                </GoogleAnalyticsProvider>
               </SessionedQueryProvider>
             </NextIntlClientProvider>
           </ThemeRegistry>

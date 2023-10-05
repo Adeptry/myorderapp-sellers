@@ -1,13 +1,43 @@
 "use client";
 
 import { Tier0SuccessCard } from "@/components/cards/Tier0SuccessCard";
+import { useCookieContext } from "@/contexts/CookieContext";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
+import { Currency } from "@/types/next";
+import { gtagEvent } from "@/utils/gtag-event";
+import { moaEnv } from "@/utils/moaEnv";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { Container, Stack } from "@mui/material";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Page() {
   useRedirectUnauthenticatedSessions();
   const maxHeightCssString = useMaxHeightCssString();
+
+  const searchParams = useSearchParams();
+  const checkoutSessionId = searchParams.get("session_id");
+  const { currencyCookieValue } = useCookieContext();
+
+  useEffect(() => {
+    if (checkoutSessionId && currencyCookieValue) {
+      gtagEvent("purchase", {
+        transaction_id: checkoutSessionId,
+        currency: currencyCookieValue,
+        value: 0,
+        items: [
+          {
+            value: 0,
+            item_id:
+              moaEnv.stripe.priceIds[0][
+                currencyCookieValue.toLowerCase() as Currency
+              ],
+            quantity: 1,
+          },
+        ],
+      });
+    }
+  }, [checkoutSessionId, currencyCookieValue]);
 
   return (
     <Container sx={{ minHeight: maxHeightCssString }}>

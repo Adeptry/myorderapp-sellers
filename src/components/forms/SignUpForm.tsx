@@ -4,6 +4,7 @@ import { AppleAuthButton } from "@/components/buttons/AppleAuthButton";
 import { GoogleAuthButton } from "@/components/buttons/GoogleAuthButton";
 import { ForgotPasswordLink } from "@/components/links/ForgotPasswordLink";
 import { SignInLink } from "@/components/links/SignInLink";
+import { gtagEvent } from "@/utils/gtag-event";
 import { moaEnv } from "@/utils/moaEnv";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Check, Login } from "@mui/icons-material";
@@ -106,6 +107,8 @@ export function SignUpForm(props: { callbackUrl: string; skeleton?: boolean }) {
       });
       if (response?.error) {
         setErrorString(response?.error);
+      } else {
+        gtagEvent("sign_up", { method: "email" });
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {

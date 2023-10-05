@@ -15,12 +15,10 @@ import {
   Typography,
 } from "@mui/material";
 import { useFormatter, useTranslations } from "next-intl";
-import { useRouter } from "next-intl/client";
 
 export function Tier0CheckoutCard() {
   const { currencyCookieValue } = useCookieContext();
   const formatter = useFormatter();
-  const router = useRouter();
   const t = useTranslations("Tier0CheckoutCard");
   const common = useTranslations("Common");
 

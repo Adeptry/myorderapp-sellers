@@ -18,7 +18,7 @@ export const moaEnv: MoaEnv = {
     clientId: process.env.NEXT_PUBLIC_SQUARE_CLIENT_ID!,
     testCode: process.env.NEXT_PUBLIC_SQUARE_TEST_CODE!,
   },
-  google: { clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID! },
+  google: { measurementId: process.env.NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID! },
   theme: {
     typography: {
       fontFamily:

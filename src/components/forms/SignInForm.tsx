@@ -4,6 +4,7 @@ import { AppleAuthButton } from "@/components/buttons/AppleAuthButton";
 import { GoogleAuthButton } from "@/components/buttons/GoogleAuthButton";
 import { ForgotPasswordLink } from "@/components/links/ForgotPasswordLink";
 import { SignUpLink } from "@/components/links/SignUpLink";
+import { gtagEvent } from "@/utils/gtag-event";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Check, Login } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
@@ -63,6 +64,8 @@ export function SignInForm(props: { callbackUrl: string; skeleton?: boolean }) {
       const result = await createSessionMutation.mutateAsync(data);
       if (result?.error) {
         handleError(result?.error);
+      } else {
+        gtagEvent("login", { method: "email" });
       }
     } catch (error) {
       handleError(error);
