@@ -9,7 +9,7 @@ import { stringToThemeMode } from "@/utils/stringToThemeMode";
 import { toMoaAppUrl } from "@/utils/toMoaAppUrl";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Save } from "@mui/icons-material";
+import { InfoOutlined, Save } from "@mui/icons-material";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import { LoadingButton } from "@mui/lab";
 import {
@@ -25,6 +25,7 @@ import {
   RadioGroup,
   Skeleton,
   Stack,
+  Tooltip,
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -301,22 +302,33 @@ export function AppConfigForm(props: {
               return skeletonState ? (
                 <Skeleton height="56px" />
               ) : (
-                <TextField
-                  {...field}
-                  value={field.value ?? ""}
-                  required
-                  helperText={
-                    !errors.name?.message &&
-                    `${t("nameHelperText")} ${toMoaAppUrl(field.value ?? "")}`
-                  }
-                  label={t("nameLabel")}
-                  inputProps={{
-                    autoCorrect: "none",
-                    spellCheck: false,
-                  }}
-                  fullWidth
-                  error={errors.name ? true : false}
-                />
+                <Stack>
+                  <Stack direction="row" alignItems="center" gap={1}>
+                    <TextField
+                      {...field}
+                      value={field.value ?? ""}
+                      required
+                      label={t("nameLabel")}
+                      inputProps={{
+                        autoCorrect: "none",
+                        spellCheck: false,
+                      }}
+                      fullWidth
+                      error={errors.name ? true : false}
+                    />
+                    <Tooltip
+                      title={<Typography>{t("nameTooltip")}</Typography>}
+                    >
+                      <InfoOutlined />
+                    </Tooltip>
+                  </Stack>
+                  <FormHelperText sx={{ pl: 2 }}>
+                    {!errors.name?.message &&
+                      `${t("nameHelperText")} ${toMoaAppUrl(
+                        field.value ?? ""
+                      )}`}
+                  </FormHelperText>
+                </Stack>
               );
             }}
           />
@@ -329,24 +341,31 @@ export function AppConfigForm(props: {
           {skeletonState ? (
             <Skeleton height="56px" />
           ) : (
-            <Controller
-              name="file"
-              control={control}
-              render={(renderer) => (
-                <MuiFileInput
-                  {...renderer.field}
-                  fullWidth
-                  helperText={
-                    errors.file?.message
-                      ? errors.file?.message
-                      : t("appIconHelperText")
-                  }
-                  label={t("appIconLabel")}
-                  error={renderer.fieldState.invalid}
-                  hideSizeText
+            <Stack>
+              <Stack direction="row" alignItems="center" gap={1}>
+                <Controller
+                  name="file"
+                  control={control}
+                  render={(renderer) => (
+                    <MuiFileInput
+                      {...renderer.field}
+                      fullWidth
+                      label={t("appIconLabel")}
+                      error={renderer.fieldState.invalid}
+                      hideSizeText
+                    />
+                  )}
                 />
-              )}
-            />
+                <Tooltip title={<Typography>{t("appIconTooltip")}</Typography>}>
+                  <InfoOutlined />
+                </Tooltip>
+              </Stack>
+              <FormHelperText sx={{ pl: 2 }}>
+                {errors.file?.message
+                  ? errors.file?.message
+                  : t("appIconHelperText")}
+              </FormHelperText>
+            </Stack>
           )}
         </Grid>
         <Grid item xs={12}>
@@ -358,25 +377,32 @@ export function AppConfigForm(props: {
                 <Skeleton height="56px" />
               ) : (
                 <Box>
-                  <MuiColorInput
-                    onBlur={() => field.onBlur()}
-                    value={field.value ?? "#"}
-                    name={field.name}
-                    ref={field.ref}
-                    fullWidth
-                    format="hex"
-                    isAlphaHidden
-                    label={t("seedColorLabel")}
-                    error={errors.seedColor ? true : false}
-                    required
-                    onChange={(value) => {
-                      field.onChange({
-                        target: {
-                          value,
-                        },
-                      });
-                    }}
-                  />
+                  <Stack direction="row" gap={1} alignItems={"center"}>
+                    <MuiColorInput
+                      onBlur={() => field.onBlur()}
+                      value={field.value ?? "#"}
+                      name={field.name}
+                      ref={field.ref}
+                      fullWidth
+                      format="hex"
+                      isAlphaHidden
+                      label={t("seedColorLabel")}
+                      error={errors.seedColor ? true : false}
+                      required
+                      onChange={(value) => {
+                        field.onChange({
+                          target: {
+                            value,
+                          },
+                        });
+                      }}
+                    />
+                    <Tooltip
+                      title={<Typography>{t("seedColorTooltip")}</Typography>}
+                    >
+                      <InfoOutlined />
+                    </Tooltip>
+                  </Stack>
                   <Grid
                     container
                     direction="row"
@@ -388,7 +414,7 @@ export function AppConfigForm(props: {
                         {!errors.seedColor?.message && t("seedColorHelperText")}
                       </FormHelperText>
                     </Grid>
-                    <Grid item>
+                    <Grid item sx={{ pr: 4 }}>
                       <IconButton
                         size="small"
                         onClick={() => {
@@ -438,11 +464,20 @@ export function AppConfigForm(props: {
                     }}
                     options={fontNames}
                     renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        name={field.name}
-                        label={t("fontFamilyLabel")}
-                      />
+                      <Stack direction="row" alignItems="center" gap={1}>
+                        <TextField
+                          {...params}
+                          name={field.name}
+                          label={t("fontFamilyLabel")}
+                        />
+                        <Tooltip
+                          title={
+                            <Typography>{t("fontFamilyTooltip")}</Typography>
+                          }
+                        >
+                          <InfoOutlined />
+                        </Tooltip>
+                      </Stack>
                     )}
                     renderOption={(props, option) => {
                       return (
@@ -472,7 +507,7 @@ export function AppConfigForm(props: {
                           </MuiLink>
                         </FormHelperText>
                       </Grid>
-                      <Grid item>
+                      <Grid item sx={{ pr: 4 }}>
                         <IconButton
                           size="small"
                           onClick={() => {
@@ -504,24 +539,39 @@ export function AppConfigForm(props: {
               skeletonState ? (
                 <Skeleton height="56px" />
               ) : (
-                <FormControl>
+                <FormControl sx={{ width: "100%" }}>
                   <FormLabel id="demo-row-radio-buttons-group-label">
                     {t("appearanceLabel")}
                   </FormLabel>
-                  <RadioGroup {...renderer.field} row>
-                    <FormControlLabel
-                      key={"modern"}
-                      value={"true"}
-                      control={<Radio />}
-                      label={t("useMaterial3Labels.true")}
-                    />
-                    <FormControlLabel
-                      key={"classic"}
-                      value={"false"}
-                      control={<Radio />}
-                      label={t("useMaterial3Labels.false")}
-                    />
-                  </RadioGroup>
+                  <Stack
+                    direction="row"
+                    alignItems="center"
+                    gap={2}
+                    width="100%"
+                    justifyContent={"space-between"}
+                  >
+                    <RadioGroup {...renderer.field} row>
+                      <FormControlLabel
+                        key={"modern"}
+                        value={"true"}
+                        control={<Radio />}
+                        label={t("useMaterial3Labels.true")}
+                      />
+                      <FormControlLabel
+                        key={"classic"}
+                        value={"false"}
+                        control={<Radio />}
+                        label={t("useMaterial3Labels.false")}
+                      />
+                    </RadioGroup>
+                    <Tooltip
+                      title={
+                        <Typography>{t("useMaterial3Tooltip")}</Typography>
+                      }
+                    >
+                      <InfoOutlined />
+                    </Tooltip>
+                  </Stack>
                 </FormControl>
               )
             }
@@ -535,32 +585,46 @@ export function AppConfigForm(props: {
               return skeletonState ? (
                 <Skeleton height="56px" />
               ) : (
-                <FormControl>
+                <FormControl sx={{ width: "100%" }}>
                   <FormLabel>{t("themeModeLabel")}</FormLabel>
-                  <RadioGroup
-                    {...field}
-                    value={field.value ? `${field.value}` : null}
-                    row
-                    onChange={(e) => {}}
+                  <Stack
+                    direction="row"
+                    alignItems="center"
+                    gap={2}
+                    width="100%"
+                    justifyContent={"space-between"}
                   >
-                    {mapStringEnum(ThemeModeEnum, (value) => {
-                      return (
-                        <FormControlLabel
-                          key={value}
-                          onChange={() => {
-                            field.onChange({
-                              target: {
-                                value: `${value}`,
-                              },
-                            });
-                          }}
-                          value={value}
-                          control={<Radio />}
-                          label={t("themeModeValues." + value)}
-                        />
-                      );
-                    })}
-                  </RadioGroup>
+                    <RadioGroup
+                      {...field}
+                      value={field.value ? `${field.value}` : null}
+                      row
+                      onChange={(e) => {}}
+                    >
+                      {mapStringEnum(ThemeModeEnum, (value) => {
+                        return (
+                          <FormControlLabel
+                            key={value}
+                            onChange={() => {
+                              field.onChange({
+                                target: {
+                                  value: `${value}`,
+                                },
+                              });
+                            }}
+                            value={value}
+                            control={<Radio />}
+                            label={t("themeModeValues." + value)}
+                          />
+                        );
+                      })}
+                    </RadioGroup>
+                    <Tooltip
+                      title={<Typography>{t("themeModeTooltip")}</Typography>}
+                    >
+                      <InfoOutlined />
+                    </Tooltip>
+                  </Stack>
+
                   <FormHelperText>{t("themeModeHelperText")}</FormHelperText>
                 </FormControl>
               );

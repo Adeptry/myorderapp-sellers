@@ -21,32 +21,38 @@
     "previewTabLabel": "Aperçu"
   },
   "AppConfigForm": {
-    "appIconHelperText": "Apparaîtra sur la page d'accueil des utilisateurs",
-    "appIconLabel": "Icône de l'appli",
+    "appIconHelperText": "Affiché sur l'écran d'accueil des utilisateurs. Taille recommandée : 1024x1024.",
+    "appIconLabel": "Icône de l'App",
+    "appIconTooltip": "Envoyez n'importe quelle image si vous n'êtes pas sûr. Nous pouvons aider avec les affinements de conception.",
     "appearanceLabel": "Apparence",
-    "defaultName": "{name} Cmd App",
-    "fontFamilyHelperLinkText": "Voir toutes les polices",
-    "fontFamilyLabel": "Famille de polices",
-    "nameHelperText": "Le nom de votre appli, et votre URL:",
-    "nameLabel": "Nom",
-    "randomizeAllButtonText": "Tout aléatoiriser",
-    "saveAndContinue": "Enregistrer et Continuer",
-    "seedColorHelperText": "Utilisé pour générer votre thème",
-    "seedColorLabel": "Couleur de base",
-    "seedColorRequired": "Doit être une couleur hexadécimale",
-    "submitButtonCaption": "Vous pouvez mettre à jour ces paramètres à tout moment.",
-    "submitButtonText": "Enregistrer",
-    "themeModeHelperText": "'Système' suit les paramètres de l'utilisateur. Sélectionnez 'Clair' ou 'Sombre' pour outrepasser.",
-    "themeModeLabel": "Mode de couleur",
+    "defaultName": "{name} App de Commande",
+    "fontFamilyHelperLinkText": "Voir les polices disponibles",
+    "fontFamilyLabel": "Police",
+    "fontFamilyTooltip": "Choisissez parmi les polices Google ou 'randomize' pour une sélection inattendue.",
+    "nameHelperText": "Définit à la fois le nom de l'app et l'URL :",
+    "nameLabel": "Nom de l'App",
+    "nameTooltip": "Généralement le nom de votre entreprise. L'URL est mise à jour immédiatement après modification, la mise à jour du nom de l'app nécessite une soumission en magasin.",
+    "randomizeAllButtonText": "Paramètres aléatoires",
+    "saveAndContinue": "Sauvegarder & Continuer",
+    "seedColorHelperText": "Couleur de base pour votre thème",
+    "seedColorLabel": "Couleur Principale",
+    "seedColorRequired": "Entrez une couleur hex valide.",
+    "seedColorTooltip": "Nous dérivons des nuances de cette couleur, créant un thème cohérent pour les modes clair et foncé. Ajustez ou 'randomize' pour explorer !",
+    "submitButtonCaption": "Modifier les paramètres n'importe quand par la suite.",
+    "submitButtonText": "Confirmer",
+    "themeModeHelperText": "'Auto' respecte les paramètres de l'appareil de l'utilisateur. 'Clair' ou 'Foncé' le remplace.",
+    "themeModeLabel": "Mode Thème",
+    "themeModeTooltip": "'Clair' pour un thème lumineux, 'Foncé' pour des visuels atténués, 'Auto' se synchronise avec les préférences de l'appareil.",
     "themeModeValues": {
-      "dark": "Sombre",
+      "dark": "Foncé",
       "light": "Clair",
-      "system": "Système"
+      "system": "Auto"
     },
     "useMaterial3Labels": {
       "false": "Classique",
-      "true": "Moderne"
-    }
+      "true": "Contemporain"
+    },
+    "useMaterial3Tooltip": "Activez 'contemporain' pour des attributs de conception plus épurés et mis à jour."
   },
   "AppleAuthButton": {
     "text": "Continuer avec Apple"
@@ -341,6 +347,15 @@
       },
       "title": "Tableau de Bord Vendeur"
     },
+    "index": {
+      "description": "Bienvenue sur MyOrderApp, une plateforme fluide pour les vendeurs Square d'offrir des commandes mobiles. Connectez-vous pour accéder à votre tableau de bord ou commencez votre aventure avec nous.",
+      "keywords": "MyOrderApp, vendeurs Square, plateforme de commande mobile, connexion, tableau de bord, commande mobile de marque",
+      "openGraph": {
+        "description": "Plongez dans MyOrderApp, la solution ultime de commande mobile pour les vendeurs Square. Accédez à votre tableau de bord ou démarrez avec notre plateforme.",
+        "title": "MyOrderApp: Commande Mobile pour Vendeurs Square"
+      },
+      "title": "MyOrderApp: Commande Mobile pour Vendeurs Square"
+    },
     "layout": {
       "applicationName": "MyOrderApp for Sellers",
       "authors": {
@@ -398,15 +413,6 @@
       "title": "Inscription"
     },
     "resetPassword": {
-      "index": {
-        "description": "Réinitialisez votre mot de passe MyOrderApp et retrouvez l'accès à l'expérience ultime de commande mobile intégrée avec Square.",
-        "keywords": "réinitialiser le mot de passe, récupération du mot de passe MyOrderApp, accès à l'intégration Square, récupérer les identifiants de commande mobile",
-        "openGraph": {
-          "description": "Retrouvez l'accès à MyOrderApp: Réinitialisez votre mot de passe pour une expérience de commande mobile sans faille avec Square.",
-          "title": "Réinitialisez le mot de passe pour MyOrderApp pour les vendeurs"
-        },
-        "title": "Réinitialiser le mot de passe"
-      },
       "confirm": {
         "description": "Réinitialisez en toute sécurité votre mot de passe MyOrderApp. Suivez les étapes pour établir un nouveau mot de passe et récupérer l'accès à votre compte.",
         "keywords": "MyOrderApp, réinitialisation de mot de passe, sécurité du compte, mise à jour du mot de passe, accès au compte, changement de mot de passe sécurisé",
@@ -415,6 +421,15 @@
           "title": "Confirmation de Réinitialisation de Mot de Passe MyOrderApp"
         },
         "title": "Confirmer la Réinitialisation du Mot de Passe"
+      },
+      "index": {
+        "description": "Réinitialisez votre mot de passe MyOrderApp et retrouvez l'accès à l'expérience ultime de commande mobile intégrée avec Square.",
+        "keywords": "réinitialiser le mot de passe, récupération du mot de passe MyOrderApp, accès à l'intégration Square, récupérer les identifiants de commande mobile",
+        "openGraph": {
+          "description": "Retrouvez l'accès à MyOrderApp: Réinitialisez votre mot de passe pour une expérience de commande mobile sans faille avec Square.",
+          "title": "Réinitialisez le mot de passe pour MyOrderApp pour les vendeurs"
+        },
+        "title": "Réinitialiser le mot de passe"
       }
     },
     "setup": {
@@ -525,15 +540,6 @@
         "title": "Personnalisation du Thème Vendeur MyOrderApp"
       },
       "title": "Personnalisation du Thème"
-    },
-    "index": {
-      "description": "Bienvenue sur MyOrderApp, une plateforme fluide pour les vendeurs Square d'offrir des commandes mobiles. Connectez-vous pour accéder à votre tableau de bord ou commencez votre aventure avec nous.",
-      "keywords": "MyOrderApp, vendeurs Square, plateforme de commande mobile, connexion, tableau de bord, commande mobile de marque",
-      "openGraph": {
-        "description": "Plongez dans MyOrderApp, la solution ultime de commande mobile pour les vendeurs Square. Accédez à votre tableau de bord ou démarrez avec notre plateforme.",
-        "title": "MyOrderApp: Commande Mobile pour Vendeurs Square"
-      },
-      "title": "MyOrderApp: Commande Mobile pour Vendeurs Square"
     }
   }
 }

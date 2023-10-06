@@ -9,8 +9,21 @@ import { moaEnv } from "@/moaEnv";
 import { useGetCategoriesMeQuery } from "@/queries/useGetCategoriesMeQuery";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
-import { ArrowForward, CheckCircleOutline } from "@mui/icons-material";
-import { Button, Container, Grid, Skeleton, Stack } from "@mui/material";
+import {
+  ArrowForward,
+  CheckCircleOutline,
+  InfoOutlined,
+} from "@mui/icons-material";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Skeleton,
+  Stack,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 import { useSession } from "next-auth/react";
@@ -59,22 +72,37 @@ export function SetupCatalogComponent() {
             spacing={2}
             sx={{ width: "100%" }}
           >
-            <Grid item key="categories-grid-button" alignSelf={"center"}>
+            <Grid
+              item
+              key="categories-grid-button"
+              alignSelf={"center"}
+              width="100%"
+            >
               {skeleton ? (
                 <Skeleton height="56px" width="200px" />
               ) : (
-                <Button
-                  size="large"
-                  variant="contained"
-                  color="secondary"
-                  endIcon={<ArrowForward />}
-                  startIcon={<CheckCircleOutline />}
-                  onClick={() => {
-                    push(routes.setup.plan);
-                  }}
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems={"center"}
                 >
-                  {t("continueButton")}
-                </Button>
+                  <Box></Box>
+                  <Button
+                    size="large"
+                    variant="contained"
+                    color="secondary"
+                    endIcon={<ArrowForward />}
+                    startIcon={<CheckCircleOutline />}
+                    onClick={() => {
+                      push(routes.setup.plan);
+                    }}
+                  >
+                    {t("continueButton")}
+                  </Button>
+                  <Tooltip title={<Typography>{t("tooltip")}</Typography>}>
+                    <InfoOutlined />
+                  </Tooltip>
+                </Stack>
               )}
             </Grid>
             <Grid item key="categories-grid-item">

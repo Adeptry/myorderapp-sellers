@@ -21,32 +21,38 @@
     "previewTabLabel": "Preview"
   },
   "AppConfigForm": {
-    "appIconHelperText": "Will appear on users' homepage",
-    "appIconLabel": "App icon",
+    "appIconHelperText": "Displayed on users' home screen. Recommended size: 1024x1024.",
+    "appIconLabel": "App Icon",
+    "appIconTooltip": "Submit any image if unsure. We can assist with design refinements.",
     "appearanceLabel": "Appearance",
-    "defaultName": "{name}'s Order App",
-    "fontFamilyHelperLinkText": "See all fonts",
-    "fontFamilyLabel": "Font family",
-    "nameHelperText": "The name of your app, and your URL:",
-    "nameLabel": "Name",
-    "randomizeAllButtonText": "Randomize all",
-    "saveAndContinue": "Save & Continue",
-    "seedColorHelperText": "Used to generate your theme",
-    "seedColorLabel": "Seed color",
-    "seedColorRequired": "Must be a hex color",
-    "submitButtonCaption": "You can update these settings at any time.",
-    "submitButtonText": "Save",
-    "themeModeHelperText": "'System' follows user settings. Select 'Light' or 'Dark' to override.",
-    "themeModeLabel": "Color mode",
+    "defaultName": "{name} Order App",
+    "fontFamilyHelperLinkText": "View available fonts",
+    "fontFamilyLabel": "Font",
+    "fontFamilyTooltip": "Pick from Google Fonts or 'randomize' for an unexpected selection.",
+    "nameHelperText": "Defines both app name and URL:",
+    "nameLabel": "App Name",
+    "nameTooltip": "Usually your business name. URL is updated immediately upon change, app name update requires store submission.",
+    "randomizeAllButtonText": "Randomize Settings",
+    "saveAndContinue": "Save & Proceed",
+    "seedColorHelperText": "Base color for your theme",
+    "seedColorLabel": "Primary Color",
+    "seedColorRequired": "Enter a valid hex color.",
+    "seedColorTooltip": "We derive shades from this color, creating a cohesive theme for both light and dark modes. Adjust or 'randomize' to explore!",
+    "submitButtonCaption": "Edit settings anytime later.",
+    "submitButtonText": "Confirm",
+    "themeModeHelperText": "'Auto' respects user's device settings. 'Light' or 'Dark' overrides it.",
+    "themeModeLabel": "Theme Mode",
+    "themeModeTooltip": "'Light' for a bright theme, 'Dark' for muted visuals, 'Auto' syncs with device preferences.",
     "themeModeValues": {
       "dark": "Dark",
       "light": "Light",
-      "system": "System"
+      "system": "Auto"
     },
     "useMaterial3Labels": {
       "false": "Classic",
-      "true": "Modern"
-    }
+      "true": "Contemporary"
+    },
+    "useMaterial3Tooltip": "Activate 'contemporary' for sleeker, updated design attributes."
   },
   "AppleAuthButton": {
     "text": "Continue with Apple"
@@ -193,7 +199,8 @@
   "SetupCatalogComponent": {
     "catalogTabLabel": "Catalog",
     "continueButton": "Accept and Continue",
-    "previewTabLabel": "Preview"
+    "previewTabLabel": "Preview",
+    "tooltip": "Reorder categories and items via drag-and-drop. Turn off the switch to remove from the app. Click an item to reveal and modify its details. Changes in your Square catalog will auto-update here."
   },
   "SetupSquareOauthComponent": {
     "fallbackError": "Oops, something went wrong. Don't worry, your data is safe. We've been notified and are working to fix the issue."
@@ -341,6 +348,15 @@
       },
       "title": "Seller Dashboard"
     },
+    "index": {
+      "description": "Welcome to MyOrderApp—a seamless platform for Square sellers to offer mobile ordering. Sign in to access your dashboard or start your journey with us.",
+      "keywords": "MyOrderApp, Square sellers, mobile ordering platform, sign in, dashboard, branded mobile ordering",
+      "openGraph": {
+        "description": "Dive into MyOrderApp, the ultimate mobile ordering solution for Square sellers. Access your dashboard or get started with our platform.",
+        "title": "MyOrderApp: Mobile Ordering for Square Sellers"
+      },
+      "title": "MyOrderApp: Mobile Ordering for Square Sellers"
+    },
     "layout": {
       "applicationName": "MyOrderApp for Sellers",
       "authors": {
@@ -398,15 +414,6 @@
       "title": "Register"
     },
     "resetPassword": {
-      "index": {
-        "description": "Reset your MyOrderApp password and regain access to the ultimate mobile ordering experience integrated with Square.",
-        "keywords": "reset password, MyOrderApp password recovery, Square integration access, retrieve mobile ordering credentials",
-        "openGraph": {
-          "description": "Regain access to MyOrderApp: Reset your password for a seamless mobile ordering experience with Square.",
-          "title": "Reset Password for MyOrderApp for Sellers"
-        },
-        "title": "Reset Password"
-      },
       "confirm": {
         "description": "Securely reset your MyOrderApp password. Follow the steps to establish a new password and regain access to your account.",
         "keywords": "MyOrderApp, password reset, account security, update password, account access, secure password change",
@@ -415,6 +422,15 @@
           "title": "MyOrderApp Password Reset Confirmation"
         },
         "title": "Confirm Password Reset"
+      },
+      "index": {
+        "description": "Reset your MyOrderApp password and regain access to the ultimate mobile ordering experience integrated with Square.",
+        "keywords": "reset password, MyOrderApp password recovery, Square integration access, retrieve mobile ordering credentials",
+        "openGraph": {
+          "description": "Regain access to MyOrderApp: Reset your password for a seamless mobile ordering experience with Square.",
+          "title": "Reset Password for MyOrderApp for Sellers"
+        },
+        "title": "Reset Password"
       }
     },
     "setup": {
@@ -525,15 +541,6 @@
         "title": "MyOrderApp Seller Theme Customization"
       },
       "title": "Theme Customization"
-    },
-    "index": {
-      "description": "Welcome to MyOrderApp—a seamless platform for Square sellers to offer mobile ordering. Sign in to access your dashboard or start your journey with us.",
-      "keywords": "MyOrderApp, Square sellers, mobile ordering platform, sign in, dashboard, branded mobile ordering",
-      "openGraph": {
-        "description": "Dive into MyOrderApp, the ultimate mobile ordering solution for Square sellers. Access your dashboard or get started with our platform.",
-        "title": "MyOrderApp: Mobile Ordering for Square Sellers"
-      },
-      "title": "MyOrderApp: Mobile Ordering for Square Sellers"
     }
   }
 }

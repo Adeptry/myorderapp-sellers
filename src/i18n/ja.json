@@ -21,32 +21,38 @@
     "previewTabLabel": "プレビュー"
   },
   "AppConfigForm": {
-    "appIconHelperText": "ユーザーのホームページに表示されます",
-    "appIconLabel": "アプリのアイコン",
+    "appIconHelperText": "ユーザーのホーム画面に表示されます。推奨サイズ：1024x1024。",
+    "appIconLabel": "アプリアイコン",
+    "appIconTooltip": "確かでなければ任意の画像を提出してください。デザインの洗練に協力できます。",
     "appearanceLabel": "外観",
-    "defaultName": "{name} 注文App",
-    "fontFamilyHelperLinkText": "すべてのフォントを見る",
-    "fontFamilyLabel": "フォントファミリー",
-    "nameHelperText": "アプリの名前",
-    "nameLabel": "名前",
-    "randomizeAllButtonText": "すべてをランダム化",
-    "saveAndContinue": "保存して続ける",
-    "seedColorHelperText": "テーマを生成するために使用されます",
-    "seedColorLabel": "シードカラー",
-    "seedColorRequired": "16進数の色でなければならない",
-    "submitButtonCaption": "これらの設定はいつでも更新できます。",
-    "submitButtonText": "保存",
-    "themeModeHelperText": "'システム'はユーザーの設定に従います。'ライト'または'ダーク'を選択して上書きします。",
-    "themeModeLabel": "カラーモード",
+    "defaultName": "{name} 注文アプリ",
+    "fontFamilyHelperLinkText": "利用可能なフォントを表示",
+    "fontFamilyLabel": "フォント",
+    "fontFamilyTooltip": "Googleフォントから選択するか、予期しない選択のために'ランダム化'を選択します。",
+    "nameHelperText": "アプリ名とURLの両方を定義します：",
+    "nameLabel": "アプリの名前",
+    "nameTooltip": "通常はあなたのビジネス名です。変更後すぐにURLが更新され、アプリ名の更新にはストアの提出が必要です。",
+    "randomizeAllButtonText": "設定をランダム化",
+    "saveAndContinue": "保存して続行",
+    "seedColorHelperText": "テーマのベースカラー",
+    "seedColorLabel": "プライマリーカラー",
+    "seedColorRequired": "有効な16進カラーを入力してください。",
+    "seedColorTooltip": "この色から色合いを導き出し、ライトモードとダークモードの両方のテーマを作成します。調整するか'ランダム化'して探索してください！",
+    "submitButtonCaption": "後で設定を編集することができます。",
+    "submitButtonText": "確認",
+    "themeModeHelperText": "'オート'はユーザーのデバイスの設定を尊重します。'ライト'または'ダーク'はそれを上書きします。",
+    "themeModeLabel": "テーマモード",
+    "themeModeTooltip": "'ライト'は明るいテーマ、'ダーク'は静かなビジュアル、'オート'はデバイスの設定と同期します。",
     "themeModeValues": {
       "dark": "ダーク",
       "light": "ライト",
-      "system": "システム"
+      "system": "オート"
     },
     "useMaterial3Labels": {
       "false": "クラシック",
-      "true": "モダン"
-    }
+      "true": "コンテンポラリー"
+    },
+    "useMaterial3Tooltip": "更新されたデザイン属性のために'コンテンポラリー'をアクティブにします。"
   },
   "AppleAuthButton": {
     "text": "Appleで続行"
@@ -341,6 +347,15 @@
       },
       "title": "セラーダッシュボード"
     },
+    "index": {
+      "description": "MyOrderAppへようこそ。Squareのセラーがモバイル注文を提供するためのシームレスなプラットフォームです。ダッシュボードにアクセスするにはサインインするか、私たちとの旅を開始してください。",
+      "keywords": "MyOrderApp, Squareのセラー, モバイル注文プラットフォーム, サインイン, ダッシュボード, ブランドのモバイル注文",
+      "openGraph": {
+        "description": "Squareのセラーのための究極のモバイル注文ソリューションであるMyOrderAppに飛び込む。ダッシュボードにアクセスするか、私たちのプラットフォームで始めてください。",
+        "title": "MyOrderApp: Squareのセラーのためのモバイル注文"
+      },
+      "title": "MyOrderApp: Squareのセラーのためのモバイル注文"
+    },
     "layout": {
       "applicationName": "MyOrderApp for Sellers",
       "authors": {
@@ -398,15 +413,6 @@
       "title": "登録"
     },
     "resetPassword": {
-      "index": {
-        "description": "MyOrderAppのパスワードをリセットして、Squareと統合された究極のモバイルオーダリング体験へのアクセスを取り戻します。",
-        "keywords": "パスワードのリセット, MyOrderAppのパスワード回復, Square統合アクセス, モバイルオーダリングの資格情報を取得",
-        "openGraph": {
-          "description": "MyOrderAppへのアクセスを取り戻す: Squareとのシームレスなモバイルオーダリング体験のためのパスワードをリセットします。",
-          "title": "セラー向けMyOrderAppのパスワードをリセット"
-        },
-        "title": "パスワードをリセット"
-      },
       "confirm": {
         "description": "安全にMyOrderAppのパスワードをリセットします。新しいパスワードを設定し、アカウントへのアクセスを再取得する手順に従ってください。",
         "keywords": "MyOrderApp, パスワードリセット, アカウントのセキュリティ, パスワードの更新, アカウントアクセス, 安全なパスワードの変更",
@@ -415,6 +421,15 @@
           "title": "MyOrderAppパスワードリセットの確認"
         },
         "title": "パスワードリセットの確認"
+      },
+      "index": {
+        "description": "MyOrderAppのパスワードをリセットして、Squareと統合された究極のモバイルオーダリング体験へのアクセスを取り戻します。",
+        "keywords": "パスワードのリセット, MyOrderAppのパスワード回復, Square統合アクセス, モバイルオーダリングの資格情報を取得",
+        "openGraph": {
+          "description": "MyOrderAppへのアクセスを取り戻す: Squareとのシームレスなモバイルオーダリング体験のためのパスワードをリセットします。",
+          "title": "セラー向けMyOrderAppのパスワードをリセット"
+        },
+        "title": "パスワードをリセット"
       }
     },
     "setup": {
@@ -525,15 +540,6 @@
         "title": "MyOrderAppのセラーテーマカスタマイゼーション"
       },
       "title": "テーマのカスタマイゼーション"
-    },
-    "index": {
-      "description": "MyOrderAppへようこそ。Squareのセラーがモバイル注文を提供するためのシームレスなプラットフォームです。ダッシュボードにアクセスするにはサインインするか、私たちとの旅を開始してください。",
-      "keywords": "MyOrderApp, Squareのセラー, モバイル注文プラットフォーム, サインイン, ダッシュボード, ブランドのモバイル注文",
-      "openGraph": {
-        "description": "Squareのセラーのための究極のモバイル注文ソリューションであるMyOrderAppに飛び込む。ダッシュボードにアクセスするか、私たちのプラットフォームで始めてください。",
-        "title": "MyOrderApp: Squareのセラーのためのモバイル注文"
-      },
-      "title": "MyOrderApp: Squareのセラーのためのモバイル注文"
     }
   }
 }

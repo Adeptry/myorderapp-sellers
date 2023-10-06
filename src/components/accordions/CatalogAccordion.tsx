@@ -284,8 +284,16 @@ export function CatalogAccordion() {
                                               <Switch
                                                 size="small"
                                                 checked={
-                                                  itemInCategory.moaEnabled ??
-                                                  false
+                                                  (currentCatalogCategory.moaEnabled ??
+                                                    false) &&
+                                                  (itemInCategory.moaEnabled ??
+                                                    false)
+                                                }
+                                                disabled={
+                                                  !(
+                                                    currentCatalogCategory.moaEnabled ??
+                                                    false
+                                                  )
                                                 }
                                                 onChange={() => {
                                                   updateItemsMutation.mutateAsync(
@@ -323,8 +331,20 @@ export function CatalogAccordion() {
                                                       />
                                                       <Switch
                                                         checked={
-                                                          variationInItemInCategory.moaEnabled ??
-                                                          false
+                                                          (currentCatalogCategory.moaEnabled ??
+                                                            false) &&
+                                                          (itemInCategory.moaEnabled ??
+                                                            false) &&
+                                                          (variationInItemInCategory.moaEnabled ??
+                                                            false)
+                                                        }
+                                                        disabled={
+                                                          !(
+                                                            (currentCatalogCategory.moaEnabled ??
+                                                              false) &&
+                                                            (itemInCategory.moaEnabled ??
+                                                              false)
+                                                          )
                                                         }
                                                         size="small"
                                                         onChange={() => {

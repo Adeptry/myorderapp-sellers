@@ -21,32 +21,38 @@
     "previewTabLabel": "Vista previa"
   },
   "AppConfigForm": {
-    "appIconHelperText": "Aparecerá en la página principal de los usuarios",
-    "appIconLabel": "Ícono de la app",
+    "appIconHelperText": "Se muestra en la pantalla principal de los usuarios. Tamaño recomendado: 1024x1024.",
+    "appIconLabel": "Ícono de la App",
+    "appIconTooltip": "Envía cualquier imagen si no estás seguro. Podemos ayudar con refinamientos de diseño.",
     "appearanceLabel": "Apariencia",
-    "defaultName": "{name} Peds App",
-    "fontFamilyHelperLinkText": "Ver todas las fuentes",
-    "fontFamilyLabel": "Familia de fuente",
-    "nameHelperText": "El nombre de tu app",
-    "nameLabel": "Nombre",
-    "randomizeAllButtonText": "Aleatorizar todo",
-    "saveAndContinue": "Guardar y Continuar",
-    "seedColorHelperText": "Usado para generar tu tema",
-    "seedColorLabel": "Color base",
-    "seedColorRequired": "Debe ser un color hexadecimal",
-    "submitButtonCaption": "Puedes actualizar estos ajustes en cualquier momento.",
-    "submitButtonText": "Guardar",
-    "themeModeHelperText": "'Sistema' sigue los ajustes del usuario. Selecciona 'Claro' o 'Oscuro' para anular.",
-    "themeModeLabel": "Modo de color",
+    "defaultName": "{name} App de Pedido",
+    "fontFamilyHelperLinkText": "Ver fuentes disponibles",
+    "fontFamilyLabel": "Fuente",
+    "fontFamilyTooltip": "Elige de Google Fonts o 'randomizar' para una selección inesperada.",
+    "nameHelperText": "Define tanto el nombre de la app como la URL:",
+    "nameLabel": "Nombre de la App",
+    "nameTooltip": "Normalmente el nombre de tu negocio. La URL se actualiza inmediatamente después de un cambio, la actualización del nombre de la app requiere envío a la tienda.",
+    "randomizeAllButtonText": "Randomizar Configuraciones",
+    "saveAndContinue": "Guardar y Proceder",
+    "seedColorHelperText": "Color base para tu tema",
+    "seedColorLabel": "Color Primario",
+    "seedColorRequired": "Introduce un color hex válido.",
+    "seedColorTooltip": "Derivamos tonos de este color, creando un tema cohesivo para los modos claro y oscuro. ¡Ajusta o 'randomiza' para explorar!",
+    "submitButtonCaption": "Edita configuraciones en cualquier momento después.",
+    "submitButtonText": "Confirmar",
+    "themeModeHelperText": "'Auto' respeta la configuración del dispositivo del usuario. 'Claro' o 'Oscuro' lo anula.",
+    "themeModeLabel": "Modo de Tema",
+    "themeModeTooltip": "'Claro' para un tema brillante, 'Oscuro' para visuales suaves, 'Auto' sincroniza con las preferencias del dispositivo.",
     "themeModeValues": {
       "dark": "Oscuro",
       "light": "Claro",
-      "system": "Sistema"
+      "system": "Auto"
     },
     "useMaterial3Labels": {
       "false": "Clásico",
-      "true": "Moderno"
-    }
+      "true": "Contemporáneo"
+    },
+    "useMaterial3Tooltip": "Activa 'contemporáneo' para atributos de diseño más elegantes y actualizados."
   },
   "AppleAuthButton": {
     "text": "Continuar con Apple"
@@ -341,6 +347,15 @@
       },
       "title": "Panel de Vendedor"
     },
+    "index": {
+      "description": "Bienvenido a MyOrderApp, una plataforma sin fisuras para vendedores de Square para ofrecer pedidos móviles. Inicia sesión para acceder a tu panel o comienza tu viaje con nosotros.",
+      "keywords": "MyOrderApp, vendedores de Square, plataforma de pedidos móviles, iniciar sesión, panel, pedidos móviles de marca",
+      "openGraph": {
+        "description": "Sumérgete en MyOrderApp, la solución definitiva de pedidos móviles para vendedores de Square. Accede a tu panel o comienza con nuestra plataforma.",
+        "title": "MyOrderApp: Pedidos Móviles para Vendedores de Square"
+      },
+      "title": "MyOrderApp: Pedidos Móviles para Vendedores de Square"
+    },
     "layout": {
       "applicationName": "MyOrderApp for Sellers",
       "authors": {
@@ -398,15 +413,6 @@
       "title": "Registrarse"
     },
     "resetPassword": {
-      "index": {
-        "description": "Restablece tu contraseña de MyOrderApp y recupera el acceso a la experiencia definitiva de pedidos móviles integrada con Square.",
-        "keywords": "restablecer contraseña, recuperación de contraseña de MyOrderApp, acceso de integración con Square, recuperar credenciales de pedidos móviles",
-        "openGraph": {
-          "description": "Recupera el acceso a MyOrderApp: Restablece tu contraseña para una experiencia de pedidos móviles fluida con Square.",
-          "title": "Restablecer contraseña para MyOrderApp para Vendedores"
-        },
-        "title": "Restablecer contraseña"
-      },
       "confirm": {
         "description": "Restablece de forma segura tu contraseña de MyOrderApp. Sigue los pasos para establecer una nueva contraseña y recuperar el acceso a tu cuenta.",
         "keywords": "MyOrderApp, restablecimiento de contraseña, seguridad de cuenta, actualizar contraseña, acceso a cuenta, cambio de contraseña seguro",
@@ -415,6 +421,15 @@
           "title": "Confirmación de Restablecimiento de Contraseña de MyOrderApp"
         },
         "title": "Confirmar Restablecimiento de Contraseña"
+      },
+      "index": {
+        "description": "Restablece tu contraseña de MyOrderApp y recupera el acceso a la experiencia definitiva de pedidos móviles integrada con Square.",
+        "keywords": "restablecer contraseña, recuperación de contraseña de MyOrderApp, acceso de integración con Square, recuperar credenciales de pedidos móviles",
+        "openGraph": {
+          "description": "Recupera el acceso a MyOrderApp: Restablece tu contraseña para una experiencia de pedidos móviles fluida con Square.",
+          "title": "Restablecer contraseña para MyOrderApp para Vendedores"
+        },
+        "title": "Restablecer contraseña"
       }
     },
     "setup": {
@@ -525,15 +540,6 @@
         "title": "Personalización de Tema para Vendedores de MyOrderApp"
       },
       "title": "Personalización de Tema"
-    },
-    "index": {
-      "description": "Bienvenido a MyOrderApp, una plataforma sin fisuras para vendedores de Square para ofrecer pedidos móviles. Inicia sesión para acceder a tu panel o comienza tu viaje con nosotros.",
-      "keywords": "MyOrderApp, vendedores de Square, plataforma de pedidos móviles, iniciar sesión, panel, pedidos móviles de marca",
-      "openGraph": {
-        "description": "Sumérgete en MyOrderApp, la solución definitiva de pedidos móviles para vendedores de Square. Accede a tu panel o comienza con nuestra plataforma.",
-        "title": "MyOrderApp: Pedidos Móviles para Vendedores de Square"
-      },
-      "title": "MyOrderApp: Pedidos Móviles para Vendedores de Square"
     }
   }
 }

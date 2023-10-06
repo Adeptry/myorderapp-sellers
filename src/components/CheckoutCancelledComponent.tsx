@@ -6,7 +6,7 @@ import { PriceGrid } from "@/components/grids/PriceGrid";
 import { OnboardingStepper } from "@/components/steppers/OnboardingStepper";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
-import { Container } from "@mui/material";
+import { Container, Stack } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 
@@ -17,20 +17,22 @@ export function CheckoutCancelledComponent() {
   const maxHeightCssString = useMaxHeightCssString();
 
   return (
-    <Container sx={{ minHeight: maxHeightCssString }}>
-      <OnboardingStepper
-        step="checkout"
-        sx={{
-          width: "100%",
-        }}
-      />
-      <StripeCheckoutCancelledCard
-        sx={{
-          maxWidth: "sm",
-        }}
-      />
-      <FaqAccordion sx={{ maxWidth: "sm", py: isSmallScreen ? 0 : 3 }} />
-      <PriceGrid />
+    <Container sx={{ minHeight: maxHeightCssString, py: 2 }}>
+      <Stack gap={2} alignItems={"center"}>
+        <OnboardingStepper
+          step="checkout"
+          sx={{
+            width: "100%",
+          }}
+        />
+        <StripeCheckoutCancelledCard
+          sx={{
+            maxWidth: "sm",
+          }}
+        />
+        <FaqAccordion sx={{ maxWidth: "sm", py: isSmallScreen ? 0 : 3 }} />
+        <PriceGrid />
+      </Stack>
     </Container>
   );
 }

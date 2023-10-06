@@ -2,13 +2,12 @@
 
 import { routes } from "@/app/routes";
 import { OnboardingStepper } from "@/components/steppers/OnboardingStepper";
+import { useGetSquareSyncMeMutation } from "@/mutations/useGetSquareSyncMeMutation";
+import { usePostSquareOauthMeMutation } from "@/mutations/usePostSquareOauthMeMutation";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
-import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { Alert, Box, CircularProgress, Container, Stack } from "@mui/material";
-import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { MerchantsApi } from "myorderapp-square";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next-intl/client";
@@ -21,39 +20,25 @@ export function SetupSquareOauthComponent() {
 
   const searchParams = useSearchParams();
   const oauthAccessCode = searchParams.get("code");
-  const sessionedApiConfiguration = useSessionedApiConfiguration();
 
   const t = useTranslations("SetupSquareOauthComponent");
   const { status } = useSession();
   const { push } = useRouter();
 
-  const postSquareOauthMutationMe = useMutation({
-    mutationFn: async (oauthAccessCode: string) => {
-      return await new MerchantsApi(
-        sessionedApiConfiguration
-      ).postSquareOauthMe({
-        squarePostOauthBody: {
-          oauthAccessCode,
-        },
-      });
-    },
-  });
-
-  const squareSyncMutation = useMutation({
-    mutationFn: async () => {
-      return await new MerchantsApi(
-        sessionedApiConfiguration
-      ).getSquareSyncMe();
-    },
-  });
+  const postSquareOauthMeMutation = usePostSquareOauthMeMutation();
+  const squareSyncMutation = useGetSquareSyncMeMutation();
 
   const [errorString, setErrorString] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetch() {
-      if (oauthAccessCode && status === "authenticated") {
+      if (
+        oauthAccessCode &&
+        status === "authenticated" &&
+        !postSquareOauthMeMutation.isLoading
+      ) {
         try {
-          await postSquareOauthMutationMe.mutateAsync(oauthAccessCode);
+          await postSquareOauthMeMutation.mutateAsync(oauthAccessCode);
           await squareSyncMutation.mutateAsync();
           push(routes.setup.catalog);
         } catch (error) {
