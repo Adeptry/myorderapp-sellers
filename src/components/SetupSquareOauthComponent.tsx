@@ -2,8 +2,8 @@
 
 import { routes } from "@/app/routes";
 import { OnboardingStepper } from "@/components/steppers/OnboardingStepper";
-import { useGetSquareSyncMeMutation } from "@/mutations/useGetSquareSyncMeMutation";
-import { usePostSquareOauthMeMutation } from "@/mutations/usePostSquareOauthMeMutation";
+import { useGetSquareSyncMeMutation } from "@/networking/mutations/useGetSquareSyncMeMutation";
+import { usePostSquareOauthMeMutation } from "@/networking/mutations/usePostSquareOauthMeMutation";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { Alert, Box, CircularProgress, Container, Stack } from "@mui/material";

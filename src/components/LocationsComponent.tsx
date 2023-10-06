@@ -1,7 +1,7 @@
 "use client";
 
-import { usePatchLocationMutation } from "@/mutations/usePatchLocationMutation";
-import { useGetLocationsMeQuery } from "@/queries/useGetLocationsMeQuery";
+import { usePatchLocationMutation } from "@/networking/mutations/usePatchLocationMutation";
+import { useGetLocationsMeQuery } from "@/networking/queries/useGetLocationsMeQuery";
 import { useRedirectSetupSessions } from "@/routing/useRedirectSetupSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { InfoOutlined, StoreOutlined } from "@mui/icons-material";

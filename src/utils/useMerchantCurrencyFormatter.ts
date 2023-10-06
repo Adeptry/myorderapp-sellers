@@ -1,4 +1,4 @@
-import { useGetMerchantMeQuery } from "@/queries/useGetMerchantMeQuery";
+import { useGetMerchantMeQuery } from "@/networking/queries/useGetMerchantMeQuery";
 import { NumberFormatOptions, useFormatter } from "next-intl";
 
 export function useMerchantCurrencyFormatter() {

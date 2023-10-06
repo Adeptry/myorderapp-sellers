@@ -4,7 +4,7 @@ import { CatalogAccordion } from "@/components/accordions/CatalogAccordion";
 import { MyOrderAppPreview } from "@/components/app-preview/MyOrderAppPreview";
 import { TabLayout } from "@/components/layouts/TabLayout";
 import { moaEnv } from "@/moaEnv";
-import { useGetCategoriesMeQuery } from "@/queries/useGetCategoriesMeQuery";
+import { useGetCategoriesMeQuery } from "@/networking/queries/useGetCategoriesMeQuery";
 import { useRedirectSetupSessions } from "@/routing/useRedirectSetupSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { Container } from "@mui/material";

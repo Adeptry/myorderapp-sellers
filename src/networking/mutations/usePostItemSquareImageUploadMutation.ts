@@ -1,4 +1,4 @@
-import { GetCategoriesQueryKey } from "@/queries/useGetCategoriesMeQuery";
+import { GetCategoriesQueryKey } from "@/networking/queries/useGetCategoriesMeQuery";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CatalogsApi } from "myorderapp-square";

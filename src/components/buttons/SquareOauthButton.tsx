@@ -1,6 +1,6 @@
 import { routes } from "@/app/routes";
 import { moaEnv } from "@/moaEnv";
-import { useGetMerchantMeQuery } from "@/queries/useGetMerchantMeQuery";
+import { useGetMerchantMeQuery } from "@/networking/queries/useGetMerchantMeQuery";
 import { Button, Skeleton, SxProps } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { default as NextLink } from "next/link";

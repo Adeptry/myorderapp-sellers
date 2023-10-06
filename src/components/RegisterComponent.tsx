@@ -3,7 +3,7 @@
 import { routes } from "@/app/routes";
 import { RegisterEmailForm } from "@/components/forms/RegisterEmailForm";
 import { OnboardingStepper } from "@/components/steppers/OnboardingStepper";
-import { useGetMerchantMeQuery } from "@/queries/useGetMerchantMeQuery";
+import { useGetMerchantMeQuery } from "@/networking/queries/useGetMerchantMeQuery";
 import { useRedirectAuthenticatedSessions } from "@/routing/useRedirectAuthenticatedSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { Container, Grid, Typography } from "@mui/material";

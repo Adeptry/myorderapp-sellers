@@ -1,11 +1,13 @@
 "use client";
 
 import { UserUpdateForm } from "@/components/forms/UserUpdateForm";
+import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { Box, Container, Grid, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 
 export function AccountComponent() {
+  useRedirectUnauthenticatedSessions();
   const t = useTranslations("AccountComponent");
   const maxHeightCssString = useMaxHeightCssString();
   return (

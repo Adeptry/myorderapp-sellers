@@ -1,5 +1,5 @@
-import { useGetMerchantMeQuery } from "@/queries/useGetMerchantMeQuery";
-import { useGetOrdersQuery } from "@/queries/useGetOrdersQuery";
+import { useGetMerchantMeQuery } from "@/networking/queries/useGetMerchantMeQuery";
+import { useGetOrdersQuery } from "@/networking/queries/useGetOrdersQuery";
 import { Box, Typography } from "@mui/material";
 import { DataGrid, GridPaginationModel, GridSortModel } from "@mui/x-data-grid";
 import { GetOrdersOrderFieldEnum } from "myorderapp-square";

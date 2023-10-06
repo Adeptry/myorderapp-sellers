@@ -147,6 +147,11 @@
     "passwordField": "Contraseña",
     "submitButton": "Iniciar sesión con Correo Electrónico"
   },
+  "NotFoundComponent": {
+    "button": "Volver al inicio",
+    "description": "La página que estás buscando no existe o ha sido movida.",
+    "title": "Página No Encontrada"
+  },
   "OnboardingStepper": {
     "customize": "Personalizar",
     "publish": "Publicar",
@@ -394,6 +399,15 @@
       },
       "title": "Iniciar sesión"
     },
+    "notFound": {
+      "description": "¡Vaya! La página que estás buscando no existe en MyOrderApp. Navega hacia atrás o explora nuestra plataforma para encontrar lo que necesitas.",
+      "keywords": "MyOrderApp 404, página no encontrada, página perdida, error, ayuda para navegar",
+      "openGraph": {
+        "description": "¿Llegaste a un callejón sin salida en MyOrderApp? La página no existe. Explora nuestra plataforma o busca ayuda para encontrar tu camino.",
+        "title": "MyOrderApp - Página No Encontrada"
+      },
+      "title": "404: Página No Encontrada"
+    },
     "orders": {
       "description": "Visualiza y gestiona todos tus pedidos recibidos en MyOrderApp. Rastrea el estado de los pedidos, los detalles de los clientes y agiliza el proceso de cumplimiento de pedidos.",
       "keywords": "pedidos de MyOrderApp, gestión de pedidos, seguimiento de pedidos, detalles del cliente, historial de pedidos, vista de pedido del vendedor, cumplimiento de pedidos",
@@ -540,6 +554,32 @@
         "title": "Personalización de Tema para Vendedores de MyOrderApp"
       },
       "title": "Personalización de Tema"
+    },
+    "comingSoon": {
+      "description": "¡Cosas emocionantes están en el horizonte! MyOrderApp está en desarrollo y estará disponible pronto. Mantente conectado para actualizaciones.",
+      "keywords": "MyOrderApp próximamente, en desarrollo, nuevo lanzamiento, plataforma próxima, anticipación de pedidos móviles",
+      "openGraph": {
+        "description": "¡Mantente al tanto! MyOrderApp se está preparando para ofrecer una experiencia revolucionaria de pedidos móviles. Lanzamiento próximamente.",
+        "title": "MyOrderApp - ¡Lanzamiento Próximo!"
+      },
+      "title": "Próximamente: La Nueva Experiencia de MyOrderApp"
+    },
+    "maintenance": {
+      "description": "MyOrderApp está actualmente en mantenimiento programado para mejorar su experiencia. Agradecemos su paciencia y ¡volveremos en breve!",
+      "keywords": "Mantenimiento de MyOrderApp, tiempo de inactividad del sitio, actualizaciones programadas, mejoras de la plataforma, interrupción del servicio",
+      "openGraph": {
+        "description": "¡Ten paciencia con nosotros! MyOrderApp está siendo ajustado para ofrecer una experiencia de pedidos móviles aún mejor. Regresaremos en breve.",
+        "title": "MyOrderApp - Mantenimiento Programado en Curso"
+      },
+      "title": "Mantenimiento Programado: Regresaremos Pronto"
     }
+  },
+  "ComingSoonComponent": {
+    "title": "Próximamente",
+    "description": "Estamos trabajando duro para traerte MyOrderApp. ¡Mantente al tanto!"
+  },
+  "MaintenanceComponent": {
+    "title": "En Mantenimiento",
+    "description": "Nuestro sitio está actualmente en mantenimiento programado. Pedimos disculpas por cualquier inconveniente ¡y volveremos pronto!"
   }
 }

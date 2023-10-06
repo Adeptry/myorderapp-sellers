@@ -1,4 +1,4 @@
-import { useGetMerchantMeQuery } from "@/queries/useGetMerchantMeQuery";
+import { useGetMerchantMeQuery } from "@/networking/queries/useGetMerchantMeQuery";
 import { configurationForSession } from "@/utils/configurationForSession";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { yupResolver } from "@hookform/resolvers/yup";

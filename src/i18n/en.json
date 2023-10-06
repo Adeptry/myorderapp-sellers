@@ -147,6 +147,11 @@
     "passwordField": "Password",
     "submitButton": "Log In with Email"
   },
+  "NotFoundComponent": {
+    "button": "Go back to home",
+    "description": "The page you're looking for doesn't exist or has been moved.",
+    "title": "Page Not Found"
+  },
   "OnboardingStepper": {
     "customize": "Customize",
     "publish": "Publish",
@@ -395,6 +400,15 @@
       },
       "title": "Login"
     },
+    "notFound": {
+      "description": "Oops! The page you're looking for doesn't exist on MyOrderApp. Navigate back or explore our platform to find what you need.",
+      "keywords": "MyOrderApp 404, page not found, missing page, error, navigation help",
+      "openGraph": {
+        "description": "Hit a dead end on MyOrderApp? The page doesn't exist. Explore our platform or seek assistance to find your way.",
+        "title": "MyOrderApp - Page Not Found"
+      },
+      "title": "404: Page Not Found"
+    },
     "orders": {
       "description": "View and manage all your received orders in MyOrderApp. Track order statuses, customer details, and streamline your order fulfillment process.",
       "keywords": "MyOrderApp orders, order management, order tracking, customer details, order history, seller order view, order fulfillment",
@@ -541,6 +555,32 @@
         "title": "MyOrderApp Seller Theme Customization"
       },
       "title": "Theme Customization"
+    },
+    "comingSoon": {
+      "description": "Exciting things are on the horizon! MyOrderApp is under development and will be available soon. Stay connected for updates.",
+      "keywords": "MyOrderApp coming soon, under development, new release, upcoming platform, mobile ordering anticipation",
+      "openGraph": {
+        "description": "Stay tuned! MyOrderApp is gearing up to offer a revolutionary mobile ordering experience. Launching soon.",
+        "title": "MyOrderApp - Launching Soon!"
+      },
+      "title": "Coming Soon: MyOrderApp's New Experience"
+    },
+    "maintenance": {
+      "description": "MyOrderApp is currently undergoing scheduled maintenance to enhance your experience. We appreciate your patience and will be back shortly.",
+      "keywords": "MyOrderApp maintenance, site downtime, scheduled updates, platform improvements, service interruption",
+      "openGraph": {
+        "description": "Bear with us! MyOrderApp is being fine-tuned for an even better mobile ordering experience. We'll return shortly.",
+        "title": "MyOrderApp - Scheduled Maintenance Underway"
+      },
+      "title": "Scheduled Maintenance: Returning Soon"
     }
+  },
+  "ComingSoonComponent": {
+    "title": "Coming Soon!",
+    "description": "We are working hard to bring MyOrderApp to you. Stay tuned!"
+  },
+  "MaintenanceComponent": {
+    "title": "Under Maintenance",
+    "description": "Our site is currently undergoing scheduled maintenance. We apologize for any inconvenience and will be back soon!"
   }
 }

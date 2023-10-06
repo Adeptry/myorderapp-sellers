@@ -1,4 +1,4 @@
-import { usePostSupportMutation } from "@/mutations/usePostSupportMutation";
+import { usePostSupportMutation } from "@/networking/mutations/usePostSupportMutation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Send } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";

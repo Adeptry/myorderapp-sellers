@@ -1,4 +1,4 @@
-import { useGetMerchantMeQuery } from "@/queries/useGetMerchantMeQuery";
+import { useGetMerchantMeQuery } from "@/networking/queries/useGetMerchantMeQuery";
 import { toMoaAppUrl } from "./toMoaAppUrl";
 
 export function useCurrentMerchantMoaUrl(): string | undefined {

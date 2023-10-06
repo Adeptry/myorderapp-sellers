@@ -1,8 +1,8 @@
-import { usePatchCategoriesMutation } from "@/mutations/usePatchCategoriesMutation";
-import { usePatchItemsMutation } from "@/mutations/usePatchItemsMutation";
-import { usePatchVariationMutation } from "@/mutations/usePatchVariationMutation";
-import { usePostItemSquareImageUploadMutation } from "@/mutations/usePostItemSquareImageUploadMutation";
-import { useGetCategoriesMeQuery } from "@/queries/useGetCategoriesMeQuery";
+import { usePatchCategoriesMutation } from "@/networking/mutations/usePatchCategoriesMutation";
+import { usePatchItemsMutation } from "@/networking/mutations/usePatchItemsMutation";
+import { usePatchVariationMutation } from "@/networking/mutations/usePatchVariationMutation";
+import { usePostItemSquareImageUploadMutation } from "@/networking/mutations/usePostItemSquareImageUploadMutation";
+import { useGetCategoriesMeQuery } from "@/networking/queries/useGetCategoriesMeQuery";
 import { StrictModeDroppable } from "@/utils/StrictModeDroppable";
 import { logger } from "@/utils/logger";
 import { Add, DragHandle, ExpandMore } from "@mui/icons-material";

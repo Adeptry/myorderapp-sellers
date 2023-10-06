@@ -8,6 +8,9 @@ export const moaEnv: MoaEnv = {
   backendUrl: process.env.NEXT_PUBLIC_BACKEND_URL!,
   backendApiKey: process.env.NEXT_PUBLIC_BACKEND_API_KEY!,
 
+  comingSoon: process.env.NEXT_PUBLIC_COMING_SOON === "true",
+  maintenance: process.env.NEXT_PUBLIC_MAINTENANCE === "true",
+
   // manifest, loosely
   name: process.env.NEXT_PUBLIC_NAME!,
   shortName: process.env.NEXT_PUBLIC_SHORT_NAME!,

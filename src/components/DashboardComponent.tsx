@@ -3,7 +3,7 @@
 import { StatisticsCard } from "@/components/cards/StatisticsCard";
 import { CustomersDataGrid } from "@/components/data-grids/CustomersDataGrid";
 import { OrdersDataGrid } from "@/components/data-grids/OrdersDataGrid";
-import { useGetOrderStatisticsMeQuery } from "@/queries/useGetOrderStatisticsMeQuery";
+import { useGetOrderStatisticsMeQuery } from "@/networking/queries/useGetOrderStatisticsMeQuery";
 import { useRedirectSetupSessions } from "@/routing/useRedirectSetupSessions";
 import {
   useHeaderAndFooterHeight,

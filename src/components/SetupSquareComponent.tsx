@@ -3,7 +3,7 @@
 import { routes } from "@/app/routes";
 import { SquareOauthExplainerCard } from "@/components/cards/SquareOauthExplainerCard";
 import { OnboardingStepper } from "@/components/steppers/OnboardingStepper";
-import { useGetMerchantMeQuery } from "@/queries/useGetMerchantMeQuery";
+import { useGetMerchantMeQuery } from "@/networking/queries/useGetMerchantMeQuery";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { Container, Stack } from "@mui/material";

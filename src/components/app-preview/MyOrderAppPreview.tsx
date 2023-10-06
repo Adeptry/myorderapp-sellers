@@ -1,7 +1,7 @@
 import { MessagingIframe } from "@/components/messaging-iframe/MessagingIframe";
 import { toWindowClonable } from "@/components/messaging-iframe/WindowClonable";
 import { moaEnv } from "@/moaEnv";
-import { useGetMerchantMeQuery } from "@/queries/useGetMerchantMeQuery";
+import { useGetMerchantMeQuery } from "@/networking/queries/useGetMerchantMeQuery";
 import { Box, SxProps } from "@mui/material";
 import {
   AppConfigEntity,

@@ -37,7 +37,7 @@ export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
 }
 
-export default async function RootLayout(props: NextPageProps) {
+export default async function Layout(props: NextPageProps) {
   const messages = await getMessages(props.params.lang);
 
   return (

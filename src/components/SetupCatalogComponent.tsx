@@ -6,7 +6,7 @@ import { MyOrderAppPreview } from "@/components/app-preview/MyOrderAppPreview";
 import { TabLayout } from "@/components/layouts/TabLayout";
 import { OnboardingStepper } from "@/components/steppers/OnboardingStepper";
 import { moaEnv } from "@/moaEnv";
-import { useGetCategoriesMeQuery } from "@/queries/useGetCategoriesMeQuery";
+import { useGetCategoriesMeQuery } from "@/networking/queries/useGetCategoriesMeQuery";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import {

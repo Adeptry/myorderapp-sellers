@@ -1,4 +1,4 @@
-import { useGetCustomersQuery } from "@/queries/useGetCustomersQuery";
+import { useGetCustomersQuery } from "@/networking/queries/useGetCustomersQuery";
 import { Box, Typography } from "@mui/material";
 
 import { useTheme } from "@mui/material/styles";

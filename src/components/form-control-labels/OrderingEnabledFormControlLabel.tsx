@@ -1,5 +1,5 @@
-import { usePatchAppConfigMeMutation } from "@/mutations/usePatchAppConfigMutation";
-import { useGetAppConfigMeQuery } from "@/queries/useGetAppConfigMeQuery";
+import { usePatchAppConfigMeMutation } from "@/networking/mutations/usePatchAppConfigMutation";
+import { useGetAppConfigMeQuery } from "@/networking/queries/useGetAppConfigMeQuery";
 import { FormControlLabel, Switch, Typography } from "@mui/material";
 import { AppConfigsApiGetAppConfigMeRequest } from "myorderapp-square";
 import { useTranslations } from "next-intl";

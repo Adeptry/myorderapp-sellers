@@ -1,4 +1,4 @@
-import { GetLocationsMeQueryKey } from "@/queries/useGetLocationsMeQuery";
+import { GetLocationsMeQueryKey } from "@/networking/queries/useGetLocationsMeQuery";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {

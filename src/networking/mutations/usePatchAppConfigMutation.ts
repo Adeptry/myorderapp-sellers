@@ -1,4 +1,4 @@
-import { getAppConfigMeQueryKeyBuilder } from "@/queries/useGetAppConfigMeQuery";
+import { getAppConfigMeQueryKeyBuilder } from "@/networking/queries/useGetAppConfigMeQuery";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {

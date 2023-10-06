@@ -147,6 +147,11 @@
     "passwordField": "パスワード",
     "submitButton": "メールアドレスでログイン"
   },
+  "NotFoundComponent": {
+    "button": "ホームに戻る",
+    "description": "探しているページは存在しないか、移動されました。",
+    "title": "ページが見つかりません"
+  },
   "OnboardingStepper": {
     "customize": "カスタマイズ",
     "publish": "公開",
@@ -394,6 +399,15 @@
       },
       "title": "ログイン"
     },
+    "notFound": {
+      "description": "おっと！お探しのページはMyOrderAppに存在しません。戻るか、当社のプラットフォームを探索して必要なものを見つけてください。",
+      "keywords": "MyOrderApp 404, ページが見つかりません, 見当たらないページ, エラー, ナビゲーションヘルプ",
+      "openGraph": {
+        "description": "MyOrderAppで行き止まりになりましたか？ページは存在しません。当社のプラットフォームを探索するか、方法を探して助けを求めてください。",
+        "title": "MyOrderApp - ページが見つかりません"
+      },
+      "title": "404: ページが見つかりません"
+    },
     "orders": {
       "description": "MyOrderAppで受け取ったすべての注文を表示および管理します。注文のステータス、顧客の詳細を追跡し、注文の完了プロセスを効率化します。",
       "keywords": "MyOrderAppの注文, 注文管理, 注文追跡, 顧客の詳細, 注文履歴, セラーの注文ビュー, 注文の完了",
@@ -540,6 +554,32 @@
         "title": "MyOrderAppのセラーテーマカスタマイゼーション"
       },
       "title": "テーマのカスタマイゼーション"
+    },
+    "comingSoon": {
+      "description": "興奮することがもうすぐ起こります！ MyOrderAppは開発中で、まもなく利用可能になります。更新のために接続を続けてください。",
+      "keywords": "MyOrderApp近日公開、開発中、新しいリリース、今後のプラットフォーム、モバイル注文の期待",
+      "openGraph": {
+        "description": "乞うご期待！ MyOrderAppは、革命的なモバイル注文体験を提供するための準備をしています。近日公開。",
+        "title": "MyOrderApp - 近日公開！"
+      },
+      "title": "近日公開：MyOrderAppの新しい体験"
+    },
+    "maintenance": {
+      "description": "MyOrderAppは現在、予定されたメンテナンス中で、お客様の体験を向上させるための作業を行っています。お待たせして申し訳ございませんが、もうしばらくお待ちください。",
+      "keywords": "MyOrderAppメンテナンス, サイトダウンタイム, 予定された更新, プラットフォームの改善, サービス中断",
+      "openGraph": {
+        "description": "もうしばらくお待ちください！MyOrderAppは、さらに優れたモバイルオーダリング体験のために調整中です。まもなく戻ります。",
+        "title": "MyOrderApp - 予定されたメンテナンス中"
+      },
+      "title": "予定されたメンテナンス: まもなく戻ります"
     }
+  },
+  "ComingSoonComponent": {
+    "title": "近日公開",
+    "description": "MyOrderAppをお届けするために一生懸命働いています。乞うご期待！"
+  },
+  "MaintenanceComponent": {
+    "title": "メンテナンス中",
+    "description": "現在、当サイトは予定されたメンテナンス中です。ご不便をおかけし申し訳ございませんが、もうしばらくお待ちください。"
   }
 }

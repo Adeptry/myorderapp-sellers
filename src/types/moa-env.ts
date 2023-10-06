@@ -10,6 +10,8 @@ export interface MoaEnv {
   shortName: string;
   abbreviation: string;
   description: string;
+  comingSoon: boolean;
+  maintenance: boolean;
   metadata: {
     colorScheme: ColorSchemeEnum;
     viewport: string;
