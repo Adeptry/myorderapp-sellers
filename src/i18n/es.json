@@ -61,6 +61,10 @@
     "catalogTabLabel": "Catálogo",
     "previewTabLabel": "Vista previa"
   },
+  "ComingSoonComponent": {
+    "description": "Estamos trabajando duro para traerte MyOrderApp. ¡Mantente al tanto!",
+    "title": "Próximamente"
+  },
   "CurrencySelector": {
     "title": "Moneda"
   },
@@ -146,6 +150,10 @@
     "emailField": "Correo electrónico",
     "passwordField": "Contraseña",
     "submitButton": "Iniciar sesión con Correo Electrónico"
+  },
+  "MaintenanceComponent": {
+    "description": "Nuestro sitio está actualmente en mantenimiento programado. Pedimos disculpas por cualquier inconveniente ¡y volveremos pronto!",
+    "title": "En Mantenimiento"
   },
   "NotFoundComponent": {
     "button": "Volver al inicio",
@@ -334,6 +342,15 @@
       },
       "title": "Personalización del Catálogo"
     },
+    "comingSoon": {
+      "description": "¡Cosas emocionantes están en el horizonte! MyOrderApp está en desarrollo y estará disponible pronto. Mantente conectado para actualizaciones.",
+      "keywords": "MyOrderApp próximamente, en desarrollo, nuevo lanzamiento, plataforma próxima, anticipación de pedidos móviles",
+      "openGraph": {
+        "description": "¡Mantente al tanto! MyOrderApp se está preparando para ofrecer una experiencia revolucionaria de pedidos móviles. Lanzamiento próximamente.",
+        "title": "MyOrderApp - ¡Lanzamiento Próximo!"
+      },
+      "title": "Próximamente: La Nueva Experiencia de MyOrderApp"
+    },
     "customers": {
       "description": "Accede y revisa tu lista de clientes en MyOrderApp. Obtén insights sobre tu clientela, sus preferencias e historial de compras para optimizar tus ofertas.",
       "keywords": "clientes de MyOrderApp, lista de clientes, insights de clientes, gestión de clientes, clientela del vendedor, historial de compras",
@@ -398,6 +415,15 @@
         "title": "Iniciar sesión en MyOrderApp para Vendedores"
       },
       "title": "Iniciar sesión"
+    },
+    "maintenance": {
+      "description": "MyOrderApp está actualmente en mantenimiento programado para mejorar su experiencia. Agradecemos su paciencia y ¡volveremos en breve!",
+      "keywords": "Mantenimiento de MyOrderApp, tiempo de inactividad del sitio, actualizaciones programadas, mejoras de la plataforma, interrupción del servicio",
+      "openGraph": {
+        "description": "¡Ten paciencia con nosotros! MyOrderApp está siendo ajustado para ofrecer una experiencia de pedidos móviles aún mejor. Regresaremos en breve.",
+        "title": "MyOrderApp - Mantenimiento Programado en Curso"
+      },
+      "title": "Mantenimiento Programado: Regresaremos Pronto"
     },
     "notFound": {
       "description": "¡Vaya! La página que estás buscando no existe en MyOrderApp. Navega hacia atrás o explora nuestra plataforma para encontrar lo que necesitas.",
@@ -554,32 +580,6 @@
         "title": "Personalización de Tema para Vendedores de MyOrderApp"
       },
       "title": "Personalización de Tema"
-    },
-    "comingSoon": {
-      "description": "¡Cosas emocionantes están en el horizonte! MyOrderApp está en desarrollo y estará disponible pronto. Mantente conectado para actualizaciones.",
-      "keywords": "MyOrderApp próximamente, en desarrollo, nuevo lanzamiento, plataforma próxima, anticipación de pedidos móviles",
-      "openGraph": {
-        "description": "¡Mantente al tanto! MyOrderApp se está preparando para ofrecer una experiencia revolucionaria de pedidos móviles. Lanzamiento próximamente.",
-        "title": "MyOrderApp - ¡Lanzamiento Próximo!"
-      },
-      "title": "Próximamente: La Nueva Experiencia de MyOrderApp"
-    },
-    "maintenance": {
-      "description": "MyOrderApp está actualmente en mantenimiento programado para mejorar su experiencia. Agradecemos su paciencia y ¡volveremos en breve!",
-      "keywords": "Mantenimiento de MyOrderApp, tiempo de inactividad del sitio, actualizaciones programadas, mejoras de la plataforma, interrupción del servicio",
-      "openGraph": {
-        "description": "¡Ten paciencia con nosotros! MyOrderApp está siendo ajustado para ofrecer una experiencia de pedidos móviles aún mejor. Regresaremos en breve.",
-        "title": "MyOrderApp - Mantenimiento Programado en Curso"
-      },
-      "title": "Mantenimiento Programado: Regresaremos Pronto"
     }
-  },
-  "ComingSoonComponent": {
-    "title": "Próximamente",
-    "description": "Estamos trabajando duro para traerte MyOrderApp. ¡Mantente al tanto!"
-  },
-  "MaintenanceComponent": {
-    "title": "En Mantenimiento",
-    "description": "Nuestro sitio está actualmente en mantenimiento programado. Pedimos disculpas por cualquier inconveniente ¡y volveremos pronto!"
   }
 }

@@ -61,6 +61,10 @@
     "catalogTabLabel": "カタログ",
     "previewTabLabel": "プレビュー"
   },
+  "ComingSoonComponent": {
+    "description": "MyOrderAppをお届けするために一生懸命働いています。乞うご期待！",
+    "title": "近日公開"
+  },
   "CurrencySelector": {
     "title": "通貨"
   },
@@ -146,6 +150,10 @@
     "emailField": "メール",
     "passwordField": "パスワード",
     "submitButton": "メールアドレスでログイン"
+  },
+  "MaintenanceComponent": {
+    "description": "現在、当サイトは予定されたメンテナンス中です。ご不便をおかけし申し訳ございませんが、もうしばらくお待ちください。",
+    "title": "メンテナンス中"
   },
   "NotFoundComponent": {
     "button": "ホームに戻る",
@@ -334,6 +342,15 @@
       },
       "title": "カタログのカスタマイズ"
     },
+    "comingSoon": {
+      "description": "興奮することがもうすぐ起こります！ MyOrderAppは開発中で、まもなく利用可能になります。更新のために接続を続けてください。",
+      "keywords": "MyOrderApp近日公開、開発中、新しいリリース、今後のプラットフォーム、モバイル注文の期待",
+      "openGraph": {
+        "description": "乞うご期待！ MyOrderAppは、革命的なモバイル注文体験を提供するための準備をしています。近日公開。",
+        "title": "MyOrderApp - 近日公開！"
+      },
+      "title": "近日公開：MyOrderAppの新しい体験"
+    },
     "customers": {
       "description": "MyOrderAppでのあなたの顧客リストにアクセスしてレビューします。顧客、その好み、購入履歴に関する洞察を得て、提供を最適化します。",
       "keywords": "MyOrderAppの顧客, 顧客リスト, 顧客の洞察, 顧客管理, セラーの顧客層, 購入履歴",
@@ -398,6 +415,15 @@
         "title": "セラー向けMyOrderAppにログイン"
       },
       "title": "ログイン"
+    },
+    "maintenance": {
+      "description": "MyOrderAppは現在、予定されたメンテナンス中で、お客様の体験を向上させるための作業を行っています。お待たせして申し訳ございませんが、もうしばらくお待ちください。",
+      "keywords": "MyOrderAppメンテナンス, サイトダウンタイム, 予定された更新, プラットフォームの改善, サービス中断",
+      "openGraph": {
+        "description": "もうしばらくお待ちください！MyOrderAppは、さらに優れたモバイルオーダリング体験のために調整中です。まもなく戻ります。",
+        "title": "MyOrderApp - 予定されたメンテナンス中"
+      },
+      "title": "予定されたメンテナンス: まもなく戻ります"
     },
     "notFound": {
       "description": "おっと！お探しのページはMyOrderAppに存在しません。戻るか、当社のプラットフォームを探索して必要なものを見つけてください。",
@@ -554,32 +580,6 @@
         "title": "MyOrderAppのセラーテーマカスタマイゼーション"
       },
       "title": "テーマのカスタマイゼーション"
-    },
-    "comingSoon": {
-      "description": "興奮することがもうすぐ起こります！ MyOrderAppは開発中で、まもなく利用可能になります。更新のために接続を続けてください。",
-      "keywords": "MyOrderApp近日公開、開発中、新しいリリース、今後のプラットフォーム、モバイル注文の期待",
-      "openGraph": {
-        "description": "乞うご期待！ MyOrderAppは、革命的なモバイル注文体験を提供するための準備をしています。近日公開。",
-        "title": "MyOrderApp - 近日公開！"
-      },
-      "title": "近日公開：MyOrderAppの新しい体験"
-    },
-    "maintenance": {
-      "description": "MyOrderAppは現在、予定されたメンテナンス中で、お客様の体験を向上させるための作業を行っています。お待たせして申し訳ございませんが、もうしばらくお待ちください。",
-      "keywords": "MyOrderAppメンテナンス, サイトダウンタイム, 予定された更新, プラットフォームの改善, サービス中断",
-      "openGraph": {
-        "description": "もうしばらくお待ちください！MyOrderAppは、さらに優れたモバイルオーダリング体験のために調整中です。まもなく戻ります。",
-        "title": "MyOrderApp - 予定されたメンテナンス中"
-      },
-      "title": "予定されたメンテナンス: まもなく戻ります"
     }
-  },
-  "ComingSoonComponent": {
-    "title": "近日公開",
-    "description": "MyOrderAppをお届けするために一生懸命働いています。乞うご期待！"
-  },
-  "MaintenanceComponent": {
-    "title": "メンテナンス中",
-    "description": "現在、当サイトは予定されたメンテナンス中です。ご不便をおかけし申し訳ございませんが、もうしばらくお待ちください。"
   }
 }

@@ -3,7 +3,7 @@ import { ColorSchemeEnum } from "next/dist/lib/metadata/types/metadata-types";
 
 export const moaEnv: MoaEnv = {
   env: process.env.NEXT_PUBLIC_ENV!,
-  frontendUrl: process.env.NEXT_PUBLIC_FRONTEND_URL!,
+  frontendUrl: process.env.NEXT_PUBLIC_SITE_URL!,
   appUrl: process.env.NEXT_PUBLIC_APP_URL!,
   backendUrl: process.env.NEXT_PUBLIC_BACKEND_URL!,
   backendApiKey: process.env.NEXT_PUBLIC_BACKEND_API_KEY!,
