@@ -11,6 +11,7 @@ export async function generateMetadata(props: {
   return {
     ...dictionary.metadata.resetPassword.index,
     openGraph: {
+      ...dictionary.metadata.resetPassword.index.openGraph,
       ...openGraphImages,
     },
   };

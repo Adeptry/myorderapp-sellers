@@ -11,6 +11,7 @@ export async function generateMetadata(props: {
   return {
     ...messages.metadata.login,
     openGraph: {
+      ...messages.metadata.login.openGraph,
       ...openGraphImages,
     },
   };

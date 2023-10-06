@@ -11,6 +11,7 @@ export async function generateMetadata(props: {
   return {
     ...dictionary.metadata.register,
     openGraph: {
+      ...dictionary.metadata.register.openGraph,
       ...openGraphImages,
     },
   };

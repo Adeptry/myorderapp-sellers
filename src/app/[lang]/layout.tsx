@@ -19,8 +19,8 @@ export async function generateMetadata(props: {
     ...messages.metadata.layout,
     keywords: messages.metadata.layout.keywords.split(","),
     openGraph: {
-      ...messages.metadata.layout.openGraph,
       ...openGraphImages,
+      ...messages.metadata.layout.openGraph,
     },
   };
 }

@@ -19,6 +19,9 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     openGraph: {
       ...openGraphImages,
+      title: moaEnv.name,
+      description: moaEnv.description,
+      url: new URL(moaEnv.siteUrl),
     },
   };
 }
