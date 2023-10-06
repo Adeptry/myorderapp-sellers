@@ -1,4 +1,4 @@
-import { useCookieContext } from "@/contexts/CookieContext";
+import { useCookieContext } from "@/components/providers/CookieContext";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";

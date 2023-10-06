@@ -21,7 +21,7 @@ export const useRedirectSetupSessions = () => {
       } else if (data.catalog?.id == undefined) {
         router.push(routes.setup.catalog);
       } else if (data.tier == undefined) {
-        router.push(routes.setup.tier);
+        router.push(routes.setup.plan);
       }
     }
   }, [authStatus, data, queryStatus]);

@@ -1,5 +1,3 @@
-"use client";
-
 import { useGetMerchantMeQuery } from "@/queries/useGetMerchantMeQuery";
 import { configurationForSession } from "@/utils/configurationForSession";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
@@ -24,7 +22,7 @@ export type UserUpdateFormType = UserPatchBody;
 export function UserUpdateForm() {
   const [skeletonState, setSkeletonState] = useState<boolean>(true);
   const [errorString, setErrorString] = useState<string | null>(null);
-  const common = useTranslations("Common");
+  const t = useTranslations("UserUpdateForm");
   const configuration = useSessionedApiConfiguration();
   const currentMerchantQuery = useGetMerchantMeQuery();
 
@@ -44,22 +42,9 @@ export function UserUpdateForm() {
       resolver: yupResolver(
         yup
           .object<UserUpdateFormType>({
-            email: yup
-              .string()
-              .min(6)
-              .label(common("email"))
-              .optional()
-              .nullable(),
-            firstName: yup
-              .string()
-              .label(common("firstName"))
-              .optional()
-              .nullable(),
-            lastName: yup
-              .string()
-              .label(common("lastName"))
-              .optional()
-              .nullable(),
+            email: yup.string().min(6).label(t("email")).optional().nullable(),
+            firstName: yup.string().label(t("firstName")).optional().nullable(),
+            lastName: yup.string().label(t("lastName")).optional().nullable(),
           })
           .required()
       ),
@@ -150,7 +135,7 @@ export function UserUpdateForm() {
                     value={field.value ?? ""}
                     required
                     fullWidth
-                    label={common("firstName")}
+                    label={t("firstName")}
                     autoComplete="given-name"
                     inputProps={{
                       autoCorrect: "none",
@@ -179,7 +164,7 @@ export function UserUpdateForm() {
                     value={field.value ?? ""}
                     required
                     fullWidth
-                    label={common("lastName")}
+                    label={t("lastName")}
                     autoComplete="family-name"
                     inputProps={{
                       autoCorrect: "none",
@@ -206,7 +191,7 @@ export function UserUpdateForm() {
                     {...field}
                     value={field.value ?? ""}
                     required
-                    label={common("email")}
+                    label={t("email")}
                     autoComplete="email"
                     inputProps={{
                       autoCapitalize: "none",
@@ -237,7 +222,7 @@ export function UserUpdateForm() {
                 fullWidth
                 variant="contained"
               >
-                {common("save")}
+                {t("save")}
               </LoadingButton>
             )}
           </Grid>

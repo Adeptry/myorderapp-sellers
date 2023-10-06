@@ -1,4 +1,4 @@
-import { moaEnv } from "@/utils/moaEnv";
+import { moaEnv } from "@/moaEnv";
 import { Configuration } from "myorderapp-square";
 import { Session } from "next-auth";
 

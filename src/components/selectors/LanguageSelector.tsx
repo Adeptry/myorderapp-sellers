@@ -1,5 +1,3 @@
-"use client";
-
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next-intl/client";
@@ -7,20 +5,18 @@ import { usePathname, useRouter } from "next-intl/client";
 export function LanguageSelector() {
   const router = useRouter();
   const pathname = usePathname();
-  const common = useTranslations("Common");
+  const t = useTranslations("LanguageSelector");
   const locale = useLocale();
 
   return (
     <FormControl>
-      <InputLabel id="language-select-label">{common("language")}</InputLabel>
+      <InputLabel id="language-select-label">{t("title")}</InputLabel>
       <Select
         size="small"
         value={locale}
-        label={common("language")}
+        label={t("title")}
         onChange={(e) => {
           const newLocale = e.target.value as string;
-
-          // Use router.replace to navigate to the same page in the selected language
           router.replace(pathname, { locale: newLocale });
         }}
       >

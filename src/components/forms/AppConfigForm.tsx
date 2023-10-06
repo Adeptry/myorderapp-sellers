@@ -1,11 +1,8 @@
-"use client";
-
-import { useCookieContext } from "@/contexts/CookieContext";
-import { fontNames } from "@/data/fontNames";
+import { moaEnv } from "@/moaEnv";
 import { configurationForSession } from "@/utils/configurationForSession";
+import { fontNames } from "@/utils/fontNames";
 import { getBooleanNullOrThrow } from "@/utils/forceHtmlRadioOutputToBeBoolean";
 import { mapStringEnum } from "@/utils/mapStringEnum";
-import { moaEnv } from "@/utils/moaEnv";
 import { randomColor } from "@/utils/randomColor";
 import { stringToColor } from "@/utils/stringToColor";
 import { stringToThemeMode } from "@/utils/stringToThemeMode";
@@ -53,6 +50,7 @@ import { useEffect, useState } from "react";
 import { unstable_batchedUpdates } from "react-dom";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
+import { useCookieContext } from "../providers/CookieContext";
 
 type FormType = {
   fontFamily?: string | null;
@@ -72,7 +70,6 @@ export function AppConfigForm(props: {
   const { push } = useRouter();
   const theme = useTheme();
   const t = useTranslations("AppConfigForm");
-  const common = useTranslations("Common");
   const [errorString, setErrorString] = useState<string | null>(null);
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const [skeletonState, setSkeletonState] = useState(true);
@@ -274,7 +271,7 @@ export function AppConfigForm(props: {
             type="submit"
             variant="contained"
           >
-            {successUrl ? common("saveAndContinue") : t("submitButtonText")}
+            {successUrl ? t("saveAndContinue") : t("submitButtonText")}
           </LoadingButton>
           <Typography
             variant="caption"

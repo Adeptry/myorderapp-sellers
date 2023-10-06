@@ -1,5 +1,4 @@
 import { StripeCheckoutButton } from "@/components/buttons/StripeCheckoutButton";
-import { useCookieContext } from "@/contexts/CookieContext";
 import { SupportAgent, Web } from "@mui/icons-material";
 import {
   Box,
@@ -15,12 +14,12 @@ import {
   Typography,
 } from "@mui/material";
 import { useFormatter, useTranslations } from "next-intl";
+import { useCookieContext } from "../providers/CookieContext";
 
 export function Tier0CheckoutCard() {
   const { currencyCookieValue } = useCookieContext();
   const formatter = useFormatter();
   const t = useTranslations("Tier0CheckoutCard");
-  const common = useTranslations("Common");
 
   return (
     <Card>
@@ -52,7 +51,7 @@ export function Tier0CheckoutCard() {
                 })}
             </Typography>
             <Typography variant="h6" color="text.secondary">
-              {common("perMonth")}
+              {t("perMonth")}
             </Typography>
           </Box>
           <Typography variant="body2" color="text.secondary">

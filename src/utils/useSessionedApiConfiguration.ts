@@ -1,7 +1,7 @@
 import { Configuration } from "myorderapp-square";
 import { useSession } from "next-auth/react";
 import { useLocale } from "next-intl";
-import { moaEnv } from "./moaEnv";
+import { moaEnv } from "../moaEnv";
 
 export const useSessionedApiConfiguration = () => {
   const { data } = useSession();

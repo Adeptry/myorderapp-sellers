@@ -1,38 +1,15 @@
-"use client";
+import { SupportComponent } from "@/components/SupportComponent";
+import { getMessages } from "@/i18n/getMessages";
+import { Locale } from "@/types/next";
+import { Metadata } from "next";
 
-import { FaqAccordion } from "@/components/accordions/CheckoutFaqAccordion";
-import { SupportRequestForm } from "@/components/forms/SupportRequestForm";
-import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
-import { useMaxHeightCssString } from "@/utils/useMaxHeight";
-import { Box, Container, Grid, Typography } from "@mui/material";
-import { useTranslations } from "next-intl";
+export async function generateMetadata(props: {
+  params: { lang: Locale };
+}): Promise<Metadata> {
+  const dictionary = await getMessages(props.params.lang);
+  return dictionary.metadata.support;
+}
 
 export default function Page() {
-  useRedirectUnauthenticatedSessions();
-
-  const common = useTranslations("Common");
-  const maxHeightCssString = useMaxHeightCssString();
-
-  return (
-    <Container sx={{ minHeight: maxHeightCssString }}>
-      <Grid container justifyContent="center" py={2} spacing={2}>
-        <Grid item xs={12} sm={12} md={6}>
-          <Box display="flex" justifyContent="center">
-            <Typography component="h1" variant="h4" pb={3}>
-              {common("support")}
-            </Typography>
-          </Box>
-          <SupportRequestForm />
-        </Grid>
-        <Grid item xs={12} sm={12} md={6}>
-          <Box display="flex" justifyContent="center">
-            <Typography component="h1" variant="h4" pb={3}>
-              {common("frequentlyAskedQuestions")}
-            </Typography>
-          </Box>
-          <FaqAccordion />
-        </Grid>
-      </Grid>
-    </Container>
-  );
+  return <SupportComponent />;
 }

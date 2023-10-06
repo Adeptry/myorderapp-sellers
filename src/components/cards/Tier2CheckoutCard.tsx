@@ -1,8 +1,9 @@
 import { StripeCheckoutButton } from "@/components/buttons/StripeCheckoutButton";
-import { constants } from "@/constants";
-import { useCookieContext } from "@/contexts/CookieContext";
+import { moaEnv } from "@/moaEnv";
+import { Currency } from "@/types/next";
 import { Apple } from "@mui/icons-material";
 import SupportAgent from "@mui/icons-material/SupportAgent";
+import { useCookieContext } from "../providers/CookieContext";
 
 import {
   Box,
@@ -22,7 +23,6 @@ import { useFormatter, useTranslations } from "next-intl";
 export function Tier2CheckoutCard() {
   const formatter = useFormatter();
   const t = useTranslations("Tier2CheckoutCard");
-  const common = useTranslations("Common");
   const { currencyCookieValue } = useCookieContext();
 
   return (
@@ -49,7 +49,7 @@ export function Tier2CheckoutCard() {
             <Typography component="h2" variant="h3" color="text.primary">
               {currencyCookieValue &&
                 formatter.number(
-                  constants.currencyToPriceDictionaries[2][currencyCookieValue],
+                  moaEnv.stripe.prices[2][currencyCookieValue as Currency],
                   {
                     style: "currency",
                     currency: currencyCookieValue,
@@ -58,7 +58,7 @@ export function Tier2CheckoutCard() {
                 )}
             </Typography>
             <Typography variant="h6" color="text.secondary">
-              {common("perMonth")}
+              {t("perMonth")}
             </Typography>
           </Box>
           <Typography variant="body2" color="text.secondary">

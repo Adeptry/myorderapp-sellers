@@ -1,11 +1,7 @@
-"use client";
-
 import { routes } from "@/app/routes";
-import { constants } from "@/constants";
-import { useCookieContext } from "@/contexts/CookieContext";
+import { moaEnv } from "@/moaEnv";
 import { Currency } from "@/types/next";
 import { gtagEvent } from "@/utils/gtag-event";
-import { moaEnv } from "@/utils/moaEnv";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { ShoppingCartCheckout } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
@@ -17,6 +13,7 @@ import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next-intl/client";
 import { useState } from "react";
+import { useCookieContext } from "../providers/CookieContext";
 
 export function StripeCheckoutButton(props: {
   fullWidth?: boolean;
@@ -28,7 +25,7 @@ export function StripeCheckoutButton(props: {
   const sessionedApiConfiguration = useSessionedApiConfiguration();
   const { push } = useRouter();
   const locale = useLocale();
-  const t = useTranslations("Common");
+  const t = useTranslations("StripeCheckoutButton");
   const { currencyCookieValue } = useCookieContext();
 
   let sucessPathComponent = "";
@@ -81,16 +78,10 @@ export function StripeCheckoutButton(props: {
       if (stripe && postStripeCheckoutQueryMe?.data?.checkoutSessionId) {
         gtagEvent("begin_checkout", {
           currency: currencyCookieValue,
-          value:
-            constants.currencyToPriceDictionaries[tier][
-              currencyCookieValue as Currency
-            ],
+          value: moaEnv.stripe.prices[tier][currencyCookieValue as Currency],
           items: [
             {
-              value:
-                constants.currencyToPriceDictionaries[2][
-                  currencyCookieValue as Currency
-                ],
+              value: moaEnv.stripe.prices[2][currencyCookieValue as Currency],
               item_id:
                 moaEnv.stripe.priceIds[tier][
                   currencyCookieValue?.toLowerCase() as Currency
@@ -133,7 +124,7 @@ export function StripeCheckoutButton(props: {
       loading={buttonLoading}
       disabled={buttonLoading}
     >
-      {props.text ?? t("subscribe")}
+      {props.text ?? t("text")}
     </LoadingButton>
   );
 }

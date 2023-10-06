@@ -11,7 +11,7 @@ export const useRedirectAuthenticatedSessions = () => {
 
   useEffect(() => {
     if (authStatus === "authenticated") {
-      router.push(routes.home);
+      router.push(routes.dashboard);
     }
   }, [authStatus, data, queryStatus]);
 

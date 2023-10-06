@@ -1,8 +1,6 @@
-"use client";
-
 import { routes } from "@/app/routes";
+import { moaEnv } from "@/moaEnv";
 import { useGetMerchantMeQuery } from "@/queries/useGetMerchantMeQuery";
-import { moaEnv } from "@/utils/moaEnv";
 import { Button, Skeleton, SxProps } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { default as NextLink } from "next/link";
@@ -51,7 +49,7 @@ export function SquareOauthButton(props: SquareOauthButtonProps) {
     moaEnv.square.testCode != undefined &&
     moaEnv.square.testCode.length > 0
   ) {
-    urlString = `${routes.setup.square.oauth2}?code=${moaEnv.square.testCode}`;
+    urlString = `${routes.setup.square.sync}?code=${moaEnv.square.testCode}`;
   }
 
   if (!data?.id) {

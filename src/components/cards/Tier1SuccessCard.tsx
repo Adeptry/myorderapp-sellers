@@ -1,10 +1,6 @@
-import { routes } from "@/app/routes";
-import { useCurrentMerchantMoaUrl } from "@/utils/useCurrentMerchantMoaUrl";
 import { AdUnits, Palette } from "@mui/icons-material"; // Assume these icons exist or replace them with actual ones
 import {
-  Button,
   Card,
-  CardActions,
   CardContent,
   CardHeader,
   List,
@@ -14,13 +10,9 @@ import {
   SxProps,
 } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next-intl/client";
 
 export function Tier1SuccessCard(props: { sx?: SxProps }) {
   const t = useTranslations("Tier1SuccessCard");
-  const common = useTranslations("Common");
-  const { push } = useRouter();
-  const moaUrl = useCurrentMerchantMoaUrl();
   return (
     <Card sx={props.sx}>
       <CardHeader
@@ -53,18 +45,6 @@ export function Tier1SuccessCard(props: { sx?: SxProps }) {
           </ListItem>
         </List>
       </CardContent>
-      <CardActions>
-        <Button onClick={() => push(routes.support)}>
-          {common("support")}
-        </Button>
-        <Button
-          onClick={() => {
-            window.open(moaUrl, "_blank");
-          }}
-        >
-          {common("useMyOrderApp")}
-        </Button>
-      </CardActions>
     </Card>
   );
 }

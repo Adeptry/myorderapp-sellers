@@ -1,17 +1,15 @@
-"use client";
+import { CustomersComponent } from "@/components/CustomersComponent";
+import { getMessages } from "@/i18n/getMessages";
+import { Locale } from "@/types/next";
+import { Metadata } from "next";
 
-import { CustomersDataGrid } from "@/components/data-grids/CustomersDataGrid";
-import { useRedirectSetupSessions } from "@/routing/useRedirectSetupSessions";
-import { useMaxHeightCssString } from "@/utils/useMaxHeight";
-import { Container } from "@mui/material";
+export async function generateMetadata(props: {
+  params: { lang: Locale };
+}): Promise<Metadata> {
+  const dictionary = await getMessages(props.params.lang);
+  return dictionary.metadata.customers;
+}
 
 export default function Page() {
-  useRedirectSetupSessions();
-  const maxHeightCssString = useMaxHeightCssString();
-
-  return (
-    <Container sx={{ py: 3, height: maxHeightCssString }} maxWidth={false}>
-      <CustomersDataGrid autoPageSize={true} />
-    </Container>
-  );
+  return <CustomersComponent />;
 }

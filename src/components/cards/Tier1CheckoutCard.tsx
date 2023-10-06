@@ -1,6 +1,6 @@
 import { StripeCheckoutButton } from "@/components/buttons/StripeCheckoutButton";
-import { constants } from "@/constants";
-import { useCookieContext } from "@/contexts/CookieContext";
+import { moaEnv } from "@/moaEnv";
+import { Currency } from "@/types/next";
 import { Android } from "@mui/icons-material";
 import SupportAgent from "@mui/icons-material/SupportAgent";
 import {
@@ -17,11 +17,11 @@ import {
   Typography,
 } from "@mui/material";
 import { useFormatter, useTranslations } from "next-intl";
+import { useCookieContext } from "../providers/CookieContext";
 
 export function Tier1CheckoutCard() {
   const format = useFormatter();
   const t = useTranslations("Tier1CheckoutCard");
-  const common = useTranslations("Common");
   const { currencyCookieValue } = useCookieContext();
 
   return (
@@ -48,7 +48,7 @@ export function Tier1CheckoutCard() {
             <Typography component="h2" variant="h3" color="text.primary">
               {currencyCookieValue &&
                 format.number(
-                  constants.currencyToPriceDictionaries[1][currencyCookieValue],
+                  moaEnv.stripe.prices[1][currencyCookieValue as Currency],
                   {
                     style: "currency",
                     currency: currencyCookieValue,
@@ -57,7 +57,7 @@ export function Tier1CheckoutCard() {
                 )}
             </Typography>
             <Typography variant="h6" color="text.secondary">
-              {common("perMonth")}
+              {t("perMonth")}
             </Typography>
           </Box>
           <Typography variant="body2" color="text.secondary">

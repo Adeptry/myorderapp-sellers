@@ -1,4 +1,4 @@
-import { moaEnv } from "@/utils/moaEnv";
+import { moaEnv } from "@/moaEnv";
 import ms from "ms";
 import {
   AuthenticationApi,

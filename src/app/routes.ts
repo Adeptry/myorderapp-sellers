@@ -3,7 +3,7 @@ export const routes = {
   login: "/login",
   register: "/register",
   resetPassword: "/reset-password",
-  home: "/home",
+  dashboard: "/dashboard",
   account: "/account",
   theme: "/theme",
   catalog: "/catalog",
@@ -16,9 +16,9 @@ export const routes = {
     catalog: "/setup/catalog",
     square: {
       index: "/setup/square",
-      oauth2: "/setup/square/oauth2",
+      sync: "/setup/square/sync",
     },
-    tier: "/setup/tier",
+    plan: "/setup/plan",
     cancel: "/setup/cancel",
     pro: {
       complete: "/setup/pro/complete",

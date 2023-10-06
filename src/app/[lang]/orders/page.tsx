@@ -1,18 +1,15 @@
-"use client";
+import { OrdersComponent } from "@/components/OrdersComponent";
+import { getMessages } from "@/i18n/getMessages";
+import { Locale } from "@/types/next";
+import { Metadata } from "next";
 
-import { OrdersDataGrid } from "@/components/data-grids/OrdersDataGrid";
-import { useRedirectSetupSessions } from "@/routing/useRedirectSetupSessions";
-import { useMaxHeightCssString } from "@/utils/useMaxHeight";
-import { Container } from "@mui/material";
+export async function generateMetadata(props: {
+  params: { lang: Locale };
+}): Promise<Metadata> {
+  const dictionary = await getMessages(props.params.lang);
+  return dictionary.metadata.orders;
+}
 
 export default function Page() {
-  useRedirectSetupSessions();
-
-  const maxHeightCssString = useMaxHeightCssString();
-
-  return (
-    <Container sx={{ py: 3, height: maxHeightCssString }} maxWidth={false}>
-      <OrdersDataGrid autoPageSize={true} />
-    </Container>
-  );
+  return <OrdersComponent />;
 }

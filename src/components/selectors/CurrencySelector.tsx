@@ -1,6 +1,4 @@
-"use client";
-
-import { useCookieContext } from "@/contexts/CookieContext";
+import { Currency } from "@/types/next";
 import {
   FormControl,
   InputLabel,
@@ -9,9 +7,10 @@ import {
   Skeleton,
 } from "@mui/material";
 import { useTranslations } from "next-intl";
+import { useCookieContext } from "../providers/CookieContext";
 
 export function CurrencySelector() {
-  const common = useTranslations("Common");
+  const t = useTranslations("CurrencySelector");
   const { currencyCookieValue, setCurrencyCookieValue } = useCookieContext();
 
   if (currencyCookieValue === undefined) {
@@ -19,23 +18,21 @@ export function CurrencySelector() {
   } else {
     return (
       <FormControl variant="outlined" size="small">
-        <InputLabel id="currency-selector-label">
-          {common("currency")}
-        </InputLabel>
+        <InputLabel id="currency-selector-label">{t("title")}</InputLabel>
         <Select
           labelId="currency-selector-label"
           value={currencyCookieValue}
           onChange={(event) =>
-            setCurrencyCookieValue(event.target.value as string)
+            setCurrencyCookieValue(event.target.value as Currency)
           }
-          label={common("currency")}
+          label={t("title")}
         >
-          <MenuItem value="USD">🇺🇸 USD</MenuItem>
-          <MenuItem value="EUR">🇪🇺 EUR</MenuItem>
-          <MenuItem value="GBP">🇬🇧 GBP</MenuItem>
-          <MenuItem value="JPY">🇯🇵 JPY</MenuItem>
-          <MenuItem value="CAD">🇨🇦 CAD</MenuItem>
-          <MenuItem value="AUD">🇦🇺 AUD</MenuItem>
+          <MenuItem value="usd">🇺🇸 USD</MenuItem>
+          <MenuItem value="eur">🇪🇺 EUR</MenuItem>
+          <MenuItem value="gbp">🇬🇧 GBP</MenuItem>
+          <MenuItem value="jpy">🇯🇵 JPY</MenuItem>
+          <MenuItem value="cad">🇨🇦 CAD</MenuItem>
+          <MenuItem value="aud">🇦🇺 AUD</MenuItem>
         </Select>
       </FormControl>
     );

@@ -1,30 +1,35 @@
-import GoogleAnalyticsProvider from "@/components/GoogleAnalyticsProvider";
-import { SessionedQueryProvider } from "@/components/SessionedQueryProvider";
-import { ThemeRegistry } from "@/components/ThemeRegistry";
-import { MoaAdaptiveScaffold } from "@/components/layouts/MoaAdaptiveScaffold";
-import { CookieProvider } from "@/contexts/CookieContext";
-import { NextPageProps, i18n } from "@/types/next";
-import { getDictionary } from "@/utils/get-dictionary";
-import { moaEnv } from "@/utils/moaEnv";
+import { AdaptiveScaffoldLayout } from "@/components/layouts/AdaptiveScaffoldLayout";
+import { CachedThemeProvider } from "@/components/providers/CachedThemeProvider";
+import { CookieProvider } from "@/components/providers/CookieContext";
+import { SessionedQueryProvider } from "@/components/providers/SessionedQueryProvider";
+import { GoogleAnalyticsScripts } from "@/components/scripts/GoogleAnalyticsScripts";
+import { getMessages } from "@/i18n/getMessages";
+import { moaEnv } from "@/moaEnv";
+import { Locale, NextPageProps, i18n } from "@/types/next";
 import { Analytics } from "@vercel/analytics/react";
 import { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 
-export async function generateMetadata(
-  props: NextPageProps
-): Promise<Metadata> {
-  const dictionary = await getDictionary(props.params.lang);
+export async function generateMetadata(props: {
+  params: { lang: Locale };
+}): Promise<Metadata> {
+  const messages = await getMessages(props.params.lang);
 
   return {
-    ...dictionary.meta,
-    keywords: dictionary.meta.keywords.split(","),
+    ...messages.metadata.layout,
+    keywords: messages.metadata.layout.keywords.split(","),
     themeColor: moaEnv.theme.palette.light.primary.main,
-    authors: {
-      name: "Adeptry",
-      url: "https://adeptry.com",
+    ...moaEnv.metadata,
+    metadataBase: new URL(moaEnv.frontendUrl),
+    alternates: {
+      canonical: "/",
+      languages: {
+        en: "/en",
+        es: "/es",
+        fr: "/fr",
+        ja: "/ja",
+      },
     },
-    colorScheme: "light dark",
-    viewport: "width=device-width, initial-scale=1.0, viewport-fit=cover",
   };
 }
 
@@ -33,24 +38,25 @@ export async function generateStaticParams() {
 }
 
 export default async function RootLayout(props: NextPageProps) {
-  const dictionary = await getDictionary(props.params.lang);
+  const messages = await getMessages(props.params.lang);
 
   return (
     <html lang={props.params.lang}>
       <body>
+        <GoogleAnalyticsScripts />
         <CookieProvider>
-          <ThemeRegistry>
+          <CachedThemeProvider>
             <NextIntlClientProvider
               locale={props.params.lang}
-              messages={dictionary}
+              messages={messages}
             >
               <SessionedQueryProvider>
-                <GoogleAnalyticsProvider>
-                  <MoaAdaptiveScaffold>{props.children}</MoaAdaptiveScaffold>
-                </GoogleAnalyticsProvider>
+                <AdaptiveScaffoldLayout>
+                  {props.children}
+                </AdaptiveScaffoldLayout>
               </SessionedQueryProvider>
             </NextIntlClientProvider>
-          </ThemeRegistry>
+          </CachedThemeProvider>
         </CookieProvider>
         <Analytics />
       </body>

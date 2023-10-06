@@ -1,3 +1,5 @@
+import { ColorSchemeEnum } from "next/dist/lib/metadata/types/metadata-types";
+
 export interface MoaEnv {
   frontendUrl: string;
   backendUrl: string;
@@ -6,7 +8,13 @@ export interface MoaEnv {
   env: string;
   name: string;
   shortName: string;
+  abbreviation: string;
   description: string;
+  metadata: {
+    colorScheme: ColorSchemeEnum;
+    viewport: string;
+    robots: string;
+  };
   appConfig: {
     defaultFontFamily: string;
   };
@@ -50,6 +58,14 @@ export interface MoaEnv {
   };
   stripe: {
     publishableKey: string;
+    prices: {
+      usd: number;
+      eur: number;
+      gbp: number;
+      jpy: number;
+      cad: number;
+      aud: number;
+    }[];
     priceIds: {
       usd: string;
       eur: string;
@@ -65,5 +81,4 @@ export interface MoaConstants {
   currencyCookieName: string;
   colorModeCookieName: string;
   colorCookieName: string;
-  currencyToPriceDictionaries: { [key: string]: number }[];
 }

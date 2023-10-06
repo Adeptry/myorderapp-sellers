@@ -1,4 +1,4 @@
-import { moaEnv } from "@/utils/moaEnv";
+import { moaEnv } from "@/moaEnv";
 import { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {

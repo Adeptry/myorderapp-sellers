@@ -1,29 +1,15 @@
-"use client";
+import { PasswordResetComponent } from "@/components/PasswordResetComponent";
+import { getMessages } from "@/i18n/getMessages";
+import { Locale } from "@/types/next";
+import { Metadata } from "next";
 
-import { ResetPasswordForm } from "@/components/forms/ResetPasswordForm";
-import { useRedirectAuthenticatedSessions } from "@/routing/useRedirectAuthenticatedSessions";
-import { useMaxHeightCssString } from "@/utils/useMaxHeight";
-import { Box, Container, Grid } from "@mui/material";
-import Typography from "@mui/material/Typography";
-import { useTranslations } from "next-intl";
+export async function generateMetadata(props: {
+  params: { lang: Locale };
+}): Promise<Metadata> {
+  const dictionary = await getMessages(props.params.lang);
+  return dictionary.metadata.resetPassword.confirm;
+}
 
 export default function Page() {
-  useRedirectAuthenticatedSessions();
-  const common = useTranslations("Common");
-  const maxHeightCssString = useMaxHeightCssString();
-
-  return (
-    <Container sx={{ minHeight: maxHeightCssString }}>
-      <Grid container justifyContent="center" py={2}>
-        <Grid item xs={12} sm={8} md={6} lg={4}>
-          <Box display="flex" justifyContent="center">
-            <Typography component="h1" variant="h4" pb={3} textAlign={"center"}>
-              {common("resetPassword")}
-            </Typography>
-          </Box>
-          <ResetPasswordForm preloading={false} />
-        </Grid>
-      </Grid>
-    </Container>
-  );
+  return <PasswordResetComponent />;
 }

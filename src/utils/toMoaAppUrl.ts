@@ -1,4 +1,4 @@
-import { moaEnv } from "./moaEnv";
+import { moaEnv } from "../moaEnv";
 
 export function toMoaPathComponent(name: string) {
   let processedPathComponent = name?.toLowerCase();

@@ -13,7 +13,7 @@ export default async function middleware(request: NextRequest) {
 
   if (!currency) {
     // const country = request.geo?.country || "US";
-    currency = "USD";
+    currency = "usd";
   }
 
   response.cookies.set(constants.currencyCookieName, currency);

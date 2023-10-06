@@ -1,0 +1,539 @@
+{
+  "AccountComponent": {
+    "title": "Compte"
+  },
+  "AdaptiveScaffoldLayout": {
+    "account": "Compte",
+    "billing": "Facturation",
+    "catalog": "Catalogue",
+    "customers": "Clients",
+    "dashboard": "Tableau de bord",
+    "locations": "Lieux",
+    "logOut": "Se déconnecter",
+    "mainSite": "Site principal",
+    "orders": "Commandes",
+    "support": "Support",
+    "theme": "Thème",
+    "useMyOrderApp": "Utiliser MyOrderApp"
+  },
+  "AppConfigComponent": {
+    "formTabLabel": "Options",
+    "previewTabLabel": "Aperçu"
+  },
+  "AppConfigForm": {
+    "appIconHelperText": "Apparaîtra sur la page d'accueil des utilisateurs",
+    "appIconLabel": "Icône de l'appli",
+    "appearanceLabel": "Apparence",
+    "defaultName": "{name} Cmd App",
+    "fontFamilyHelperLinkText": "Voir toutes les polices",
+    "fontFamilyLabel": "Famille de polices",
+    "nameHelperText": "Le nom de votre appli, et votre URL:",
+    "nameLabel": "Nom",
+    "randomizeAllButtonText": "Tout aléatoiriser",
+    "saveAndContinue": "Enregistrer et Continuer",
+    "seedColorHelperText": "Utilisé pour générer votre thème",
+    "seedColorLabel": "Couleur de base",
+    "seedColorRequired": "Doit être une couleur hexadécimale",
+    "submitButtonCaption": "Vous pouvez mettre à jour ces paramètres à tout moment.",
+    "submitButtonText": "Enregistrer",
+    "themeModeHelperText": "'Système' suit les paramètres de l'utilisateur. Sélectionnez 'Clair' ou 'Sombre' pour outrepasser.",
+    "themeModeLabel": "Mode de couleur",
+    "themeModeValues": {
+      "dark": "Sombre",
+      "light": "Clair",
+      "system": "Système"
+    },
+    "useMaterial3Labels": {
+      "false": "Classique",
+      "true": "Moderne"
+    }
+  },
+  "AppleAuthButton": {
+    "text": "Continuer avec Apple"
+  },
+  "CatalogComponent": {
+    "catalogTabLabel": "Catalogue",
+    "previewTabLabel": "Aperçu"
+  },
+  "CurrencySelector": {
+    "title": "Devise"
+  },
+  "CustomersDataGrid": {
+    "createDateHeaderName": "Client depuis",
+    "emailHeaderName": "E-mail",
+    "nameHeaderName": "Nom",
+    "noData": "Les clients apparaîtront ici.",
+    "phoneNumberHeaderName": "Numéro de téléphone"
+  },
+  "DashboardComponent": {
+    "appConfigEnabledTooltip": "Basculer pour activer ou désactiver la commande. Utile pour les jours fériés ou les fermetures soudaines.",
+    "endDatePickerLabel": "Fin",
+    "moneyAmountLabel": "Revenu Total",
+    "moneyAmountTooltip": "Revenu total des commandes de l'application dans la plage de dates.",
+    "moneyAppFeeAmountLabel": "Frais de l'Application",
+    "moneyAppFeeAmountTooltip": "Total des frais de transaction MyOrderApp payés dans la plage de dates.",
+    "moneyTaxAmountLabel": "Taxe de Vente",
+    "moneyTaxAmountTooltip": "Total de la taxe de vente collectée dans la plage de dates.",
+    "moneyTipAmountLabel": "Pourboires",
+    "moneyTipAmountTooltip": "Total des pourboires collectés dans la plage de dates.",
+    "orderCountTitle": "{count} Commandes",
+    "orderCountTooltip": "Nombre total de commandes dans la plage de dates sélectionnée.",
+    "startDatePickerLabel": "Début"
+  },
+  "FaqAccordion": {
+    "ads": {
+      "details": "Pour la version Gratuite, les publicités que vous voyez proviennent principalement de Google Ads.",
+      "summary": "Quel type de publicités apparaîtra dans la version Gratuite?"
+    },
+    "billing": {
+      "details": "Nous nous sommes associés à Stripe pour faciliter toutes nos procédures de facturation. Lorsque vous initiez votre abonnement, un frais immédiat est appliqué, suivi de frais mensuels par la suite.",
+      "summary": "Quels modes de paiement sont acceptés et quand suis-je facturé?"
+    },
+    "cost": {
+      "details": "Le prix dépend en grande partie des frais associés à l'ouverture d'un Compte Développeur Apple dans votre région spécifique. Par exemple, aux États-Unis, dans l'UE, en Australie et au Canada, le tarif est de 99$/mois. Au Royaume-Uni, c'est 79$/mois, et au Japon, 11 800 yens/mois. Votre premier mois, ou 'mois de publication', comprend la création de votre compte, le téléchargement de matériel, et l'approbation de l'application. Ce paiement initial facilite principalement la phase de publication et, dans la plupart des cas, votre application sera en ligne avant la fin du mois. Les approbations d'application sont généralement effectuées en moins de 48 heures.",
+      "summary": "Comment le coût de la version Pro est-il déterminé?"
+    },
+    "downgrading": {
+      "details": "Lors de la rétrogradation, votre application reviendra à un modèle supporté par la publicité. Pour toute mise à jour future, l'auto-publication sur les app stores deviendra obligatoire. De plus, le support premium et les services de publication d'applications ne seront plus accessibles.",
+      "summary": "Que se passe-t-il lorsque je passe de Pro à Gratuit?"
+    },
+    "publishing": {
+      "details": "Bien que nous vous fournissions un lien direct pour télécharger votre application, il sera nécessaire de l'auto-publier sur les app stores. Ne vous inquiétez pas; nous vous fournirons des directives détaillées pour simplifier ce processus.",
+      "summary": "Ai-je besoin de compétences techniques pour la version Gratuite?"
+    },
+    "support": {
+      "details": "Les utilisateurs de la version Gratuite peuvent s'attendre à obtenir du support lorsqu'il est disponible. En revanche, nos abonnés Pro bénéficient d'un support de développeur 24/7, avec un temps de réponse garanti dans les 48 heures.",
+      "summary": "Quel type de support puis-je attendre?"
+    },
+    "switching": {
+      "details": "Absolument. Commencez avec notre version Gratuite et si vous trouvez que vous préférez un support plus complet ou une expérience sans publicités, passez à notre version Pro. Par ailleurs, si vos besoins changent, vous pouvez repasser de Pro à Gratuit. Veuillez noter que passer à la version Gratuite réintroduira les publicités et nécessitera l'auto-publication.",
+      "summary": "Puis-je changer de plan?"
+    },
+    "upgrading": {
+      "details": "C'est sans accroc ! Lorsque vous êtes prêt, visitez simplement votre page de Compte pour effectuer le changement.",
+      "summary": "Est-il facile de passer de Gratuit à Pro?"
+    }
+  },
+  "ForgotPasswordLink": {
+    "text": "Mot de passe oublié?"
+  },
+  "GoogleAuthButton": {
+    "text": "Continuer avec Google"
+  },
+  "LanguageSelector": {
+    "title": "Langue"
+  },
+  "LegalMenu": {
+    "gdpr": "RGPD",
+    "legal": "Juridique",
+    "privacy": "Confidentialité",
+    "terms": "Conditions"
+  },
+  "LocationsComponent": {
+    "title": "Emplacements",
+    "tooltipTitle": "Désactiver sélectivement la commande pour des emplacements spécifiques. Utile pour les jours fériés ou les fermetures soudaines."
+  },
+  "LoginComponent": {
+    "title": "Connexion"
+  },
+  "LoginEmailForm": {
+    "emailField": "E-mail",
+    "passwordField": "Mot de passe",
+    "submitButton": "Se connecter avec l'e-mail"
+  },
+  "OnboardingStepper": {
+    "customize": "Personnaliser",
+    "publish": "Publier",
+    "register": "S'inscrire",
+    "synchronize": "Synchroniser"
+  },
+  "OrderingEnabledFormControlLabel": {
+    "label": "Commande Activée"
+  },
+  "OrdersDataGrid": {
+    "closedDateHeaderName": "Date de clôture",
+    "customerHeaderName": "Client",
+    "idHeaderName": "ID de commande",
+    "locationHeaderName": "Emplacement",
+    "noData": "Les commandes apparaîtront ici.",
+    "totalMoneyAmountHeaderName": "Total"
+  },
+  "PasswordForgotComponent": {
+    "title": "Réinitialiser le mot de passe"
+  },
+  "PasswordForgotForm": {
+    "button": "Demander la réinitialisation du mot de passe",
+    "emailField": "E-mail",
+    "successAlert": "Votre message a été envoyé. Nous vous répondrons sous peu."
+  },
+  "PasswordResetComponent": {
+    "title": "Réinitialiser le mot de passe"
+  },
+  "PasswordResetForm": {
+    "confirmPassword": "Confirmer le mot de passe",
+    "newPassword": "Nouveau mot de passe",
+    "passwordsMustMatch": "Les mots de passe doivent correspondre",
+    "resetPassword": "Réinitialiser le mot de passe",
+    "resetPasswordSuccess": "Votre mot de passe a été réinitialisé. Vous pouvez maintenant vous connecter."
+  },
+  "RegisterComponent": {
+    "title": "Inscription"
+  },
+  "RegisterEmailForm": {
+    "email": "E-mail",
+    "firstName": "Prénom",
+    "lastName": "Nom de famille",
+    "password": "Mot de passe",
+    "submitButton": "S'inscrire avec l'e-mail"
+  },
+  "SetupAppConfigComponent": {
+    "formTabLabel": "Options",
+    "previewTabLabel": "Aperçu"
+  },
+  "SetupCatalogComponent": {
+    "catalogTabLabel": "Catalogue",
+    "continueButton": "Accepter et continuer",
+    "previewTabLabel": "Aperçu"
+  },
+  "SetupSquareOauthComponent": {
+    "fallbackError": "Oups, quelque chose s'est mal passé. Ne vous inquiétez pas, vos données sont en sécurité. Nous avons été informés et travaillons à résoudre le problème."
+  },
+  "SignInLink": {
+    "text": "Vous avez un compte? Se connecter"
+  },
+  "SignUpLink": {
+    "text": "Nouveau ici? S'inscrire"
+  },
+  "SquareOauthButton": {
+    "text": "Autoriser Square"
+  },
+  "SquareOauthExplainerCard": {
+    "catalogSyncPrimary": "Synchronisation du Catalogue",
+    "catalogSyncSecondary": "Autorisez notre application à récupérer votre catalogue, assurant une intégration transparente avec vos listes de produits actuels.",
+    "dataSecurityPrimary": "Sécurité des Données",
+    "dataSecuritySecondary": "Vos données sont protégées par les mesures de sécurité de Square. Vous pouvez gérer ou révoquer des autorisations à tout moment depuis votre tableau de bord Square.",
+    "orderSubmissionPrimary": "Soumission de Commande",
+    "orderSubmissionSecondary": "Laissez-nous passer des commandes au nom de vos clients, garantissant un traitement rapide et fluide des commandes.",
+    "posIntegrationPrimary": "Intégration POS",
+    "posIntegrationSecondary": "Envoyez des commandes directement à vos systèmes de point de vente, comblant le fossé entre les commandes en ligne et les ventes en personne.",
+    "title": "Connectez votre compte Square"
+  },
+  "StatisticsCard": {
+    "averageAbbreviation": "Moy",
+    "maximumAbbreviation": "Max",
+    "minimumAbbreviation": "Min"
+  },
+  "StripeCheckoutButton": {
+    "text": "Subscribe"
+  },
+  "StripeCheckoutCancelledCard": {
+    "body": "La vie est chargée, et nous le comprenons. Si vous choisissez de revenir et de finaliser votre installation, sachez que votre progression est sauvegardée. À tout moment, vous pouvez revoir les étapes précédentes en utilisant la navigation ci-dessus. Pour toute question ou pour plus d'informations, notre section FAQ et nos options de publication sont disponibles ci-dessous.",
+    "title": "Nous avons remarqué que votre paiement a été interrompu"
+  },
+  "SupportComponent": {
+    "faqTitle": "Questions fréquentes",
+    "formTitle": "Support"
+  },
+  "SupportRequestForm": {
+    "buttonText": "Envoyer",
+    "subjectField": "De quoi s'agit-il ?",
+    "subjectPlaceholder": "p. ex., Facturation, Problème technique, Question générale",
+    "successAlert": "Votre message a été envoyé. Nous vous répondrons sous peu.",
+    "textField": "Dites-nous ce qui se passe",
+    "textPlaceholder": "Plus vous fournissez de détails, plus nous pouvons vous aider rapidement"
+  },
+  "Tier0CheckoutCard": {
+    "buttonText": "Publier mon app web",
+    "perMonth": "/mois",
+    "perfectForBody": "Petites entreprises débutant avec la commande mobile et axées sur une présence uniquement sur le Web.",
+    "perfectForHeader": "Parfait pour :",
+    "subheader": "Web",
+    "supportPrimary": "Support de Base",
+    "supportSecondary": "Support au mieux, réponse dans un délai de 72 heures.",
+    "title": "Gratuit",
+    "transactionFee": "+5% par transaction"
+  },
+  "Tier0SuccessCard": {
+    "nextStepsPrimary": "Prochaines étapes importantes:",
+    "nextStepsSecondary": "Consultez vos analyses de performance et ajustez votre marketing en conséquence. Vous en voulez plus ? La mise à niveau est transparente pour une expérience encore plus solide.",
+    "subheader": "Bravo ! Votre application web est pleinement fonctionnelle et prête à accepter des commandes.",
+    "supportPrimary": "Support de base",
+    "supportSecondary": "Coincé ? N'hésitez pas à utiliser notre support de base. Attendez-vous à une réponse dans les 72 heures.",
+    "title": "Votre application web est en ligne !"
+  },
+  "Tier1CheckoutCard": {
+    "buttonText": "Publier mon app Android",
+    "perMonth": "/mois",
+    "perfectForBody": "Entreprises en croissance visant une présence Android et désirant une URL personnalisée.",
+    "perfectForHeader": "Parfait pour :",
+    "subheader": "Web & Android",
+    "supportPrimary": "Support Amélioré",
+    "supportSecondary": "Réponse de support garantie dans un délai de 48 heures.",
+    "title": "Débutant",
+    "transactionFee": "+2,5% par transaction"
+  },
+  "Tier1SuccessCard": {
+    "nextStepsPrimary": "Priorités immédiates :",
+    "nextStepsSecondary": "Démarrez vos efforts promotionnels pour l'application web et préparez-vous pour le lancement sur Android. Nous nous occupons de la technologie, concentrez-vous sur les ventes.",
+    "subheader": "Succès ! Votre application web est opérationnelle. Patientez un peu ; votre application Android sera déployée sous peu.",
+    "supportPrimary": "Support amélioré",
+    "supportSecondary": "Des questions ? Notre support amélioré garantit un délai de réponse de 48 heures pour vos interrogations.",
+    "title": "Web et Android—Bientôt disponible !"
+  },
+  "Tier2CheckoutCard": {
+    "buttonText": "Publier ma suite",
+    "perMonth": "/mois",
+    "perfectForBody": "Entreprises établies cherchant une expérience premium et multiplateforme sans frais de transaction.",
+    "perfectForHeader": "Parfait pour :",
+    "subheader": "Web, Android & iOS",
+    "supportPrimary": "Support Prioritaire",
+    "supportSecondary": "Support en direct de notre équipe de développement, réponse dans un délai de 24 heures.",
+    "title": "Complet",
+    "transactionFee": "Sans frais"
+  },
+  "Tier2SuccessCard": {
+    "nextStepsPrimary": "Actions à entreprendre :",
+    "nextStepsSecondary": "Maximisez la visibilité de votre application web pendant que nous finalisons vos applications Android et iOS. Votre stratégie multiplateforme est sur le point de passer au niveau supérieur.",
+    "subheader": "Splendide ! Votre application web est en ligne et sert les clients. Les versions Android et iOS sont en cours de développement.",
+    "supportPrimary": "Support prioritaire",
+    "supportSecondary": "Besoin d'une assistance rapide ? Notre support prioritaire offre une réponse en direct de notre équipe de développement dans un délai de 24 heures.",
+    "title": "Le pack complet—Web, Android et iOS !"
+  },
+  "UserUpdateForm": {
+    "email": "E-mail",
+    "firstName": "Prénom",
+    "lastName": "Nom de famille"
+  },
+  "metadata": {
+    "account": {
+      "description": "Gérez et mettez à jour les détails de votre compte MyOrderApp. Modifiez votre e-mail, changez de mot de passe, éditez le nom et assurez-vous que votre compte est toujours à jour.",
+      "keywords": "gestion de compte MyOrderApp, mise à jour de l'email, changement de mot de passe, modification du nom, paramètres de compte, détails personnels",
+      "openGraph": {
+        "description": "Surveillez les paramètres de votre compte MyOrderApp. Actualisez l'e-mail, le mot de passe ou le nom pour que les détails de votre compte restent précis et sécurisés.",
+        "title": "Gestion de Compte Vendeur MyOrderApp"
+      },
+      "title": "Paramètres du Compte"
+    },
+    "catalog": {
+      "description": "Plongez-vous dans la gestion de votre catalogue MyOrderApp. Ajoutez, modifiez ou supprimez des articles, ajustez les prix et adaptez vos offres pour mieux répondre aux besoins de votre clientèle.",
+      "keywords": "catalogue MyOrderApp, gestion des produits, personnalisation des articles, ajustements de prix, édition du menu, contrôles du vendeur, liste de produits",
+      "openGraph": {
+        "description": "Exploitez la puissance des outils de catalogue de MyOrderApp. Personnalisez vos listes de produits, fixez des prix et optimisez vos offres pour une expérience client améliorée.",
+        "title": "Gestion du Catalogue Vendeur MyOrderApp"
+      },
+      "title": "Personnalisation du Catalogue"
+    },
+    "customers": {
+      "description": "Accédez et consultez votre liste de clients sur MyOrderApp. Obtenez des insights sur votre clientèle, leurs préférences et l'historique de leurs achats pour optimiser vos offres.",
+      "keywords": "clients MyOrderApp, liste des clients, insights des clients, gestion des clients, clientèle du vendeur, historique des achats",
+      "openGraph": {
+        "description": "Plongez-vous dans votre base de données clients de MyOrderApp. Comprenez mieux votre clientèle, suivez leurs préférences et améliorez votre stratégie de vente.",
+        "title": "Aperçu des Clients du Vendeur MyOrderApp"
+      },
+      "title": "Aperçu des Clients"
+    },
+    "dashboard": {
+      "description": "Accédez à votre tableau de bord vendeur MyOrderApp. Suivez le chiffre d'affaires, les frais de l'application, la taxe de vente, les pourboires et le nombre de commandes. Gérez les paramètres de commande pour une flexibilité opérationnelle maximale.",
+      "keywords": "tableau de bord vendeur MyOrderApp, suivi des revenus, frais de l'application, taxe de vente, pourboires, gestion des commandes, bascule de commande, analytics de plage de dates",
+      "openGraph": {
+        "description": "Plongez-vous dans votre tableau de bord vendeur MyOrderApp. Surveillez les métriques de vente, ajustez les paramètres et obtenez des insights sur vos performances de commande mobile.",
+        "title": "Tableau de Bord Vendeur MyOrderApp"
+      },
+      "title": "Tableau de Bord Vendeur"
+    },
+    "layout": {
+      "applicationName": "MyOrderApp for Sellers",
+      "authors": {
+        "name": "Adeptry",
+        "url": "https://adeptry.com"
+      },
+      "creator": "Équipe MyOrderApp",
+      "description": "Découvrez la puissance de la commande mobile sur mesure. MyOrderApp offre aux vendeurs Square une expérience d'application personnalisée sur les plateformes web, Android et iOS.",
+      "keywords": "commande mobile,intégration Square,application personnalisée,iOS,Android,plateforme web",
+      "openGraph": {
+        "description": "Découvrez la puissance de la commande mobile sur mesure. MyOrderApp offre aux vendeurs Square une expérience d'application personnalisée sur les plateformes web, Android et iOS.",
+        "siteName": "MyOrderApp for Sellers",
+        "title": "MyOrderApp for Sellers",
+        "type": "website"
+      },
+      "title": {
+        "default": "MyOrderApp : Commande Mobile Sur Mesure pour les Vendeurs Square",
+        "template": "%s | MyOrderApp : Commande Mobile Sur Mesure pour les Vendeurs Square"
+      }
+    },
+    "locations": {
+      "description": "Consultez et gérez vos emplacements sur MyOrderApp. Activez ou désactivez des emplacements spécifiques pour optimiser votre expérience de commande mobile pour vos clients.",
+      "keywords": "emplacements MyOrderApp, gestion des emplacements, activer l'emplacement, désactiver l'emplacement, paramètres d'emplacement du vendeur, emplacements de commande mobile",
+      "openGraph": {
+        "description": "Affinez vos emplacements sur MyOrderApp. Contrôlez quels emplacements sont actifs pour la commande mobile et personnalisez l'expérience pour votre clientèle.",
+        "title": "Gestion des Emplacements du Vendeur MyOrderApp"
+      },
+      "title": "Paramètres des Emplacements"
+    },
+    "login": {
+      "description": "Connectez-vous à MyOrderApp et exploitez la puissance des commandes mobiles sur mesure pour les vendeurs Square.",
+      "keywords": "connexion, connexion MyOrderApp, connexion intégration Square, accès aux commandes mobiles",
+      "openGraph": {
+        "description": "Connectez-vous à MyOrderApp: Votre portail vers une expérience de commande mobile sur mesure pour les vendeurs Square.",
+        "title": "Connexion à MyOrderApp pour les vendeurs"
+      },
+      "title": "Connexion"
+    },
+    "orders": {
+      "description": "Visualisez et gérez toutes vos commandes reçues dans MyOrderApp. Suivez les statuts des commandes, les détails des clients et simplifiez votre processus de traitement des commandes.",
+      "keywords": "commandes MyOrderApp, gestion des commandes, suivi des commandes, détails des clients, historique des commandes, vue des commandes du vendeur, exécution des commandes",
+      "openGraph": {
+        "description": "Accédez à toutes vos commandes sur MyOrderApp. Surveillez les statuts, gérez la réalisation, et restez informé de vos ventes.",
+        "title": "Aperçu des Commandes du Vendeur MyOrderApp"
+      },
+      "title": "Aperçu des Commandes"
+    },
+    "register": {
+      "description": "Inscrivez-vous à MyOrderApp et faites le premier pas pour révolutionner votre expérience de commande mobile avec Square.",
+      "keywords": "inscription, inscription MyOrderApp, inscription intégration Square, création de compte de commande mobile",
+      "openGraph": {
+        "description": "Inscrivez-vous à MyOrderApp: Améliorez votre expérience de commande mobile en toute simplicité avec Square.",
+        "title": "Inscrivez-vous à MyOrderApp pour les vendeurs"
+      },
+      "title": "Inscription"
+    },
+    "resetPassword": {
+      "index": {
+        "description": "Réinitialisez votre mot de passe MyOrderApp et retrouvez l'accès à l'expérience ultime de commande mobile intégrée avec Square.",
+        "keywords": "réinitialiser le mot de passe, récupération du mot de passe MyOrderApp, accès à l'intégration Square, récupérer les identifiants de commande mobile",
+        "openGraph": {
+          "description": "Retrouvez l'accès à MyOrderApp: Réinitialisez votre mot de passe pour une expérience de commande mobile sans faille avec Square.",
+          "title": "Réinitialisez le mot de passe pour MyOrderApp pour les vendeurs"
+        },
+        "title": "Réinitialiser le mot de passe"
+      },
+      "confirm": {
+        "description": "Réinitialisez en toute sécurité votre mot de passe MyOrderApp. Suivez les étapes pour établir un nouveau mot de passe et récupérer l'accès à votre compte.",
+        "keywords": "MyOrderApp, réinitialisation de mot de passe, sécurité du compte, mise à jour du mot de passe, accès au compte, changement de mot de passe sécurisé",
+        "openGraph": {
+          "description": "Réinitialisez votre mot de passe MyOrderApp en toute sécurité. Établissez un nouveau mot de passe et poursuivez votre expérience de commande mobile en toute sérénité.",
+          "title": "Confirmation de Réinitialisation de Mot de Passe MyOrderApp"
+        },
+        "title": "Confirmer la Réinitialisation du Mot de Passe"
+      }
+    },
+    "setup": {
+      "cancel": {
+        "description": "Il semble que vous ayez mis en pause votre configuration de MyOrderApp. Besoin d'aide ou avez des questions? Laissez-nous vous guider à travers le processus pour une expérience de commande mobile fluide.",
+        "keywords": "Configuration de MyOrderApp, abandon de caisse, assistance à la configuration, aide à la commande mobile, questions sur la configuration, problèmes de caisse",
+        "openGraph": {
+          "description": "Vous avez mis en pause votre configuration de MyOrderApp? Nous sommes là pour vous aider. Naviguez à travers les pépins et améliorez votre expérience de commande mobile.",
+          "title": "Interruption de la Configuration de MyOrderApp"
+        },
+        "title": "Continuer la Configuration ou Chercher de l'Aide"
+      },
+      "catalog": {
+        "description": "Personnalisez votre catalogue MyOrderApp. Réordonnez, activez ou désactivez des catégories et des articles spécifiques pour adapter votre expérience de commande mobile.",
+        "keywords": "configuration du catalogue MyOrderApp, gestion des produits, réorganisation des catégories, personnalisation des articles, ajustements de commande mobile",
+        "openGraph": {
+          "description": "Façonnez votre catalogue MyOrderApp: Organisez les catégories, gérez les articles et optimisez votre vitrine de commande mobile.",
+          "title": "Personnalisation du Catalogue pour MyOrderApp"
+        },
+        "title": "Configuration du Catalogue"
+      },
+      "free": {
+        "complete": {
+          "description": "Succès! Votre application web MyOrderApp est en ligne et prête à accepter des commandes. Surveillez vos analyses, affinez votre marketing et profitez de mises à niveau transparentes lorsque vous êtes prêt.",
+          "keywords": "configuration de MyOrderApp terminée, application web en ligne, acceptation des commandes, analyses de performance, options de mise à niveau, support de base",
+          "openGraph": {
+            "description": "Félicitations! Votre application web MyOrderApp est en ligne. Plongez-vous dans les analyses, adaptez votre marketing et envisagez des mises à niveau transparentes pour des fonctionnalités améliorées.",
+            "title": "Configuration Web de MyOrderApp Terminée"
+          },
+          "title": "Configuration Terminée: Application Web En Ligne"
+        }
+      },
+      "plan": {
+        "description": "Découvrez le plan MyOrderApp parfait pour votre entreprise. D'une présence sur le web à une expérience multiplateforme complète, trouvez la bonne solution.",
+        "keywords": "plans MyOrderApp, options de commande mobile, paiement, plan Web, plan Android, suite complète, frais de transaction, niveaux de support",
+        "openGraph": {
+          "description": "Explorez les plans MyOrderApp: Adaptés des besoins web simples aux solutions multiplateformes complètes.",
+          "title": "Choisissez Votre Plan MyOrderApp"
+        },
+        "title": "Plan & Paiement"
+      },
+      "pro": {
+        "complete": {
+          "description": "Bravo! Vous avez débloqué l'expérience complète de MyOrderApp. Votre application web prospère, et les plateformes Android et iOS se préparent. Plongez-vous dans le voyage ultime de commande mobile multiplateforme.",
+          "keywords": "MyOrderApp pro, application web en ligne, Android et iOS à venir, commande mobile multiplateforme, support prioritaire",
+          "openGraph": {
+            "description": "Succès! Votre application web est active avec MyOrderApp. Attendez le lancement des plateformes Android et iOS pour une expérience complète.",
+            "title": "Configuration Pro Terminée: Web Actif, Android & iOS en Attente"
+          },
+          "title": "Configuration Pro Terminée!"
+        }
+      },
+      "square": {
+        "index": {
+          "description": "Autorisez MyOrderApp à accéder à Square: Synchronisez votre catalogue en toute transparence, assurez la sécurité des données, soumettez des commandes et intégrez à votre TPV.",
+          "keywords": "intégration Square, synchronisation du catalogue, sécurité des données, soumission de commandes, intégration TPV, configuration de MyOrderApp, OAuth Square, autoriser l'accès",
+          "openGraph": {
+            "description": "Renforcez MyOrderApp avec Square: Synchronisez votre catalogue, renforcez la sécurité des données, facilitez les soumissions de commandes et fusionnez les ventes en ligne et en personne.",
+            "title": "Configuration de l'Intégration Square pour MyOrderApp pour les Vendeurs"
+          },
+          "title": "Configuration de l'Intégration Square"
+        },
+        "sync": {
+          "description": "Synchronisation de votre catalogue de produits avec MyOrderApp. Veuillez patienter un instant pendant que nous intégrons votre inventaire pour les commandes mobiles de manière transparente.",
+          "keywords": "intégration Square, synchronisation du catalogue, configuration de MyOrderApp, synchronisation de l'inventaire des produits, processus de synchronisation",
+          "openGraph": {
+            "description": "Intégration avec MyOrderApp: Synchronisation de votre catalogue de produits pour une expérience de commande mobile sans heurts.",
+            "title": "Synchronisation du Catalogue avec MyOrderApp"
+          },
+          "title": "Synchronisation du Catalogue..."
+        }
+      },
+      "starter": {
+        "complete": {
+          "description": "Félicitations! Votre configuration web pour MyOrderApp est terminée. Une expérience Android améliorée vous attend.",
+          "keywords": "configuration de MyOrderApp, application web en ligne, Android à venir, commande mobile",
+          "openGraph": {
+            "description": "Bravo! Votre application web est configurée avec MyOrderApp, et Android est à l'horizon.",
+            "title": "Configuration Terminée: Web Prêt, Android Suivant"
+          },
+          "title": "Configuration Terminée!"
+        }
+      },
+      "theme": {
+        "description": "Personnalisez l'apparence de votre MyOrderApp. Définissez le nom, la couleur, la police, l'apparence et le mode couleur pour correspondre à l'identité de votre marque.",
+        "keywords": "configuration du thème, personnalisation de MyOrderApp, définir la couleur de l'application, choisir la police de l'application, paramètres d'apparence de l'application, sélection du mode couleur, branding de l'intégration Square",
+        "openGraph": {
+          "description": "Configurez le thème de votre MyOrderApp: Personnalisez le nom, la couleur, la police, l'apparence et le mode couleur pour une expérience de commande mobile axée sur la marque.",
+          "title": "Configuration du Thème pour MyOrderApp pour les Vendeurs"
+        },
+        "title": "Configuration du Thème"
+      }
+    },
+    "support": {
+      "description": "Obtenez l'aide dont vous avez besoin avec MyOrderApp. Accédez aux ressources de support, aux FAQ, contactez notre équipe et résolvez tous les problèmes pour garantir une expérience de commande mobile fluide.",
+      "keywords": "support MyOrderApp, aide, FAQ, service client, résolution de problème, assistance à la commande mobile, contacter le support",
+      "openGraph": {
+        "description": "Recherchez de l'aide avec MyOrderApp. Des FAQ au support direct, nous sommes là pour vous assurer que votre parcours de commande mobile est fluide et efficace.",
+        "title": "Support Vendeur MyOrderApp"
+      },
+      "title": "Centre de Support"
+    },
+    "theme": {
+      "description": "Affinez l'apparence et la sensation de votre vitrine MyOrderApp. Personnalisez les couleurs, les polices et les thèmes pour les aligner sur votre marque et captiver vos clients.",
+      "keywords": "personnalisation du thème MyOrderApp, paramètres d'apparence, alignement de la marque, paramètres de couleur, choix de polices, thèmes d'app, design de commande mobile",
+      "openGraph": {
+        "description": "Formez l'esthétique de votre MyOrderApp. Personnalisez les thèmes, les couleurs et les polices pour résonner avec votre marque et offrir une expérience client immersive.",
+        "title": "Personnalisation du Thème Vendeur MyOrderApp"
+      },
+      "title": "Personnalisation du Thème"
+    },
+    "index": {
+      "description": "Bienvenue sur MyOrderApp, une plateforme fluide pour les vendeurs Square d'offrir des commandes mobiles. Connectez-vous pour accéder à votre tableau de bord ou commencez votre aventure avec nous.",
+      "keywords": "MyOrderApp, vendeurs Square, plateforme de commande mobile, connexion, tableau de bord, commande mobile de marque",
+      "openGraph": {
+        "description": "Plongez dans MyOrderApp, la solution ultime de commande mobile pour les vendeurs Square. Accédez à votre tableau de bord ou démarrez avec notre plateforme.",
+        "title": "MyOrderApp: Commande Mobile pour Vendeurs Square"
+      },
+      "title": "MyOrderApp: Commande Mobile pour Vendeurs Square"
+    }
+  }
+}

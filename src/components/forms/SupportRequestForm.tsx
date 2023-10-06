@@ -1,5 +1,3 @@
-"use client";
-
 import { usePostSupportMutation } from "@/mutations/usePostSupportMutation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Send } from "@mui/icons-material";

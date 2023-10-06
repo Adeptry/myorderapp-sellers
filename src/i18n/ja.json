@@ -1,0 +1,539 @@
+{
+  "AccountComponent": {
+    "title": "アカウント"
+  },
+  "AdaptiveScaffoldLayout": {
+    "account": "アカウント",
+    "billing": "請求",
+    "catalog": "カタログ",
+    "customers": "顧客",
+    "dashboard": "ダッシュボード",
+    "locations": "場所",
+    "logOut": "ログアウト",
+    "mainSite": "メインサイト",
+    "orders": "注文",
+    "support": "サポート",
+    "theme": "テーマ",
+    "useMyOrderApp": "MyOrderAppを使用する"
+  },
+  "AppConfigComponent": {
+    "formTabLabel": "オプション",
+    "previewTabLabel": "プレビュー"
+  },
+  "AppConfigForm": {
+    "appIconHelperText": "ユーザーのホームページに表示されます",
+    "appIconLabel": "アプリのアイコン",
+    "appearanceLabel": "外観",
+    "defaultName": "{name} 注文App",
+    "fontFamilyHelperLinkText": "すべてのフォントを見る",
+    "fontFamilyLabel": "フォントファミリー",
+    "nameHelperText": "アプリの名前",
+    "nameLabel": "名前",
+    "randomizeAllButtonText": "すべてをランダム化",
+    "saveAndContinue": "保存して続ける",
+    "seedColorHelperText": "テーマを生成するために使用されます",
+    "seedColorLabel": "シードカラー",
+    "seedColorRequired": "16進数の色でなければならない",
+    "submitButtonCaption": "これらの設定はいつでも更新できます。",
+    "submitButtonText": "保存",
+    "themeModeHelperText": "'システム'はユーザーの設定に従います。'ライト'または'ダーク'を選択して上書きします。",
+    "themeModeLabel": "カラーモード",
+    "themeModeValues": {
+      "dark": "ダーク",
+      "light": "ライト",
+      "system": "システム"
+    },
+    "useMaterial3Labels": {
+      "false": "クラシック",
+      "true": "モダン"
+    }
+  },
+  "AppleAuthButton": {
+    "text": "Appleで続行"
+  },
+  "CatalogComponent": {
+    "catalogTabLabel": "カタログ",
+    "previewTabLabel": "プレビュー"
+  },
+  "CurrencySelector": {
+    "title": "通貨"
+  },
+  "CustomersDataGrid": {
+    "createDateHeaderName": "顧客登録日",
+    "emailHeaderName": "メールアドレス",
+    "nameHeaderName": "名前",
+    "noData": "顧客はここに表示されます。",
+    "phoneNumberHeaderName": "電話番号"
+  },
+  "DashboardComponent": {
+    "appConfigEnabledTooltip": "注文を有効または無効にするために切り替えます。祝日や急な閉店に便利です。",
+    "endDatePickerLabel": "終了",
+    "moneyAmountLabel": "総収益",
+    "moneyAmountTooltip": "選択した日付範囲内のアプリからの総収益。",
+    "moneyAppFeeAmountLabel": "アプリ手数料",
+    "moneyAppFeeAmountTooltip": "日付範囲内で支払われたMyOrderAppの取引手数料の合計。",
+    "moneyTaxAmountLabel": "消費税",
+    "moneyTaxAmountTooltip": "選択した日付範囲内で集められた総消費税。",
+    "moneyTipAmountLabel": "チップ",
+    "moneyTipAmountTooltip": "選択した日付範囲内で集められた総チップ。",
+    "orderCountTitle": "{count}件の注文",
+    "orderCountTooltip": "選択した日付範囲内の総注文数。",
+    "startDatePickerLabel": "開始"
+  },
+  "FaqAccordion": {
+    "ads": {
+      "details": "無料版では、表示される広告は主にGoogle Adsから取得されています。",
+      "summary": "無料版にはどのような広告が表示されますか？"
+    },
+    "billing": {
+      "details": "私たちは、すべての請求手続きを簡易化するためにStripeと提携しています。サブスクリプションを開始すると、即時の料金が適用され、その後毎月の料金が適用されます。",
+      "summary": "どのような支払い方法が受け付けられており、いつ請求されますか？"
+    },
+    "cost": {
+      "details": "価格は、特定の地域でのApple Developer Accountの開設に関連する費用に大きく依存しています。例えば、米国、EU、オーストラリア、カナダでは料金は99ドル/月です。英国では79ドル/月、日本では11,800円/月です。公開月として知られる最初の月には、アカウントの設定、資料のアップロード、アプリの承認が含まれます。この初回の支払いは、主に公開フェーズを容易にするためのものであり、ほとんどの場合、アプリは月が終わる前にライブになります。通常、アプリの承認は48時間以内に完了します。",
+      "summary": "Pro版のコストはどのように決定されますか？"
+    },
+    "downgrading": {
+      "details": "ダウングレードすると、アプリは広告サポートモデルに戻ります。今後のアップデートには、アプリストアへの自分での公開が必須になります。また、プレミアムサポートやアプリ公開サービスは利用できなくなります。",
+      "summary": "Proから無料にダウングレードするとどうなりますか？"
+    },
+    "publishing": {
+      "details": "アプリのダウンロード用のダイレクトリンクは提供されますが、アプリストアへの自分での公開が必要です。心配しないでください、このプロセスを簡素化するための詳細なガイダンスを提供します。",
+      "summary": "無料プランでは技術的なスキルが必要ですか？"
+    },
+    "support": {
+      "details": "無料版のユーザーは、利用可能な場合にサポートを受けることができます。一方、Proプランの加入者は、48時間以内の保証された応答時間で、24時間365日の開発者サポートを享受することができます。",
+      "summary": "どのようなサポートが期待できますか？"
+    },
+    "switching": {
+      "details": "もちろんです。無料プランから始めて、もっと包括的なサポートや広告なしの体験がほしい場合は、Proプランに移行できます。逆に、ニーズが変わった場合は、Proから無料に戻ることもできます。無料バージョンに切り替えると、広告が再表示され、自分で公開する必要があることに注意してください。",
+      "summary": "プランを変更できますか？"
+    },
+    "upgrading": {
+      "details": "簡単です！準備ができたら、アカウントページにアクセスして切り替えてください。",
+      "summary": "無料からProにアップグレードするのは簡単ですか？"
+    }
+  },
+  "ForgotPasswordLink": {
+    "text": "パスワードを忘れましたか？"
+  },
+  "GoogleAuthButton": {
+    "text": "Googleで続行"
+  },
+  "LanguageSelector": {
+    "title": "言語"
+  },
+  "LegalMenu": {
+    "gdpr": "GDPR",
+    "legal": "法的",
+    "privacy": "プライバシー",
+    "terms": "利用規約"
+  },
+  "LocationsComponent": {
+    "title": "場所",
+    "tooltipTitle": "特定の場所での注文を選択的に無効にします。祝日や急な閉店に便利です。"
+  },
+  "LoginComponent": {
+    "title": "ログイン"
+  },
+  "LoginEmailForm": {
+    "emailField": "メール",
+    "passwordField": "パスワード",
+    "submitButton": "メールアドレスでログイン"
+  },
+  "OnboardingStepper": {
+    "customize": "カスタマイズ",
+    "publish": "公開",
+    "register": "登録",
+    "synchronize": "同期"
+  },
+  "OrderingEnabledFormControlLabel": {
+    "label": "注文有効"
+  },
+  "OrdersDataGrid": {
+    "closedDateHeaderName": "閉鎖日",
+    "customerHeaderName": "顧客",
+    "idHeaderName": "注文ID",
+    "locationHeaderName": "場所",
+    "noData": "注文はここに表示されます。",
+    "totalMoneyAmountHeaderName": "合計"
+  },
+  "PasswordForgotComponent": {
+    "title": "パスワードをリセット"
+  },
+  "PasswordForgotForm": {
+    "button": "パスワードのリセットを要求",
+    "emailField": "メール",
+    "successAlert": "メッセージが送信されました。まもなくご連絡いたします。"
+  },
+  "PasswordResetComponent": {
+    "title": "パスワードをリセット"
+  },
+  "PasswordResetForm": {
+    "confirmPassword": "パスワードを確認",
+    "newPassword": "新しいパスワード",
+    "passwordsMustMatch": "パスワードが一致する必要があります",
+    "resetPassword": "パスワードをリセット",
+    "resetPasswordSuccess": "パスワードがリセットされました。ログインできるようになりました。"
+  },
+  "RegisterComponent": {
+    "title": "登録"
+  },
+  "RegisterEmailForm": {
+    "email": "メール",
+    "firstName": "名",
+    "lastName": "姓",
+    "password": "パスワード",
+    "submitButton": "メールアドレスで登録"
+  },
+  "SetupAppConfigComponent": {
+    "formTabLabel": "オプション",
+    "previewTabLabel": "プレビュー"
+  },
+  "SetupCatalogComponent": {
+    "catalogTabLabel": "カタログ",
+    "continueButton": "受け入れて続行",
+    "previewTabLabel": "プレビュー"
+  },
+  "SetupSquareOauthComponent": {
+    "fallbackError": "おっと、何か問題が発生しました。ご心配なく、あなたのデータは安全です。私たちは通知されており、問題を修正するために作業しています。"
+  },
+  "SignInLink": {
+    "text": "アカウントをお持ちですか？ログイン"
+  },
+  "SignUpLink": {
+    "text": "初めての方ですか？登録する"
+  },
+  "SquareOauthButton": {
+    "text": "Squareを認証"
+  },
+  "SquareOauthExplainerCard": {
+    "catalogSyncPrimary": "カタログ同期",
+    "catalogSyncSecondary": "私たちのアプリケーションがあなたのカタログを取得するための認証を行い、現在の商品リストとのシームレスな統合を保証します。",
+    "dataSecurityPrimary": "データセキュリティ",
+    "dataSecuritySecondary": "あなたのデータはSquareのセキュリティ対策によって保護されています。Squareのダッシュボードからいつでも許可を管理または取り消すことができます。",
+    "orderSubmissionPrimary": "注文の提出",
+    "orderSubmissionSecondary": "お客様の代わりに注文を行うことを許可し、迅速かつスムーズな注文処理を保証します。",
+    "posIntegrationPrimary": "POS統合",
+    "posIntegrationSecondary": "注文を直接販売点システムに送信し、オンライン注文と対面販売のギャップを埋める。",
+    "title": "Squareアカウントを接続する"
+  },
+  "StatisticsCard": {
+    "averageAbbreviation": "平均",
+    "maximumAbbreviation": "最大",
+    "minimumAbbreviation": "最小"
+  },
+  "StripeCheckoutButton": {
+    "text": "Subscribe"
+  },
+  "StripeCheckoutCancelledCard": {
+    "body": "人生は忙しくなることがありますが、それを理解しています。設定を完了するために戻ることを選択した場合、進行状況は保存されていることを知ってください。上のナビゲーションを使用して、以前のステップをいつでも再訪することができます。質問や詳細については、下のFAQセクションや公開オプションが利用可能です。",
+    "title": "支払いが中断されたことに気付きました"
+  },
+  "SupportComponent": {
+    "faqTitle": "よくある質問",
+    "formTitle": "サポート"
+  },
+  "SupportRequestForm": {
+    "buttonText": "送信する",
+    "subjectField": "これは何についてですか？",
+    "subjectPlaceholder": "例：請求、技術的な問題、一般的な問い合わせ",
+    "successAlert": "メッセージが送信されました。近くお返事します。",
+    "textField": "何が起きているのか教えてください",
+    "textPlaceholder": "詳細を提供していただければ、早く助けられます"
+  },
+  "Tier0CheckoutCard": {
+    "buttonText": "今すぐ私のウェブアプリを公開",
+    "perMonth": "/月",
+    "perfectForBody": "モバイルオーダリングを始めたばかりで、ウェブだけのプレゼンスに焦点を当てている小規模企業に最適。",
+    "perfectForHeader": "これに最適:",
+    "subheader": "ウェブ",
+    "supportPrimary": "基本サポート",
+    "supportSecondary": "最善努力のサポート、72時間以内の応答。",
+    "title": "無料",
+    "transactionFee": "トランザクションごとに+5%"
+  },
+  "Tier0SuccessCard": {
+    "nextStepsPrimary": "今後のマイルストーン:",
+    "nextStepsSecondary": "パフォーマンス分析をチェックし、それに応じてマーケティングを調整してください。もっと欲しい場合は、さらに充実した体験のためにシームレスにアップグレードできます。",
+    "subheader": "よくやった！あなたのウェブアプリは完全に機能しており、注文を受け付ける準備ができています。",
+    "supportPrimary": "基本サポート",
+    "supportSecondary": "困ったら、基本サポートを利用してください。72時間以内に返信を期待してください。",
+    "title": "あなたのウェブアプリはライブです！"
+  },
+  "Tier1CheckoutCard": {
+    "buttonText": "今すぐ私のAndroidアプリを公開",
+    "perMonth": "/月",
+    "perfectForBody": "AndroidプレゼンスとバニティURLを望む成長中のビジネスに適しています。",
+    "perfectForHeader": "これに最適:",
+    "subheader": "ウェブ＆Android",
+    "supportPrimary": "強化サポート",
+    "supportSecondary": "48時間以内のサポート応答が保証されています。",
+    "title": "スターター",
+    "transactionFee": "トランザクションごとに+2.5%"
+  },
+  "Tier1SuccessCard": {
+    "nextStepsPrimary": "直ちに優先すべき事項：",
+    "nextStepsSecondary": "ウェブアプリのプロモーションを始め、Androidのローンチに備えましょう。テクノロジーは私たちが担当するので、販売に集中してください。",
+    "subheader": "成功！あなたのウェブアプリは稼働中です。しばらくお待ちください；Androidアプリも近々ローンチされます。",
+    "supportPrimary": "強化されたサポート",
+    "supportSecondary": "質問がありますか？強化されたサポートは、あなたの質問に48時間以内に回答することを保証します。",
+    "title": "ウェブとAndroid—近日公開！"
+  },
+  "Tier2CheckoutCard": {
+    "buttonText": "今すぐ私のスイートを公開",
+    "perMonth": "/月",
+    "perfectForBody": "トランザクション手数料ゼロでプレミアムなマルチプラットフォーム体験を求める確立されたビジネスに最適。",
+    "perfectForHeader": "これに最適:",
+    "subheader": "ウェブ、Android、iOS",
+    "supportPrimary": "優先サポート",
+    "supportSecondary": "開発チームからのライブサポート、24時間以内の応答。",
+    "title": "コンプリート",
+    "transactionFee": "手数料なし"
+  },
+  "Tier2SuccessCard": {
+    "nextStepsPrimary": "アクションアイテム：",
+    "nextStepsSecondary": "AndroidとiOSアプリを完成させる間、ウェブアプリの可視性を最大化しましょう。あなたのクロスプラットフォーム戦略は次のレベルに進む予定です。",
+    "subheader": "素晴らしい！あなたのウェブアプリは稼働しており、顧客にサービスを提供しています。AndroidとiOSのバージョンは開発中です。",
+    "supportPrimary": "優先サポート",
+    "supportSecondary": "迅速な支援が必要ですか？優先サポートでは、開発チームから24時間以内にリアルタイムのレスポンスが得られます。",
+    "title": "フルパッケージ—ウェブ、Android、およびiOS！"
+  },
+  "UserUpdateForm": {
+    "email": "メール",
+    "firstName": "名",
+    "lastName": "姓"
+  },
+  "metadata": {
+    "account": {
+      "description": "MyOrderAppのアカウントの詳細を管理および更新します。メールを変更、パスワードを変更、名前を編集し、アカウントが常に最新の状態であることを確認します。",
+      "keywords": "MyOrderAppのアカウント管理, メールの更新, パスワードの変更, 名前の編集, アカウントの設定, 個人情報",
+      "openGraph": {
+        "description": "MyOrderAppのアカウント設定を監督します。メール、パスワード、または名前を更新して、アカウントの詳細が正確で安全であることを確保します。",
+        "title": "MyOrderAppのセラーアカウント管理"
+      },
+      "title": "アカウントの設定"
+    },
+    "catalog": {
+      "description": "MyOrderAppのカタログ管理に深く潜り込む。商品を追加、編集、または削除し、価格を調整し、顧客に最適に合わせるための提供をカスタマイズします。",
+      "keywords": "MyOrderAppカタログ, 商品管理, 商品のカスタマイズ, 価格の調整, メニューの編集, セラーのコントロール, 商品リスト",
+      "openGraph": {
+        "description": "MyOrderAppのカタログツールの力を引き出す。商品リストをカスタマイズし、価格を設定し、向上した顧客体験のための提供を最適化します。",
+        "title": "MyOrderAppのセラーカタログ管理"
+      },
+      "title": "カタログのカスタマイズ"
+    },
+    "customers": {
+      "description": "MyOrderAppでのあなたの顧客リストにアクセスしてレビューします。顧客、その好み、購入履歴に関する洞察を得て、提供を最適化します。",
+      "keywords": "MyOrderAppの顧客, 顧客リスト, 顧客の洞察, 顧客管理, セラーの顧客層, 購入履歴",
+      "openGraph": {
+        "description": "MyOrderAppの顧客データベースに飛び込む。顧客をよりよく理解し、その好みを追跡し、販売戦略を強化します。",
+        "title": "MyOrderAppのセラー顧客概要"
+      },
+      "title": "顧客の概要"
+    },
+    "dashboard": {
+      "description": "MyOrderAppのセラーダッシュボードにアクセスしてください。収益、アプリ料金、売上税、チップ、注文数を追跡します。最大の運用柔軟性のための注文設定を管理します。",
+      "keywords": "MyOrderAppセラーダッシュボード, 収益追跡, アプリ料金, 売上税, チップ, 注文管理, 注文切り替え, 日付範囲の分析",
+      "openGraph": {
+        "description": "MyOrderAppのセラーダッシュボードに飛び込みます。販売の指標を監視し、設定を調整し、モバイルオーダリングのパフォーマンスに関する洞察を得ます。",
+        "title": "MyOrderAppのセラーダッシュボード"
+      },
+      "title": "セラーダッシュボード"
+    },
+    "layout": {
+      "applicationName": "MyOrderApp for Sellers",
+      "authors": {
+        "name": "Adeptry",
+        "url": "https://adeptry.com"
+      },
+      "creator": "MyOrderAppチーム",
+      "description": "カスタマイズされたモバイル注文の力を解放します。MyOrderAppは、Web、Android、およびiOSプラットフォームでブランド化されたアプリ体験でSquare販売者を強化します。",
+      "keywords": "モバイル注文,Square統合,ブランドアプリ,iOS,Android,Webプラットフォーム",
+      "openGraph": {
+        "description": "カスタマイズされたモバイル注文の力を解放します。MyOrderAppは、Web、Android、およびiOSプラットフォームでブランド化されたアプリ体験でSquare販売者を強化します。",
+        "siteName": "MyOrderApp for Sellers",
+        "title": "MyOrderApp for Sellers",
+        "type": "website"
+      },
+      "title": {
+        "default": "MyOrderApp: Square販売者向けのカスタマイズされたモバイル注文",
+        "template": "%s | MyOrderApp: Square販売者向けのカスタマイズされたモバイル注文"
+      }
+    },
+    "locations": {
+      "description": "MyOrderAppでのあなたの場所をレビューおよび管理します。顧客のモバイル注文体験を最適化するために、特定の場所を有効または無効にします。",
+      "keywords": "MyOrderAppの場所, 場所の管理, 場所の有効化, 場所の無効化, セラーの場所の設定, モバイル注文の場所",
+      "openGraph": {
+        "description": "MyOrderAppの場所を微調整します。モバイル注文のためにどの場所がアクティブかを制御し、顧客のための体験をカスタマイズします。",
+        "title": "MyOrderAppのセラー場所管理"
+      },
+      "title": "場所の設定"
+    },
+    "login": {
+      "description": "MyOrderAppにログインして、Squareのセラー向けにカスタマイズされたモバイルオーダリングの力を引き出します。",
+      "keywords": "ログイン, MyOrderAppログイン, Square統合ログイン, モバイルオーダリングアクセス",
+      "openGraph": {
+        "description": "MyOrderAppにログイン：Squareのセラー向けのカスタマイズされたモバイルオーダリング体験へのゲートウェイ。",
+        "title": "セラー向けMyOrderAppにログイン"
+      },
+      "title": "ログイン"
+    },
+    "orders": {
+      "description": "MyOrderAppで受け取ったすべての注文を表示および管理します。注文のステータス、顧客の詳細を追跡し、注文の完了プロセスを効率化します。",
+      "keywords": "MyOrderAppの注文, 注文管理, 注文追跡, 顧客の詳細, 注文履歴, セラーの注文ビュー, 注文の完了",
+      "openGraph": {
+        "description": "MyOrderAppのすべての注文にアクセスします。ステータスを監視し、実行を管理し、販売の進行状況を常に把握します。",
+        "title": "MyOrderAppのセラー注文概要"
+      },
+      "title": "注文の概要"
+    },
+    "register": {
+      "description": "MyOrderAppに登録して、Squareを使用したモバイルオーダリング体験を革命化する第一歩を踏み出しましょう。",
+      "keywords": "登録, MyOrderAppサインアップ, Square統合登録, モバイルオーダリングアカウント作成",
+      "openGraph": {
+        "description": "MyOrderAppにサインアップ：Squareとシームレスにモバイルオーダリング体験を向上させます。",
+        "title": "セラー向けMyOrderAppに登録"
+      },
+      "title": "登録"
+    },
+    "resetPassword": {
+      "index": {
+        "description": "MyOrderAppのパスワードをリセットして、Squareと統合された究極のモバイルオーダリング体験へのアクセスを取り戻します。",
+        "keywords": "パスワードのリセット, MyOrderAppのパスワード回復, Square統合アクセス, モバイルオーダリングの資格情報を取得",
+        "openGraph": {
+          "description": "MyOrderAppへのアクセスを取り戻す: Squareとのシームレスなモバイルオーダリング体験のためのパスワードをリセットします。",
+          "title": "セラー向けMyOrderAppのパスワードをリセット"
+        },
+        "title": "パスワードをリセット"
+      },
+      "confirm": {
+        "description": "安全にMyOrderAppのパスワードをリセットします。新しいパスワードを設定し、アカウントへのアクセスを再取得する手順に従ってください。",
+        "keywords": "MyOrderApp, パスワードリセット, アカウントのセキュリティ, パスワードの更新, アカウントアクセス, 安全なパスワードの変更",
+        "openGraph": {
+          "description": "MyOrderAppのパスワードを安全にリセットします。新しいパスワードを確立し、安心してモバイルオーダーの旅を続けてください。",
+          "title": "MyOrderAppパスワードリセットの確認"
+        },
+        "title": "パスワードリセットの確認"
+      }
+    },
+    "setup": {
+      "cancel": {
+        "description": "MyOrderAppのセットアップを一時停止したようです。アシスタンスが必要、または質問がありますか？問題なくモバイルオーダーの経験のためのプロセスを通してあなたをガイドしましょう。",
+        "keywords": "MyOrderAppセットアップ, チェックアウトの放棄, セットアップのアシスタンス, モバイルオーダーヘルプ, セットアップの問い合わせ, チェックアウトの問題",
+        "openGraph": {
+          "description": "MyOrderAppのセットアップを一時停止しましたか？サポートします。どんな問題も乗り越えて、モバイルオーダーの旅を向上させましょう。",
+          "title": "MyOrderAppセットアップの中断"
+        },
+        "title": "セットアップを続行またはアシスタンスを求める"
+      },
+      "catalog": {
+        "description": "MyOrderAppのカタログをカスタマイズしてください。カテゴリーやアイテムを再オーダー、有効化、または無効化して、モバイルオーダリングの体験を調整してください。",
+        "keywords": "MyOrderAppカタログの設定, 商品管理, カテゴリーの再オーダリング, アイテムのカスタマイズ, モバイルオーダリングの調整",
+        "openGraph": {
+          "description": "MyOrderAppのカタログを整形します：カテゴリーを整理し、アイテムを管理し、モバイルオーダリングのストアフロントを最適化します。",
+          "title": "MyOrderAppのカタログカスタマイゼーション"
+        },
+        "title": "カタログのセットアップ"
+      },
+      "free": {
+        "complete": {
+          "description": "成功！あなたのMyOrderAppウェブアプリは稼働しており、注文の受け付けが可能です。アナリティクスを監視し、マーケティングを微調整し、準備ができたらシームレスなアップグレードを楽しんでください。",
+          "keywords": "MyOrderAppのセットアップ完了, ウェブアプリが稼働中, 注文の受け付け, パフォーマンスのアナリティクス, アップグレードのオプション, 基本サポート",
+          "openGraph": {
+            "description": "おめでとうございます！あなたのMyOrderAppウェブアプリが稼働しています。アナリティクスに飛び込み、マーケティングを適応させ、強化された機能のためのシームレスなアップグレードを検討してください。",
+            "title": "MyOrderAppウェブセットアップ完了"
+          },
+          "title": "セットアップ完了: ウェブアプリ稼働中"
+        }
+      },
+      "plan": {
+        "description": "あなたのビジネスに最適なMyOrderAppのプランを見つけてください。ウェブプレゼンスから包括的なマルチプラットフォーム体験まで、最適なものを見つける。",
+        "keywords": "MyOrderAppのプラン, モバイル注文のオプション, チェックアウト, ウェブプラン, Androidプラン, フルスイート, 取引手数料, サポートレベル",
+        "openGraph": {
+          "description": "MyOrderAppのプランを探る: シンプルなウェブニーズから包括的なマルチプラットフォームソリューションまでカスタマイズ。",
+          "title": "あなたのMyOrderAppプランを選ぶ"
+        },
+        "title": "プランとチェックアウト"
+      },
+      "pro": {
+        "complete": {
+          "description": "おめでとうございます！完全なMyOrderAppの体験を解放しました。ウェブアプリが活況を呈しており、AndroidとiOSのプラットフォームが整えられつつあります。究極のクロスプラットフォームモバイルオーダリングの旅に没頭しましょう。",
+          "keywords": "MyOrderAppプロ, ウェブアプリが稼働中, 近日公開のAndroid & iOS, クロスプラットフォームのモバイル注文, 優先サポート",
+          "openGraph": {
+            "description": "成功！あなたのウェブアプリはMyOrderAppで動作しています。AndroidとiOSのプラットフォームのローンチをお待ちください。",
+            "title": "プロセットアップ完了：ウェブが稼働中、Android & iOSが待機中"
+          },
+          "title": "プロセットアップ完了！"
+        }
+      },
+      "square": {
+        "index": {
+          "description": "MyOrderAppにSquareへのアクセスを許可する: カタログをシームレスに同期し、データのセキュリティを確保し、注文を提出し、POSと統合します。",
+          "keywords": "Square統合, カタログ同期, データセキュリティ, 注文の提出, POS統合, MyOrderAppのセットアップ, Square OAuth, アクセスの承認",
+          "openGraph": {
+            "description": "SquareでMyOrderAppを強化する: カタログを同期し、データのセキュリティを強化し、注文の提出を効率化し、オンラインと対面の販売を統合します。",
+            "title": "セラー向けMyOrderAppのSquare統合設定"
+          },
+          "title": "Square統合設定"
+        },
+        "sync": {
+          "description": "MyOrderAppとの製品カタログの同期中。モバイルオーダリングのための在庫をシームレスに統合する間、少し待ってください。",
+          "keywords": "Square統合, カタログの同期, MyOrderAppのセットアップ, 製品在庫の同期, 同期プロセス",
+          "openGraph": {
+            "description": "MyOrderAppとの統合：シームレスなモバイルオーダリング体験のための製品カタログを同期中。",
+            "title": "MyOrderAppでのカタログ同期中"
+          },
+          "title": "カタログ同期中..."
+        }
+      },
+      "starter": {
+        "complete": {
+          "description": "おめでとうございます！MyOrderAppのウェブセットアップが完了しました。強化されたAndroidの体験が待っています。",
+          "keywords": "MyOrderAppのセットアップ, ウェブアプリが稼働中, 近日公開のAndroid, モバイル注文",
+          "openGraph": {
+            "description": "おめでとうございます！ウェブアプリはMyOrderAppで設定され、Androidはもうすぐ登場します。",
+            "title": "セットアップ完了: ウェブ準備完了、次はAndroid"
+          },
+          "title": "セットアップ完了！"
+        }
+      },
+      "theme": {
+        "description": "MyOrderAppのルック＆フィールをカスタマイズしてください。ブランドのアイデンティティに合わせて名前、色、フォント、外観、カラーモードを設定します。",
+        "keywords": "テーマの設定, MyOrderAppのカスタマイゼーション, アプリの色を設定, アプリのフォントを選択, アプリの外観の設定, カラーモードの選択, Square統合ブランディング",
+        "openGraph": {
+          "description": "MyOrderAppのテーマを設定します：ブランド中心のモバイルオーダリング体験のための名前、色、フォント、外観、カラーモードをパーソナライズします。",
+          "title": "セラー向けMyOrderAppのテーマ設定"
+        },
+        "title": "テーマ設定"
+      }
+    },
+    "support": {
+      "description": "MyOrderAppで必要なサポートを受け取ります。サポートリソース、よくある質問、私たちのチームに連絡し、スムーズなモバイル注文体験を確保するための問題を解決します。",
+      "keywords": "MyOrderAppサポート, ヘルプ, よくある質問, カスタマーサービス, 問題解決, モバイル注文のサポート, サポートに連絡",
+      "openGraph": {
+        "description": "MyOrderAppでのサポートを求めます。よくある質問から直接のサポートまで、モバイル注文の旅がスムーズで効率的であることを保証するためにここにいます。",
+        "title": "MyOrderAppのセラーサポート"
+      },
+      "title": "サポートセンター"
+    },
+    "theme": {
+      "description": "MyOrderAppの店舗の外観と感じを微調整します。ブランドに合わせて色、フォント、テーマをカスタマイズし、顧客を魅了します。",
+      "keywords": "MyOrderAppのテーマカスタマイゼーション, 外観設定, ブランドの整合性, 色の設定, フォントの選択, アプリのテーマ, モバイル注文のデザイン",
+      "openGraph": {
+        "description": "MyOrderAppの美的を形作ります。ブランドに共鳴するようにテーマ、色、フォントをパーソナライズして、没入型の顧客体験を提供します。",
+        "title": "MyOrderAppのセラーテーマカスタマイゼーション"
+      },
+      "title": "テーマのカスタマイゼーション"
+    },
+    "index": {
+      "description": "MyOrderAppへようこそ。Squareのセラーがモバイル注文を提供するためのシームレスなプラットフォームです。ダッシュボードにアクセスするにはサインインするか、私たちとの旅を開始してください。",
+      "keywords": "MyOrderApp, Squareのセラー, モバイル注文プラットフォーム, サインイン, ダッシュボード, ブランドのモバイル注文",
+      "openGraph": {
+        "description": "Squareのセラーのための究極のモバイル注文ソリューションであるMyOrderAppに飛び込む。ダッシュボードにアクセスするか、私たちのプラットフォームで始めてください。",
+        "title": "MyOrderApp: Squareのセラーのためのモバイル注文"
+      },
+      "title": "MyOrderApp: Squareのセラーのためのモバイル注文"
+    }
+  }
+}
