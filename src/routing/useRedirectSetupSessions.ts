@@ -13,14 +13,12 @@ export const useRedirectSetupSessions = () => {
   const { status: authStatus } = useSession();
   const { data, status: queryStatus } = useGetMerchantMeQuery();
 
-  if (moaEnv.comingSoon) {
-    router.push(routes.comingSoon);
-  } else if (moaEnv.maintenance) {
-    router.push(routes.maintenance);
-  }
-
   useEffect(() => {
-    if (queryStatus === "success") {
+    if (moaEnv.comingSoon) {
+      router.push(routes.comingSoon);
+    } else if (moaEnv.maintenance) {
+      router.push(routes.maintenance);
+    } else if (queryStatus === "success") {
       if (data.appConfig == undefined) {
         router.push(routes.setup.theme);
       } else if (data.squareId == undefined) {

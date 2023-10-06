@@ -10,14 +10,12 @@ export const useRedirectAuthenticatedSessions = () => {
   const { status: authStatus } = useSession();
   const { data, status: queryStatus } = useGetMerchantMeQuery();
 
-  if (moaEnv.comingSoon) {
-    router.push(routes.comingSoon);
-  } else if (moaEnv.maintenance) {
-    router.push(routes.maintenance);
-  }
-
   useEffect(() => {
-    if (authStatus === "authenticated") {
+    if (moaEnv.comingSoon) {
+      router.push(routes.comingSoon);
+    } else if (moaEnv.maintenance) {
+      router.push(routes.maintenance);
+    } else if (authStatus === "authenticated") {
       router.push(routes.dashboard);
     }
   }, [authStatus, data, queryStatus]);
