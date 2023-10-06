@@ -1,7 +1,7 @@
 import { ColorSchemeEnum } from "next/dist/lib/metadata/types/metadata-types";
 
 export interface MoaEnv {
-  frontendUrl: string;
+  siteUrl: string;
   backendUrl: string;
   backendApiKey: string;
   appUrl: string;

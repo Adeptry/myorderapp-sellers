@@ -44,8 +44,8 @@ export function StripeCheckoutButton(props: {
       break;
   }
 
-  const successUrl = `${moaEnv.frontendUrl}/${locale}${sucessPathComponent}?session_id={CHECKOUT_SESSION_ID}`;
-  const cancelUrl = `${moaEnv.frontendUrl}/${locale}${routes.setup.cancel}`;
+  const successUrl = `${moaEnv.siteUrl}/${locale}${sucessPathComponent}?session_id={CHECKOUT_SESSION_ID}`;
+  const cancelUrl = `${moaEnv.siteUrl}/${locale}${routes.setup.cancel}`;
 
   const postStripeCheckoutQueryMe = useQuery({
     queryKey: ["postStripeCheckoutQueryMe", currencyCookieValue, tier],
