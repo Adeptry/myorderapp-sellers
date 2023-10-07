@@ -1,5 +1,5 @@
 import { openGraphImages } from "@/app/shared-metadata";
-import { SetupSquareOauthComponent } from "@/components/SetupSquareOauthComponent";
+import { SetupSquareOauthComponent } from "@/components/pages/SetupSquareOauthComponent";
 import { getMessages } from "@/i18n/getMessages";
 import { Locale } from "@/types/next";
 import { Metadata } from "next";

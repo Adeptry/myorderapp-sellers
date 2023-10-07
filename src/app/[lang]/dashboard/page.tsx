@@ -1,5 +1,5 @@
 import { openGraphImages } from "@/app/shared-metadata";
-import { DashboardComponent } from "@/components/DashboardComponent";
+import { DashboardComponent } from "@/components/pages/DashboardComponent";
 import { getMessages } from "@/i18n/getMessages";
 import { Locale } from "@/types/next";
 import { Metadata } from "next";

@@ -1,9 +1,5 @@
-// Render the default Next.js 404 page when a route
-// is requested that doesn't match the middleware and
-// therefore doesn't have a locale associated with it.
-
-import { NotFoundComponent } from "@/components/NotFoundComponent";
 import { AdaptiveScaffoldLayout } from "@/components/layouts/AdaptiveScaffoldLayout";
+import { NotFoundComponent } from "@/components/pages/NotFoundComponent";
 import { CachedThemeProvider } from "@/components/providers/CachedThemeProvider";
 import { CookieProvider } from "@/components/providers/CookieContext";
 import { SessionedQueryProvider } from "@/components/providers/SessionedQueryProvider";

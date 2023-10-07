@@ -1,4 +1,4 @@
-import { IndexComponent } from "@/components/IndexComponent";
+import { IndexComponent } from "@/components/pages/IndexComponent";
 import { getMessages } from "@/i18n/getMessages";
 import { Locale } from "@/types/next";
 import { Metadata } from "next";

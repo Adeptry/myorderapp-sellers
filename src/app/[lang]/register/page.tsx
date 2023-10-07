@@ -1,5 +1,5 @@
 import { openGraphImages } from "@/app/shared-metadata";
-import { RegisterComponent } from "@/components/RegisterComponent";
+import { RegisterComponent } from "@/components/pages/RegisterComponent";
 import { getMessages } from "@/i18n/getMessages";
 import { Locale } from "@/types/next";
 import { Metadata } from "next";

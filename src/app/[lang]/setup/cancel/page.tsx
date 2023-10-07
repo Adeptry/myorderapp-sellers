@@ -1,5 +1,5 @@
 import { openGraphImages } from "@/app/shared-metadata";
-import { CheckoutCancelledComponent } from "@/components/CheckoutCancelledComponent";
+import { CheckoutCancelledComponent } from "@/components/pages/CheckoutCancelledComponent";
 import { getMessages } from "@/i18n/getMessages";
 import { Locale } from "@/types/next";
 import { Metadata } from "next";

@@ -1,5 +1,5 @@
 import { openGraphImages } from "@/app/shared-metadata";
-import { PasswordForgotComponent } from "@/components/PasswordForgotComponent";
+import { PasswordForgotComponent } from "@/components/pages/PasswordForgotComponent";
 import { getMessages } from "@/i18n/getMessages";
 import { Locale } from "@/types/next";
 import { Metadata } from "next";

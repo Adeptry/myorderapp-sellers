@@ -9,7 +9,7 @@ import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { Container, Stack } from "@mui/material";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { useCookieContext } from "./providers/CookieContext";
+import { useCookieContext } from "../providers/CookieContext";
 
 export function CheckoutProCompleteComponent() {
   useRedirectUnauthenticatedSessions();

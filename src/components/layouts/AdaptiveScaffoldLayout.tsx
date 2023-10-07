@@ -1,7 +1,7 @@
 "use client";
 
 import { routes } from "@/app/routes";
-import { FooterComponent } from "@/components/FooterComponent";
+import { FooterComponent } from "@/components/pages/FooterComponent";
 import { moaEnv } from "@/moaEnv";
 import { useGetMerchantMeQuery } from "@/networking/queries/useGetMerchantMeQuery";
 import { fullNameForMerchant } from "@/utils/fullNameForMerchant";
