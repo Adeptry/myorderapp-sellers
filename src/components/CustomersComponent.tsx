@@ -1,12 +1,12 @@
 "use client";
 
 import { CustomersDataGrid } from "@/components/data-grids/CustomersDataGrid";
-import { useRedirectSetupSessions } from "@/routing/useRedirectSetupSessions";
+import { useRedirectNotSetupSessions } from "@/routing/useRedirectNotSetupSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { Container } from "@mui/material";
 
 export function CustomersComponent() {
-  useRedirectSetupSessions();
+  useRedirectNotSetupSessions();
   const maxHeightCssString = useMaxHeightCssString();
   return (
     <Container sx={{ py: 3, height: maxHeightCssString }} maxWidth={false}>

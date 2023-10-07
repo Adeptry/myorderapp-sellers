@@ -6,7 +6,8 @@ import { AppConfigForm } from "@/components/forms/AppConfigForm";
 import { TabLayout } from "@/components/layouts/TabLayout";
 import { OnboardingStepper } from "@/components/steppers/OnboardingStepper";
 import { moaEnv } from "@/moaEnv";
-import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
+import { useGetMerchantMeQuery } from "@/networking/queries/useGetMerchantMeQuery";
+import { useRedirectSetupSessions } from "@/routing/useRedirectSetupSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { Container, Stack } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -14,11 +15,11 @@ import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 import { AppConfigEntity } from "myorderapp-square";
 import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
-import { useRouter } from "next-intl/client";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export function SetupAppConfigComponent() {
-  useRedirectUnauthenticatedSessions();
+  useRedirectSetupSessions(routes.theme);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(780));
   const [appConfigState, setAppConfigState] = useState<
@@ -26,15 +27,11 @@ export function SetupAppConfigComponent() {
   >(undefined);
   const t = useTranslations("SetupAppConfigComponent");
   const maxHeightCssString = useMaxHeightCssString();
+  const locale = useLocale();
 
   const { push } = useRouter();
-  const { status, data } = useSession();
-  const locale = useLocale();
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      push(routes.login);
-    }
-  }, [status]);
+  const { data: sessionData, status: authenticationStatus } = useSession();
+  const { data: merchantMe, status: queryStatus } = useGetMerchantMeQuery();
 
   return (
     <Container sx={{ minHeight: maxHeightCssString }}>
@@ -59,7 +56,7 @@ export function SetupAppConfigComponent() {
               position: "sticky",
               top: "72px", // Adjusted for the toolbar
             }}
-            authentication={data?.user}
+            authentication={sessionData?.user}
             appConfig={appConfigState}
             environment={{
               apiBaseUrl: moaEnv.backendUrl,

@@ -1,22 +1,19 @@
 import { routes } from "@/app/routes";
-import { moaEnv } from "@/moaEnv";
 import { useGetMerchantMeQuery } from "@/networking/queries/useGetMerchantMeQuery";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next-intl/client";
 import { useEffect } from "react";
+import { useRedirectEnvironmentFlags } from "./useRedirectEnvironmentFlags";
 
 export const useRedirectAuthenticatedSessions = () => {
-  const router = useRouter();
+  useRedirectEnvironmentFlags();
+  const { push } = useRouter();
   const { status: authStatus } = useSession();
   const { data, status: queryStatus } = useGetMerchantMeQuery();
 
   useEffect(() => {
-    if (moaEnv.comingSoon) {
-      router.push(routes.comingSoon);
-    } else if (moaEnv.maintenance) {
-      router.push(routes.maintenance);
-    } else if (authStatus === "authenticated") {
-      router.push(routes.dashboard);
+    if (authStatus === "authenticated") {
+      push(routes.dashboard);
     }
   }, [authStatus, data, queryStatus]);
 

@@ -7,7 +7,7 @@ import { TabLayout } from "@/components/layouts/TabLayout";
 import { OnboardingStepper } from "@/components/steppers/OnboardingStepper";
 import { moaEnv } from "@/moaEnv";
 import { useGetCategoriesMeQuery } from "@/networking/queries/useGetCategoriesMeQuery";
-import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
+import { useRedirectSetupSessions } from "@/routing/useRedirectSetupSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import {
   ArrowForward,
@@ -29,10 +29,9 @@ import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next-intl/client";
-import { useEffect } from "react";
 
 export function SetupCatalogComponent() {
-  useRedirectUnauthenticatedSessions();
+  useRedirectSetupSessions(routes.catalog);
   const { push } = useRouter();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(780));
@@ -45,12 +44,6 @@ export function SetupCatalogComponent() {
   const t = useTranslations("SetupCatalogComponent");
   const maxHeightCssString = useMaxHeightCssString();
   const { data } = useSession();
-
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      push(routes.login);
-    }
-  }, [status]);
 
   return (
     <Container sx={{ minHeight: maxHeightCssString }}>

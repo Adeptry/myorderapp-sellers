@@ -7,7 +7,6 @@ import { useGetMerchantMeQuery } from "@/networking/queries/useGetMerchantMeQuer
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { Container, Stack } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next-intl/client";
 import { useEffect } from "react";
@@ -17,7 +16,6 @@ export function SetupSquareComponent() {
   const { push } = useRouter();
   const { data } = useGetMerchantMeQuery();
 
-  const theme = useTheme();
   const maxHeightCssString = useMaxHeightCssString();
 
   const { status } = useSession();

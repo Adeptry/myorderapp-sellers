@@ -43,6 +43,7 @@ import {
   MenuItem,
   ToggleButton,
   ToggleButtonGroup,
+  Tooltip,
 } from "@mui/material";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import MuiDrawer from "@mui/material/Drawer";
@@ -328,7 +329,12 @@ export function AdaptiveScaffoldLayout(props: { children: ReactNode }) {
                     }}
                   >
                     <ListItemIcon>
-                      <Dashboard />
+                      <Tooltip
+                        title={!drawerOpenState ? t("dashboard") : undefined}
+                        placement="right"
+                      >
+                        <Dashboard />
+                      </Tooltip>
                     </ListItemIcon>
                     <ListItemText primary={t("dashboard")} />
                   </ListItemButton>
@@ -344,7 +350,12 @@ export function AdaptiveScaffoldLayout(props: { children: ReactNode }) {
                     }}
                   >
                     <ListItemIcon>
-                      <MenuBook />
+                      <Tooltip
+                        title={!drawerOpenState ? t("catalog") : undefined}
+                        placement="right"
+                      >
+                        <MenuBook />
+                      </Tooltip>
                     </ListItemIcon>
                     <ListItemText primary={t("catalog")} />
                   </ListItemButton>
@@ -360,7 +371,12 @@ export function AdaptiveScaffoldLayout(props: { children: ReactNode }) {
                     }}
                   >
                     <ListItemIcon>
-                      <ListAlt />
+                      <Tooltip
+                        title={!drawerOpenState ? t("orders") : undefined}
+                        placement="right"
+                      >
+                        <ListAlt />
+                      </Tooltip>
                     </ListItemIcon>
                     <ListItemText primary={t("orders")} />
                   </ListItemButton>
@@ -376,7 +392,12 @@ export function AdaptiveScaffoldLayout(props: { children: ReactNode }) {
                     }}
                   >
                     <ListItemIcon>
-                      <Store />
+                      <Tooltip
+                        title={!drawerOpenState ? t("locations") : undefined}
+                        placement="right"
+                      >
+                        <Store />
+                      </Tooltip>
                     </ListItemIcon>
                     <ListItemText primary={t("locations")} />
                   </ListItemButton>
@@ -392,7 +413,12 @@ export function AdaptiveScaffoldLayout(props: { children: ReactNode }) {
                     }}
                   >
                     <ListItemIcon>
-                      <Group />
+                      <Tooltip
+                        title={!drawerOpenState ? t("customers") : undefined}
+                        placement="right"
+                      >
+                        <Group />
+                      </Tooltip>
                     </ListItemIcon>
                     <ListItemText primary={t("customers")} />
                   </ListItemButton>
@@ -408,7 +434,12 @@ export function AdaptiveScaffoldLayout(props: { children: ReactNode }) {
                     }}
                   >
                     <ListItemIcon>
-                      <AppShortcut />
+                      <Tooltip
+                        title={!drawerOpenState ? t("theme") : undefined}
+                        placement="right"
+                      >
+                        <AppShortcut />
+                      </Tooltip>
                     </ListItemIcon>
                     <ListItemText primary={t("theme")} />
                   </ListItemButton>
@@ -425,7 +456,12 @@ export function AdaptiveScaffoldLayout(props: { children: ReactNode }) {
                     }}
                   >
                     <ListItemIcon>
-                      <SupportAgent />
+                      <Tooltip
+                        title={!drawerOpenState ? t("support") : undefined}
+                        placement="right"
+                      >
+                        <SupportAgent />
+                      </Tooltip>
                     </ListItemIcon>
                     <ListItemText primary={t("support")} />
                   </ListItemButton>
@@ -440,7 +476,14 @@ export function AdaptiveScaffoldLayout(props: { children: ReactNode }) {
                     }}
                   >
                     <ListItemIcon>
-                      <Web />
+                      <Tooltip
+                        title={
+                          !drawerOpenState ? t("useMyOrderApp") : undefined
+                        }
+                        placement="right"
+                      >
+                        <Web />
+                      </Tooltip>
                     </ListItemIcon>
                     <ListItemText primary={t("useMyOrderApp")} />
                   </ListItemButton>
@@ -457,7 +500,12 @@ export function AdaptiveScaffoldLayout(props: { children: ReactNode }) {
                 }}
               >
                 <ListItemIcon>
-                  <ArrowBack />
+                  <Tooltip
+                    title={!drawerOpenState ? t("mainSite") : undefined}
+                    placement="right"
+                  >
+                    <ArrowBack />
+                  </Tooltip>
                 </ListItemIcon>
                 <ListItemText primary={t("mainSite")} />
               </ListItemButton>

@@ -10,6 +10,10 @@ import { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { openGraphImages } from "../shared-metadata";
 
+export async function generateStaticParams() {
+  return i18n.locales.map((locale) => ({ lang: locale }));
+}
+
 export async function generateMetadata(props: {
   params: { lang: Locale };
 }): Promise<Metadata> {
@@ -23,10 +27,6 @@ export async function generateMetadata(props: {
       ...messages.metadata.layout.openGraph,
     },
   };
-}
-
-export async function generateStaticParams() {
-  return i18n.locales.map((locale) => ({ lang: locale }));
 }
 
 export default async function Layout(props: NextPageProps) {

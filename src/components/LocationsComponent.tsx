@@ -2,7 +2,7 @@
 
 import { usePatchLocationMutation } from "@/networking/mutations/usePatchLocationMutation";
 import { useGetLocationsMeQuery } from "@/networking/queries/useGetLocationsMeQuery";
-import { useRedirectSetupSessions } from "@/routing/useRedirectSetupSessions";
+import { useRedirectNotSetupSessions } from "@/routing/useRedirectNotSetupSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { InfoOutlined, StoreOutlined } from "@mui/icons-material";
 import {
@@ -23,7 +23,7 @@ import { useTranslations } from "next-intl";
 import { Fragment } from "react";
 
 export function LocationsComponent() {
-  useRedirectSetupSessions();
+  useRedirectNotSetupSessions();
   const t = useTranslations("LocationsComponent");
   const maxHeightCssString = useMaxHeightCssString();
 

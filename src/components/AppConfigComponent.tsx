@@ -4,7 +4,7 @@ import { MyOrderAppPreview } from "@/components/app-preview/MyOrderAppPreview";
 import { AppConfigForm } from "@/components/forms/AppConfigForm";
 import { TabLayout } from "@/components/layouts/TabLayout";
 import { moaEnv } from "@/moaEnv";
-import { useRedirectSetupSessions } from "@/routing/useRedirectSetupSessions";
+import { useRedirectNotSetupSessions } from "@/routing/useRedirectNotSetupSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { Container } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -15,7 +15,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 
 export function AppConfigComponent() {
-  useRedirectSetupSessions();
+  useRedirectNotSetupSessions();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(780));
   const [appConfigState, setAppConfigState] = useState<

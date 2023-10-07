@@ -4,7 +4,7 @@ import { StatisticsCard } from "@/components/cards/StatisticsCard";
 import { CustomersDataGrid } from "@/components/data-grids/CustomersDataGrid";
 import { OrdersDataGrid } from "@/components/data-grids/OrdersDataGrid";
 import { useGetOrderStatisticsMeQuery } from "@/networking/queries/useGetOrderStatisticsMeQuery";
-import { useRedirectSetupSessions } from "@/routing/useRedirectSetupSessions";
+import { useRedirectNotSetupSessions } from "@/routing/useRedirectNotSetupSessions";
 import {
   useHeaderAndFooterHeight,
   useMaxHeightCssString,
@@ -32,7 +32,7 @@ import OrderingEnabledFormControlLabel from "./form-control-labels/OrderingEnabl
 const headerHeight = 151 + 16 + 56 + 16 + 46; // 46 is a magic number
 
 export function DashboardComponent() {
-  useRedirectSetupSessions();
+  useRedirectNotSetupSessions();
 
   const maxHeightCssString = useMaxHeightCssString();
 

@@ -57,6 +57,11 @@
   "AppleAuthButton": {
     "text": "Continuar con Apple"
   },
+  "CatalogAccordion": {
+    "dragHandleTooltip": "Arrastra y suelta para reordenar en la aplicación",
+    "expandTooltip": "Expandir para ver subelementos",
+    "switchTooltip": "Alterna para habilitar o deshabilitar en la aplicación"
+  },
   "CatalogComponent": {
     "catalogTabLabel": "Catálogo",
     "previewTabLabel": "Vista previa"
@@ -212,7 +217,8 @@
   "SetupCatalogComponent": {
     "catalogTabLabel": "Catálogo",
     "continueButton": "Aceptar y continuar",
-    "previewTabLabel": "Vista previa"
+    "previewTabLabel": "Vista previa",
+    "tooltip": "Reordena las categorías y elementos mediante arrastrar y soltar. Apaga el interruptor para eliminarlo de la aplicación. Haz clic en un elemento para revelar y modificar sus detalles. Los cambios en tu catálogo de Square se actualizarán automáticamente aquí."
   },
   "SetupSquareOauthComponent": {
     "fallbackError": "Vaya, algo salió mal. No te preocupes, tus datos están seguros. Hemos sido notificados y estamos trabajando para solucionar el problema."

@@ -57,6 +57,11 @@
   "AppleAuthButton": {
     "text": "Continue with Apple"
   },
+  "CatalogAccordion": {
+    "dragHandleTooltip": "Drag and drop to reorder in-app",
+    "expandTooltip": "Expand to see sub-items",
+    "switchTooltip": "Toggle to enable or disable in-app"
+  },
   "CatalogComponent": {
     "catalogTabLabel": "Catalog",
     "previewTabLabel": "Preview"

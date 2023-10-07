@@ -1,12 +1,12 @@
 "use client";
 
 import { OrdersDataGrid } from "@/components/data-grids/OrdersDataGrid";
-import { useRedirectSetupSessions } from "@/routing/useRedirectSetupSessions";
+import { useRedirectNotSetupSessions } from "@/routing/useRedirectNotSetupSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { Container } from "@mui/material";
 
 export function OrdersComponent() {
-  useRedirectSetupSessions();
+  useRedirectNotSetupSessions();
 
   const maxHeightCssString = useMaxHeightCssString();
 

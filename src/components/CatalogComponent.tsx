@@ -5,7 +5,7 @@ import { MyOrderAppPreview } from "@/components/app-preview/MyOrderAppPreview";
 import { TabLayout } from "@/components/layouts/TabLayout";
 import { moaEnv } from "@/moaEnv";
 import { useGetCategoriesMeQuery } from "@/networking/queries/useGetCategoriesMeQuery";
-import { useRedirectSetupSessions } from "@/routing/useRedirectSetupSessions";
+import { useRedirectNotSetupSessions } from "@/routing/useRedirectNotSetupSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { Container } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -14,7 +14,7 @@ import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 
 export function CatalogComponent() {
-  useRedirectSetupSessions();
+  useRedirectNotSetupSessions();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(780));
   const maxHeightCssString = useMaxHeightCssString();

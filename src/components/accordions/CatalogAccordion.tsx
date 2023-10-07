@@ -18,12 +18,15 @@ import {
   ListItemText,
   Paper,
   Switch,
+  Tooltip,
 } from "@mui/material";
 import { Image } from "mui-image";
 import { nanoid } from "nanoid";
+import { useTranslations } from "next-intl";
 import { DragDropContext, Draggable, DropResult } from "react-beautiful-dnd";
 
 export function CatalogAccordion() {
+  const t = useTranslations("CatalogAccordion");
   const currentCatalogQuery = useGetCategoriesMeQuery();
   const currentCatalogCategories = currentCatalogQuery.data?.data ?? [];
 
@@ -166,14 +169,20 @@ export function CatalogAccordion() {
                   >
                     <Accordion>
                       <AccordionSummary
-                        expandIcon={<ExpandMore />}
+                        expandIcon={
+                          <Tooltip title={t("expandTooltip")}>
+                            <ExpandMore />
+                          </Tooltip>
+                        }
                         sx={{ mr: 2 }}
                       >
-                        <Box display="flex" alignItems="center">
-                          <IconButton disabled size="small">
-                            <DragHandle />
-                          </IconButton>
-                        </Box>
+                        <Tooltip title={t("dragHandleTooltip")}>
+                          <Box display="flex" alignItems="center">
+                            <IconButton disabled size="small">
+                              <DragHandle />
+                            </IconButton>
+                          </Box>
+                        </Tooltip>
                         <ListItemText
                           sx={{ display: "flex", flexGrow: 1 }}
                           primary={currentCatalogCategory.name}
@@ -184,19 +193,23 @@ export function CatalogAccordion() {
                           alignItems="center"
                           onClick={(event) => event.stopPropagation()}
                         >
-                          <Switch
-                            size="small"
-                            checked={currentCatalogCategory.moaEnabled ?? false}
-                            onChange={() => {
-                              updateCategoriesMutation.mutateAsync([
-                                {
-                                  id: currentCatalogCategory.id!,
-                                  moaEnabled:
-                                    !currentCatalogCategory.moaEnabled,
-                                },
-                              ]);
-                            }}
-                          />
+                          <Tooltip title={t("switchTooltip")}>
+                            <Switch
+                              size="small"
+                              checked={
+                                currentCatalogCategory.moaEnabled ?? false
+                              }
+                              onChange={() => {
+                                updateCategoriesMutation.mutateAsync([
+                                  {
+                                    id: currentCatalogCategory.id!,
+                                    moaEnabled:
+                                      !currentCatalogCategory.moaEnabled,
+                                  },
+                                ]);
+                              }}
+                            />
+                          </Tooltip>
                         </Box>
                       </AccordionSummary>
 
