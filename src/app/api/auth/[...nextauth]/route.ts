@@ -39,7 +39,6 @@ const handler = NextAuth({
             basePath: moaEnv.backendUrl,
             accessToken: params.token.refreshToken,
           };
-          console.log(JSON.stringify(parameters, null, 2));
           const response = await new AuthenticationApi(
             new Configuration(parameters)
           ).postRefresh();
