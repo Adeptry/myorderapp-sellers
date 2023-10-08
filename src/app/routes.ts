@@ -2,7 +2,10 @@ export const routes = {
   index: "/",
   login: "/login",
   register: "/register",
-  resetPassword: "/reset-password",
+  resetPassword: {
+    index: "/reset-password",
+    confirm: "/reset-password/confirm",
+  },
   dashboard: "/dashboard",
   comingSoon: "/coming-soon",
   maintenance: "/maintenance",
