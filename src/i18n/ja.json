@@ -6,6 +6,7 @@
     "account": "アカウント",
     "billing": "請求",
     "catalog": "カタログ",
+    "beta": "ベータ",
     "customers": "顧客",
     "dashboard": "ダッシュボード",
     "locations": "場所",
@@ -508,7 +509,8 @@
     "minimumAbbreviation": "最小"
   },
   "StripeCheckoutButton": {
-    "text": "Subscribe"
+    "text": "Subscribe",
+    "comingSoon": "近日公開！"
   },
   "StripeCheckoutCancelledCard": {
     "body": "人生は忙しくなることがありますが、それを理解しています。設定を完了するために戻ることを選択した場合、進行状況は保存されていることを知ってください。上のナビゲーションを使用して、以前のステップをいつでも再訪することができます。質問や詳細については、下のFAQセクションや公開オプションが利用可能です。",

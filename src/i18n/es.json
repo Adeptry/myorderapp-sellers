@@ -5,6 +5,7 @@
   "AdaptiveScaffoldLayout": {
     "account": "Cuenta",
     "billing": "Facturación",
+    "beta": "Beta",
     "catalog": "Catálogo",
     "customers": "Clientes",
     "dashboard": "Panel",
@@ -249,7 +250,8 @@
     "minimumAbbreviation": "Mín"
   },
   "StripeCheckoutButton": {
-    "text": "Subscribe"
+    "text": "Subscribe",
+    "comingSoon": "¡Próximamente!"
   },
   "StripeCheckoutCancelledCard": {
     "body": "La vida se pone ocupada y lo entendemos. Si decides regresar y finalizar tu configuración, ten en cuenta que tu progreso está guardado. En cualquier momento, puedes revisitar los pasos anteriores usando la navegación de arriba. Para cualquier consulta o más información, nuestra sección de preguntas frecuentes y opciones de publicación están disponibles a continuación.",

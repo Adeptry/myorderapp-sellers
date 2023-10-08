@@ -7,6 +7,7 @@ export interface MoaEnv {
   appUrl: string;
   env: string;
   name: string;
+  isBeta: boolean;
   shortName: string;
   abbreviation: string;
   description: string;
@@ -69,12 +70,12 @@ export interface MoaEnv {
       aud: number;
     }[];
     priceIds: {
-      usd: string;
-      eur: string;
-      gbp: string;
-      jpy: string;
-      cad: string;
-      aud: string;
+      usd?: string;
+      eur?: string;
+      gbp?: string;
+      jpy?: string;
+      cad?: string;
+      aud?: string;
     }[];
   };
 }

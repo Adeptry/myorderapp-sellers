@@ -33,6 +33,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import {
   Avatar,
   Box,
+  Chip,
   IconButton,
   List,
   ListItem,
@@ -237,7 +238,6 @@ export function AdaptiveScaffoldLayout(props: { children: ReactNode }) {
     </MenuItem>,
   ]);
 
-  const skeleton = status === "loading";
   const appBarToolbar: ReactNode = (
     <Toolbar>
       <Box>
@@ -256,6 +256,10 @@ export function AdaptiveScaffoldLayout(props: { children: ReactNode }) {
           {moaEnv.name}
         </Typography>
       </MoaLink>
+      {moaEnv.isBeta && (
+        <Chip label={t("beta")} color="warning" size="small" sx={{ ml: 1 }} />
+      )}
+
       <Box sx={{ flexGrow: 1 }} />
       <Box sx={{ flexGrow: 0 }}>
         {currentMerchantData && (

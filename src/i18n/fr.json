@@ -5,6 +5,7 @@
   "AdaptiveScaffoldLayout": {
     "account": "Compte",
     "billing": "Facturation",
+    "beta": "Bêta",
     "catalog": "Catalogue",
     "customers": "Clients",
     "dashboard": "Tableau de bord",
@@ -508,7 +509,8 @@
     "minimumAbbreviation": "Min"
   },
   "StripeCheckoutButton": {
-    "text": "Subscribe"
+    "text": "Subscribe",
+    "comingSoon": "Bientôt disponible !"
   },
   "StripeCheckoutCancelledCard": {
     "body": "La vie est chargée, et nous le comprenons. Si vous choisissez de revenir et de finaliser votre installation, sachez que votre progression est sauvegardée. À tout moment, vous pouvez revoir les étapes précédentes en utilisant la navigation ci-dessus. Pour toute question ou pour plus d'informations, notre section FAQ et nos options de publication sont disponibles ci-dessous.",

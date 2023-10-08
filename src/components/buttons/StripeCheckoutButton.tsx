@@ -47,26 +47,28 @@ export function StripeCheckoutButton(props: {
   const successUrl = `${moaEnv.siteUrl}/${locale}${sucessPathComponent}?session_id={CHECKOUT_SESSION_ID}`;
   const cancelUrl = `${moaEnv.siteUrl}/${locale}${routes.setup.cancel}`;
 
-  const postStripeCheckoutQueryMe = useQuery({
-    queryKey: ["postStripeCheckoutQueryMe", currencyCookieValue, tier],
-    queryFn: async () => {
-      const stripePriceId =
-        moaEnv.stripe.priceIds[tier][
-          currencyCookieValue!.toLowerCase() as Currency
-        ];
+  const currency = currencyCookieValue
+    ? (currencyCookieValue?.toLowerCase() as Currency)
+    : undefined;
+  const tierPriceIds = moaEnv.stripe.priceIds[tier];
+  const stripePriceId = currency && tierPriceIds[currency];
+  const isAvailable = !(currency != undefined && stripePriceId == undefined);
 
+  const postStripeCheckoutQueryMe = useQuery({
+    queryKey: ["postStripeCheckoutQueryMe", stripePriceId],
+    queryFn: async () => {
       const api = new MerchantsApi(sessionedApiConfiguration);
       return (
         await api.postStripeCheckoutMe({
           stripePostCheckoutBody: {
             successUrl,
             cancelUrl,
-            stripePriceId,
+            stripePriceId: stripePriceId!,
           },
         })
       ).data;
     },
-    enabled: status === "authenticated" && currencyCookieValue !== undefined,
+    enabled: status === "authenticated" && stripePriceId !== undefined,
   });
 
   const [stripeLoadingState, setStripeLoadingState] = useState(false);
@@ -108,7 +110,7 @@ export function StripeCheckoutButton(props: {
     return <div>Error: {JSON.stringify(postStripeCheckoutQueryMe?.error)}</div>;
   }
 
-  const buttonLoading =
+  const isLoading =
     (postStripeCheckoutQueryMe.isLoading &&
       !postStripeCheckoutQueryMe.isFetching &&
       !postStripeCheckoutQueryMe.data) ||
@@ -121,10 +123,10 @@ export function StripeCheckoutButton(props: {
       size="large"
       onClick={onClickCheckout}
       startIcon={<ShoppingCartCheckout />}
-      loading={buttonLoading}
-      disabled={buttonLoading}
+      loading={isLoading && isAvailable}
+      disabled={isLoading && !isAvailable}
     >
-      {props.text ?? t("text")}
+      {isAvailable ? props.text ?? t("text") : t("comingSoon")}
     </LoadingButton>
   );
 }

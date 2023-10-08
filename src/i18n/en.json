@@ -4,6 +4,7 @@
   },
   "AdaptiveScaffoldLayout": {
     "account": "Account",
+    "beta": "Beta",
     "billing": "Billing",
     "catalog": "Catalog",
     "customers": "Customers",
@@ -249,7 +250,8 @@
     "minimumAbbreviation": "Min"
   },
   "StripeCheckoutButton": {
-    "text": "Subscribe"
+    "text": "Subscribe",
+    "comingSoon": "Coming soon!"
   },
   "StripeCheckoutCancelledCard": {
     "body": "Life gets busy, and we understand that. Should you choose to return and finalize your setup, know that your progress is saved. At any point, you can revisit previous steps using the navigation above. For any queries or more insights, our FAQ section and publishing options are readily available below.",
