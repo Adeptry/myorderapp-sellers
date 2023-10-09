@@ -4,8 +4,8 @@
   },
   "AdaptiveScaffoldLayout": {
     "account": "Compte",
-    "billing": "Facturation",
     "beta": "Bêta",
+    "billing": "Facturation",
     "catalog": "Catalogue",
     "customers": "Clients",
     "dashboard": "Tableau de bord",
@@ -22,10 +22,10 @@
     "previewTabLabel": "Aperçu"
   },
   "AppConfigForm": {
-    "appearanceLabel": "Apparence",
     "appIconHelperText": "Affiché sur l'écran d'accueil des utilisateurs. Taille recommandée : 1024x1024.",
     "appIconLabel": "Icône de l'App",
     "appIconTooltip": "Envoyez n'importe quelle image si vous n'êtes pas sûr. Nous pouvons aider avec les affinements de conception.",
+    "appearanceLabel": "Apparence",
     "defaultName": "{name} App de Commande",
     "fontFamilyHelperLinkText": "Voir les polices disponibles",
     "fontFamilyLabel": "Police",
@@ -96,6 +96,13 @@
     "orderCountTooltip": "Nombre total de commandes dans la plage de dates sélectionnée.",
     "startDatePickerLabel": "Début"
   },
+  "DeleteMerchantMeDialog": {
+    "cancelButton": "Annuler",
+    "content": "Êtes-vous sûr de vouloir supprimer votre compte? Cette action irréversible effacera toutes vos données, y compris les comptes clients et l'historique des commandes. Bien que nous conservions des enregistrements minimaux pour des raisons légales, il ne sera pas possible de restaurer votre compte. Veuillez confirmer cette étape finale en entrant votre adresse e-mail ci-dessous.",
+    "deleteButton": "Confirmer la suppression",
+    "emailLabel": "Confirmer l'email",
+    "title": "Supprimer le compte"
+  },
   "FaqAccordion": {
     "ads": {
       "details": "Pour la version Gratuite, les publicités que vous voyez proviennent principalement de Google Ads.",
@@ -160,6 +167,178 @@
   "MaintenanceComponent": {
     "description": "Notre site est actuellement en maintenance programmée. Nous nous excusons pour tout désagrément et serons de retour bientôt!",
     "title": "En Maintenance"
+  },
+  "NotFoundComponent": {
+    "button": "Retourner à l'accueil",
+    "description": "La page que vous recherchez n'existe pas ou a été déplacée.",
+    "title": "Page Introuvable"
+  },
+  "OnboardingStepper": {
+    "customize": "Personnaliser",
+    "publish": "Publier",
+    "register": "S'inscrire",
+    "synchronize": "Synchroniser"
+  },
+  "OrderingEnabledFormControlLabel": {
+    "label": "Commande Activée"
+  },
+  "OrdersDataGrid": {
+    "closedDateHeaderName": "Date de clôture",
+    "customerHeaderName": "Client",
+    "idHeaderName": "ID de commande",
+    "locationHeaderName": "Emplacement",
+    "noData": "Les commandes apparaîtront ici.",
+    "totalMoneyAmountHeaderName": "Total"
+  },
+  "PasswordForgotComponent": {
+    "title": "Réinitialiser le mot de passe"
+  },
+  "PasswordForgotForm": {
+    "button": "Demander la réinitialisation du mot de passe",
+    "emailField": "E-mail",
+    "successAlert": "Votre message a été envoyé. Nous vous répondrons sous peu."
+  },
+  "PasswordResetComponent": {
+    "title": "Réinitialiser le mot de passe"
+  },
+  "PasswordResetForm": {
+    "confirmPassword": "Confirmer le mot de passe",
+    "newPassword": "Nouveau mot de passe",
+    "passwordsMustMatch": "Les mots de passe doivent correspondre",
+    "resetPassword": "Réinitialiser le mot de passe",
+    "resetPasswordSuccess": "Votre mot de passe a été réinitialisé. Vous pouvez maintenant vous connecter."
+  },
+  "RegisterComponent": {
+    "title": "Inscription"
+  },
+  "RegisterEmailForm": {
+    "email": "E-mail",
+    "firstName": "Prénom",
+    "lastName": "Nom de famille",
+    "password": "Mot de passe",
+    "submitButton": "S'inscrire avec l'e-mail"
+  },
+  "SetupAppConfigComponent": {
+    "formTabLabel": "Options",
+    "previewTabLabel": "Aperçu"
+  },
+  "SetupCatalogComponent": {
+    "catalogTabLabel": "Catalogue",
+    "continueButton": "Accepter et continuer",
+    "previewTabLabel": "Aperçu",
+    "tooltip": "Réorganisez les catégories et les articles par glisser-déposer. Éteignez le bouton pour les retirer de l'application. Cliquez sur un article pour afficher et modifier ses détails. Les modifications dans votre catalogue Square seront automatiquement mises à jour ici."
+  },
+  "SetupSquareOauthComponent": {
+    "fallbackError": "Oups, quelque chose s'est mal passé. Ne vous inquiétez pas, vos données sont en sécurité. Nous avons été informés et travaillons à résoudre le problème."
+  },
+  "SignInLink": {
+    "text": "Vous avez un compte? Se connecter"
+  },
+  "SignUpLink": {
+    "text": "Nouveau ici? S'inscrire"
+  },
+  "SquareOauthButton": {
+    "text": "Autoriser Square"
+  },
+  "SquareOauthExplainerCard": {
+    "catalogSyncPrimary": "Synchronisation du Catalogue",
+    "catalogSyncSecondary": "Autorisez notre application à récupérer votre catalogue, assurant une intégration transparente avec vos listes de produits actuels.",
+    "dataSecurityPrimary": "Sécurité des Données",
+    "dataSecuritySecondary": "Vos données sont protégées par les mesures de sécurité de Square. Vous pouvez gérer ou révoquer des autorisations à tout moment depuis votre tableau de bord Square.",
+    "orderSubmissionPrimary": "Soumission de Commande",
+    "orderSubmissionSecondary": "Laissez-nous passer des commandes au nom de vos clients, garantissant un traitement rapide et fluide des commandes.",
+    "posIntegrationPrimary": "Intégration POS",
+    "posIntegrationSecondary": "Envoyez des commandes directement à vos systèmes de point de vente, comblant le fossé entre les commandes en ligne et les ventes en personne.",
+    "title": "Connectez votre compte Square"
+  },
+  "StatisticsCard": {
+    "averageAbbreviation": "Moy",
+    "maximumAbbreviation": "Max",
+    "minimumAbbreviation": "Min"
+  },
+  "StripeCheckoutButton": {
+    "comingSoon": "Bientôt disponible !",
+    "text": "Subscribe"
+  },
+  "StripeCheckoutCancelledCard": {
+    "body": "La vie est chargée, et nous le comprenons. Si vous choisissez de revenir et de finaliser votre installation, sachez que votre progression est sauvegardée. À tout moment, vous pouvez revoir les étapes précédentes en utilisant la navigation ci-dessus. Pour toute question ou pour plus d'informations, notre section FAQ et nos options de publication sont disponibles ci-dessous.",
+    "title": "Nous avons remarqué que votre paiement a été interrompu"
+  },
+  "SupportComponent": {
+    "faqTitle": "Questions fréquentes",
+    "formTitle": "Support"
+  },
+  "SupportRequestForm": {
+    "buttonText": "Envoyer",
+    "subjectField": "De quoi s'agit-il ?",
+    "subjectPlaceholder": "p. ex., Facturation, Problème technique, Question générale",
+    "successAlert": "Votre message a été envoyé. Nous vous répondrons sous peu.",
+    "textField": "Dites-nous ce qui se passe",
+    "textPlaceholder": "Plus vous fournissez de détails, plus nous pouvons vous aider rapidement"
+  },
+  "Tier0CheckoutCard": {
+    "buttonText": "Publier mon app web",
+    "perMonth": "/mois",
+    "perfectForBody": "Petites entreprises débutant avec la commande mobile et axées sur une présence uniquement sur le Web.",
+    "perfectForHeader": "Parfait pour :",
+    "subheader": "Web",
+    "supportPrimary": "Support de Base",
+    "supportSecondary": "Support au mieux, réponse dans un délai de 72 heures.",
+    "title": "Gratuit",
+    "transactionFee": "+5% par transaction"
+  },
+  "Tier0SuccessCard": {
+    "nextStepsPrimary": "Prochaines étapes importantes:",
+    "nextStepsSecondary": "Consultez vos analyses de performance et ajustez votre marketing en conséquence. Vous en voulez plus ? La mise à niveau est transparente pour une expérience encore plus solide.",
+    "subheader": "Bravo ! Votre application web est pleinement fonctionnelle et prête à accepter des commandes.",
+    "supportPrimary": "Support de base",
+    "supportSecondary": "Coincé ? N'hésitez pas à utiliser notre support de base. Attendez-vous à une réponse dans les 72 heures.",
+    "title": "Votre application web est en ligne !"
+  },
+  "Tier1CheckoutCard": {
+    "buttonText": "Publier mon app Android",
+    "perMonth": "/mois",
+    "perfectForBody": "Entreprises en croissance visant une présence Android et désirant une URL personnalisée.",
+    "perfectForHeader": "Parfait pour :",
+    "subheader": "Web & Android",
+    "supportPrimary": "Support Amélioré",
+    "supportSecondary": "Réponse de support garantie dans un délai de 48 heures.",
+    "title": "Débutant",
+    "transactionFee": "+2,5% par transaction"
+  },
+  "Tier1SuccessCard": {
+    "nextStepsPrimary": "Priorités immédiates :",
+    "nextStepsSecondary": "Démarrez vos efforts promotionnels pour l'application web et préparez-vous pour le lancement sur Android. Nous nous occupons de la technologie, concentrez-vous sur les ventes.",
+    "subheader": "Succès ! Votre application web est opérationnelle. Patientez un peu ; votre application Android sera déployée sous peu.",
+    "supportPrimary": "Support amélioré",
+    "supportSecondary": "Des questions ? Notre support amélioré garantit un délai de réponse de 48 heures pour vos interrogations.",
+    "title": "Web et Android—Bientôt disponible !"
+  },
+  "Tier2CheckoutCard": {
+    "buttonText": "Publier ma suite",
+    "perMonth": "/mois",
+    "perfectForBody": "Entreprises établies cherchant une expérience premium et multiplateforme sans frais de transaction.",
+    "perfectForHeader": "Parfait pour :",
+    "subheader": "Web, Android & iOS",
+    "supportPrimary": "Support Prioritaire",
+    "supportSecondary": "Support en direct de notre équipe de développement, réponse dans un délai de 24 heures.",
+    "title": "Complet",
+    "transactionFee": "Sans frais"
+  },
+  "Tier2SuccessCard": {
+    "nextStepsPrimary": "Actions à entreprendre :",
+    "nextStepsSecondary": "Maximisez la visibilité de votre application web pendant que nous finalisons vos applications Android et iOS. Votre stratégie multiplateforme est sur le point de passer au niveau supérieur.",
+    "subheader": "Splendide ! Votre application web est en ligne et sert les clients. Les versions Android et iOS sont en cours de développement.",
+    "supportPrimary": "Support prioritaire",
+    "supportSecondary": "Besoin d'une assistance rapide ? Notre support prioritaire offre une réponse en direct de notre équipe de développement dans un délai de 24 heures.",
+    "title": "Le pack complet—Web, Android et iOS !"
+  },
+  "UserUpdateForm": {
+    "deleteButton": "Supprimer le compte",
+    "email": "E-mail",
+    "firstName": "Prénom",
+    "lastName": "Nom de famille",
+    "saveButton": "Enregistrer"
   },
   "metadata": {
     "account": {
@@ -419,175 +598,5 @@
       },
       "title": "Personnalisation du Thème"
     }
-  },
-  "NotFoundComponent": {
-    "button": "Retourner à l'accueil",
-    "description": "La page que vous recherchez n'existe pas ou a été déplacée.",
-    "title": "Page Introuvable"
-  },
-  "OnboardingStepper": {
-    "customize": "Personnaliser",
-    "publish": "Publier",
-    "register": "S'inscrire",
-    "synchronize": "Synchroniser"
-  },
-  "OrderingEnabledFormControlLabel": {
-    "label": "Commande Activée"
-  },
-  "OrdersDataGrid": {
-    "closedDateHeaderName": "Date de clôture",
-    "customerHeaderName": "Client",
-    "idHeaderName": "ID de commande",
-    "locationHeaderName": "Emplacement",
-    "noData": "Les commandes apparaîtront ici.",
-    "totalMoneyAmountHeaderName": "Total"
-  },
-  "PasswordForgotComponent": {
-    "title": "Réinitialiser le mot de passe"
-  },
-  "PasswordForgotForm": {
-    "button": "Demander la réinitialisation du mot de passe",
-    "emailField": "E-mail",
-    "successAlert": "Votre message a été envoyé. Nous vous répondrons sous peu."
-  },
-  "PasswordResetComponent": {
-    "title": "Réinitialiser le mot de passe"
-  },
-  "PasswordResetForm": {
-    "confirmPassword": "Confirmer le mot de passe",
-    "newPassword": "Nouveau mot de passe",
-    "passwordsMustMatch": "Les mots de passe doivent correspondre",
-    "resetPassword": "Réinitialiser le mot de passe",
-    "resetPasswordSuccess": "Votre mot de passe a été réinitialisé. Vous pouvez maintenant vous connecter."
-  },
-  "RegisterComponent": {
-    "title": "Inscription"
-  },
-  "RegisterEmailForm": {
-    "email": "E-mail",
-    "firstName": "Prénom",
-    "lastName": "Nom de famille",
-    "password": "Mot de passe",
-    "submitButton": "S'inscrire avec l'e-mail"
-  },
-  "SetupAppConfigComponent": {
-    "formTabLabel": "Options",
-    "previewTabLabel": "Aperçu"
-  },
-  "SetupCatalogComponent": {
-    "catalogTabLabel": "Catalogue",
-    "continueButton": "Accepter et continuer",
-    "previewTabLabel": "Aperçu",
-    "tooltip": "Réorganisez les catégories et les articles par glisser-déposer. Éteignez le bouton pour les retirer de l'application. Cliquez sur un article pour afficher et modifier ses détails. Les modifications dans votre catalogue Square seront automatiquement mises à jour ici."
-  },
-  "SetupSquareOauthComponent": {
-    "fallbackError": "Oups, quelque chose s'est mal passé. Ne vous inquiétez pas, vos données sont en sécurité. Nous avons été informés et travaillons à résoudre le problème."
-  },
-  "SignInLink": {
-    "text": "Vous avez un compte? Se connecter"
-  },
-  "SignUpLink": {
-    "text": "Nouveau ici? S'inscrire"
-  },
-  "SquareOauthButton": {
-    "text": "Autoriser Square"
-  },
-  "SquareOauthExplainerCard": {
-    "catalogSyncPrimary": "Synchronisation du Catalogue",
-    "catalogSyncSecondary": "Autorisez notre application à récupérer votre catalogue, assurant une intégration transparente avec vos listes de produits actuels.",
-    "dataSecurityPrimary": "Sécurité des Données",
-    "dataSecuritySecondary": "Vos données sont protégées par les mesures de sécurité de Square. Vous pouvez gérer ou révoquer des autorisations à tout moment depuis votre tableau de bord Square.",
-    "orderSubmissionPrimary": "Soumission de Commande",
-    "orderSubmissionSecondary": "Laissez-nous passer des commandes au nom de vos clients, garantissant un traitement rapide et fluide des commandes.",
-    "posIntegrationPrimary": "Intégration POS",
-    "posIntegrationSecondary": "Envoyez des commandes directement à vos systèmes de point de vente, comblant le fossé entre les commandes en ligne et les ventes en personne.",
-    "title": "Connectez votre compte Square"
-  },
-  "StatisticsCard": {
-    "averageAbbreviation": "Moy",
-    "maximumAbbreviation": "Max",
-    "minimumAbbreviation": "Min"
-  },
-  "StripeCheckoutButton": {
-    "text": "Subscribe",
-    "comingSoon": "Bientôt disponible !"
-  },
-  "StripeCheckoutCancelledCard": {
-    "body": "La vie est chargée, et nous le comprenons. Si vous choisissez de revenir et de finaliser votre installation, sachez que votre progression est sauvegardée. À tout moment, vous pouvez revoir les étapes précédentes en utilisant la navigation ci-dessus. Pour toute question ou pour plus d'informations, notre section FAQ et nos options de publication sont disponibles ci-dessous.",
-    "title": "Nous avons remarqué que votre paiement a été interrompu"
-  },
-  "SupportComponent": {
-    "faqTitle": "Questions fréquentes",
-    "formTitle": "Support"
-  },
-  "SupportRequestForm": {
-    "buttonText": "Envoyer",
-    "subjectField": "De quoi s'agit-il ?",
-    "subjectPlaceholder": "p. ex., Facturation, Problème technique, Question générale",
-    "successAlert": "Votre message a été envoyé. Nous vous répondrons sous peu.",
-    "textField": "Dites-nous ce qui se passe",
-    "textPlaceholder": "Plus vous fournissez de détails, plus nous pouvons vous aider rapidement"
-  },
-  "Tier0CheckoutCard": {
-    "buttonText": "Publier mon app web",
-    "perfectForBody": "Petites entreprises débutant avec la commande mobile et axées sur une présence uniquement sur le Web.",
-    "perfectForHeader": "Parfait pour :",
-    "perMonth": "/mois",
-    "subheader": "Web",
-    "supportPrimary": "Support de Base",
-    "supportSecondary": "Support au mieux, réponse dans un délai de 72 heures.",
-    "title": "Gratuit",
-    "transactionFee": "+5% par transaction"
-  },
-  "Tier0SuccessCard": {
-    "nextStepsPrimary": "Prochaines étapes importantes:",
-    "nextStepsSecondary": "Consultez vos analyses de performance et ajustez votre marketing en conséquence. Vous en voulez plus ? La mise à niveau est transparente pour une expérience encore plus solide.",
-    "subheader": "Bravo ! Votre application web est pleinement fonctionnelle et prête à accepter des commandes.",
-    "supportPrimary": "Support de base",
-    "supportSecondary": "Coincé ? N'hésitez pas à utiliser notre support de base. Attendez-vous à une réponse dans les 72 heures.",
-    "title": "Votre application web est en ligne !"
-  },
-  "Tier1CheckoutCard": {
-    "buttonText": "Publier mon app Android",
-    "perfectForBody": "Entreprises en croissance visant une présence Android et désirant une URL personnalisée.",
-    "perfectForHeader": "Parfait pour :",
-    "perMonth": "/mois",
-    "subheader": "Web & Android",
-    "supportPrimary": "Support Amélioré",
-    "supportSecondary": "Réponse de support garantie dans un délai de 48 heures.",
-    "title": "Débutant",
-    "transactionFee": "+2,5% par transaction"
-  },
-  "Tier1SuccessCard": {
-    "nextStepsPrimary": "Priorités immédiates :",
-    "nextStepsSecondary": "Démarrez vos efforts promotionnels pour l'application web et préparez-vous pour le lancement sur Android. Nous nous occupons de la technologie, concentrez-vous sur les ventes.",
-    "subheader": "Succès ! Votre application web est opérationnelle. Patientez un peu ; votre application Android sera déployée sous peu.",
-    "supportPrimary": "Support amélioré",
-    "supportSecondary": "Des questions ? Notre support amélioré garantit un délai de réponse de 48 heures pour vos interrogations.",
-    "title": "Web et Android—Bientôt disponible !"
-  },
-  "Tier2CheckoutCard": {
-    "buttonText": "Publier ma suite",
-    "perfectForBody": "Entreprises établies cherchant une expérience premium et multiplateforme sans frais de transaction.",
-    "perfectForHeader": "Parfait pour :",
-    "perMonth": "/mois",
-    "subheader": "Web, Android & iOS",
-    "supportPrimary": "Support Prioritaire",
-    "supportSecondary": "Support en direct de notre équipe de développement, réponse dans un délai de 24 heures.",
-    "title": "Complet",
-    "transactionFee": "Sans frais"
-  },
-  "Tier2SuccessCard": {
-    "nextStepsPrimary": "Actions à entreprendre :",
-    "nextStepsSecondary": "Maximisez la visibilité de votre application web pendant que nous finalisons vos applications Android et iOS. Votre stratégie multiplateforme est sur le point de passer au niveau supérieur.",
-    "subheader": "Splendide ! Votre application web est en ligne et sert les clients. Les versions Android et iOS sont en cours de développement.",
-    "supportPrimary": "Support prioritaire",
-    "supportSecondary": "Besoin d'une assistance rapide ? Notre support prioritaire offre une réponse en direct de notre équipe de développement dans un délai de 24 heures.",
-    "title": "Le pack complet—Web, Android et iOS !"
-  },
-  "UserUpdateForm": {
-    "email": "E-mail",
-    "firstName": "Prénom",
-    "lastName": "Nom de famille"
   }
 }

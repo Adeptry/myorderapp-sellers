@@ -4,9 +4,9 @@
   },
   "AdaptiveScaffoldLayout": {
     "account": "アカウント",
+    "beta": "ベータ",
     "billing": "請求",
     "catalog": "カタログ",
-    "beta": "ベータ",
     "customers": "顧客",
     "dashboard": "ダッシュボード",
     "locations": "場所",
@@ -22,10 +22,10 @@
     "previewTabLabel": "プレビュー"
   },
   "AppConfigForm": {
-    "appearanceLabel": "外観",
     "appIconHelperText": "ユーザーのホーム画面に表示されます。推奨サイズ：1024x1024。",
     "appIconLabel": "アプリアイコン",
     "appIconTooltip": "確かでなければ任意の画像を提出してください。デザインの洗練に協力できます。",
+    "appearanceLabel": "外観",
     "defaultName": "{name} 注文アプリ",
     "fontFamilyHelperLinkText": "利用可能なフォントを表示",
     "fontFamilyLabel": "フォント",
@@ -96,6 +96,13 @@
     "orderCountTooltip": "選択した日付範囲内の総注文数。",
     "startDatePickerLabel": "開始"
   },
+  "DeleteMerchantMeDialog": {
+    "cancelButton": "キャンセル",
+    "content": "アカウントを削除してもよろしいですか？この取り返しのつかない行動は、顧客のアカウントや注文履歴を含むすべてのデータを消去します。法的な理由で最小限の記録を保持しますが、アカウントの復元は実現不可能です。以下にメールアドレスを入力して、この最終ステップを確認してください。",
+    "deleteButton": "削除を確認",
+    "emailLabel": "メールアドレスを確認",
+    "title": "アカウントを削除"
+  },
   "FaqAccordion": {
     "ads": {
       "details": "無料版では、表示される広告は主にGoogle Adsから取得されています。",
@@ -160,6 +167,178 @@
   "MaintenanceComponent": {
     "description": "現在、当サイトは予定されたメンテナンス中です。ご不便をおかけし申し訳ございませんが、もうしばらくお待ちください。",
     "title": "メンテナンス中"
+  },
+  "NotFoundComponent": {
+    "button": "ホームに戻る",
+    "description": "探しているページは存在しないか、移動されました。",
+    "title": "ページが見つかりません"
+  },
+  "OnboardingStepper": {
+    "customize": "カスタマイズ",
+    "publish": "公開",
+    "register": "登録",
+    "synchronize": "同期"
+  },
+  "OrderingEnabledFormControlLabel": {
+    "label": "注文有効"
+  },
+  "OrdersDataGrid": {
+    "closedDateHeaderName": "閉鎖日",
+    "customerHeaderName": "顧客",
+    "idHeaderName": "注文ID",
+    "locationHeaderName": "場所",
+    "noData": "注文はここに表示されます。",
+    "totalMoneyAmountHeaderName": "合計"
+  },
+  "PasswordForgotComponent": {
+    "title": "パスワードをリセット"
+  },
+  "PasswordForgotForm": {
+    "button": "パスワードのリセットを要求",
+    "emailField": "メール",
+    "successAlert": "メッセージが送信されました。まもなくご連絡いたします。"
+  },
+  "PasswordResetComponent": {
+    "title": "パスワードをリセット"
+  },
+  "PasswordResetForm": {
+    "confirmPassword": "パスワードを確認",
+    "newPassword": "新しいパスワード",
+    "passwordsMustMatch": "パスワードが一致する必要があります",
+    "resetPassword": "パスワードをリセット",
+    "resetPasswordSuccess": "パスワードがリセットされました。ログインできるようになりました。"
+  },
+  "RegisterComponent": {
+    "title": "登録"
+  },
+  "RegisterEmailForm": {
+    "email": "メール",
+    "firstName": "名",
+    "lastName": "姓",
+    "password": "パスワード",
+    "submitButton": "メールアドレスで登録"
+  },
+  "SetupAppConfigComponent": {
+    "formTabLabel": "オプション",
+    "previewTabLabel": "プレビュー"
+  },
+  "SetupCatalogComponent": {
+    "catalogTabLabel": "カタログ",
+    "continueButton": "受け入れて続行",
+    "previewTabLabel": "プレビュー",
+    "tooltip": "カテゴリーやアイテムをドラッグアンドドロップで並べ替えます。スイッチをオフにしてアプリから削除します。アイテムをクリックして、詳細を表示し、修正します。Squareカタログの変更はこちらで自動的に更新されます。"
+  },
+  "SetupSquareOauthComponent": {
+    "fallbackError": "おっと、何か問題が発生しました。ご心配なく、あなたのデータは安全です。私たちは通知されており、問題を修正するために作業しています。"
+  },
+  "SignInLink": {
+    "text": "アカウントをお持ちですか？ログイン"
+  },
+  "SignUpLink": {
+    "text": "初めての方ですか？登録する"
+  },
+  "SquareOauthButton": {
+    "text": "Squareを認証"
+  },
+  "SquareOauthExplainerCard": {
+    "catalogSyncPrimary": "カタログ同期",
+    "catalogSyncSecondary": "私たちのアプリケーションがあなたのカタログを取得するための認証を行い、現在の商品リストとのシームレスな統合を保証します。",
+    "dataSecurityPrimary": "データセキュリティ",
+    "dataSecuritySecondary": "あなたのデータはSquareのセキュリティ対策によって保護されています。Squareのダッシュボードからいつでも許可を管理または取り消すことができます。",
+    "orderSubmissionPrimary": "注文の提出",
+    "orderSubmissionSecondary": "お客様の代わりに注文を行うことを許可し、迅速かつスムーズな注文処理を保証します。",
+    "posIntegrationPrimary": "POS統合",
+    "posIntegrationSecondary": "注文を直接販売点システムに送信し、オンライン注文と対面販売のギャップを埋める。",
+    "title": "Squareアカウントを接続する"
+  },
+  "StatisticsCard": {
+    "averageAbbreviation": "平均",
+    "maximumAbbreviation": "最大",
+    "minimumAbbreviation": "最小"
+  },
+  "StripeCheckoutButton": {
+    "comingSoon": "近日公開！",
+    "text": "Subscribe"
+  },
+  "StripeCheckoutCancelledCard": {
+    "body": "人生は忙しくなることがありますが、それを理解しています。設定を完了するために戻ることを選択した場合、進行状況は保存されていることを知ってください。上のナビゲーションを使用して、以前のステップをいつでも再訪することができます。質問や詳細については、下のFAQセクションや公開オプションが利用可能です。",
+    "title": "支払いが中断されたことに気付きました"
+  },
+  "SupportComponent": {
+    "faqTitle": "よくある質問",
+    "formTitle": "サポート"
+  },
+  "SupportRequestForm": {
+    "buttonText": "送信する",
+    "subjectField": "これは何についてですか？",
+    "subjectPlaceholder": "例：請求、技術的な問題、一般的な問い合わせ",
+    "successAlert": "メッセージが送信されました。近くお返事します。",
+    "textField": "何が起きているのか教えてください",
+    "textPlaceholder": "詳細を提供していただければ、早く助けられます"
+  },
+  "Tier0CheckoutCard": {
+    "buttonText": "今すぐ私のウェブアプリを公開",
+    "perMonth": "/月",
+    "perfectForBody": "モバイルオーダリングを始めたばかりで、ウェブだけのプレゼンスに焦点を当てている小規模企業に最適。",
+    "perfectForHeader": "これに最適:",
+    "subheader": "ウェブ",
+    "supportPrimary": "基本サポート",
+    "supportSecondary": "最善努力のサポート、72時間以内の応答。",
+    "title": "無料",
+    "transactionFee": "トランザクションごとに+5%"
+  },
+  "Tier0SuccessCard": {
+    "nextStepsPrimary": "今後のマイルストーン:",
+    "nextStepsSecondary": "パフォーマンス分析をチェックし、それに応じてマーケティングを調整してください。もっと欲しい場合は、さらに充実した体験のためにシームレスにアップグレードできます。",
+    "subheader": "よくやった！あなたのウェブアプリは完全に機能しており、注文を受け付ける準備ができています。",
+    "supportPrimary": "基本サポート",
+    "supportSecondary": "困ったら、基本サポートを利用してください。72時間以内に返信を期待してください。",
+    "title": "あなたのウェブアプリはライブです！"
+  },
+  "Tier1CheckoutCard": {
+    "buttonText": "今すぐ私のAndroidアプリを公開",
+    "perMonth": "/月",
+    "perfectForBody": "AndroidプレゼンスとバニティURLを望む成長中のビジネスに適しています。",
+    "perfectForHeader": "これに最適:",
+    "subheader": "ウェブ＆Android",
+    "supportPrimary": "強化サポート",
+    "supportSecondary": "48時間以内のサポート応答が保証されています。",
+    "title": "スターター",
+    "transactionFee": "トランザクションごとに+2.5%"
+  },
+  "Tier1SuccessCard": {
+    "nextStepsPrimary": "直ちに優先すべき事項：",
+    "nextStepsSecondary": "ウェブアプリのプロモーションを始め、Androidのローンチに備えましょう。テクノロジーは私たちが担当するので、販売に集中してください。",
+    "subheader": "成功！あなたのウェブアプリは稼働中です。しばらくお待ちください；Androidアプリも近々ローンチされます。",
+    "supportPrimary": "強化されたサポート",
+    "supportSecondary": "質問がありますか？強化されたサポートは、あなたの質問に48時間以内に回答することを保証します。",
+    "title": "ウェブとAndroid—近日公開！"
+  },
+  "Tier2CheckoutCard": {
+    "buttonText": "今すぐ私のスイートを公開",
+    "perMonth": "/月",
+    "perfectForBody": "トランザクション手数料ゼロでプレミアムなマルチプラットフォーム体験を求める確立されたビジネスに最適。",
+    "perfectForHeader": "これに最適:",
+    "subheader": "ウェブ、Android、iOS",
+    "supportPrimary": "優先サポート",
+    "supportSecondary": "開発チームからのライブサポート、24時間以内の応答。",
+    "title": "コンプリート",
+    "transactionFee": "手数料なし"
+  },
+  "Tier2SuccessCard": {
+    "nextStepsPrimary": "アクションアイテム：",
+    "nextStepsSecondary": "AndroidとiOSアプリを完成させる間、ウェブアプリの可視性を最大化しましょう。あなたのクロスプラットフォーム戦略は次のレベルに進む予定です。",
+    "subheader": "素晴らしい！あなたのウェブアプリは稼働しており、顧客にサービスを提供しています。AndroidとiOSのバージョンは開発中です。",
+    "supportPrimary": "優先サポート",
+    "supportSecondary": "迅速な支援が必要ですか？優先サポートでは、開発チームから24時間以内にリアルタイムのレスポンスが得られます。",
+    "title": "フルパッケージ—ウェブ、Android、およびiOS！"
+  },
+  "UserUpdateForm": {
+    "deleteButton": "アカウントを削除",
+    "email": "メール",
+    "firstName": "名",
+    "lastName": "姓",
+    "saveButton": "保存"
   },
   "metadata": {
     "account": {
@@ -419,175 +598,5 @@
       },
       "title": "テーマのカスタマイゼーション"
     }
-  },
-  "NotFoundComponent": {
-    "button": "ホームに戻る",
-    "description": "探しているページは存在しないか、移動されました。",
-    "title": "ページが見つかりません"
-  },
-  "OnboardingStepper": {
-    "customize": "カスタマイズ",
-    "publish": "公開",
-    "register": "登録",
-    "synchronize": "同期"
-  },
-  "OrderingEnabledFormControlLabel": {
-    "label": "注文有効"
-  },
-  "OrdersDataGrid": {
-    "closedDateHeaderName": "閉鎖日",
-    "customerHeaderName": "顧客",
-    "idHeaderName": "注文ID",
-    "locationHeaderName": "場所",
-    "noData": "注文はここに表示されます。",
-    "totalMoneyAmountHeaderName": "合計"
-  },
-  "PasswordForgotComponent": {
-    "title": "パスワードをリセット"
-  },
-  "PasswordForgotForm": {
-    "button": "パスワードのリセットを要求",
-    "emailField": "メール",
-    "successAlert": "メッセージが送信されました。まもなくご連絡いたします。"
-  },
-  "PasswordResetComponent": {
-    "title": "パスワードをリセット"
-  },
-  "PasswordResetForm": {
-    "confirmPassword": "パスワードを確認",
-    "newPassword": "新しいパスワード",
-    "passwordsMustMatch": "パスワードが一致する必要があります",
-    "resetPassword": "パスワードをリセット",
-    "resetPasswordSuccess": "パスワードがリセットされました。ログインできるようになりました。"
-  },
-  "RegisterComponent": {
-    "title": "登録"
-  },
-  "RegisterEmailForm": {
-    "email": "メール",
-    "firstName": "名",
-    "lastName": "姓",
-    "password": "パスワード",
-    "submitButton": "メールアドレスで登録"
-  },
-  "SetupAppConfigComponent": {
-    "formTabLabel": "オプション",
-    "previewTabLabel": "プレビュー"
-  },
-  "SetupCatalogComponent": {
-    "catalogTabLabel": "カタログ",
-    "continueButton": "受け入れて続行",
-    "previewTabLabel": "プレビュー",
-    "tooltip": "カテゴリーやアイテムをドラッグアンドドロップで並べ替えます。スイッチをオフにしてアプリから削除します。アイテムをクリックして、詳細を表示し、修正します。Squareカタログの変更はこちらで自動的に更新されます。"
-  },
-  "SetupSquareOauthComponent": {
-    "fallbackError": "おっと、何か問題が発生しました。ご心配なく、あなたのデータは安全です。私たちは通知されており、問題を修正するために作業しています。"
-  },
-  "SignInLink": {
-    "text": "アカウントをお持ちですか？ログイン"
-  },
-  "SignUpLink": {
-    "text": "初めての方ですか？登録する"
-  },
-  "SquareOauthButton": {
-    "text": "Squareを認証"
-  },
-  "SquareOauthExplainerCard": {
-    "catalogSyncPrimary": "カタログ同期",
-    "catalogSyncSecondary": "私たちのアプリケーションがあなたのカタログを取得するための認証を行い、現在の商品リストとのシームレスな統合を保証します。",
-    "dataSecurityPrimary": "データセキュリティ",
-    "dataSecuritySecondary": "あなたのデータはSquareのセキュリティ対策によって保護されています。Squareのダッシュボードからいつでも許可を管理または取り消すことができます。",
-    "orderSubmissionPrimary": "注文の提出",
-    "orderSubmissionSecondary": "お客様の代わりに注文を行うことを許可し、迅速かつスムーズな注文処理を保証します。",
-    "posIntegrationPrimary": "POS統合",
-    "posIntegrationSecondary": "注文を直接販売点システムに送信し、オンライン注文と対面販売のギャップを埋める。",
-    "title": "Squareアカウントを接続する"
-  },
-  "StatisticsCard": {
-    "averageAbbreviation": "平均",
-    "maximumAbbreviation": "最大",
-    "minimumAbbreviation": "最小"
-  },
-  "StripeCheckoutButton": {
-    "text": "Subscribe",
-    "comingSoon": "近日公開！"
-  },
-  "StripeCheckoutCancelledCard": {
-    "body": "人生は忙しくなることがありますが、それを理解しています。設定を完了するために戻ることを選択した場合、進行状況は保存されていることを知ってください。上のナビゲーションを使用して、以前のステップをいつでも再訪することができます。質問や詳細については、下のFAQセクションや公開オプションが利用可能です。",
-    "title": "支払いが中断されたことに気付きました"
-  },
-  "SupportComponent": {
-    "faqTitle": "よくある質問",
-    "formTitle": "サポート"
-  },
-  "SupportRequestForm": {
-    "buttonText": "送信する",
-    "subjectField": "これは何についてですか？",
-    "subjectPlaceholder": "例：請求、技術的な問題、一般的な問い合わせ",
-    "successAlert": "メッセージが送信されました。近くお返事します。",
-    "textField": "何が起きているのか教えてください",
-    "textPlaceholder": "詳細を提供していただければ、早く助けられます"
-  },
-  "Tier0CheckoutCard": {
-    "buttonText": "今すぐ私のウェブアプリを公開",
-    "perfectForBody": "モバイルオーダリングを始めたばかりで、ウェブだけのプレゼンスに焦点を当てている小規模企業に最適。",
-    "perfectForHeader": "これに最適:",
-    "perMonth": "/月",
-    "subheader": "ウェブ",
-    "supportPrimary": "基本サポート",
-    "supportSecondary": "最善努力のサポート、72時間以内の応答。",
-    "title": "無料",
-    "transactionFee": "トランザクションごとに+5%"
-  },
-  "Tier0SuccessCard": {
-    "nextStepsPrimary": "今後のマイルストーン:",
-    "nextStepsSecondary": "パフォーマンス分析をチェックし、それに応じてマーケティングを調整してください。もっと欲しい場合は、さらに充実した体験のためにシームレスにアップグレードできます。",
-    "subheader": "よくやった！あなたのウェブアプリは完全に機能しており、注文を受け付ける準備ができています。",
-    "supportPrimary": "基本サポート",
-    "supportSecondary": "困ったら、基本サポートを利用してください。72時間以内に返信を期待してください。",
-    "title": "あなたのウェブアプリはライブです！"
-  },
-  "Tier1CheckoutCard": {
-    "buttonText": "今すぐ私のAndroidアプリを公開",
-    "perfectForBody": "AndroidプレゼンスとバニティURLを望む成長中のビジネスに適しています。",
-    "perfectForHeader": "これに最適:",
-    "perMonth": "/月",
-    "subheader": "ウェブ＆Android",
-    "supportPrimary": "強化サポート",
-    "supportSecondary": "48時間以内のサポート応答が保証されています。",
-    "title": "スターター",
-    "transactionFee": "トランザクションごとに+2.5%"
-  },
-  "Tier1SuccessCard": {
-    "nextStepsPrimary": "直ちに優先すべき事項：",
-    "nextStepsSecondary": "ウェブアプリのプロモーションを始め、Androidのローンチに備えましょう。テクノロジーは私たちが担当するので、販売に集中してください。",
-    "subheader": "成功！あなたのウェブアプリは稼働中です。しばらくお待ちください；Androidアプリも近々ローンチされます。",
-    "supportPrimary": "強化されたサポート",
-    "supportSecondary": "質問がありますか？強化されたサポートは、あなたの質問に48時間以内に回答することを保証します。",
-    "title": "ウェブとAndroid—近日公開！"
-  },
-  "Tier2CheckoutCard": {
-    "buttonText": "今すぐ私のスイートを公開",
-    "perfectForBody": "トランザクション手数料ゼロでプレミアムなマルチプラットフォーム体験を求める確立されたビジネスに最適。",
-    "perfectForHeader": "これに最適:",
-    "perMonth": "/月",
-    "subheader": "ウェブ、Android、iOS",
-    "supportPrimary": "優先サポート",
-    "supportSecondary": "開発チームからのライブサポート、24時間以内の応答。",
-    "title": "コンプリート",
-    "transactionFee": "手数料なし"
-  },
-  "Tier2SuccessCard": {
-    "nextStepsPrimary": "アクションアイテム：",
-    "nextStepsSecondary": "AndroidとiOSアプリを完成させる間、ウェブアプリの可視性を最大化しましょう。あなたのクロスプラットフォーム戦略は次のレベルに進む予定です。",
-    "subheader": "素晴らしい！あなたのウェブアプリは稼働しており、顧客にサービスを提供しています。AndroidとiOSのバージョンは開発中です。",
-    "supportPrimary": "優先サポート",
-    "supportSecondary": "迅速な支援が必要ですか？優先サポートでは、開発チームから24時間以内にリアルタイムのレスポンスが得られます。",
-    "title": "フルパッケージ—ウェブ、Android、およびiOS！"
-  },
-  "UserUpdateForm": {
-    "email": "メール",
-    "firstName": "名",
-    "lastName": "姓"
   }
 }

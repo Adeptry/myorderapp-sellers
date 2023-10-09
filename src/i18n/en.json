@@ -96,6 +96,13 @@
     "orderCountTooltip": "Total orders within the selected date range.",
     "startDatePickerLabel": "Start"
   },
+  "DeleteMerchantMeDialog": {
+    "cancelButton": "Cancel",
+    "content": "Are you certain you wish to delete your account? This irreversible action will erase all your data, including customer accounts and order history. While we'll maintain minimal records for legal reasons, restoring your account won't be feasible. Please confirm this final step by entering your email address below.",
+    "deleteButton": "Confirm Deletion",
+    "emailLabel": "Confirm Email",
+    "title": "Delete Account"
+  },
   "FaqAccordion": {
     "ads": {
       "details": "For the Free version, the advertisements you see are predominantly sourced from Google Ads.",
@@ -250,8 +257,8 @@
     "minimumAbbreviation": "Min"
   },
   "StripeCheckoutButton": {
-    "text": "Subscribe",
-    "comingSoon": "Coming soon!"
+    "comingSoon": "Coming soon!",
+    "text": "Subscribe"
   },
   "StripeCheckoutCancelledCard": {
     "body": "Life gets busy, and we understand that. Should you choose to return and finalize your setup, know that your progress is saved. At any point, you can revisit previous steps using the navigation above. For any queries or more insights, our FAQ section and publishing options are readily available below.",
@@ -327,9 +334,11 @@
     "title": "The Full Package—Web, Android, and iOS!"
   },
   "UserUpdateForm": {
+    "deleteButton": "Delete account",
     "email": "Email",
     "firstName": "First name",
-    "lastName": "Last name"
+    "lastName": "Last name",
+    "saveButton": "Save"
   },
   "metadata": {
     "account": {

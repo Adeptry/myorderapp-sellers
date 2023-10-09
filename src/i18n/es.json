@@ -4,8 +4,8 @@
   },
   "AdaptiveScaffoldLayout": {
     "account": "Cuenta",
-    "billing": "Facturación",
     "beta": "Beta",
+    "billing": "Facturación",
     "catalog": "Catálogo",
     "customers": "Clientes",
     "dashboard": "Panel",
@@ -95,6 +95,13 @@
     "orderCountTitle": "{count} Pedidos",
     "orderCountTooltip": "Total de pedidos dentro del rango de fechas seleccionado.",
     "startDatePickerLabel": "Inicio"
+  },
+  "DeleteMerchantMeDialog": {
+    "content": "¿Está seguro de que desea eliminar su cuenta? Esta acción irreversible borrará todos sus datos, incluidas las cuentas de clientes y el historial de pedidos. Aunque mantendremos registros mínimos por razones legales, no será factible restaurar su cuenta. Por favor confirme este paso final ingresando su dirección de correo electrónico a continuación.",
+    "title": "Eliminar cuenta",
+    "cancelButton": "Cancelar",
+    "deleteButton": "Confirmar eliminación",
+    "emailLabel": "Confirmar correo electrónico"
   },
   "FaqAccordion": {
     "ads": {
@@ -250,8 +257,8 @@
     "minimumAbbreviation": "Mín"
   },
   "StripeCheckoutButton": {
-    "text": "Subscribe",
-    "comingSoon": "¡Próximamente!"
+    "comingSoon": "¡Próximamente!",
+    "text": "Subscribe"
   },
   "StripeCheckoutCancelledCard": {
     "body": "La vida se pone ocupada y lo entendemos. Si decides regresar y finalizar tu configuración, ten en cuenta que tu progreso está guardado. En cualquier momento, puedes revisitar los pasos anteriores usando la navegación de arriba. Para cualquier consulta o más información, nuestra sección de preguntas frecuentes y opciones de publicación están disponibles a continuación.",
@@ -327,9 +334,11 @@
     "title": "El paquete completo—Web, Android e iOS!"
   },
   "UserUpdateForm": {
+    "deleteButton": "Eliminar cuenta",
     "email": "Correo electrónico",
     "firstName": "Nombre",
-    "lastName": "Apellido"
+    "lastName": "Apellido",
+    "saveButton": "Guardar"
   },
   "metadata": {
     "account": {

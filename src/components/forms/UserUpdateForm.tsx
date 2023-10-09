@@ -1,21 +1,25 @@
+import { routes } from "@/app/routes";
 import { useGetMerchantMeQuery } from "@/networking/queries/useGetMerchantMeQuery";
 import { configurationForSession } from "@/utils/configurationForSession";
 import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Save } from "@mui/icons-material";
+import { Save, Warning } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
-import { Alert, Box, Skeleton } from "@mui/material";
+import { Alert, Box, Button, Skeleton } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { UserPatchBody, UsersApi } from "myorderapp-square";
-import { getSession } from "next-auth/react";
+import { getSession, signOut } from "next-auth/react";
 import { Fragment, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslations } from "use-intl";
 import * as yup from "yup";
+
+import { useDeleteMerchantMeMutation } from "@/networking/mutations/useDeleteMerchantMeMutation";
+import DeleteMerchantMeDialog from "../dialogs/DeleteMerchantMeDialog";
 
 export type UserUpdateFormType = UserPatchBody;
 
@@ -25,6 +29,8 @@ export function UserUpdateForm() {
   const t = useTranslations("UserUpdateForm");
   const configuration = useSessionedApiConfiguration();
   const currentMerchantQuery = useGetMerchantMeQuery();
+  const [showDeleteDialogState, setShowDeleteDialogState] =
+    useState<boolean>(false);
 
   const { formState, setError, handleSubmit, control, reset, watch } =
     useForm<UserUpdateFormType>({
@@ -55,7 +61,7 @@ export function UserUpdateForm() {
     return () => subscription.unsubscribe();
   }, [watch()]);
 
-  const mutation = useMutation({
+  const patchUserMeMutation = useMutation({
     mutationFn: async (userPatchBody: UserUpdateFormType) => {
       return (await new UsersApi(configuration).patchUserMe({ userPatchBody }))
         .data;
@@ -64,6 +70,8 @@ export function UserUpdateForm() {
       currentMerchantQuery.refetch();
     },
   });
+
+  const deleteMerchantMeMutation = useDeleteMerchantMeMutation();
 
   async function handleOnValidSubmit(data: UserUpdateFormType) {
     const dirtyFields = formState.dirtyFields;
@@ -76,7 +84,7 @@ export function UserUpdateForm() {
     }, {});
 
     try {
-      const result = await mutation.mutateAsync(dirtyObject);
+      const result = await patchUserMeMutation.mutateAsync(dirtyObject);
       reset({
         ...result,
       });
@@ -213,21 +221,48 @@ export function UserUpdateForm() {
               <Skeleton height="58px" width="100%" />
             ) : (
               <LoadingButton
-                loading={mutation.isLoading || formState.isSubmitting}
+                loading={
+                  patchUserMeMutation.isLoading || formState.isSubmitting
+                }
                 size="large"
                 startIcon={<Save />}
-                disabled={mutation.isLoading || !formState.isDirty}
+                disabled={patchUserMeMutation.isLoading || !formState.isDirty}
                 color="secondary"
                 type="submit"
                 fullWidth
                 variant="contained"
               >
-                {t("save")}
+                {t("saveButton")}
               </LoadingButton>
+            )}
+          </Grid>
+          <Grid item xs={12} textAlign="center">
+            {skeletonState ? (
+              <Skeleton height="58px" width="100%" />
+            ) : (
+              <Button
+                color="error"
+                variant="contained"
+                startIcon={<Warning />}
+                onClick={() => setShowDeleteDialogState(true)}
+                sx={{ mt: 5 }}
+              >
+                {t("deleteButton")}
+              </Button>
             )}
           </Grid>
         </Grid>
       </Box>
+      <DeleteMerchantMeDialog
+        open={showDeleteDialogState}
+        onClose={async (confirmed) => {
+          setShowDeleteDialogState(false);
+          if (confirmed) {
+            deleteMerchantMeMutation.mutateAsync();
+            await signOut({ callbackUrl: routes.login });
+          }
+        }}
+      />
     </Fragment>
   );
 }
