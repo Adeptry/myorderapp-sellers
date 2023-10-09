@@ -50,7 +50,7 @@ export default function DeleteMerchantMeDialog(props: {
         <Button
           onClick={() => onClose(false)}
           variant="contained"
-          color="primary"
+          color="secondary"
         >
           {t("cancelButton")}
         </Button>

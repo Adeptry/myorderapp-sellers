@@ -222,6 +222,16 @@
     "formTabLabel": "Options",
     "previewTabLabel": "Preview"
   },
+  "SetupAppConfigDialog": {
+    "button": "Let's Go!",
+    "content": "Congratulations on taking your first step to publishing your mobile ordering applicaiton on web, Android, and iOS! On the left, define your app's identity with a name, icon, font, and color theme. On the right, witness a live preview populated with placeholders. Feel uncertain about a selection? Relax; you can refine later. Before launch, we'll touch base to ensure everything's perfect. Once you sync with Square, you'll be able to see your catalog and make a test order if you'd like. Excited to dive in?",
+    "title": "Welcome to MyOrderApp for Sellers!"
+  },
+  "SetupCatalogDialog": {
+    "button": "Let's Do This!",
+    "content": "Great progress on your app setup and Square integration! Now, let's fine-tune your catalog. Drag and drop for order preference, tap to reveal Category Items and Variations, and use the toggle to enable or disable specific entries. Add a touch of flair by using the '+' button to upload images, which will display in-app. Remember, any updates in Square will automatically sync here. All set to get started?",
+    "title": "Your Catalog Awaits!"
+  },
   "SetupCatalogComponent": {
     "catalogTabLabel": "Catalog",
     "continueButton": "Accept and Continue",

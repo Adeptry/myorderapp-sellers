@@ -222,11 +222,21 @@
     "formTabLabel": "Options",
     "previewTabLabel": "Aperçu"
   },
+  "SetupAppConfigDialog": {
+    "button": "Allons-y !",
+    "content": "Embarquez dans votre aventure de commande mobile sur le web, Android et iOS ! À gauche, définissez l'identité de votre application avec un nom, une icône, une police et un thème de couleur. À droite, observez une prévisualisation en direct avec des espaces réservés. Vous avez des doutes sur un choix ? Détendez-vous; vous pourrez ajuster ultérieurement. Avant le lancement, nous reprendrons contact pour assurer que tout est parfait. Après avoir synchronisé avec Square, un test d'application sur navigateur vous attend. Prêt à plonger ?",
+    "title": "Débutez avec MyOrderApp pour les vendeurs !"
+  },
   "SetupCatalogComponent": {
     "catalogTabLabel": "Catalogue",
     "continueButton": "Accepter et continuer",
     "previewTabLabel": "Aperçu",
     "tooltip": "Réorganisez les catégories et les articles par glisser-déposer. Éteignez le bouton pour les retirer de l'application. Cliquez sur un article pour afficher et modifier ses détails. Les modifications dans votre catalogue Square seront automatiquement mises à jour ici."
+  },
+  "SetupCatalogDialog": {
+    "button": "Allons-y !",
+    "content": "Vous avez bien avancé dans la configuration de votre application et dans l'intégration avec Square! Maintenant, affinons votre catalogue. Glissez et déposez pour choisir l'ordre de préférence, appuyez pour afficher les Articles de Catégorie et les Variantes, et utilisez le bouton pour activer ou désactiver des entrées spécifiques. Ajoutez une touche d'originalité en utilisant le bouton '+' pour télécharger des images, qui seront affichées dans l'application. N'oubliez pas, toute mise à jour dans Square sera automatiquement synchronisée ici. Prêt à commencer?",
+    "title": "Votre catalogue vous attend !"
   },
   "SetupSquareOauthComponent": {
     "fallbackError": "Oups, quelque chose s'est mal passé. Ne vous inquiétez pas, vos données sont en sécurité. Nous avons été informés et travaillons à résoudre le problème."

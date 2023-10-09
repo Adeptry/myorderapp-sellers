@@ -29,6 +29,8 @@ import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next-intl/client";
+import { useState } from "react";
+import SetupCatalogDialog from "../dialogs/SetupCatalogDialog";
 
 export function SetupCatalogComponent() {
   useRedirectSetupSessions(routes.catalog);
@@ -44,6 +46,7 @@ export function SetupCatalogComponent() {
   const t = useTranslations("SetupCatalogComponent");
   const maxHeightCssString = useMaxHeightCssString();
   const { data } = useSession();
+  const [showDialogState, setShowDialogState] = useState<boolean>(true);
 
   return (
     <Container sx={{ minHeight: maxHeightCssString }}>
@@ -121,6 +124,10 @@ export function SetupCatalogComponent() {
           />
         </TabLayout>
       </Stack>
+      <SetupCatalogDialog
+        open={showDialogState}
+        onClose={() => setShowDialogState(false)}
+      />
     </Container>
   );
 }

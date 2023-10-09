@@ -56,7 +56,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { MerchantsApi } from "myorderapp-square";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next-intl/client";
 import { Fragment, ReactNode, useState } from "react";
@@ -128,7 +128,6 @@ export function AdaptiveScaffoldLayout(props: { children: ReactNode }) {
     setFalse: setDrawerOpenStateFalse,
   } = useBoolean(false);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-  const { status } = useSession();
   const queryClient = useQueryClient();
   const { data: currentMerchantData } = useGetMerchantMeQuery();
   const sessionedApiConfiguration = useSessionedApiConfiguration();

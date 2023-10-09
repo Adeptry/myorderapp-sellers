@@ -6,7 +6,6 @@ import { AppConfigForm } from "@/components/forms/AppConfigForm";
 import { TabLayout } from "@/components/layouts/TabLayout";
 import { OnboardingStepper } from "@/components/steppers/OnboardingStepper";
 import { moaEnv } from "@/moaEnv";
-import { useGetMerchantMeQuery } from "@/networking/queries/useGetMerchantMeQuery";
 import { useRedirectSetupSessions } from "@/routing/useRedirectSetupSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { Container, Stack } from "@mui/material";
@@ -15,8 +14,8 @@ import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 import { AppConfigEntity } from "myorderapp-square";
 import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import SetupAppConfigDialog from "../dialogs/SetupAppConfigDialog";
 
 export function SetupAppConfigComponent() {
   useRedirectSetupSessions(routes.theme);
@@ -29,9 +28,8 @@ export function SetupAppConfigComponent() {
   const maxHeightCssString = useMaxHeightCssString();
   const locale = useLocale();
 
-  const { push } = useRouter();
-  const { data: sessionData, status: authenticationStatus } = useSession();
-  const { data: merchantMe, status: queryStatus } = useGetMerchantMeQuery();
+  const { data: sessionData } = useSession();
+  const [showDialogState, setShowDialogState] = useState<boolean>(true);
 
   return (
     <Container sx={{ minHeight: maxHeightCssString }}>
@@ -67,6 +65,10 @@ export function SetupAppConfigComponent() {
           />
         </TabLayout>
       </Stack>
+      <SetupAppConfigDialog
+        open={showDialogState}
+        onClose={() => setShowDialogState(false)}
+      />
     </Container>
   );
 }

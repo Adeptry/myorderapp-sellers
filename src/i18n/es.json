@@ -97,11 +97,11 @@
     "startDatePickerLabel": "Inicio"
   },
   "DeleteMerchantMeDialog": {
-    "content": "¿Está seguro de que desea eliminar su cuenta? Esta acción irreversible borrará todos sus datos, incluidas las cuentas de clientes y el historial de pedidos. Aunque mantendremos registros mínimos por razones legales, no será factible restaurar su cuenta. Por favor confirme este paso final ingresando su dirección de correo electrónico a continuación.",
-    "title": "Eliminar cuenta",
     "cancelButton": "Cancelar",
+    "content": "¿Está seguro de que desea eliminar su cuenta? Esta acción irreversible borrará todos sus datos, incluidas las cuentas de clientes y el historial de pedidos. Aunque mantendremos registros mínimos por razones legales, no será factible restaurar su cuenta. Por favor confirme este paso final ingresando su dirección de correo electrónico a continuación.",
     "deleteButton": "Confirmar eliminación",
-    "emailLabel": "Confirmar correo electrónico"
+    "emailLabel": "Confirmar correo electrónico",
+    "title": "Eliminar cuenta"
   },
   "FaqAccordion": {
     "ads": {
@@ -222,11 +222,21 @@
     "formTabLabel": "Opciones",
     "previewTabLabel": "Vista previa"
   },
+  "SetupAppConfigDialog": {
+    "button": "¡Vamos allá!",
+    "content": "¡Embarca en tu aventura de pedidos móviles en la web, Android e iOS! A la izquierda, define la identidad de tu aplicación con un nombre, ícono, fuente y tema de color. A la derecha, observa una vista previa en vivo poblada con marcadores de posición. ¿Sientes incertidumbre acerca de una selección? Relájate; puedes afinar detalles más adelante. Antes del lanzamiento, nos pondremos en contacto para asegurarnos de que todo esté perfecto. Una vez que sincronices con Square, te espera una prueba de aplicación basada en el navegador. ¿Listo para sumergirte?",
+    "title": "¡Comienza con MyOrderApp para vendedores!"
+  },
   "SetupCatalogComponent": {
     "catalogTabLabel": "Catálogo",
     "continueButton": "Aceptar y continuar",
     "previewTabLabel": "Vista previa",
     "tooltip": "Reordena las categorías y elementos mediante arrastrar y soltar. Apaga el interruptor para eliminarlo de la aplicación. Haz clic en un elemento para revelar y modificar sus detalles. Los cambios en tu catálogo de Square se actualizarán automáticamente aquí."
+  },
+  "SetupCatalogDialog": {
+    "button": "¡Vamos a ello!",
+    "content": "¡Gran avance en la configuración de tu aplicación e integración con Square! Ahora, afinemos tu catálogo. Arrastra y suelta para ordenar las preferencias, toca para mostrar los Artículos de Categoría y las Variaciones, y usa el interruptor para habilitar o deshabilitar entradas específicas. Añade un toque distintivo usando el botón '+' para subir imágenes, que se mostrarán en la aplicación. Recuerda, cualquier actualización en Square se sincronizará automáticamente aquí. ¿Listo para comenzar?",
+    "title": "¡Tu catálogo te espera!"
   },
   "SetupSquareOauthComponent": {
     "fallbackError": "Vaya, algo salió mal. No te preocupes, tus datos están seguros. Hemos sido notificados y estamos trabajando para solucionar el problema."
