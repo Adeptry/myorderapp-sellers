@@ -25,7 +25,7 @@ export const useRedirectUnauthenticatedSessions = () => {
       router.push(routes.login);
     } else if (
       authenticationStatus === "authenticated" &&
-      userMeData != undefined
+      userMeData != undefined // check if customer
     ) {
       () => {};
     }
