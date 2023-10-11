@@ -61,7 +61,10 @@
   "CatalogAccordion": {
     "dragHandleTooltip": "Drag and drop to reorder in-app",
     "expandTooltip": "Expand to see sub-items",
-    "switchTooltip": "Toggle to enable or disable in-app"
+    "switchTooltip": "Toggle to enable or disable in-app",
+    "fileNotFoundError": "File missing. Retry or contact support if the issue continues.",
+    "invalidFileError": "Unsupported file type. Ensure it's JPEG, PJPEG, PNG, or GIF.",
+    "fileTooLargeError": "File exceeds the limit. Keep it under 250 MB."
   },
   "CatalogComponent": {
     "catalogTabLabel": "Catalog",
@@ -608,5 +611,9 @@
       },
       "title": "Theme Customization"
     }
+  },
+  "ErrorTextDialog": {
+    "fallbackTitle": "Oops, something went wrong.",
+    "fallbackButton": "Okay"
   }
 }

@@ -61,7 +61,10 @@
   "CatalogAccordion": {
     "dragHandleTooltip": "Arrastra y suelta para reordenar en la aplicación",
     "expandTooltip": "Expandir para ver subelementos",
-    "switchTooltip": "Alterna para habilitar o deshabilitar en la aplicación"
+    "switchTooltip": "Alterna para habilitar o deshabilitar en la aplicación",
+    "fileNotFoundError": "Archivo no encontrado. Vuelva a intentar o contacte con el soporte si el problema persiste.",
+    "invalidFileError": "Tipo de archivo no compatible. Asegúrese de que sea JPEG, PJPEG, PNG o GIF.",
+    "fileTooLargeError": "El archivo supera el límite. Manténgalo por debajo de 250 MB."
   },
   "CatalogComponent": {
     "catalogTabLabel": "Catálogo",

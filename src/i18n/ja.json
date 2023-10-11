@@ -61,7 +61,10 @@
   "CatalogAccordion": {
     "dragHandleTooltip": "アプリ内で並べ替えるためにドラッグアンドドロップ",
     "expandTooltip": "サブアイテムを見るために展開",
-    "switchTooltip": "アプリ内で有効/無効を切り替える"
+    "switchTooltip": "アプリ内で有効/無効を切り替える",
+    "fileNotFoundError": "ファイルが見つかりません。再試行するか、問題が続く場合はサポートに連絡してください。",
+    "invalidFileError": "サポートされていないファイルタイプです。JPEG、PJPEG、PNG、またはGIFであることを確認してください。",
+    "fileTooLargeError": "ファイルが制限を超えています。250 MB以下にしてください。"
   },
   "CatalogComponent": {
     "catalogTabLabel": "カタログ",
