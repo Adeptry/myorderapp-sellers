@@ -45,7 +45,6 @@ export function SquareOauthButton(props: SquareOauthButtonProps) {
   }
 
   if (
-    moaEnv.env !== "production" &&
     moaEnv.square.testCode != undefined &&
     moaEnv.square.testCode.length > 0
   ) {
