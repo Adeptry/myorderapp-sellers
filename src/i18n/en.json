@@ -227,7 +227,7 @@
   },
   "SetupAppConfigDialog": {
     "button": "Let's Go!",
-    "content": "Congratulations on taking your first step to publishing your mobile ordering applicaiton on web, Android, and iOS! On the left, define your app's identity with a name, icon, font, and color theme. On the right, witness a live preview populated with placeholders. Feel uncertain about a selection? Relax; you can refine later. Before launch, we'll touch base to ensure everything's perfect. Once you sync with Square, you'll be able to see your catalog and make a test order if you'd like. Excited to dive in?",
+    "content": "Congratulations on taking your first step to publishing your mobile ordering application on web, Android, and iOS! On the left, define your app's identity with a name, icon, font, and color theme. On the right, witness a live preview populated with placeholders. Feel uncertain about a selection? Relax; you can refine later. Before launch, we'll touch base to ensure everything's perfect. Once you sync with Square, you'll be able to see your catalog and make a test order if you'd like. Excited to dive in?",
     "title": "Welcome to MyOrderApp for Sellers!"
   },
   "SetupCatalogDialog": {
