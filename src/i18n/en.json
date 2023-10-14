@@ -61,10 +61,10 @@
   "CatalogAccordion": {
     "dragHandleTooltip": "Drag and drop to reorder in-app",
     "expandTooltip": "Expand to see sub-items",
-    "switchTooltip": "Toggle to enable or disable in-app",
     "fileNotFoundError": "File missing. Retry or contact support if the issue continues.",
+    "fileTooLargeError": "File exceeds the limit. Keep it under 250 MB.",
     "invalidFileError": "Unsupported file type. Ensure it's JPEG, PJPEG, PNG, or GIF.",
-    "fileTooLargeError": "File exceeds the limit. Keep it under 250 MB."
+    "switchTooltip": "Toggle to enable or disable in-app"
   },
   "CatalogComponent": {
     "catalogTabLabel": "Catalog",
@@ -105,6 +105,10 @@
     "deleteButton": "Confirm Deletion",
     "emailLabel": "Confirm Email",
     "title": "Delete Account"
+  },
+  "ErrorTextDialog": {
+    "fallbackButton": "Okay",
+    "fallbackTitle": "Oops, something went wrong."
   },
   "FaqAccordion": {
     "ads": {
@@ -230,16 +234,16 @@
     "content": "Congratulations on taking your first step to publishing your mobile ordering application on web, Android, and iOS! On the left, define your app's identity with a name, icon, font, and color theme. On the right, witness a live preview populated with placeholders. Feel uncertain about a selection? Relax; you can refine later. Before launch, we'll touch base to ensure everything's perfect. Once you sync with Square, you'll be able to see your catalog and make a test order if you'd like. Excited to dive in?",
     "title": "Welcome to MyOrderApp for Sellers!"
   },
-  "SetupCatalogDialog": {
-    "button": "Let's Do This!",
-    "content": "Great progress on your app setup and Square integration! Now, let's fine-tune your catalog. Drag and drop for order preference, tap to reveal Category Items and Variations, and use the toggle to enable or disable specific entries. Add a touch of flair by using the '+' button to upload images, which will display in-app. Remember, any updates in Square will automatically sync here. All set to get started?",
-    "title": "Your Catalog Awaits!"
-  },
   "SetupCatalogComponent": {
     "catalogTabLabel": "Catalog",
     "continueButton": "Accept and Continue",
     "previewTabLabel": "Preview",
     "tooltip": "Reorder categories and items via drag-and-drop. Turn off the switch to remove from the app. Click an item to reveal and modify its details. Changes in your Square catalog will auto-update here."
+  },
+  "SetupCatalogDialog": {
+    "button": "Let's Do This!",
+    "content": "Great progress on your app setup and Square integration! Now, let's fine-tune your catalog. Drag and drop for order preference, tap to reveal Category Items and Variations, and use the toggle to enable or disable specific entries. Add a touch of flair by using the '+' button to upload images, which will display in-app. Remember, any updates in Square will automatically sync here. All set to get started?",
+    "title": "Your Catalog Awaits!"
   },
   "SetupSquareOauthComponent": {
     "fallbackError": "Oops, something went wrong. Don't worry, your data is safe. We've been notified and are working to fix the issue."
@@ -611,9 +615,5 @@
       },
       "title": "Theme Customization"
     }
-  },
-  "ErrorTextDialog": {
-    "fallbackTitle": "Oops, something went wrong.",
-    "fallbackButton": "Okay"
   }
 }

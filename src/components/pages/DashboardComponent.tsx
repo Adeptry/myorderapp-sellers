@@ -145,16 +145,16 @@ export function DashboardComponent() {
               tooltipTitle={t("moneyTaxAmountTooltip")}
               loading={orderStatisticsLoading}
               sum={currencyFormatter(
-                (orderStatisticsData?.moneyTaxAmount?.sum ?? 0) / 100
+                (orderStatisticsData?.taxMoneyAmount?.sum ?? 0) / 100
               )}
               average={currencyFormatter(
-                (orderStatisticsData?.moneyTaxAmount?.average ?? 0) / 100
+                (orderStatisticsData?.taxMoneyAmount?.average ?? 0) / 100
               )}
               maximum={currencyFormatter(
-                (orderStatisticsData?.moneyTaxAmount?.maximum ?? 0) / 100
+                (orderStatisticsData?.taxMoneyAmount?.maximum ?? 0) / 100
               )}
               minimum={currencyFormatter(
-                (orderStatisticsData?.moneyTaxAmount?.minimum ?? 0) / 100
+                (orderStatisticsData?.taxMoneyAmount?.minimum ?? 0) / 100
               )}
             />
           </Grid>
@@ -164,16 +164,16 @@ export function DashboardComponent() {
               tooltipTitle={t("moneyTipAmountTooltip")}
               loading={orderStatisticsLoading}
               sum={currencyFormatter(
-                (orderStatisticsData?.moneyTipAmount?.sum ?? 0) / 100
+                (orderStatisticsData?.tipMoneyAmount?.sum ?? 0) / 100
               )}
               average={currencyFormatter(
-                (orderStatisticsData?.moneyTipAmount?.average ?? 0) / 100
+                (orderStatisticsData?.tipMoneyAmount?.average ?? 0) / 100
               )}
               maximum={currencyFormatter(
-                (orderStatisticsData?.moneyTipAmount?.maximum ?? 0) / 100
+                (orderStatisticsData?.tipMoneyAmount?.maximum ?? 0) / 100
               )}
               minimum={currencyFormatter(
-                (orderStatisticsData?.moneyTipAmount?.minimum ?? 0) / 100
+                (orderStatisticsData?.tipMoneyAmount?.minimum ?? 0) / 100
               )}
             />
           </Grid>
@@ -183,16 +183,16 @@ export function DashboardComponent() {
               tooltipTitle={t("moneyAppFeeAmountTooltip")}
               loading={orderStatisticsLoading}
               sum={currencyFormatter(
-                (orderStatisticsData?.moneyAppFeeAmount?.sum ?? 0) / 100
+                (orderStatisticsData?.appFeeMoneyAmount?.sum ?? 0) / 100
               )}
               average={currencyFormatter(
-                (orderStatisticsData?.moneyAppFeeAmount?.average ?? 0) / 100
+                (orderStatisticsData?.appFeeMoneyAmount?.average ?? 0) / 100
               )}
               maximum={currencyFormatter(
-                (orderStatisticsData?.moneyAppFeeAmount?.maximum ?? 0) / 100
+                (orderStatisticsData?.appFeeMoneyAmount?.maximum ?? 0) / 100
               )}
               minimum={currencyFormatter(
-                (orderStatisticsData?.moneyAppFeeAmount?.minimum ?? 0) / 100
+                (orderStatisticsData?.appFeeMoneyAmount?.minimum ?? 0) / 100
               )}
             />
           </Grid>

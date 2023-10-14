@@ -61,10 +61,10 @@
   "CatalogAccordion": {
     "dragHandleTooltip": "Glissez et déposez pour réorganiser dans l'application",
     "expandTooltip": "Déployez pour voir les sous-éléments",
-    "switchTooltip": "Basculez pour activer ou désactiver dans l'application",
     "fileNotFoundError": "Fichier manquant. Réessayez ou contactez le support si le problème persiste.",
+    "fileTooLargeError": "Le fichier dépasse la limite. Gardez-le sous 250 Mo.",
     "invalidFileError": "Type de fichier non pris en charge. Assurez-vous qu'il s'agisse de JPEG, PJPEG, PNG ou GIF.",
-    "fileTooLargeError": "Le fichier dépasse la limite. Gardez-le sous 250 Mo."
+    "switchTooltip": "Basculez pour activer ou désactiver dans l'application"
   },
   "CatalogComponent": {
     "catalogTabLabel": "Catalogue",
@@ -105,6 +105,10 @@
     "deleteButton": "Confirmer la suppression",
     "emailLabel": "Confirmer l'email",
     "title": "Supprimer le compte"
+  },
+  "ErrorTextDialog": {
+    "fallbackButton": "D'accord",
+    "fallbackTitle": "Oups, quelque chose s'est mal passé."
   },
   "FaqAccordion": {
     "ads": {
