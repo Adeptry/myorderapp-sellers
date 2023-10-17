@@ -11,11 +11,12 @@ import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { Container, Stack } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
-import { AppConfigEntity } from "myorderapp-square";
+import { AppConfigEntity, CategoryEntity } from "myorderapp-square";
 import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
-import SetupAppConfigDialog from "../dialogs/SetupAppConfigDialog";
+import categoriesJson from "../../utils/categories.json";
+import { SetupAppConfigDialog } from "../dialogs/SetupAppConfigDialog";
 
 export function SetupAppConfigComponent() {
   useRedirectSetupSessions(routes.theme);
@@ -30,6 +31,8 @@ export function SetupAppConfigComponent() {
 
   const { data: sessionData } = useSession();
   const [showDialogState, setShowDialogState] = useState<boolean>(true);
+
+  const categories: CategoryEntity[] = categoriesJson as CategoryEntity[];
 
   return (
     <Container sx={{ minHeight: maxHeightCssString }}>
@@ -54,6 +57,7 @@ export function SetupAppConfigComponent() {
               position: "sticky",
               top: "72px", // Adjusted for the toolbar
             }}
+            categories={categories}
             authentication={sessionData?.user}
             appConfig={appConfigState}
             environment={{

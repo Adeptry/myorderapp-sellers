@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { useTranslations } from "next-intl";
 
-export default function SetupAppConfigDialog(props: {
+export function SetupAppConfigDialog(props: {
   open: boolean;
   onClose: (confirmed: boolean) => void;
 }) {

@@ -18,15 +18,16 @@ export function MessagingIframe<
 }) {
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const [updateCountState, setUpdateCountState] = useState(0);
+  const [iframeLoaded, setIframeLoaded] = useState(false);
 
   useEffect(() => {
     logger.info(props.sendMessageState, "Web sending message");
-    
+
     iframeRef.current?.contentWindow?.postMessage(
       props.sendMessageState,
       new URL(props.src).origin
     );
-  }, [props.sendMessageState, updateCountState]);
+  }, [props.sendMessageState, updateCountState, iframeLoaded]);
 
   useEffect(() => {
     function handleIncomingMessage(
@@ -58,6 +59,12 @@ export function MessagingIframe<
   }, []);
 
   return (
-    <iframe ref={iframeRef} id={props.id} src={props.src} style={props.style} />
+    <iframe
+      ref={iframeRef}
+      onLoad={() => setIframeLoaded(true)}
+      id={props.id}
+      src={props.src}
+      style={props.style}
+    />
   );
 }

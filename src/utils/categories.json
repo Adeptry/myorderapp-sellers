@@ -1,0 +1,1786 @@
+[
+  {
+    "id": "G2SFVXG9WVZSchwI-nUgB",
+    "items": [
+      {
+        "description": "This curated set offers a bit of everything. Perfect for those who want variety without the fuss of choosing.",
+        "id": "mlzKAc0tsiHuEZDVCg0a-",
+        "images": [
+          {
+            "caption": null,
+            "id": "mjEROkh3Vk4PlOPVRIU5A",
+            "name": "combo.jpg",
+            "url": "https://items-images-sandbox.s3.us-west-2.amazonaws.com/files/1a6d1386c54e6eb90c3c9b39908cf03ea781d071/original.jpeg"
+          }
+        ],
+        "itemModifierLists": [
+          {
+            "enabled": true,
+            "id": "DzFjz0o91l_BEQV9Nv9-5",
+            "maxSelectedModifiers": 1,
+            "minSelectedModifiers": 1,
+            "modifierList": {
+              "id": "EAjldMTJ0ODZLmRhKcrpf",
+              "modifiers": [
+                {
+                  "id": "fq7hZIAOw-p4Dozvz2sUv",
+                  "name": "Plastic",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 0
+                },
+                {
+                  "id": "ZgO6Okcy0eajS1Zw1GhhG",
+                  "name": "Metal",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 1500
+                },
+                {
+                  "id": "QIaYEOxqNKx0yIuq5Ueh5",
+                  "name": "Wood",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "mVotQl_BkXJwRUbcp7RmB",
+                  "name": "Glass",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 1200
+                }
+              ],
+              "name": "Material",
+              "ordinal": 99999999,
+              "selectionType": "SINGLE"
+            }
+          },
+          {
+            "enabled": true,
+            "id": "oOBwAHC_GOHYk1lkjMFLX",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": 1,
+            "modifierList": {
+              "id": "sF_7q5CAY30qNFASKNgAv",
+              "modifiers": [
+                {
+                  "id": "UQ8mLSSzZOVNQ6-uorbJx",
+                  "name": "Extended Warranty",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 2000
+                },
+                {
+                  "id": "45x2eRNexmirKi_bHqHtT",
+                  "name": "Gift Wrapping",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 500
+                },
+                {
+                  "id": "b6hwT3duCU86ieXdVG34b",
+                  "name": "Personalized Engraving",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "aXEPOt446Z1Ld6mvDdpxl",
+                  "name": "Spare Parts Kit",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 800
+                }
+              ],
+              "name": "Additional Features",
+              "ordinal": 99999999,
+              "selectionType": "MULTIPLE"
+            }
+          }
+        ],
+        "moaEnabled": true,
+        "moaOrdinal": 0,
+        "name": "Classic Combo",
+        "variations": [
+          {
+            "id": "R2BDPKWZAE7NiSp9UAN_V",
+            "moaEnabled": true,
+            "name": "Standard",
+            "ordinal": 0,
+            "priceMoneyAmount": 1499
+          },
+          {
+            "id": "kimVNGdmIbpi9CELF1Z5n",
+            "moaEnabled": true,
+            "name": "Deluxe",
+            "ordinal": 1,
+            "priceMoneyAmount": 1999
+          }
+        ]
+      },
+      {
+        "description": "Don't take our word for it; this item is top-rated by our customer community. Tried, tested, and loved.",
+        "id": "EL_CrTpH5CyPfKBSQ8yOU",
+        "images": [
+          {
+            "caption": null,
+            "id": "_wJtGDg2MYThw_51wXrIE",
+            "name": null,
+            "url": "https://items-images-sandbox.s3.us-west-2.amazonaws.com/files/cfcf7fc56e92414776efa05e1c1b2cd2e730e512/original.jpeg"
+          }
+        ],
+        "itemModifierLists": [
+          {
+            "enabled": true,
+            "id": "VrUxhJwSkvfcETMMaGK-n",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "sF_7q5CAY30qNFASKNgAv",
+              "modifiers": [
+                {
+                  "id": "UQ8mLSSzZOVNQ6-uorbJx",
+                  "name": "Extended Warranty",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 2000
+                },
+                {
+                  "id": "45x2eRNexmirKi_bHqHtT",
+                  "name": "Gift Wrapping",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 500
+                },
+                {
+                  "id": "b6hwT3duCU86ieXdVG34b",
+                  "name": "Personalized Engraving",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "aXEPOt446Z1Ld6mvDdpxl",
+                  "name": "Spare Parts Kit",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 800
+                }
+              ],
+              "name": "Additional Features",
+              "ordinal": 99999999,
+              "selectionType": "MULTIPLE"
+            }
+          },
+          {
+            "enabled": true,
+            "id": "h_YR8ZApb_mTtnuU4MT22",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "EAjldMTJ0ODZLmRhKcrpf",
+              "modifiers": [
+                {
+                  "id": "fq7hZIAOw-p4Dozvz2sUv",
+                  "name": "Plastic",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 0
+                },
+                {
+                  "id": "ZgO6Okcy0eajS1Zw1GhhG",
+                  "name": "Metal",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 1500
+                },
+                {
+                  "id": "QIaYEOxqNKx0yIuq5Ueh5",
+                  "name": "Wood",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "mVotQl_BkXJwRUbcp7RmB",
+                  "name": "Glass",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 1200
+                }
+              ],
+              "name": "Material",
+              "ordinal": 99999999,
+              "selectionType": "SINGLE"
+            }
+          }
+        ],
+        "moaEnabled": true,
+        "moaOrdinal": 1,
+        "name": "Fan Favorite",
+        "variations": [
+          {
+            "id": "6UUC2YaRyMWw7hCF-hUJ3",
+            "moaEnabled": true,
+            "name": "Standard",
+            "ordinal": 0,
+            "priceMoneyAmount": 1299
+          },
+          {
+            "id": "cbIBb12io7As1PUS2wOXi",
+            "moaEnabled": true,
+            "name": "Deluxe",
+            "ordinal": 1,
+            "priceMoneyAmount": 1799
+          }
+        ]
+      },
+      {
+        "description": "Elevate your experience with our top-tier collection. Quality and luxury in one package.",
+        "id": "50tgQYG22K13CcRHwZUeV",
+        "images": [
+          {
+            "caption": null,
+            "id": "UJKcXJnvUf5Z-B8u2Ty5B",
+            "name": null,
+            "url": "https://items-images-sandbox.s3.us-west-2.amazonaws.com/files/69b26b8db6b747465c4cb7bac1533001f53fa009/original.jpeg"
+          }
+        ],
+        "itemModifierLists": [
+          {
+            "enabled": true,
+            "id": "NvYtnXEchiiCGNcqA0xJl",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "sF_7q5CAY30qNFASKNgAv",
+              "modifiers": [
+                {
+                  "id": "UQ8mLSSzZOVNQ6-uorbJx",
+                  "name": "Extended Warranty",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 2000
+                },
+                {
+                  "id": "45x2eRNexmirKi_bHqHtT",
+                  "name": "Gift Wrapping",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 500
+                },
+                {
+                  "id": "b6hwT3duCU86ieXdVG34b",
+                  "name": "Personalized Engraving",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "aXEPOt446Z1Ld6mvDdpxl",
+                  "name": "Spare Parts Kit",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 800
+                }
+              ],
+              "name": "Additional Features",
+              "ordinal": 99999999,
+              "selectionType": "MULTIPLE"
+            }
+          },
+          {
+            "enabled": true,
+            "id": "wTowh_vvzkTrLb9zDXGXS",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "EAjldMTJ0ODZLmRhKcrpf",
+              "modifiers": [
+                {
+                  "id": "fq7hZIAOw-p4Dozvz2sUv",
+                  "name": "Plastic",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 0
+                },
+                {
+                  "id": "ZgO6Okcy0eajS1Zw1GhhG",
+                  "name": "Metal",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 1500
+                },
+                {
+                  "id": "QIaYEOxqNKx0yIuq5Ueh5",
+                  "name": "Wood",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "mVotQl_BkXJwRUbcp7RmB",
+                  "name": "Glass",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 1200
+                }
+              ],
+              "name": "Material",
+              "ordinal": 99999999,
+              "selectionType": "SINGLE"
+            }
+          }
+        ],
+        "moaEnabled": true,
+        "moaOrdinal": 8,
+        "name": "Deluxe Package",
+        "variations": [
+          {
+            "id": "4ePFkrC_LObfuX7Lc8Os8",
+            "moaEnabled": true,
+            "name": "Standard",
+            "ordinal": 0,
+            "priceMoneyAmount": 2999
+          },
+          {
+            "id": "ay2d_HS5JLcoYDl0Mi74j",
+            "moaEnabled": true,
+            "name": "Deluxe",
+            "ordinal": 1,
+            "priceMoneyAmount": 3999
+          }
+        ]
+      },
+      {
+        "description": "Our proprietary blend of ingredients offers a unique taste experience. A must-try for connoisseurs.",
+        "id": "eg5kC5kOVPJW3loJT5uBC",
+        "images": [
+          {
+            "caption": null,
+            "id": "kJucPnl296yxpMjCxAILV",
+            "name": null,
+            "url": "https://items-images-sandbox.s3.us-west-2.amazonaws.com/files/7a5110b94bb67500655aec3676c96d84c1ae1770/original.jpeg"
+          }
+        ],
+        "itemModifierLists": [
+          {
+            "enabled": true,
+            "id": "IqDFsr_hzQa2xDyE1OmD_",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "EAjldMTJ0ODZLmRhKcrpf",
+              "modifiers": [
+                {
+                  "id": "fq7hZIAOw-p4Dozvz2sUv",
+                  "name": "Plastic",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 0
+                },
+                {
+                  "id": "ZgO6Okcy0eajS1Zw1GhhG",
+                  "name": "Metal",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 1500
+                },
+                {
+                  "id": "QIaYEOxqNKx0yIuq5Ueh5",
+                  "name": "Wood",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "mVotQl_BkXJwRUbcp7RmB",
+                  "name": "Glass",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 1200
+                }
+              ],
+              "name": "Material",
+              "ordinal": 99999999,
+              "selectionType": "SINGLE"
+            }
+          },
+          {
+            "enabled": true,
+            "id": "JRPEDx38d4vGCZh_cWvwU",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "sF_7q5CAY30qNFASKNgAv",
+              "modifiers": [
+                {
+                  "id": "UQ8mLSSzZOVNQ6-uorbJx",
+                  "name": "Extended Warranty",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 2000
+                },
+                {
+                  "id": "45x2eRNexmirKi_bHqHtT",
+                  "name": "Gift Wrapping",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 500
+                },
+                {
+                  "id": "b6hwT3duCU86ieXdVG34b",
+                  "name": "Personalized Engraving",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "aXEPOt446Z1Ld6mvDdpxl",
+                  "name": "Spare Parts Kit",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 800
+                }
+              ],
+              "name": "Additional Features",
+              "ordinal": 99999999,
+              "selectionType": "MULTIPLE"
+            }
+          }
+        ],
+        "moaEnabled": true,
+        "moaOrdinal": 13,
+        "name": "Signature Blend",
+        "variations": [
+          {
+            "id": "M6fMEWQkmLLZOSG4UgjVS",
+            "moaEnabled": true,
+            "name": "Standard",
+            "ordinal": 0,
+            "priceMoneyAmount": 999
+          },
+          {
+            "id": "BwnQ8jYWys6apP7-B9MXu",
+            "moaEnabled": true,
+            "name": "Deluxe",
+            "ordinal": 1,
+            "priceMoneyAmount": 1299
+          }
+        ]
+      },
+      {
+        "description": "Cover all your bases with this multi-component package. Ideal for getting started or replenishing your supplies.",
+        "id": "GdYefJk5tpp67FvcTijFk",
+        "images": [
+          {
+            "caption": null,
+            "id": "yEORVzDcV1HW9WfRS-l3u",
+            "name": null,
+            "url": "https://items-images-sandbox.s3.us-west-2.amazonaws.com/files/702a17763962dd6bd2e947bff9a8c3d56a15d4c0/original.jpeg"
+          }
+        ],
+        "itemModifierLists": [
+          {
+            "enabled": true,
+            "id": "ZhRL8OcEBavjcUDavdfOu",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "EAjldMTJ0ODZLmRhKcrpf",
+              "modifiers": [
+                {
+                  "id": "fq7hZIAOw-p4Dozvz2sUv",
+                  "name": "Plastic",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 0
+                },
+                {
+                  "id": "ZgO6Okcy0eajS1Zw1GhhG",
+                  "name": "Metal",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 1500
+                },
+                {
+                  "id": "QIaYEOxqNKx0yIuq5Ueh5",
+                  "name": "Wood",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "mVotQl_BkXJwRUbcp7RmB",
+                  "name": "Glass",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 1200
+                }
+              ],
+              "name": "Material",
+              "ordinal": 99999999,
+              "selectionType": "SINGLE"
+            }
+          },
+          {
+            "enabled": true,
+            "id": "dy9D-YBR9B5t0zjSQ-4hl",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "sF_7q5CAY30qNFASKNgAv",
+              "modifiers": [
+                {
+                  "id": "UQ8mLSSzZOVNQ6-uorbJx",
+                  "name": "Extended Warranty",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 2000
+                },
+                {
+                  "id": "45x2eRNexmirKi_bHqHtT",
+                  "name": "Gift Wrapping",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 500
+                },
+                {
+                  "id": "b6hwT3duCU86ieXdVG34b",
+                  "name": "Personalized Engraving",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "aXEPOt446Z1Ld6mvDdpxl",
+                  "name": "Spare Parts Kit",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 800
+                }
+              ],
+              "name": "Additional Features",
+              "ordinal": 99999999,
+              "selectionType": "MULTIPLE"
+            }
+          }
+        ],
+        "moaEnabled": true,
+        "moaOrdinal": 14,
+        "name": "Essential Kit",
+        "variations": [
+          {
+            "id": "OCEE-85AjFD1_k3QkY1H6",
+            "moaEnabled": true,
+            "name": "Standard",
+            "ordinal": 0,
+            "priceMoneyAmount": 1999
+          },
+          {
+            "id": "mydCnqjzOd2VZ47XL5ATd",
+            "moaEnabled": true,
+            "name": "Deluxe",
+            "ordinal": 1,
+            "priceMoneyAmount": 2499
+          }
+        ]
+      },
+      {
+        "description": "The stuff you need, every day. Simple, reliable, and indispensable.",
+        "id": "wjfE_wFjtNmpAmU7_czEA",
+        "images": [
+          {
+            "caption": null,
+            "id": "NCnURQYVT_8b2bMisKeKZ",
+            "name": null,
+            "url": "https://items-images-sandbox.s3.us-west-2.amazonaws.com/files/d9debd6eb1dbbe21e8bb0d5090af00acb7f08ccd/original.jpeg"
+          }
+        ],
+        "itemModifierLists": [
+          {
+            "enabled": true,
+            "id": "5w8SCAl5SIkX_74_1Blsg",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "sF_7q5CAY30qNFASKNgAv",
+              "modifiers": [
+                {
+                  "id": "UQ8mLSSzZOVNQ6-uorbJx",
+                  "name": "Extended Warranty",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 2000
+                },
+                {
+                  "id": "45x2eRNexmirKi_bHqHtT",
+                  "name": "Gift Wrapping",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 500
+                },
+                {
+                  "id": "b6hwT3duCU86ieXdVG34b",
+                  "name": "Personalized Engraving",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "aXEPOt446Z1Ld6mvDdpxl",
+                  "name": "Spare Parts Kit",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 800
+                }
+              ],
+              "name": "Additional Features",
+              "ordinal": 99999999,
+              "selectionType": "MULTIPLE"
+            }
+          },
+          {
+            "enabled": true,
+            "id": "ZtmZVpgYWJ7feLP2hdZ9N",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "EAjldMTJ0ODZLmRhKcrpf",
+              "modifiers": [
+                {
+                  "id": "fq7hZIAOw-p4Dozvz2sUv",
+                  "name": "Plastic",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 0
+                },
+                {
+                  "id": "ZgO6Okcy0eajS1Zw1GhhG",
+                  "name": "Metal",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 1500
+                },
+                {
+                  "id": "QIaYEOxqNKx0yIuq5Ueh5",
+                  "name": "Wood",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "mVotQl_BkXJwRUbcp7RmB",
+                  "name": "Glass",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 1200
+                }
+              ],
+              "name": "Material",
+              "ordinal": 99999999,
+              "selectionType": "SINGLE"
+            }
+          }
+        ],
+        "moaEnabled": true,
+        "moaOrdinal": 15,
+        "name": "Everyday Essential",
+        "variations": [
+          {
+            "id": "JmZNjXFYs5jSU-nzyXXdI",
+            "moaEnabled": true,
+            "name": "Standard",
+            "ordinal": 0,
+            "priceMoneyAmount": 599
+          },
+          {
+            "id": "_9BxyaVIsNlV5gBtKYB6z",
+            "moaEnabled": true,
+            "name": "Deluxe",
+            "ordinal": 1,
+            "priceMoneyAmount": 899
+          }
+        ]
+      }
+    ],
+    "moaEnabled": true,
+    "moaOrdinal": 0,
+    "name": "Popular Items"
+  },
+  {
+    "id": "-YgDyauBv8wgSzYfk1qvC",
+    "items": [
+      {
+        "description": "Get in the spirit of the season with this specially crafted item. Limited stock, so get it while it's hot!",
+        "id": "ZPxIUN2Dx0i2c5CAzitC6",
+        "images": [
+          {
+            "caption": null,
+            "id": "4fQtJ3YB2r8BYDhvkJ4AW",
+            "name": null,
+            "url": "https://items-images-sandbox.s3.us-west-2.amazonaws.com/files/fac4b4f486c98cdf36e25c4632d3b6bf040b4ac3/original.jpeg"
+          }
+        ],
+        "itemModifierLists": [
+          {
+            "enabled": true,
+            "id": "rBjwvN0SQsvwIyEIa48pr",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "sF_7q5CAY30qNFASKNgAv",
+              "modifiers": [
+                {
+                  "id": "UQ8mLSSzZOVNQ6-uorbJx",
+                  "name": "Extended Warranty",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 2000
+                },
+                {
+                  "id": "45x2eRNexmirKi_bHqHtT",
+                  "name": "Gift Wrapping",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 500
+                },
+                {
+                  "id": "b6hwT3duCU86ieXdVG34b",
+                  "name": "Personalized Engraving",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "aXEPOt446Z1Ld6mvDdpxl",
+                  "name": "Spare Parts Kit",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 800
+                }
+              ],
+              "name": "Additional Features",
+              "ordinal": 99999999,
+              "selectionType": "MULTIPLE"
+            }
+          },
+          {
+            "enabled": true,
+            "id": "xvhlnQwBtpj1rFJe8hadI",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "EAjldMTJ0ODZLmRhKcrpf",
+              "modifiers": [
+                {
+                  "id": "fq7hZIAOw-p4Dozvz2sUv",
+                  "name": "Plastic",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 0
+                },
+                {
+                  "id": "ZgO6Okcy0eajS1Zw1GhhG",
+                  "name": "Metal",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 1500
+                },
+                {
+                  "id": "QIaYEOxqNKx0yIuq5Ueh5",
+                  "name": "Wood",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "mVotQl_BkXJwRUbcp7RmB",
+                  "name": "Glass",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 1200
+                }
+              ],
+              "name": "Material",
+              "ordinal": 99999999,
+              "selectionType": "SINGLE"
+            }
+          }
+        ],
+        "moaEnabled": true,
+        "moaOrdinal": 4,
+        "name": "Seasonal Delight",
+        "variations": [
+          {
+            "id": "P2dg0GvE3Pn8cKge1grsO",
+            "moaEnabled": true,
+            "name": "Standard",
+            "ordinal": 0,
+            "priceMoneyAmount": 1699
+          },
+          {
+            "id": "ux_IYPMnWQbbJ4qgccxpI",
+            "moaEnabled": true,
+            "name": "Deluxe",
+            "ordinal": 1,
+            "priceMoneyAmount": 2199
+          }
+        ]
+      },
+      {
+        "description": "Be the first to sport our newest arrivals. Stylish, chic, and oh-so-current.",
+        "id": "Z-MN6OrBSmsq-b0CqaN1W",
+        "images": [
+          {
+            "caption": null,
+            "id": "PCT8WjMET7LWisK48WPBP",
+            "name": null,
+            "url": "https://items-images-sandbox.s3.us-west-2.amazonaws.com/files/91d81219c52198335bbc7678001384d3149cf177/original.jpeg"
+          }
+        ],
+        "itemModifierLists": [
+          {
+            "enabled": true,
+            "id": "3I4Hkl2lr_7kvsWzWmmO1",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "sF_7q5CAY30qNFASKNgAv",
+              "modifiers": [
+                {
+                  "id": "UQ8mLSSzZOVNQ6-uorbJx",
+                  "name": "Extended Warranty",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 2000
+                },
+                {
+                  "id": "45x2eRNexmirKi_bHqHtT",
+                  "name": "Gift Wrapping",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 500
+                },
+                {
+                  "id": "b6hwT3duCU86ieXdVG34b",
+                  "name": "Personalized Engraving",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "aXEPOt446Z1Ld6mvDdpxl",
+                  "name": "Spare Parts Kit",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 800
+                }
+              ],
+              "name": "Additional Features",
+              "ordinal": 99999999,
+              "selectionType": "MULTIPLE"
+            }
+          },
+          {
+            "enabled": true,
+            "id": "qN7xeJbNdlq87IH2JViFy",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "EAjldMTJ0ODZLmRhKcrpf",
+              "modifiers": [
+                {
+                  "id": "fq7hZIAOw-p4Dozvz2sUv",
+                  "name": "Plastic",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 0
+                },
+                {
+                  "id": "ZgO6Okcy0eajS1Zw1GhhG",
+                  "name": "Metal",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 1500
+                },
+                {
+                  "id": "QIaYEOxqNKx0yIuq5Ueh5",
+                  "name": "Wood",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "mVotQl_BkXJwRUbcp7RmB",
+                  "name": "Glass",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 1200
+                }
+              ],
+              "name": "Material",
+              "ordinal": 99999999,
+              "selectionType": "SINGLE"
+            }
+          }
+        ],
+        "moaEnabled": true,
+        "moaOrdinal": 10,
+        "name": "Trendsetter Pack",
+        "variations": [
+          {
+            "id": "8-lMkH1eSoREUNqA-ImTc",
+            "moaEnabled": true,
+            "name": "Standard",
+            "ordinal": 0,
+            "priceMoneyAmount": 2499
+          },
+          {
+            "id": "taRbnP5oRXpjJ2ZVgb9M8",
+            "moaEnabled": true,
+            "name": "Deluxe",
+            "ordinal": 1,
+            "priceMoneyAmount": 2999
+          }
+        ]
+      },
+      {
+        "description": "Step into the future with this cutting-edge item. Limited release for those who love being ahead of the curve.",
+        "id": "qFDDmyb_tYcAacmN21UlE",
+        "images": [
+          {
+            "caption": null,
+            "id": "EflPLu54SINbWD4nb2paW",
+            "name": null,
+            "url": "https://items-images-sandbox.s3.us-west-2.amazonaws.com/files/490f02df56dc255bc32cae6136e16884fd4270bf/original.jpeg"
+          }
+        ],
+        "itemModifierLists": [
+          {
+            "enabled": true,
+            "id": "XGXP_reoyIC1C-JioogVV",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "EAjldMTJ0ODZLmRhKcrpf",
+              "modifiers": [
+                {
+                  "id": "fq7hZIAOw-p4Dozvz2sUv",
+                  "name": "Plastic",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 0
+                },
+                {
+                  "id": "ZgO6Okcy0eajS1Zw1GhhG",
+                  "name": "Metal",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 1500
+                },
+                {
+                  "id": "QIaYEOxqNKx0yIuq5Ueh5",
+                  "name": "Wood",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "mVotQl_BkXJwRUbcp7RmB",
+                  "name": "Glass",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 1200
+                }
+              ],
+              "name": "Material",
+              "ordinal": 99999999,
+              "selectionType": "SINGLE"
+            }
+          },
+          {
+            "enabled": true,
+            "id": "XgVWfXZUQzVdLpMSejFEG",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "sF_7q5CAY30qNFASKNgAv",
+              "modifiers": [
+                {
+                  "id": "UQ8mLSSzZOVNQ6-uorbJx",
+                  "name": "Extended Warranty",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 2000
+                },
+                {
+                  "id": "45x2eRNexmirKi_bHqHtT",
+                  "name": "Gift Wrapping",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 500
+                },
+                {
+                  "id": "b6hwT3duCU86ieXdVG34b",
+                  "name": "Personalized Engraving",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "aXEPOt446Z1Ld6mvDdpxl",
+                  "name": "Spare Parts Kit",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 800
+                }
+              ],
+              "name": "Additional Features",
+              "ordinal": 99999999,
+              "selectionType": "MULTIPLE"
+            }
+          }
+        ],
+        "moaEnabled": true,
+        "moaOrdinal": 11,
+        "name": "Innovator's Choice",
+        "variations": [
+          {
+            "id": "3pQQEPxFKhGjnHQAmXgad",
+            "moaEnabled": true,
+            "name": "Standard",
+            "ordinal": 0,
+            "priceMoneyAmount": 3499
+          },
+          {
+            "id": "3C9KPS00J4S6rUewLL7HO",
+            "moaEnabled": true,
+            "name": "Deluxe",
+            "ordinal": 1,
+            "priceMoneyAmount": 3999
+          }
+        ]
+      }
+    ],
+    "moaEnabled": true,
+    "moaOrdinal": 1,
+    "name": "New Arrivals"
+  },
+  {
+    "id": "yokY6g5kIbhS79cKeoXg7",
+    "items": [
+      {
+        "description": "Freshen up your life with a touch of spring. Floral, bright, and cheerful.",
+        "id": "5InzQpll7mbvwfFk06fw9",
+        "images": [
+          {
+            "caption": null,
+            "id": "5DlBxbA4nDotuhuxu3yRh",
+            "name": null,
+            "url": "https://items-images-sandbox.s3.us-west-2.amazonaws.com/files/b7f87d18b7c54322ba2f004f527ee40dd28fdd32/original.jpeg"
+          }
+        ],
+        "itemModifierLists": [
+          {
+            "enabled": true,
+            "id": "Wc_JcDBNf2pGWipwxtp4K",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "EAjldMTJ0ODZLmRhKcrpf",
+              "modifiers": [
+                {
+                  "id": "fq7hZIAOw-p4Dozvz2sUv",
+                  "name": "Plastic",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 0
+                },
+                {
+                  "id": "ZgO6Okcy0eajS1Zw1GhhG",
+                  "name": "Metal",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 1500
+                },
+                {
+                  "id": "QIaYEOxqNKx0yIuq5Ueh5",
+                  "name": "Wood",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "mVotQl_BkXJwRUbcp7RmB",
+                  "name": "Glass",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 1200
+                }
+              ],
+              "name": "Material",
+              "ordinal": 99999999,
+              "selectionType": "SINGLE"
+            }
+          },
+          {
+            "enabled": true,
+            "id": "dedaAaobTtE-yHvBJGKiW",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "sF_7q5CAY30qNFASKNgAv",
+              "modifiers": [
+                {
+                  "id": "UQ8mLSSzZOVNQ6-uorbJx",
+                  "name": "Extended Warranty",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 2000
+                },
+                {
+                  "id": "45x2eRNexmirKi_bHqHtT",
+                  "name": "Gift Wrapping",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 500
+                },
+                {
+                  "id": "b6hwT3duCU86ieXdVG34b",
+                  "name": "Personalized Engraving",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "aXEPOt446Z1Ld6mvDdpxl",
+                  "name": "Spare Parts Kit",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 800
+                }
+              ],
+              "name": "Additional Features",
+              "ordinal": 99999999,
+              "selectionType": "MULTIPLE"
+            }
+          }
+        ],
+        "moaEnabled": true,
+        "moaOrdinal": 0,
+        "name": "Spring Fling Collection",
+        "variations": [
+          {
+            "id": "ddRt1Q5t9bDdP3gv9dsVE",
+            "moaEnabled": true,
+            "name": "Standard",
+            "ordinal": 0,
+            "priceMoneyAmount": 2299
+          },
+          {
+            "id": "bjYJLIWJAzRcOA8BbGwnA",
+            "moaEnabled": true,
+            "name": "Deluxe",
+            "ordinal": 1,
+            "priceMoneyAmount": 2799
+          }
+        ]
+      },
+      {
+        "description": "Embrace the cozy vibes of fall with this curated selection. Think pumpkins, leaves, and a touch of spice.",
+        "id": "O7ZGbEDzovKdBaLBai1cW",
+        "images": [
+          {
+            "caption": null,
+            "id": "Rrl7YfS_0QH2C8lciDWu5",
+            "name": null,
+            "url": "https://items-images-sandbox.s3.us-west-2.amazonaws.com/files/7f5fb70b049f0e999dffc8e3e5ec2082e3ce422c/original.jpeg"
+          }
+        ],
+        "itemModifierLists": [
+          {
+            "enabled": true,
+            "id": "IE9og5WfJnFplNyEFvQs_",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "sF_7q5CAY30qNFASKNgAv",
+              "modifiers": [
+                {
+                  "id": "UQ8mLSSzZOVNQ6-uorbJx",
+                  "name": "Extended Warranty",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 2000
+                },
+                {
+                  "id": "45x2eRNexmirKi_bHqHtT",
+                  "name": "Gift Wrapping",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 500
+                },
+                {
+                  "id": "b6hwT3duCU86ieXdVG34b",
+                  "name": "Personalized Engraving",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "aXEPOt446Z1Ld6mvDdpxl",
+                  "name": "Spare Parts Kit",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 800
+                }
+              ],
+              "name": "Additional Features",
+              "ordinal": 99999999,
+              "selectionType": "MULTIPLE"
+            }
+          },
+          {
+            "enabled": true,
+            "id": "WRmi-jopnYaj8rhLYpmC9",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "EAjldMTJ0ODZLmRhKcrpf",
+              "modifiers": [
+                {
+                  "id": "fq7hZIAOw-p4Dozvz2sUv",
+                  "name": "Plastic",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 0
+                },
+                {
+                  "id": "ZgO6Okcy0eajS1Zw1GhhG",
+                  "name": "Metal",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 1500
+                },
+                {
+                  "id": "QIaYEOxqNKx0yIuq5Ueh5",
+                  "name": "Wood",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "mVotQl_BkXJwRUbcp7RmB",
+                  "name": "Glass",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 1200
+                }
+              ],
+              "name": "Material",
+              "ordinal": 99999999,
+              "selectionType": "SINGLE"
+            }
+          }
+        ],
+        "moaEnabled": true,
+        "moaOrdinal": 1,
+        "name": "Autumn Harvest Set",
+        "variations": [
+          {
+            "id": "TVuS1O4b6T3mAiq43cT_w",
+            "moaEnabled": true,
+            "name": "Standard",
+            "ordinal": 0,
+            "priceMoneyAmount": 2199
+          },
+          {
+            "id": "Llo3b7Y7oGOeMC4Ij2isX",
+            "moaEnabled": true,
+            "name": "Deluxe",
+            "ordinal": 1,
+            "priceMoneyAmount": 2699
+          }
+        ]
+      },
+      {
+        "description": "Fight off the chill with this cozy ensemble. Your winter survival kit, in a package.",
+        "id": "z_eLdhT55yr0gP9WTCbTa",
+        "images": [
+          {
+            "caption": null,
+            "id": "qmcMVGOqmWuq15KV2TQnu",
+            "name": null,
+            "url": "https://items-images-sandbox.s3.us-west-2.amazonaws.com/files/800bf5f31a80da682fc3449847721544637ed42a/original.jpeg"
+          }
+        ],
+        "itemModifierLists": [
+          {
+            "enabled": true,
+            "id": "GtrhlDK5FJYKmPnBDiwAn",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "sF_7q5CAY30qNFASKNgAv",
+              "modifiers": [
+                {
+                  "id": "UQ8mLSSzZOVNQ6-uorbJx",
+                  "name": "Extended Warranty",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 2000
+                },
+                {
+                  "id": "45x2eRNexmirKi_bHqHtT",
+                  "name": "Gift Wrapping",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 500
+                },
+                {
+                  "id": "b6hwT3duCU86ieXdVG34b",
+                  "name": "Personalized Engraving",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "aXEPOt446Z1Ld6mvDdpxl",
+                  "name": "Spare Parts Kit",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 800
+                }
+              ],
+              "name": "Additional Features",
+              "ordinal": 99999999,
+              "selectionType": "MULTIPLE"
+            }
+          },
+          {
+            "enabled": true,
+            "id": "JOe5FTFHVvdBwlarTk2f3",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "EAjldMTJ0ODZLmRhKcrpf",
+              "modifiers": [
+                {
+                  "id": "fq7hZIAOw-p4Dozvz2sUv",
+                  "name": "Plastic",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 0
+                },
+                {
+                  "id": "ZgO6Okcy0eajS1Zw1GhhG",
+                  "name": "Metal",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 1500
+                },
+                {
+                  "id": "QIaYEOxqNKx0yIuq5Ueh5",
+                  "name": "Wood",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "mVotQl_BkXJwRUbcp7RmB",
+                  "name": "Glass",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 1200
+                }
+              ],
+              "name": "Material",
+              "ordinal": 99999999,
+              "selectionType": "SINGLE"
+            }
+          }
+        ],
+        "moaEnabled": true,
+        "moaOrdinal": 5,
+        "name": "Winter Warmer Bundle",
+        "variations": [
+          {
+            "id": "0pz3Icd6YwwJEBq5F8zke",
+            "moaEnabled": true,
+            "name": "Standard",
+            "ordinal": 0,
+            "priceMoneyAmount": 1899
+          },
+          {
+            "id": "9ebSPFJkHknSbpWNk8ev9",
+            "moaEnabled": true,
+            "name": "Deluxe",
+            "ordinal": 1,
+            "priceMoneyAmount": 2499
+          }
+        ]
+      },
+      {
+        "description": "Everything you need for a sizzling summer day. Sun, sand, and savings!",
+        "id": "cgheDPdThbtJ1oRsf41bh",
+        "images": [
+          {
+            "caption": null,
+            "id": "iOtdFFWrN8WNQ0-H5rai_",
+            "name": null,
+            "url": "https://items-images-sandbox.s3.us-west-2.amazonaws.com/files/d9cbe47fa6e02b35d5289975a916753e3357519a/original.jpeg"
+          }
+        ],
+        "itemModifierLists": [
+          {
+            "enabled": true,
+            "id": "as3OK_kOQqL7RcfCPmSd-",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "sF_7q5CAY30qNFASKNgAv",
+              "modifiers": [
+                {
+                  "id": "UQ8mLSSzZOVNQ6-uorbJx",
+                  "name": "Extended Warranty",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 2000
+                },
+                {
+                  "id": "45x2eRNexmirKi_bHqHtT",
+                  "name": "Gift Wrapping",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 500
+                },
+                {
+                  "id": "b6hwT3duCU86ieXdVG34b",
+                  "name": "Personalized Engraving",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "aXEPOt446Z1Ld6mvDdpxl",
+                  "name": "Spare Parts Kit",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 800
+                }
+              ],
+              "name": "Additional Features",
+              "ordinal": 99999999,
+              "selectionType": "MULTIPLE"
+            }
+          },
+          {
+            "enabled": true,
+            "id": "knFKS9A39n5Uqz0C-9KDQ",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "EAjldMTJ0ODZLmRhKcrpf",
+              "modifiers": [
+                {
+                  "id": "fq7hZIAOw-p4Dozvz2sUv",
+                  "name": "Plastic",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 0
+                },
+                {
+                  "id": "ZgO6Okcy0eajS1Zw1GhhG",
+                  "name": "Metal",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 1500
+                },
+                {
+                  "id": "QIaYEOxqNKx0yIuq5Ueh5",
+                  "name": "Wood",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "mVotQl_BkXJwRUbcp7RmB",
+                  "name": "Glass",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 1200
+                }
+              ],
+              "name": "Material",
+              "ordinal": 99999999,
+              "selectionType": "SINGLE"
+            }
+          }
+        ],
+        "moaEnabled": true,
+        "moaOrdinal": 9,
+        "name": "Summer Sizzler Deal",
+        "variations": [
+          {
+            "id": "CM8ZyZxT6i9y3DQhg8JVO",
+            "moaEnabled": true,
+            "name": "Standard",
+            "ordinal": 0,
+            "priceMoneyAmount": 1999
+          },
+          {
+            "id": "x0T7hJiKYOni86KSstBO4",
+            "moaEnabled": true,
+            "name": "Deluxe",
+            "ordinal": 1,
+            "priceMoneyAmount": 2499
+          }
+        ]
+      }
+    ],
+    "moaEnabled": true,
+    "moaOrdinal": 2,
+    "name": "Seasonal Specials"
+  },
+  {
+    "id": "Nc34ZFIC2XuBvxsg23WV6",
+    "items": [
+      {
+        "description": "A pair of our premium products, bundled for an exclusive experience. Perfect for aficionados.",
+        "id": "So_Ibj_DUmnqqrdxt9JFW",
+        "images": [
+          {
+            "caption": null,
+            "id": "izxWqXcix06l0Tc2rP-BI",
+            "name": null,
+            "url": "https://items-images-sandbox.s3.us-west-2.amazonaws.com/files/2d37faa2c11ef0c60dca0cd4b539238327052f45/original.jpeg"
+          }
+        ],
+        "itemModifierLists": [
+          {
+            "enabled": true,
+            "id": "4hgAIV6sdl-9n8iOHyYYx",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "EAjldMTJ0ODZLmRhKcrpf",
+              "modifiers": [
+                {
+                  "id": "fq7hZIAOw-p4Dozvz2sUv",
+                  "name": "Plastic",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 0
+                },
+                {
+                  "id": "ZgO6Okcy0eajS1Zw1GhhG",
+                  "name": "Metal",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 1500
+                },
+                {
+                  "id": "QIaYEOxqNKx0yIuq5Ueh5",
+                  "name": "Wood",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "mVotQl_BkXJwRUbcp7RmB",
+                  "name": "Glass",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 1200
+                }
+              ],
+              "name": "Material",
+              "ordinal": 99999999,
+              "selectionType": "SINGLE"
+            }
+          },
+          {
+            "enabled": true,
+            "id": "pos2odalHIQZjR5GDYFFx",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "sF_7q5CAY30qNFASKNgAv",
+              "modifiers": [
+                {
+                  "id": "UQ8mLSSzZOVNQ6-uorbJx",
+                  "name": "Extended Warranty",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 2000
+                },
+                {
+                  "id": "45x2eRNexmirKi_bHqHtT",
+                  "name": "Gift Wrapping",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 500
+                },
+                {
+                  "id": "b6hwT3duCU86ieXdVG34b",
+                  "name": "Personalized Engraving",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "aXEPOt446Z1Ld6mvDdpxl",
+                  "name": "Spare Parts Kit",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 800
+                }
+              ],
+              "name": "Additional Features",
+              "ordinal": 99999999,
+              "selectionType": "MULTIPLE"
+            }
+          }
+        ],
+        "moaEnabled": true,
+        "moaOrdinal": 2,
+        "name": "Exclusive Duo Pack",
+        "variations": [
+          {
+            "id": "YJHjPyJClv_FX7u7amO-j",
+            "moaEnabled": true,
+            "name": "Standard",
+            "ordinal": 0,
+            "priceMoneyAmount": 2999
+          },
+          {
+            "id": "BHQV5X9rHMXyii0FCUKPr",
+            "moaEnabled": true,
+            "name": "Deluxe",
+            "ordinal": 1,
+            "priceMoneyAmount": 3999
+          }
+        ]
+      },
+      {
+        "description": "Time is ticking! Don't miss out on this amazing deal. Available for a limited time only.",
+        "id": "uyiVQ3Mv2uCmtawQ-AB0G",
+        "images": [
+          {
+            "caption": null,
+            "id": "CSkn294ohOhojqkC8GPSw",
+            "name": null,
+            "url": "https://items-images-sandbox.s3.us-west-2.amazonaws.com/files/94c598658898f17d99384ce05802422060e6895c/original.jpeg"
+          }
+        ],
+        "itemModifierLists": [
+          {
+            "enabled": true,
+            "id": "OojzAL6jgY2Ca2C9MwetZ",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "sF_7q5CAY30qNFASKNgAv",
+              "modifiers": [
+                {
+                  "id": "UQ8mLSSzZOVNQ6-uorbJx",
+                  "name": "Extended Warranty",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 2000
+                },
+                {
+                  "id": "45x2eRNexmirKi_bHqHtT",
+                  "name": "Gift Wrapping",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 500
+                },
+                {
+                  "id": "b6hwT3duCU86ieXdVG34b",
+                  "name": "Personalized Engraving",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "aXEPOt446Z1Ld6mvDdpxl",
+                  "name": "Spare Parts Kit",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 800
+                }
+              ],
+              "name": "Additional Features",
+              "ordinal": 99999999,
+              "selectionType": "MULTIPLE"
+            }
+          },
+          {
+            "enabled": true,
+            "id": "x8yVY6mgqek-Y8lIQhQ9L",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "EAjldMTJ0ODZLmRhKcrpf",
+              "modifiers": [
+                {
+                  "id": "fq7hZIAOw-p4Dozvz2sUv",
+                  "name": "Plastic",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 0
+                },
+                {
+                  "id": "ZgO6Okcy0eajS1Zw1GhhG",
+                  "name": "Metal",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 1500
+                },
+                {
+                  "id": "QIaYEOxqNKx0yIuq5Ueh5",
+                  "name": "Wood",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "mVotQl_BkXJwRUbcp7RmB",
+                  "name": "Glass",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 1200
+                }
+              ],
+              "name": "Material",
+              "ordinal": 99999999,
+              "selectionType": "SINGLE"
+            }
+          }
+        ],
+        "moaEnabled": true,
+        "moaOrdinal": 6,
+        "name": "Flash Sale Special",
+        "variations": [
+          {
+            "id": "Cspi2ha2XyMP7LwTmjTze",
+            "moaEnabled": true,
+            "name": "Standard",
+            "ordinal": 0,
+            "priceMoneyAmount": 1999
+          },
+          {
+            "id": "ujNc28fCvMngw-OJ3Tma-",
+            "moaEnabled": true,
+            "name": "Deluxe",
+            "ordinal": 1,
+            "priceMoneyAmount": 2499
+          }
+        ]
+      }
+    ],
+    "moaEnabled": true,
+    "moaOrdinal": 3,
+    "name": "Limited Offers"
+  },
+  {
+    "id": "W7XW6nAFn3xomDvd3a9UM",
+    "items": [
+      {
+        "description": "Stock up and save with this bulk offering. Quality and quantity, at a price you'll love.",
+        "id": "RLmgONEErOBVh9YTZmU0c",
+        "images": [
+          {
+            "caption": null,
+            "id": "xTJ0fgu-_cqR9ZELrtIxB",
+            "name": null,
+            "url": "https://items-images-sandbox.s3.us-west-2.amazonaws.com/files/b33b0a01fd951d7b568217f4a2b5a44b66727aae/original.jpeg"
+          }
+        ],
+        "itemModifierLists": [
+          {
+            "enabled": true,
+            "id": "GEQQ-0F45fwAF_rt0LRb3",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "EAjldMTJ0ODZLmRhKcrpf",
+              "modifiers": [
+                {
+                  "id": "fq7hZIAOw-p4Dozvz2sUv",
+                  "name": "Plastic",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 0
+                },
+                {
+                  "id": "ZgO6Okcy0eajS1Zw1GhhG",
+                  "name": "Metal",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 1500
+                },
+                {
+                  "id": "QIaYEOxqNKx0yIuq5Ueh5",
+                  "name": "Wood",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "mVotQl_BkXJwRUbcp7RmB",
+                  "name": "Glass",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 1200
+                }
+              ],
+              "name": "Material",
+              "ordinal": 99999999,
+              "selectionType": "SINGLE"
+            }
+          },
+          {
+            "enabled": true,
+            "id": "MuZRvmjSe-CPKyAm4uh-M",
+            "maxSelectedModifiers": -1,
+            "minSelectedModifiers": -1,
+            "modifierList": {
+              "id": "sF_7q5CAY30qNFASKNgAv",
+              "modifiers": [
+                {
+                  "id": "UQ8mLSSzZOVNQ6-uorbJx",
+                  "name": "Extended Warranty",
+                  "ordinal": 1,
+                  "priceMoneyAmount": 2000
+                },
+                {
+                  "id": "45x2eRNexmirKi_bHqHtT",
+                  "name": "Gift Wrapping",
+                  "ordinal": 2,
+                  "priceMoneyAmount": 500
+                },
+                {
+                  "id": "b6hwT3duCU86ieXdVG34b",
+                  "name": "Personalized Engraving",
+                  "ordinal": 3,
+                  "priceMoneyAmount": 1000
+                },
+                {
+                  "id": "aXEPOt446Z1Ld6mvDdpxl",
+                  "name": "Spare Parts Kit",
+                  "ordinal": 4,
+                  "priceMoneyAmount": 800
+                }
+              ],
+              "name": "Additional Features",
+              "ordinal": 99999999,
+              "selectionType": "MULTIPLE"
+            }
+          }
+        ],
+        "moaEnabled": true,
+        "moaOrdinal": 12,
+        "name": "Economy Mega Bundle",
+        "variations": [
+          {
+            "id": "wdaE0SRQ3swDbb9rglPxu",
+            "moaEnabled": true,
+            "name": "Standard",
+            "ordinal": 0,
+            "priceMoneyAmount": 3999
+          },
+          {
+            "id": "yXUriikBSEd_GJgBAhCCh",
+            "moaEnabled": true,
+            "name": "Deluxe",
+            "ordinal": 1,
+            "priceMoneyAmount": 4999
+          }
+        ]
+      }
+    ],
+    "moaEnabled": true,
+    "moaOrdinal": 4,
+    "name": "Value Packs"
+  }
+]
