@@ -128,7 +128,7 @@ export function AppConfigForm(props: {
           const lastName = currentUser?.lastName;
           const fullName = `${firstName ?? ""} ${lastName ?? ""}`;
           return {
-            name: t("defaultName", { name: firstName }),
+            name: "",
             seedColor: colorCookieValue ?? stringToColor(fullName),
             fontFamily: moaEnv.appConfig.defaultFontFamily,
             themeMode: ThemeModeEnum.Light,
