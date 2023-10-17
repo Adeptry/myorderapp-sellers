@@ -35,7 +35,7 @@ export function SetupSquareOauthComponent() {
       if (
         oauthAccessCode &&
         status === "authenticated" &&
-        !postSquareOauthMeMutation.isLoading
+        !postSquareOauthMeMutation.isPending
       ) {
         try {
           await postSquareOauthMeMutation.mutateAsync(oauthAccessCode);

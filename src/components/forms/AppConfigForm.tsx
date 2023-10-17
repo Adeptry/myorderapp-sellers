@@ -192,9 +192,6 @@ export function AppConfigForm(props: {
 
   const patchAppConfigMeMutation = useMutation({
     mutationFn: async (appConfigUpdateBody: FormType) => {
-      if (!isDirty) {
-        return true;
-      }
       const api = new AppConfigsApi(sessionedApiConfiguration);
 
       await api.patchAppConfigMe({
@@ -265,10 +262,10 @@ export function AppConfigForm(props: {
             </Alert>
           )}
           <LoadingButton
-            loading={patchAppConfigMeMutation.isLoading || isSubmitting}
+            loading={patchAppConfigMeMutation.isPending || isSubmitting}
             size="large"
             startIcon={<Save />}
-            disabled={patchAppConfigMeMutation.isLoading}
+            disabled={patchAppConfigMeMutation.isPending}
             color="secondary"
             type="submit"
             variant="contained"

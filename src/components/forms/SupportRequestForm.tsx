@@ -144,10 +144,10 @@ export function SupportRequestForm() {
           <Grid item xs={12}>
             <Box textAlign="center">
               <LoadingButton
-                loading={mutation.isLoading || formState.isSubmitting}
+                loading={mutation.isPending || formState.isSubmitting}
                 size="large"
                 startIcon={<Send />}
-                disabled={mutation.isLoading || !formState.isDirty}
+                disabled={mutation.isPending || !formState.isDirty}
                 color="secondary"
                 type="submit"
                 variant="contained"

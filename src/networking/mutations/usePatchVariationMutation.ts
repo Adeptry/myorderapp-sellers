@@ -47,7 +47,7 @@ export const usePatchVariationMutation = () => {
     },
 
     onSettled: () => {
-      queryClient.invalidateQueries(GetCategoriesQueryKey);
+      queryClient.invalidateQueries({ queryKey: GetCategoriesQueryKey });
     },
   });
 };

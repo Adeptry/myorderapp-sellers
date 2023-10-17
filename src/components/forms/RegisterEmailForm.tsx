@@ -69,8 +69,8 @@ export function RegisterEmailForm(props: {
     return () => subscription.unsubscribe();
   }, [watch()]);
 
-  const createUserAndMerchantMutation = useMutation(
-    async (authenticationEmailRegisterRequestBody: FormType) => {
+  const createUserAndMerchantMutation = useMutation({
+    mutationFn: async (authenticationEmailRegisterRequestBody: FormType) => {
       try {
         const configuration = new Configuration({
           apiKey: moaEnv.backendApiKey,
@@ -95,8 +95,8 @@ export function RegisterEmailForm(props: {
       } catch (error) {
         throw error;
       }
-    }
-  );
+    },
+  });
 
   async function handleOnValidSubmit(data: FormType) {
     try {
@@ -269,14 +269,14 @@ export function RegisterEmailForm(props: {
           ) : (
             <LoadingButton
               loading={
-                createUserAndMerchantMutation.isLoading ||
+                createUserAndMerchantMutation.isPending ||
                 formState.isSubmitting
               }
               size="large"
               startIcon={
                 createUserAndMerchantMutation.data ? <Check /> : <Login />
               }
-              disabled={createUserAndMerchantMutation.isLoading}
+              disabled={createUserAndMerchantMutation.isPending}
               color={"secondary"}
               type="submit"
               fullWidth

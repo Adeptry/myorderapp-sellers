@@ -17,7 +17,7 @@ export const usePostItemSquareImageUploadMutation = () => {
       ).postItemSquareImageUpload({ ...params });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(GetCategoriesQueryKey);
+      queryClient.invalidateQueries({ queryKey: GetCategoriesQueryKey });
     },
   });
 };

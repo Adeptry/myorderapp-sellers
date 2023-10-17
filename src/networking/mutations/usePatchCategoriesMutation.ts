@@ -19,7 +19,7 @@ export const usePatchCategoriesMutation = () => {
       ).data;
     },
     onSettled: () => {
-      queryClient.invalidateQueries(GetCategoriesQueryKey);
+      queryClient.invalidateQueries({ queryKey: GetCategoriesQueryKey });
     },
     onMutate: async (categoriesPatchBody: Array<CategoriesPatchBody>) => {
       const oldResponse = queryClient.getQueryData(

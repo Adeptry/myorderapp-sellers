@@ -19,7 +19,9 @@ export const usePatchAppConfigMeMutation = (
       ).patchAppConfigMe(params);
     },
     onSettled: () => {
-      queryClient.invalidateQueries(getAppConfigMeQueryKeyBuilder(queryParams));
+      queryClient.invalidateQueries({
+        queryKey: getAppConfigMeQueryKeyBuilder(queryParams),
+      });
     },
   });
 };

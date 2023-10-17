@@ -109,7 +109,7 @@ export function PasswordResetForm(props: { preloading: boolean }) {
   }, [watch()]);
 
   const fieldsDisabled =
-    passwordResetMutation.data !== undefined || passwordResetMutation.isLoading;
+    passwordResetMutation.data !== undefined || passwordResetMutation.isPending;
 
   return (
     <Box
@@ -197,7 +197,7 @@ export function PasswordResetForm(props: { preloading: boolean }) {
             <Skeleton height="56px" width="100%" />
           ) : (
             <LoadingButton
-              loading={passwordResetMutation.isLoading}
+              loading={passwordResetMutation.isPending}
               disabled={passwordResetMutation.data !== undefined}
               type="submit"
               size="large"

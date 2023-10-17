@@ -16,7 +16,7 @@ export const usePatchLocationMutation = () => {
       );
     },
     onSettled: () => {
-      queryClient.invalidateQueries(GetLocationsMeQueryKey);
+      queryClient.invalidateQueries({ queryKey: GetLocationsMeQueryKey });
     },
   });
 };

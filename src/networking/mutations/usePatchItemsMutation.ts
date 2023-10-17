@@ -56,7 +56,7 @@ export const usePatchItemsMutation = () => {
       return () => queryClient.setQueryData(GetCategoriesQueryKey, oldResponse);
     },
     onSettled: () => {
-      queryClient.invalidateQueries(GetCategoriesQueryKey);
+      queryClient.invalidateQueries({ queryKey: GetCategoriesQueryKey });
     },
   });
 };

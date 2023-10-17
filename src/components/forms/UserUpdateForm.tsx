@@ -222,11 +222,11 @@ export function UserUpdateForm() {
             ) : (
               <LoadingButton
                 loading={
-                  patchUserMeMutation.isLoading || formState.isSubmitting
+                  patchUserMeMutation.isPending || formState.isSubmitting
                 }
                 size="large"
                 startIcon={<Save />}
-                disabled={patchUserMeMutation.isLoading || !formState.isDirty}
+                disabled={patchUserMeMutation.isPending || !formState.isDirty}
                 color="secondary"
                 type="submit"
                 fullWidth

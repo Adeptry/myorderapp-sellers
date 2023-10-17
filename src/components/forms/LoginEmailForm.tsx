@@ -174,11 +174,11 @@ export function LoginEmailForm(props: {
           ) : (
             <LoadingButton
               loading={
-                createSessionMutation.isLoading || formState.isSubmitting
+                createSessionMutation.isPending || formState.isSubmitting
               }
               size="large"
               startIcon={createSessionMutation.data ? <Check /> : <Login />}
-              disabled={createSessionMutation.isLoading}
+              disabled={createSessionMutation.isPending}
               color="secondary"
               type="submit"
               fullWidth

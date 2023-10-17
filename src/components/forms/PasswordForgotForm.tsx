@@ -138,7 +138,7 @@ export function PasswordForgotForm(props: { preloading: boolean }) {
             <Skeleton height="56px" width="100%" />
           ) : (
             <LoadingButton
-              loading={forgotPasswordMutation.isLoading}
+              loading={forgotPasswordMutation.isPending}
               type="submit"
               size="large"
               fullWidth
