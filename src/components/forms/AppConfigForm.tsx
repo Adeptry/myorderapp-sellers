@@ -65,9 +65,10 @@ type FormType = {
 export function AppConfigForm(props: {
   buttonOnTop?: boolean;
   successUrl?: string;
+  autoFocus?: boolean;
   onChange?: (appConfig: AppConfigEntity) => void;
 }) {
-  const { onChange, successUrl } = props;
+  const { onChange, successUrl, autoFocus } = props;
   const { push } = useRouter();
   const theme = useTheme();
   const t = useTranslations("AppConfigForm");
@@ -307,6 +308,7 @@ export function AppConfigForm(props: {
                     <TextField
                       {...field}
                       value={field.value ?? ""}
+                      autoFocus={autoFocus}
                       required
                       label={t("nameLabel")}
                       inputProps={{

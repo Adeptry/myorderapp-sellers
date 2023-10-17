@@ -44,6 +44,7 @@ export function SetupAppConfigComponent() {
         >
           <AppConfigForm
             key="app-config-form"
+            autoFocus={true}
             buttonOnTop={true}
             successUrl={routes.setup.square.index}
             onChange={(appConfig) => {
