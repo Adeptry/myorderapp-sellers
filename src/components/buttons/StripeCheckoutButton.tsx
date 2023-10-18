@@ -124,7 +124,7 @@ export function StripeCheckoutButton(props: {
       onClick={onClickCheckout}
       startIcon={<ShoppingCartCheckout />}
       loading={isLoading && isAvailable}
-      disabled={isLoading && !isAvailable}
+      disabled={isLoading || !isAvailable}
     >
       {isAvailable ? props.text ?? t("text") : t("comingSoon")}
     </LoadingButton>
