@@ -5,6 +5,7 @@ export interface MoaEnv {
   backendUrl: string;
   backendApiKey: string;
   appUrl: string;
+  marketingUrl: string;
   env: string;
   name: string;
   isBeta: boolean;

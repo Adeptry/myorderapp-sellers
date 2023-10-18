@@ -192,17 +192,21 @@ export function AppConfigForm(props: {
 
   const patchAppConfigMeMutation = useMutation({
     mutationFn: async (appConfigUpdateBody: FormType) => {
+      
       const api = new AppConfigsApi(sessionedApiConfiguration);
 
-      await api.patchAppConfigMe({
-        appConfigUpdateBody: {
-          name: appConfigUpdateBody.name,
-          seedColor: appConfigUpdateBody.seedColor,
-          fontFamily: appConfigUpdateBody.fontFamily,
-          useMaterial3: getBooleanNullOrThrow(appConfigUpdateBody.useMaterial3),
-          themeMode: stringToThemeMode(appConfigUpdateBody.themeMode),
-        },
-      });
+      if (isDirty) {
+        await api.patchAppConfigMe({
+          appConfigUpdateBody: {
+            name: appConfigUpdateBody.name,
+            seedColor: appConfigUpdateBody.seedColor,
+            fontFamily: appConfigUpdateBody.fontFamily,
+            useMaterial3: getBooleanNullOrThrow(appConfigUpdateBody.useMaterial3),
+            themeMode: stringToThemeMode(appConfigUpdateBody.themeMode),
+          },
+        });
+      }
+      
 
       if (appConfigUpdateBody.file) {
         await api.postIconUploadMe({ file: appConfigUpdateBody.file });

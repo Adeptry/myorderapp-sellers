@@ -5,6 +5,7 @@ export const moaEnv: MoaEnv = {
   env: process.env.NEXT_PUBLIC_ENV!,
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL!,
   appUrl: process.env.NEXT_PUBLIC_APP_URL!,
+  marketingUrl: process.env.NEXT_PUBLIC_MARKETING_URL!,
   backendUrl: process.env.NEXT_PUBLIC_BACKEND_URL!,
   backendApiKey: process.env.NEXT_PUBLIC_BACKEND_API_KEY!,
 

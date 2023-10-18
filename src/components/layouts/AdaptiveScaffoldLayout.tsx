@@ -121,7 +121,7 @@ export function AdaptiveScaffoldLayout(props: { children: ReactNode }) {
 
   const { push } = useRouter();
   const pathname = usePathname();
-  const moaUrl = useCurrentMerchantMoaUrl();
+  const currentMerchantMoaUrl = useCurrentMerchantMoaUrl();
   const {
     value: drawerOpenState,
     toggle: toggleDrawerOpenState,
@@ -472,7 +472,7 @@ export function AdaptiveScaffoldLayout(props: { children: ReactNode }) {
                 <ListItem key={"view-myorderapp-list-item"} disablePadding>
                   <ListItemButton
                     onClick={() => {
-                      window.open(moaUrl, "_blank");
+                      window.open(currentMerchantMoaUrl, "_blank");
                       if (isSmallScreen) {
                         setDrawerOpenStateFalse();
                       }
@@ -497,6 +497,7 @@ export function AdaptiveScaffoldLayout(props: { children: ReactNode }) {
             <ListItem key={"home-list-item"} disablePadding>
               <ListItemButton
                 onClick={() => {
+                  window.open(moaEnv.marketingUrl);
                   if (isSmallScreen) {
                     setDrawerOpenStateFalse();
                   }
