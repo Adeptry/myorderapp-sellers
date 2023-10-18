@@ -1,7 +1,7 @@
 "use client";
 
 import { routes } from "@/app/routes";
-import { RegisterEmailForm } from "@/components/forms/RegisterEmailForm";
+import { RegisterForm } from "@/components/forms/RegisterForm";
 import { OnboardingStepper } from "@/components/steppers/OnboardingStepper";
 import { useGetMerchantMeQuery } from "@/networking/queries/useGetMerchantMeQuery";
 import { useRedirectAuthenticatedSessions } from "@/routing/useRedirectAuthenticatedSessions";
@@ -29,7 +29,7 @@ export function RegisterComponent() {
               {t("title")}
             </Typography>
           </Box>
-          <RegisterEmailForm
+          <RegisterForm
             callbackUrl={routes.setup.theme}
             skeleton={status === "loading" || data !== undefined}
           />

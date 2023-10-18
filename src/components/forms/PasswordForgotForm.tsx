@@ -1,6 +1,6 @@
 import { SignInLink } from "@/components/links/SignInLink";
 import { SignUpLink } from "@/components/links/SignUpLink";
-import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
+import { usePostPasswordForgotMutation } from "@/networking/mutations/usePostPasswordForgotMutation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Password } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
@@ -12,12 +12,8 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import {
-  AuthenticationApi,
-  AuthenticationPasswordForgotRequestBody,
-} from "myorderapp-square";
+import { AuthenticationPasswordForgotRequestBody } from "myorderapp-square";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -44,20 +40,15 @@ export function PasswordForgotForm(props: { preloading: boolean }) {
       ),
     });
 
-  const sessionedApiConfiguration = useSessionedApiConfiguration();
-  const forgotPasswordMutation = useMutation({
-    mutationFn: async (authenticationPasswordForgotRequestBody: FormType) => {
-      return await new AuthenticationApi(
-        sessionedApiConfiguration
-      ).postPasswordForgot({
+  const forgotPasswordMutation = usePostPasswordForgotMutation();
+
+  async function handleOnValidSubmit(
+    authenticationPasswordForgotRequestBody: FormType
+  ) {
+    try {
+      await forgotPasswordMutation.mutateAsync({
         authenticationPasswordForgotRequestBody,
       });
-    },
-  });
-
-  async function handleOnValidSubmit(data: FormType) {
-    try {
-      await forgotPasswordMutation.mutateAsync(data);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const fields = (error?.response?.data as any)?.fields;

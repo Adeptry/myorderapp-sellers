@@ -1,14 +1,15 @@
 "use client";
 
+import { routes } from "@/app/routes";
 import { FaqAccordion } from "@/components/accordions/CheckoutFaqAccordion";
 import { PriceGrid } from "@/components/grids/PriceGrid";
 import { OnboardingStepper } from "@/components/steppers/OnboardingStepper";
-import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
+import { useRedirectSetupSessions } from "@/routing/useRedirectSetupSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { Container, Stack } from "@mui/material";
 
 export function SetupTierComponent() {
-  useRedirectUnauthenticatedSessions();
+  useRedirectSetupSessions(routes.dashboard);
   const maxHeightCssString = useMaxHeightCssString();
 
   return (

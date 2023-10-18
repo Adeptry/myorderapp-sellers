@@ -2,7 +2,7 @@
 
 import { ForgotPasswordLink } from "@/components/links/ForgotPasswordLink";
 import { SignInLink } from "@/components/links/SignInLink";
-import { moaEnv } from "@/moaEnv";
+import { useRegisterAndPostMerchantMeMutation } from "@/networking/mutations/useRegisterAndPostMerchantMeMutation";
 import { gtagEvent } from "@/utils/gtag-event";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Check, Login } from "@mui/icons-material";
@@ -15,21 +15,15 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import {
-  AuthenticationApi,
-  AuthenticationEmailLoginRequestBody,
-  Configuration,
-  MerchantsApi,
-} from "myorderapp-square";
+import { AuthenticationEmailLoginRequestBody } from "myorderapp-square";
 import { signIn } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslations } from "use-intl";
 import * as yup from "yup";
 
-export function RegisterEmailForm(props: {
+export function RegisterForm(props: {
   callbackUrl: string;
   skeleton?: boolean;
 }) {
@@ -69,38 +63,14 @@ export function RegisterEmailForm(props: {
     return () => subscription.unsubscribe();
   }, [watch()]);
 
-  const createUserAndMerchantMutation = useMutation({
-    mutationFn: async (authenticationEmailRegisterRequestBody: FormType) => {
-      try {
-        const configuration = new Configuration({
-          apiKey: moaEnv.backendApiKey,
-          basePath: moaEnv.backendUrl,
-        });
-        const createUserResponse = await new AuthenticationApi(
-          configuration
-        ).postEmailRegister({ authenticationEmailRegisterRequestBody });
-
-        configuration.accessToken = createUserResponse.data.token;
-        try {
-          await new MerchantsApi(configuration).postMerchantMe();
-        } catch (error) {
-          if (axios.isAxiosError(error)) {
-            if ((error?.response?.status as number) !== 409) {
-              throw error;
-            }
-          }
-        }
-
-        return true;
-      } catch (error) {
-        throw error;
-      }
-    },
-  });
+  const registerAndPostMerchantMeMutation =
+    useRegisterAndPostMerchantMeMutation();
 
   async function handleOnValidSubmit(data: FormType) {
     try {
-      await createUserAndMerchantMutation.mutateAsync(getValues());
+      await registerAndPostMerchantMeMutation.mutateAsync({
+        authenticationEmailRegisterRequestBody: getValues(),
+      });
       const response = await signIn("credentials", {
         ...data,
         callbackUrl,
@@ -269,14 +239,14 @@ export function RegisterEmailForm(props: {
           ) : (
             <LoadingButton
               loading={
-                createUserAndMerchantMutation.isPending ||
+                registerAndPostMerchantMeMutation.isPending ||
                 formState.isSubmitting
               }
               size="large"
               startIcon={
-                createUserAndMerchantMutation.data ? <Check /> : <Login />
+                registerAndPostMerchantMeMutation.data ? <Check /> : <Login />
               }
-              disabled={createUserAndMerchantMutation.isPending}
+              disabled={registerAndPostMerchantMeMutation.isPending}
               color={"secondary"}
               type="submit"
               fullWidth

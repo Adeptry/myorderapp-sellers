@@ -1,7 +1,7 @@
 "use client";
 
 import { routes } from "@/app/routes";
-import { LoginEmailForm } from "@/components/forms/LoginEmailForm";
+import { LoginForm } from "@/components/forms/LoginForm";
 import { useRedirectAuthenticatedSessions } from "@/routing/useRedirectAuthenticatedSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { Box, Container, Grid, Typography } from "@mui/material";
@@ -21,7 +21,7 @@ export function LoginComponent() {
             </Typography>
           </Box>
 
-          <LoginEmailForm
+          <LoginForm
             callbackUrl={routes.dashboard}
             skeleton={authStatus === "loading"}
           />

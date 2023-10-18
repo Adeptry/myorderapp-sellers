@@ -1,5 +1,5 @@
 import { routes } from "@/app/routes";
-import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
+import { usePostPasswordResetMutation } from "@/networking/mutations/usePostPasswordResetMutation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Password } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
@@ -11,12 +11,8 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import {
-  AuthenticationApi,
-  AuthenticationPasswordResetRequestBody,
-} from "myorderapp-square";
+import { AuthenticationPasswordResetRequestBody } from "myorderapp-square";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next-intl/client";
 import { useSearchParams } from "next/navigation";
@@ -58,20 +54,15 @@ export function PasswordResetForm(props: { preloading: boolean }) {
       ),
     });
 
-  const sessionedApiConfiguration = useSessionedApiConfiguration();
-  const passwordResetMutation = useMutation({
-    mutationFn: async (authenticationPasswordResetRequestBody: FormType) => {
-      return await new AuthenticationApi(
-        sessionedApiConfiguration
-      ).postPasswordReset({
+  const passwordResetMutation = usePostPasswordResetMutation();
+
+  async function handleOnValidSubmit(
+    authenticationPasswordResetRequestBody: FormType
+  ) {
+    try {
+      await passwordResetMutation.mutateAsync({
         authenticationPasswordResetRequestBody,
       });
-    },
-  });
-
-  async function handleOnValidSubmit(data: FormType) {
-    try {
-      await passwordResetMutation.mutateAsync(data);
       setTimeout(() => {
         router.push(routes.login);
       }, 3000);

@@ -1,5 +1,6 @@
 import { ForgotPasswordLink } from "@/components/links/ForgotPasswordLink";
 import { SignUpLink } from "@/components/links/SignUpLink";
+import { useLoginEmailMutation } from "@/networking/mutations/useLoginEmailMutation";
 import { gtagEvent } from "@/utils/gtag-event";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Check, Login } from "@mui/icons-material";
@@ -7,21 +8,19 @@ import { LoadingButton } from "@mui/lab";
 import { Alert, Box, Grid, Skeleton } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { AuthenticationEmailLoginRequestBody } from "myorderapp-square";
-import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 
-export function LoginEmailForm(props: {
+export function LoginForm(props: {
   callbackUrl: string;
   skeleton?: boolean;
 }) {
   type FormType = AuthenticationEmailLoginRequestBody;
-  const { skeleton } = props;
+  const { skeleton, callbackUrl } = props;
   const [errorString, setErrorString] = useState<string | null>(null);
   const t = useTranslations("LoginEmailForm");
 
@@ -47,19 +46,11 @@ export function LoginEmailForm(props: {
     return () => subscription.unsubscribe();
   }, [watch()]);
 
-  const createSessionMutation = useMutation({
-    mutationFn: async (authEmailLoginDto: FormType) => {
-      return await signIn("credentials", {
-        ...authEmailLoginDto,
-        callbackUrl: props.callbackUrl,
-        redirect: false,
-      });
-    },
-  });
+  const signInMutation = useLoginEmailMutation({ callbackUrl });
 
   async function handleOnValidSubmit(data: FormType) {
     try {
-      const result = await createSessionMutation.mutateAsync(data);
+      const result = await signInMutation.mutateAsync(data);
       if (result?.error) {
         handleError(result?.error);
       } else {
@@ -173,12 +164,10 @@ export function LoginEmailForm(props: {
             <Skeleton height="56px" />
           ) : (
             <LoadingButton
-              loading={
-                createSessionMutation.isPending || formState.isSubmitting
-              }
+              loading={signInMutation.isPending || formState.isSubmitting}
               size="large"
-              startIcon={createSessionMutation.data ? <Check /> : <Login />}
-              disabled={createSessionMutation.isPending}
+              startIcon={signInMutation.data ? <Check /> : <Login />}
+              disabled={signInMutation.isPending}
               color="secondary"
               type="submit"
               fullWidth

@@ -3,6 +3,7 @@
 import { routes } from "@/app/routes";
 import { FooterComponent } from "@/components/pages/FooterComponent";
 import { moaEnv } from "@/moaEnv";
+import { useGetStripeBillingSessionMeMutation } from "@/networking/mutations/useGetStripeBillingSessionMeMutation";
 import { useGetMerchantMeQuery } from "@/networking/queries/useGetMerchantMeQuery";
 import { fullNameForMerchant } from "@/utils/fullNameForMerchant";
 import { initialsForMerchant } from "@/utils/initialsForMerchant";
@@ -10,7 +11,6 @@ import { isMerchantSetupFn } from "@/utils/isMerchantSetup";
 import { stringToColor } from "@/utils/stringToColor";
 import { useAppBarHeight } from "@/utils/useAppBarHeight";
 import { useCurrentMerchantMoaUrl } from "@/utils/useCurrentMerchantMoaUrl";
-import { useSessionedApiConfiguration } from "@/utils/useSessionedApiConfiguration";
 import {
   AccountCircleOutlined,
   AppShortcut,
@@ -54,8 +54,7 @@ import { styled, useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { MerchantsApi } from "myorderapp-square";
+import { useQueryClient } from "@tanstack/react-query";
 import { signOut } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next-intl/client";
@@ -130,17 +129,11 @@ export function AdaptiveScaffoldLayout(props: { children: ReactNode }) {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const queryClient = useQueryClient();
   const { data: currentMerchantData } = useGetMerchantMeQuery();
-  const sessionedApiConfiguration = useSessionedApiConfiguration();
   const { colorModeCookieValue, setColorModeCookieValue, colorCookieValue } =
     useCookieContext();
 
-  const getStripeBillingSessionMutationMe = useMutation({
-    mutationFn: async (returnUrl: string) => {
-      return await new MerchantsApi(
-        sessionedApiConfiguration
-      ).getStripeBillingSessionMe({ returnUrl });
-    },
-  });
+  const getStripeBillingSessionMutationMe =
+    useGetStripeBillingSessionMeMutation();
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
