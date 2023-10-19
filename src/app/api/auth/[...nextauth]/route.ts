@@ -141,6 +141,7 @@ const handler = NextAuth({
     AppleProvider({
       clientId: process.env.APPLE_CLIENT_ID!,
       clientSecret: process.env.APPLE_CLIENT_SECRET!.replace(/\\n/g, "\n"),
+      authorization: { params: { scope: "openid name email" } },
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
