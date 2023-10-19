@@ -19,15 +19,15 @@ const handler = NextAuth({
     updateAge: ms(process.env.AUTH_JWT_TOKEN_EXPIRES_IN!) / 1000,
   },
   callbacks: {
+    signIn(params) {
+      console.log(`signIn: ${JSON.stringify(params)}`);
+      return true;
+    },
     async session(params) {
       params.session.user.token = params.token.token;
       params.session.user.refreshToken = params.token.refreshToken;
       params.session.user.tokenExpires = params.token.tokenExpires;
       return params.session;
-    },
-    async redirect(params: { url: string; baseUrl: string }) {
-      const { url, baseUrl } = params;
-      return url;
     },
     async jwt(params) {
       const { user, token, account } = params;
