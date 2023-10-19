@@ -1,12 +1,15 @@
 import { moaEnv } from "@/moaEnv";
+import axios from "axios";
 import ms from "ms";
 import {
   AuthenticationApi,
   Configuration,
-  ConfigurationParameters,
+  MerchantsApi,
 } from "myorderapp-square";
 import NextAuth from "next-auth";
+import AppleProvider from "next-auth/providers/apple";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 
 const handler = NextAuth({
   session: {
@@ -21,32 +24,107 @@ const handler = NextAuth({
       params.session.user.tokenExpires = params.token.tokenExpires;
       return params.session;
     },
+    async redirect(params: { url: string; baseUrl: string }) {
+      const { url, baseUrl } = params;
+      return url;
+    },
     async jwt(params) {
-      if (params.user) {
-        params.token.token = params.user.token;
-        params.token.refreshToken = params.user.refreshToken;
-        params.token.tokenExpires = params.user.tokenExpires;
+      const { user, token, account } = params;
+
+      if (account && user) {
+        const loginAuthApi = new AuthenticationApi(
+          new Configuration({
+            apiKey: moaEnv.backendApiKey,
+            basePath: moaEnv.backendUrl,
+          })
+        );
+        if (account.provider === "google") {
+          if (account.id_token) {
+            const postLoginGoogleResponse = await loginAuthApi.postLoginGoogle({
+              authGoogleLoginDto: {
+                idToken: account.id_token,
+              },
+            });
+            token.token = postLoginGoogleResponse.data.token;
+            token.refreshToken = postLoginGoogleResponse.data.refreshToken;
+            token.tokenExpires = postLoginGoogleResponse.data.tokenExpires;
+
+            const merchantsApi = new MerchantsApi(
+              new Configuration({
+                apiKey: moaEnv.backendApiKey,
+                basePath: moaEnv.backendUrl,
+                accessToken: postLoginGoogleResponse.data.token,
+              })
+            );
+
+            try {
+              await merchantsApi.getMerchantMe();
+            } catch (error) {
+              if (axios.isAxiosError(error) && error.response?.status === 404) {
+                await merchantsApi.postMerchantMe();
+              }
+            }
+          } else {
+            throw new Error("Invalid id_token");
+          }
+        } else if (account.provider === "apple") {
+          if (account.id_token) {
+            const postLoginGoogleResponse = await loginAuthApi.postLoginApple({
+              authAppleLoginDto: {
+                idToken: account.id_token,
+              },
+            });
+            token.token = postLoginGoogleResponse.data.token;
+            token.refreshToken = postLoginGoogleResponse.data.refreshToken;
+            token.tokenExpires = postLoginGoogleResponse.data.tokenExpires;
+
+            const merchantsApi = new MerchantsApi(
+              new Configuration({
+                apiKey: moaEnv.backendApiKey,
+                basePath: moaEnv.backendUrl,
+                accessToken: postLoginGoogleResponse.data.token,
+              })
+            );
+
+            try {
+              await merchantsApi.getMerchantMe();
+            } catch (error) {
+              if (axios.isAxiosError(error) && error.response?.status === 404) {
+                await merchantsApi.postMerchantMe();
+              } else {
+                throw error;
+              }
+            }
+          } else {
+            throw new Error("Invalid id_token");
+          }
+        } else {
+          throw new Error("Invalid provider");
+        }
+      } else if (user) {
+        token.token = user.token;
+        token.refreshToken = user.refreshToken;
+        token.tokenExpires = user.tokenExpires;
       }
 
       if (
-        (params.token.tokenExpires &&
-          new Date().getTime() > params.token.tokenExpires) ||
+        (token.tokenExpires && new Date().getTime() > token.tokenExpires) ||
         params.trigger === "update"
       ) {
         try {
-          const parameters: ConfigurationParameters = {
-            apiKey: moaEnv.backendApiKey,
-            basePath: moaEnv.backendUrl,
-            accessToken: params.token.refreshToken,
-          };
-          const response = await new AuthenticationApi(
-            new Configuration(parameters)
-          ).postRefresh();
+          const refreshApi = new AuthenticationApi(
+            new Configuration({
+              apiKey: moaEnv.backendApiKey,
+              basePath: moaEnv.backendUrl,
+              accessToken: token.refreshToken,
+            })
+          );
+          const response = await refreshApi.postRefresh();
           const data = response.data;
           if (data) {
-            params.token.token = data.token;
-            params.token.refreshToken = data.refreshToken;
-            params.token.tokenExpires = data.tokenExpires;
+            token.token = data.token;
+            token.refreshToken = data.refreshToken;
+            token.tokenExpires = data.tokenExpires;
           } else {
             throw new Error("Token refresh failed because no data");
           }
@@ -56,10 +134,18 @@ const handler = NextAuth({
         }
       }
 
-      return params.token;
+      return token;
     },
   },
   providers: [
+    AppleProvider({
+      clientId: process.env.APPLE_CLIENT_ID!,
+      clientSecret: process.env.APPLE_CLIENT_SECRET!.replace(/\\n/g, "\n"),
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
     CredentialsProvider({
       credentials: {
         email: { label: "Email", type: "text" },
@@ -69,12 +155,14 @@ const handler = NextAuth({
       },
       authorize: async (credentials) => {
         try {
-          const response = await new AuthenticationApi(
+          const api = new AuthenticationApi(
             new Configuration({
               apiKey: moaEnv.backendApiKey,
               basePath: moaEnv.backendUrl,
             })
-          ).postEmailLogin({
+          );
+
+          const response = await api.postEmailLogin({
             authenticationEmailLoginRequestBody: {
               email: credentials?.email ?? "",
               password: credentials?.password ?? "",

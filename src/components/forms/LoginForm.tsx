@@ -14,11 +14,10 @@ import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
+import { AppleAuthButton } from "../buttons/AppleAuthButton";
+import { GoogleAuthButton } from "../buttons/GoogleAuthButton";
 
-export function LoginForm(props: {
-  callbackUrl: string;
-  skeleton?: boolean;
-}) {
+export function LoginForm(props: { callbackUrl: string; skeleton?: boolean }) {
   type FormType = AuthenticationEmailLoginRequestBody;
   const { skeleton, callbackUrl } = props;
   const [errorString, setErrorString] = useState<string | null>(null);
@@ -205,6 +204,16 @@ export function LoginForm(props: {
               ) : (
                 <SignUpLink />
               )}
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <Grid container rowGap={skeleton ? 0 : 2}>
+            <Grid item xs={12}>
+              {skeleton ? <Skeleton height="56px" /> : <GoogleAuthButton />}
+            </Grid>
+            <Grid item xs={12}>
+              {skeleton ? <Skeleton height="56px" /> : <AppleAuthButton />}
             </Grid>
           </Grid>
         </Grid>

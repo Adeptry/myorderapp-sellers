@@ -17,6 +17,7 @@ export const routes = {
   orders: "/orders",
   support: "/support",
   setup: {
+    index: "/setup",
     theme: "/setup/theme",
     catalog: "/setup/catalog",
     square: {

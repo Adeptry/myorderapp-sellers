@@ -22,6 +22,8 @@ import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslations } from "use-intl";
 import * as yup from "yup";
+import { AppleAuthButton } from "../buttons/AppleAuthButton";
+import { GoogleAuthButton } from "../buttons/GoogleAuthButton";
 
 export function RegisterForm(props: {
   callbackUrl: string;
@@ -284,6 +286,16 @@ export function RegisterForm(props: {
               ) : (
                 <SignInLink />
               )}
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <Grid container rowGap={skeleton ? 0 : 2}>
+            <Grid item xs={12}>
+              {skeleton ? <Skeleton height="56px" /> : <GoogleAuthButton />}
+            </Grid>
+            <Grid item xs={12}>
+              {skeleton ? <Skeleton height="56px" /> : <AppleAuthButton />}
             </Grid>
           </Grid>
         </Grid>
