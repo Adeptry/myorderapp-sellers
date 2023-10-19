@@ -19,10 +19,6 @@ const handler = NextAuth({
     updateAge: ms(process.env.AUTH_JWT_TOKEN_EXPIRES_IN!) / 1000,
   },
   callbacks: {
-    signIn(params) {
-      console.log(`signIn: ${JSON.stringify(params)}`);
-      return true;
-    },
     async session(params) {
       params.session.user.token = params.token.token;
       params.session.user.refreshToken = params.token.refreshToken;
@@ -99,13 +95,13 @@ const handler = NextAuth({
           } else {
             throw new Error("Invalid id_token");
           }
+        } else if (account.provider === "credentials") {
+          token.token = user.token;
+          token.refreshToken = user.refreshToken;
+          token.tokenExpires = user.tokenExpires;
         } else {
           throw new Error("Invalid provider");
         }
-      } else if (user) {
-        token.token = user.token;
-        token.refreshToken = user.refreshToken;
-        token.tokenExpires = user.tokenExpires;
       }
 
       if (
