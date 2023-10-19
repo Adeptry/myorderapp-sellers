@@ -18,6 +18,17 @@ const handler = NextAuth({
     maxAge: ms(process.env.AUTH_REFRESH_TOKEN_EXPIRES_IN!) / 1000,
     updateAge: ms(process.env.AUTH_JWT_TOKEN_EXPIRES_IN!) / 1000,
   },
+  cookies: {
+    pkceCodeVerifier: {
+      name: "next-auth.pkce.code_verifier",
+      options: {
+        httpOnly: true,
+        sameSite: "none",
+        path: "/",
+        secure: true,
+      },
+    },
+  },
   callbacks: {
     async session(params) {
       params.session.user.token = params.token.token;
