@@ -12,6 +12,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 
 const handler = NextAuth({
+  debug: process.env.NEXT_AUTH_DEBUG === "true",
   session: {
     strategy: "jwt",
     maxAge: ms(process.env.AUTH_REFRESH_TOKEN_EXPIRES_IN!) / 1000,
@@ -140,8 +141,7 @@ const handler = NextAuth({
   providers: [
     AppleProvider({
       clientId: process.env.APPLE_CLIENT_ID!,
-      clientSecret: process.env.APPLE_CLIENT_SECRET!.replace(/\\n/g, "\n"),
-      authorization: { params: { scope: "openid name email" } },
+      clientSecret: process.env.APPLE_CLIENT_SECRET!,
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
