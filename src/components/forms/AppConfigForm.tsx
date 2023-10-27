@@ -183,6 +183,7 @@ export function AppConfigForm(props: {
             fontFamily: value.fontFamily,
             useMaterial3: getBooleanNullOrThrow(value.useMaterial3),
             themeMode: stringToThemeMode(value.themeMode),
+            useAdaptiveScaffold: false,
           })
         : {};
       setErrorString(null);
@@ -192,7 +193,6 @@ export function AppConfigForm(props: {
 
   const patchAppConfigMeMutation = useMutation({
     mutationFn: async (appConfigUpdateBody: FormType) => {
-      
       const api = new AppConfigsApi(sessionedApiConfiguration);
 
       if (isDirty) {
@@ -201,12 +201,13 @@ export function AppConfigForm(props: {
             name: appConfigUpdateBody.name,
             seedColor: appConfigUpdateBody.seedColor,
             fontFamily: appConfigUpdateBody.fontFamily,
-            useMaterial3: getBooleanNullOrThrow(appConfigUpdateBody.useMaterial3),
+            useMaterial3: getBooleanNullOrThrow(
+              appConfigUpdateBody.useMaterial3
+            ),
             themeMode: stringToThemeMode(appConfigUpdateBody.themeMode),
           },
         });
       }
-      
 
       if (appConfigUpdateBody.file) {
         await api.postIconUploadMe({ file: appConfigUpdateBody.file });

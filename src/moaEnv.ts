@@ -1,10 +1,10 @@
 import { MoaEnv } from "@/types/moa-env";
-import { ColorSchemeEnum } from "next/dist/lib/metadata/types/metadata-types";
 
 export const moaEnv: MoaEnv = {
   env: process.env.NEXT_PUBLIC_ENV!,
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL!,
   appUrl: process.env.NEXT_PUBLIC_APP_URL!,
+  appUserAgent: process.env.NEXT_PUBLIC_APP_USER_AGENT!,
   marketingUrl: process.env.NEXT_PUBLIC_MARKETING_URL!,
   backendUrl: process.env.NEXT_PUBLIC_BACKEND_URL!,
   backendApiKey: process.env.NEXT_PUBLIC_BACKEND_API_KEY!,
@@ -21,9 +21,6 @@ export const moaEnv: MoaEnv = {
 
   metadata: {
     robots: process.env.NEXT_PUBLIC_METADATA_ROBOTS!,
-    colorScheme: process.env
-      .NEXT_PUBLIC_METADATA_COLOR_SCHEME! as ColorSchemeEnum,
-    viewport: process.env.NEXT_PUBLIC_METADATA_VIEWPORT!,
   },
 
   appConfig: {

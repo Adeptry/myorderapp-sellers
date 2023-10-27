@@ -3,7 +3,7 @@
 import { CatalogAccordion } from "@/components/accordions/CatalogAccordion";
 import { MyOrderAppPreview } from "@/components/app-preview/MyOrderAppPreview";
 import { TabLayout } from "@/components/layouts/TabLayout";
-import { moaEnv } from "@/moaEnv";
+import { useGetAppConfigMeQuery } from "@/networking/queries/useGetAppConfigMeQuery";
 import { useGetCategoriesMeQuery } from "@/networking/queries/useGetCategoriesMeQuery";
 import { useRedirectNotSetupSessions } from "@/routing/useRedirectNotSetupSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
@@ -11,7 +11,7 @@ import { Container } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 import { useSession } from "next-auth/react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
 export function CatalogComponent() {
   useRedirectNotSetupSessions();
@@ -22,7 +22,8 @@ export function CatalogComponent() {
 
   const currentCatalogQuery = useGetCategoriesMeQuery();
   const currentCatalogCategories = currentCatalogQuery.data?.data ?? [];
-  const locale = useLocale();
+  const { data: appConfig } = useGetAppConfigMeQuery();
+
   const { data } = useSession();
   return (
     <Container sx={{ minHeight: maxHeightCssString }}>
@@ -36,13 +37,7 @@ export function CatalogComponent() {
           sx={{ pb: 2, position: "sticky", top: "72px" }}
           categories={currentCatalogCategories}
           authentication={data?.user}
-          environment={{
-            apiBaseUrl: moaEnv.backendUrl!,
-            apiKey: moaEnv.backendApiKey!,
-
-            isPreview: true,
-            languageCodeOverride: locale,
-          }}
+          appConfig={{ ...appConfig, useAdaptiveScaffold: false }}
         />
       </TabLayout>
     </Container>

@@ -13,17 +13,17 @@ export const getAppConfigMeQueryKeyBuilder = (
   return ["getAppConfigMe", params];
 };
 
-export const useGetAppConfigMeQuery = (
-  params: AppConfigsApiGetAppConfigMeRequest
-) => {
+export const useGetAppConfigMeQuery = () => {
   const { status, update, data: session } = useSession();
   const sessionedApiConfigration = useSessionedApiConfiguration();
 
   return useQuery({
-    queryKey: getAppConfigMeQueryKeyBuilder(params),
+    queryKey: getAppConfigMeQueryKeyBuilder({ actingAs: "merchant" }),
     queryFn: async () => {
       return (
-        await new AppConfigsApi(sessionedApiConfigration).getAppConfigMe(params)
+        await new AppConfigsApi(sessionedApiConfigration).getAppConfigMe({
+          actingAs: "merchant",
+        })
       ).data;
     },
     enabled: status === "authenticated",

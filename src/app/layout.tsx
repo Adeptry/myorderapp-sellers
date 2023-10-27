@@ -6,7 +6,6 @@ import { openGraphImages } from "./shared-metadata";
 export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: new URL(moaEnv.siteUrl),
-    themeColor: moaEnv.theme.palette.light.primary.main,
     ...moaEnv.metadata,
     alternates: {
       canonical: "/",

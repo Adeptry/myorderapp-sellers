@@ -5,7 +5,6 @@ import { MyOrderAppPreview } from "@/components/app-preview/MyOrderAppPreview";
 import { AppConfigForm } from "@/components/forms/AppConfigForm";
 import { TabLayout } from "@/components/layouts/TabLayout";
 import { OnboardingStepper } from "@/components/steppers/OnboardingStepper";
-import { moaEnv } from "@/moaEnv";
 import { useRedirectSetupSessions } from "@/routing/useRedirectSetupSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { Container, Stack } from "@mui/material";
@@ -61,12 +60,6 @@ export function SetupAppConfigComponent() {
             categories={categories}
             authentication={sessionData?.user}
             appConfig={appConfigState}
-            environment={{
-              apiBaseUrl: moaEnv.backendUrl,
-              apiKey: moaEnv.backendApiKey,
-              isPreview: true,
-              languageCodeOverride: locale,
-            }}
           />
         </TabLayout>
       </Stack>

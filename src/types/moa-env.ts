@@ -1,10 +1,9 @@
-import { ColorSchemeEnum } from "next/dist/lib/metadata/types/metadata-types";
-
 export interface MoaEnv {
   siteUrl: string;
   backendUrl: string;
   backendApiKey: string;
   appUrl: string;
+  appUserAgent: string;
   marketingUrl: string;
   env: string;
   name: string;
@@ -15,8 +14,6 @@ export interface MoaEnv {
   comingSoon: boolean;
   maintenance: boolean;
   metadata: {
-    colorScheme: ColorSchemeEnum;
-    viewport: string;
     robots: string;
   };
   appConfig: {

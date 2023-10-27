@@ -17,12 +17,6 @@ export function MyOrderAppPreview(props: {
   categories?: Array<CategoryEntity>;
   appConfig?: AppConfigEntity;
   authentication?: AuthenticationResponse;
-  environment: {
-    apiBaseUrl: string | null;
-    apiKey: string | null;
-    isPreview: boolean | null;
-    languageCodeOverride: string | null;
-  } | null;
 }) {
   const { sx } = props;
   const { data: merchantMe } = useGetMerchantMeQuery();
@@ -44,7 +38,6 @@ export function MyOrderAppPreview(props: {
                 authentication: toWindowClonable(props.authentication),
                 categories: toWindowClonable(props.categories),
                 appConfig: toWindowClonable(props.appConfig),
-                environment: props.environment,
               },
             }}
             style={{

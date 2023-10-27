@@ -5,7 +5,7 @@ import { CatalogAccordion } from "@/components/accordions/CatalogAccordion";
 import { MyOrderAppPreview } from "@/components/app-preview/MyOrderAppPreview";
 import { TabLayout } from "@/components/layouts/TabLayout";
 import { OnboardingStepper } from "@/components/steppers/OnboardingStepper";
-import { moaEnv } from "@/moaEnv";
+import { useGetAppConfigMeQuery } from "@/networking/queries/useGetAppConfigMeQuery";
 import { useGetCategoriesMeQuery } from "@/networking/queries/useGetCategoriesMeQuery";
 import { useRedirectSetupSessions } from "@/routing/useRedirectSetupSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
@@ -27,7 +27,7 @@ import {
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery/useMediaQuery";
 import { useSession } from "next-auth/react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next-intl/client";
 import { useState } from "react";
 import SetupCatalogDialog from "../dialogs/SetupCatalogDialog";
@@ -40,7 +40,7 @@ export function SetupCatalogComponent() {
   const { status } = useSession();
   const currentCatalogQuery = useGetCategoriesMeQuery();
   const currentCatalogCategories = currentCatalogQuery.data?.data ?? [];
-  const locale = useLocale();
+  const { data: appConfig } = useGetAppConfigMeQuery();
 
   const skeleton = status === "loading";
   const t = useTranslations("SetupCatalogComponent");
@@ -113,14 +113,9 @@ export function SetupCatalogComponent() {
               position: "sticky",
               top: "72px", // Adjusted for the toolbar
             }}
+            appConfig={{ ...appConfig, useAdaptiveScaffold: false }}
             authentication={data?.user}
             categories={currentCatalogCategories}
-            environment={{
-              apiBaseUrl: moaEnv.backendUrl!,
-              apiKey: moaEnv.backendApiKey!,
-              isPreview: true,
-              languageCodeOverride: locale,
-            }}
           />
         </TabLayout>
       </Stack>

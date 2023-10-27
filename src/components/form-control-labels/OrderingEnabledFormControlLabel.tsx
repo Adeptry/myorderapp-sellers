@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 export default function OrderingEnabledFormControlLabel() {
   const t = useTranslations("OrderingEnabledFormControlLabel");
   const params: AppConfigsApiGetAppConfigMeRequest = { actingAs: "merchant" };
-  const { data: appConfig } = useGetAppConfigMeQuery(params);
+  const { data: appConfig } = useGetAppConfigMeQuery();
   const { mutateAsync: patchAppConfigMe } = usePatchAppConfigMeMutation(params);
   return (
     <FormControlLabel
