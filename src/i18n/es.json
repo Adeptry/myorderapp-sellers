@@ -157,7 +157,8 @@
     "gdpr": "RGPD",
     "legal": "Legal",
     "privacy": "Privacidad",
-    "terms": "Términos"
+    "terms": "Términos",
+    "licenses": "Licencias"
   },
   "LocationsComponent": {
     "title": "Ubicaciones",

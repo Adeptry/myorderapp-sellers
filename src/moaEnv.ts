@@ -6,6 +6,9 @@ export const moaEnv: MoaEnv = {
   appUrl: process.env.NEXT_PUBLIC_APP_URL!,
   appUserAgent: process.env.NEXT_PUBLIC_APP_USER_AGENT!,
   marketingUrl: process.env.NEXT_PUBLIC_MARKETING_URL!,
+  termsUrl: process.env.NEXT_PUBLIC_TERMS_URL!,
+  privacyUrl: process.env.NEXT_PUBLIC_PRIVACY_URL!,
+  gdprUrl: process.env.NEXT_PUBLIC_GDPR_URL!,
   backendUrl: process.env.NEXT_PUBLIC_BACKEND_URL!,
   backendApiKey: process.env.NEXT_PUBLIC_BACKEND_API_KEY!,
 

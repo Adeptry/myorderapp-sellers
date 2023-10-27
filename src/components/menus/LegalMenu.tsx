@@ -1,8 +1,11 @@
+import { routes } from "@/app/routes";
+import { moaEnv } from "@/moaEnv";
 import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export function LegalMenu() {
@@ -11,10 +14,11 @@ export function LegalMenu() {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  function handleClose() {
     setAnchorEl(null);
-  };
+  }
   const t = useTranslations("LegalMenu");
+  const { push } = useRouter();
 
   return (
     <Box>
@@ -32,14 +36,45 @@ export function LegalMenu() {
         id="document-menu"
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
+        onClose={() => {
+          handleClose();
+        }}
         MenuListProps={{
           "aria-labelledby": "document-button",
         }}
       >
-        <MenuItem onClick={handleClose}>{t("terms")}</MenuItem>
-        <MenuItem onClick={handleClose}>{t("privacy")}</MenuItem>
-        <MenuItem onClick={handleClose}>{t("gdpr")}</MenuItem>
+        <MenuItem
+          onClick={() => {
+            window.open(moaEnv.termsUrl);
+            handleClose();
+          }}
+        >
+          {t("terms")}
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            window.open(moaEnv.privacyUrl);
+            handleClose();
+          }}
+        >
+          {t("privacy")}
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            window.open(moaEnv.gdprUrl);
+            handleClose();
+          }}
+        >
+          {t("gdpr")}
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            push(routes.licenses);
+            handleClose();
+          }}
+        >
+          {t("licenses")}
+        </MenuItem>
       </Menu>
     </Box>
   );

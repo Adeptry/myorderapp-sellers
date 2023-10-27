@@ -5,6 +5,9 @@ export interface MoaEnv {
   appUrl: string;
   appUserAgent: string;
   marketingUrl: string;
+  termsUrl: string;
+  privacyUrl: string;
+  gdprUrl: string;
   env: string;
   name: string;
   isBeta: boolean;

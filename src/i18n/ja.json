@@ -157,7 +157,8 @@
     "gdpr": "GDPR",
     "legal": "法的",
     "privacy": "プライバシー",
-    "terms": "利用規約"
+    "terms": "利用規約",
+    "licenses": "ライセンス"
   },
   "LocationsComponent": {
     "title": "場所",

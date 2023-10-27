@@ -16,6 +16,7 @@ export const routes = {
   locations: "/locations",
   orders: "/orders",
   support: "/support",
+  licenses: "/licenses",
   setup: {
     index: "/setup",
     theme: "/setup/theme",

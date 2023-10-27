@@ -157,7 +157,8 @@
     "gdpr": "GDPR",
     "legal": "Legal",
     "privacy": "Privacy",
-    "terms": "Terms"
+    "terms": "Terms",
+    "licenses": "Licenses"
   },
   "LocationsComponent": {
     "title": "Locations",
