@@ -21,8 +21,6 @@ export function MessagingIframe<
   const [iframeLoaded, setIframeLoaded] = useState(false);
 
   useEffect(() => {
-    logger.info(props.sendMessageState, "Web sending message");
-
     iframeRef.current?.contentWindow?.postMessage(
       props.sendMessageState,
       new URL(props.src).origin
