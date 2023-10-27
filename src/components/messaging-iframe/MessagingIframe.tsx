@@ -35,8 +35,6 @@ export function MessagingIframe<
         return;
       }
 
-      logger.info(event.data, "Web received message");
-
       try {
         const data = event.data.data;
         if (data.type === "event" && data.payload === "update") {
