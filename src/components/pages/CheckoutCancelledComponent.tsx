@@ -1,6 +1,6 @@
 "use client";
 
-import { FaqAccordion } from "@/components/accordions/CheckoutFaqAccordion";
+import { FaqAccordion } from "@/components/accordions/FaqAccordion";
 import { StripeCheckoutCancelledCard } from "@/components/cards/StripeCheckoutCancelledCard";
 import { PriceGrid } from "@/components/grids/PriceGrid";
 import { OnboardingStepper } from "@/components/steppers/OnboardingStepper";

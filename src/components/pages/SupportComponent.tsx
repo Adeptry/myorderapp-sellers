@@ -1,10 +1,12 @@
 "use client";
 
-import { FaqAccordion } from "@/components/accordions/CheckoutFaqAccordion";
+import { FaqAccordion } from "@/components/accordions/FaqAccordion";
 import { SupportRequestForm } from "@/components/forms/SupportRequestForm";
+import { moaEnv } from "@/moaEnv";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { QuestionAnswer } from "@mui/icons-material";
+import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 
 export function SupportComponent() {
@@ -30,7 +32,20 @@ export function SupportComponent() {
               {t("faqTitle")}
             </Typography>
           </Box>
-          <FaqAccordion />
+          <Stack gap={2}>
+            <FaqAccordion />
+            <Box textAlign="center">
+              <Button
+                size="large"
+                startIcon={<QuestionAnswer />}
+                variant="contained"
+                color="secondary"
+                onClick={() => window.open(moaEnv.faqUrl)}
+              >
+                {t("button")}
+              </Button>
+            </Box>
+          </Stack>
         </Grid>
       </Grid>
     </Container>

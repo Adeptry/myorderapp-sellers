@@ -7,6 +7,7 @@ export interface MoaEnv {
   marketingUrl: string;
   termsUrl: string;
   privacyUrl: string;
+  faqUrl: string;
   gdprUrl: string;
   env: string;
   name: string;

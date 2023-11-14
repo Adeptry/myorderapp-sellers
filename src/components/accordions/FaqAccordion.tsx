@@ -4,20 +4,11 @@ import { DynamicAccordion } from "./DynamicAccordion";
 
 export function FaqAccordion(props: { sx?: SxProps }) {
   const t = useTranslations("FaqAccordion");
-  const keys = [
-    "switching",
-    "downgrading",
-    "upgrading",
-    "publishing",
-    "cost",
-    "billing",
-    "ads",
-    "support",
-  ];
+  const keys = ["steps", "personalize", "pricing", "cancellation", "support"];
   const content = keys.map((key) => {
     return {
       summary: t(key + ".summary"),
-      details: t(key + ".details"),
+      details: t.raw(key + ".details"),
     };
   });
   return <DynamicAccordion content={content} sx={props.sx} />;

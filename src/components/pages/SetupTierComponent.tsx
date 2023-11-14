@@ -1,7 +1,7 @@
 "use client";
 
 import { routes } from "@/app/routes";
-import { FaqAccordion } from "@/components/accordions/CheckoutFaqAccordion";
+import { FaqAccordion } from "@/components/accordions/FaqAccordion";
 import { PriceGrid } from "@/components/grids/PriceGrid";
 import { OnboardingStepper } from "@/components/steppers/OnboardingStepper";
 import { useRedirectSetupSessions } from "@/routing/useRedirectSetupSessions";
