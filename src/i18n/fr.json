@@ -276,7 +276,8 @@
   },
   "SupportComponent": {
     "faqTitle": "Questions fréquentes",
-    "formTitle": "Support"
+    "formTitle": "Support",
+    "button": "Voir plus"
   },
   "SupportRequestForm": {
     "buttonText": "Envoyer",
