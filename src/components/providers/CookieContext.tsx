@@ -70,7 +70,6 @@ export function CookieProvider({ children }: CookieProviderProps) {
 
   useEffect(() => {
     if (colorModeState !== undefined) {
-      console.log(`setting color mode cookie to ${colorModeState}`);
       setCookie(constants.colorModeCookieName, colorModeState);
     }
   }, [colorModeState]);

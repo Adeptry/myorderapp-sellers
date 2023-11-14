@@ -306,8 +306,8 @@
     "transactionFee": "+5% per transaction"
   },
   "Tier0SuccessCard": {
-    "nextStepsPrimary": "Upcoming Milestones:",
-    "nextStepsSecondary": "Check your performance analytics and tweak your marketing accordingly. Want more? Upgrading is seamless for an even more robust experience.",
+    "nextStepsPrimary": "Next steps:",
+    "nextStepsSecondary": "Check out all the tools in the menu on the left. Sync your catalog, customize your app, share your new app with the world.",
     "subheader": "Way to go! Your web app is fully functional and ready to accept orders.",
     "supportPrimary": "Basic Support",
     "supportSecondary": "Stuck? Don't hesitate to use our basic support. Expect a reply within 72 hours.",
@@ -325,8 +325,8 @@
     "transactionFee": "+2.5% per transaction"
   },
   "Tier1SuccessCard": {
-    "nextStepsPrimary": "Immediate Priorities:",
-    "nextStepsSecondary": "Kickstart your promotional efforts for the web app and brace for the Android launch. We're on top of the tech, so you focus on sales.",
+    "nextStepsPrimary": "Next steps:",
+    "nextStepsSecondary": "Our engineers been notified to build your Android app and send it to you, and we'll be in touch shortly. In the meantime, check out all the tools in the menu on the left. Sync your catalog, customize your app, share your new app with the world.",
     "subheader": "Success! Your web app is operational. Sit tight; your Android app will be rolling out shortly.",
     "supportPrimary": "Enhanced Support",
     "supportSecondary": "Got Queries? Our enhanced support guarantees a 48-hour turnaround for your questions.",
@@ -344,7 +344,7 @@
     "transactionFee": "No fees"
   },
   "Tier2SuccessCard": {
-    "nextStepsPrimary": "Action Items:",
+    "nextStepsPrimary": "Next steps:",
     "nextStepsSecondary": "Maximize your web app's visibility while we finalize your Android and iOS apps. Your cross-platform strategy is about to level up.",
     "subheader": "Splendid! Your web app is live and serving customers. Android and iOS versions are in the pipeline.",
     "supportPrimary": "Priority Support",

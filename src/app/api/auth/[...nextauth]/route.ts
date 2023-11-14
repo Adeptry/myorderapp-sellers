@@ -77,20 +77,20 @@ const handler = NextAuth({
           }
         } else if (account.provider === "apple") {
           if (account.id_token) {
-            const postLoginGoogleResponse = await loginAuthApi.postLoginApple({
+            const postLoginAppleResponse = await loginAuthApi.postLoginApple({
               authAppleLoginDto: {
                 idToken: account.id_token,
               },
             });
-            token.token = postLoginGoogleResponse.data.token;
-            token.refreshToken = postLoginGoogleResponse.data.refreshToken;
-            token.tokenExpires = postLoginGoogleResponse.data.tokenExpires;
+            token.token = postLoginAppleResponse.data.token;
+            token.refreshToken = postLoginAppleResponse.data.refreshToken;
+            token.tokenExpires = postLoginAppleResponse.data.tokenExpires;
 
             const merchantsApi = new MerchantsApi(
               new Configuration({
                 apiKey: moaEnv.backendApiKey,
                 basePath: moaEnv.backendUrl,
-                accessToken: postLoginGoogleResponse.data.token,
+                accessToken: postLoginAppleResponse.data.token,
               })
             );
 
