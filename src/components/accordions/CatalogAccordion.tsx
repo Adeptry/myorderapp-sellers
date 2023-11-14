@@ -1,3 +1,4 @@
+import { useGetSquareSyncMeMutation } from "@/networking/mutations/useGetSquareSyncMeMutation";
 import { usePatchCategoriesMutation } from "@/networking/mutations/usePatchCategoriesMutation";
 import { usePatchItemsMutation } from "@/networking/mutations/usePatchItemsMutation";
 import { usePatchVariationMutation } from "@/networking/mutations/usePatchVariationMutation";
@@ -5,7 +6,8 @@ import { usePostItemSquareImageUploadMutation } from "@/networking/mutations/use
 import { useGetCategoriesMeQuery } from "@/networking/queries/useGetCategoriesMeQuery";
 import { StrictModeDroppable } from "@/utils/StrictModeDroppable";
 import { logger } from "@/utils/logger";
-import { Add, DragHandle, ExpandMore } from "@mui/icons-material";
+import { Add, DragHandle, ExpandMore, Sync } from "@mui/icons-material";
+import { LoadingButton } from "@mui/lab";
 import {
   Accordion,
   AccordionDetails,
@@ -17,6 +19,7 @@ import {
   ListItem,
   ListItemText,
   Paper,
+  Stack,
   Switch,
   Tooltip,
 } from "@mui/material";
@@ -39,11 +42,12 @@ export function CatalogAccordion() {
   const currentCatalogQuery = useGetCategoriesMeQuery();
   const currentCatalogCategories = currentCatalogQuery.data?.data ?? [];
 
-  const updateItemsMutation = usePatchItemsMutation();
-  const updateCategoriesMutation = usePatchCategoriesMutation();
-  const updateVariationMutation = usePatchVariationMutation();
-  const uploadImageToSquareCatalogMutation =
-    usePostItemSquareImageUploadMutation();
+  const patchItems = usePatchItemsMutation();
+  const patchCategories = usePatchCategoriesMutation();
+  const patchVariation = usePatchVariationMutation();
+  const uploadImageToSquareCatalog = usePostItemSquareImageUploadMutation();
+
+  const squareSyncMe = useGetSquareSyncMeMutation();
 
   const handleCategoryDragEnd = (result: DropResult) => {
     const { source, destination } = result;
@@ -72,7 +76,7 @@ export function CatalogAccordion() {
         moaEnabled: category.moaEnabled,
       }));
 
-    updateCategoriesMutation.mutateAsync(updatedCategoriesDtos);
+    patchCategories.mutateAsync(updatedCategoriesDtos);
   };
 
   const handleItemDragEnd = (result: DropResult) => {
@@ -111,7 +115,7 @@ export function CatalogAccordion() {
         moaEnabled: item.moaEnabled,
       }));
 
-    updateItemsMutation.mutateAsync(updatedItemsDtos);
+    patchItems.mutateAsync(updatedItemsDtos);
   };
 
   const handleDragEnd = (result: DropResult) => {
@@ -157,7 +161,7 @@ export function CatalogAccordion() {
 
     try {
       logger.info("uploading");
-      await uploadImageToSquareCatalogMutation.mutateAsync({
+      await uploadImageToSquareCatalog.mutateAsync({
         id: itemId,
         file,
         idempotencyKey: nanoid(),
@@ -185,269 +189,291 @@ export function CatalogAccordion() {
         onClose={() => setShowErrorDialogState(false)}
         message={errorStringState ?? ""}
       />
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <StrictModeDroppable droppableId="categories" type="category">
-          {(provided) => (
-            <Box
-              sx={{ width: "100%" }}
-              ref={provided.innerRef}
-              {...provided.droppableProps}
+      <Stack width="100%" gap={2}>
+        <Box textAlign="center">
+          <Tooltip title={t("syncButtonTooltip")}>
+            <LoadingButton
+              loading={squareSyncMe.isPending}
+              startIcon={<Sync />}
+              color="secondary"
+              variant={squareSyncMe.isPending ? "contained" : "text"}
+              onClick={() => squareSyncMe.mutateAsync()}
             >
-              {currentCatalogCategories.map((currentCatalogCategory, index) => (
-                <Draggable
-                  key={currentCatalogCategory.id!}
-                  draggableId={`${currentCatalogCategory.id!}-draggableId`}
-                  index={index}
-                >
-                  {(provided) => (
-                    <Paper
-                      elevation={1}
-                      sx={{ mb: 2 }}
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
+              {t("syncButton")}
+            </LoadingButton>
+          </Tooltip>
+        </Box>
+        <DragDropContext onDragEnd={handleDragEnd}>
+          <StrictModeDroppable droppableId="categories" type="category">
+            {(provided) => (
+              <Box
+                sx={{ width: "100%" }}
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+              >
+                {currentCatalogCategories.map(
+                  (currentCatalogCategory, index) => (
+                    <Draggable
+                      key={currentCatalogCategory.id!}
+                      draggableId={`${currentCatalogCategory.id!}-draggableId`}
+                      index={index}
                     >
-                      <Accordion>
-                        <AccordionSummary
-                          expandIcon={
-                            <Tooltip title={t("expandTooltip")}>
-                              <ExpandMore />
-                            </Tooltip>
-                          }
-                          sx={{ mr: 2 }}
+                      {(provided) => (
+                        <Paper
+                          elevation={1}
+                          sx={{ mb: 2 }}
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
                         >
-                          <Tooltip title={t("dragHandleTooltip")}>
-                            <Box display="flex" alignItems="center">
-                              <IconButton disabled size="small">
-                                <DragHandle />
-                              </IconButton>
-                            </Box>
-                          </Tooltip>
-                          <ListItemText
-                            sx={{ display: "flex", flexGrow: 1 }}
-                            primary={currentCatalogCategory.name}
-                          />
-
-                          <Box
-                            display="flex"
-                            alignItems="center"
-                            onClick={(event) => event.stopPropagation()}
-                          >
-                            <Tooltip title={t("switchTooltip")}>
-                              <Switch
-                                size="small"
-                                checked={
-                                  currentCatalogCategory.moaEnabled ?? false
-                                }
-                                onChange={() => {
-                                  updateCategoriesMutation.mutateAsync([
-                                    {
-                                      id: currentCatalogCategory.id!,
-                                      moaEnabled:
-                                        !currentCatalogCategory.moaEnabled,
-                                    },
-                                  ]);
-                                }}
+                          <Accordion>
+                            <AccordionSummary
+                              expandIcon={
+                                <Tooltip title={t("expandTooltip")}>
+                                  <ExpandMore />
+                                </Tooltip>
+                              }
+                              sx={{ mr: 2 }}
+                            >
+                              <Tooltip title={t("dragHandleTooltip")}>
+                                <Box display="flex" alignItems="center">
+                                  <IconButton disabled size="small">
+                                    <DragHandle />
+                                  </IconButton>
+                                </Box>
+                              </Tooltip>
+                              <ListItemText
+                                sx={{ display: "flex", flexGrow: 1 }}
+                                primary={currentCatalogCategory.name}
                               />
-                            </Tooltip>
-                          </Box>
-                        </AccordionSummary>
 
-                        <AccordionDetails>
-                          <StrictModeDroppable
-                            droppableId={`${currentCatalogCategory.id!}`}
-                            type={`item-${currentCatalogCategory.id!}`}
-                          >
-                            {(provided) => (
-                              <List
-                                ref={provided.innerRef}
-                                {...provided.droppableProps}
+                              <Box
+                                display="flex"
+                                alignItems="center"
+                                onClick={(event) => event.stopPropagation()}
                               >
-                                {currentCatalogCategory.items?.map(
-                                  (itemInCategory, childIndex) => (
-                                    <Draggable
-                                      key={itemInCategory.id!}
-                                      draggableId={itemInCategory.id!}
-                                      index={childIndex}
-                                    >
-                                      {(provided) => (
-                                        <Accordion
-                                          elevation={2}
-                                          ref={provided.innerRef}
-                                          {...provided.draggableProps}
-                                          {...provided.dragHandleProps}
-                                        >
-                                          <AccordionSummary
-                                            key={itemInCategory.id}
-                                            expandIcon={<ExpandMore />}
-                                          >
-                                            <Box
-                                              sx={{
-                                                display: "flex",
-                                                alignItems: "center",
-                                                width: "100%",
-                                              }}
-                                            >
-                                              <IconButton disabled size="small">
-                                                <DragHandle />
-                                              </IconButton>
+                                <Tooltip title={t("switchTooltip")}>
+                                  <Switch
+                                    size="small"
+                                    checked={
+                                      currentCatalogCategory.moaEnabled ?? false
+                                    }
+                                    onChange={() => {
+                                      patchCategories.mutateAsync([
+                                        {
+                                          id: currentCatalogCategory.id!,
+                                          moaEnabled:
+                                            !currentCatalogCategory.moaEnabled,
+                                        },
+                                      ]);
+                                    }}
+                                  />
+                                </Tooltip>
+                              </Box>
+                            </AccordionSummary>
 
-                                              <ListItemText
-                                                primary={itemInCategory.name}
-                                              />
-                                              <IconButton
-                                                size="small"
-                                                sx={{ mr: 1 }}
+                            <AccordionDetails>
+                              <StrictModeDroppable
+                                droppableId={`${currentCatalogCategory.id!}`}
+                                type={`item-${currentCatalogCategory.id!}`}
+                              >
+                                {(provided) => (
+                                  <List
+                                    ref={provided.innerRef}
+                                    {...provided.droppableProps}
+                                  >
+                                    {currentCatalogCategory.items?.map(
+                                      (itemInCategory, childIndex) => (
+                                        <Draggable
+                                          key={itemInCategory.id!}
+                                          draggableId={itemInCategory.id!}
+                                          index={childIndex}
+                                        >
+                                          {(provided) => (
+                                            <Accordion
+                                              elevation={2}
+                                              ref={provided.innerRef}
+                                              {...provided.draggableProps}
+                                              {...provided.dragHandleProps}
+                                            >
+                                              <AccordionSummary
+                                                key={itemInCategory.id}
+                                                expandIcon={<ExpandMore />}
                                               >
-                                                <input
-                                                  type="file"
-                                                  style={{ display: "none" }}
-                                                  accept="image/*"
-                                                  onChange={(event) => {
-                                                    logger.info(
-                                                      "input onChange"
-                                                    );
-                                                    handleFileInputChange(
-                                                      event,
-                                                      itemInCategory.id!
-                                                    );
+                                                <Box
+                                                  sx={{
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    width: "100%",
                                                   }}
-                                                  id={`fileInput-${itemInCategory.id}`}
-                                                />
-                                                <label
-                                                  htmlFor={`fileInput-${itemInCategory.id}`}
                                                 >
-                                                  <Avatar>
+                                                  <IconButton
+                                                    disabled
+                                                    size="small"
+                                                  >
+                                                    <DragHandle />
+                                                  </IconButton>
+
+                                                  <ListItemText
+                                                    primary={
+                                                      itemInCategory.name
+                                                    }
+                                                  />
+                                                  <IconButton
+                                                    size="small"
+                                                    sx={{ mr: 1 }}
+                                                  >
+                                                    <input
+                                                      type="file"
+                                                      style={{
+                                                        display: "none",
+                                                      }}
+                                                      accept="image/*"
+                                                      onChange={(event) => {
+                                                        logger.info(
+                                                          "input onChange"
+                                                        );
+                                                        handleFileInputChange(
+                                                          event,
+                                                          itemInCategory.id!
+                                                        );
+                                                      }}
+                                                      id={`fileInput-${itemInCategory.id}`}
+                                                    />
+                                                    <label
+                                                      htmlFor={`fileInput-${itemInCategory.id}`}
+                                                    >
+                                                      <Avatar>
+                                                        {(
+                                                          itemInCategory.images ??
+                                                          []
+                                                        ).length > 0 ? (
+                                                          <Image
+                                                            src={
+                                                              itemInCategory.images![0]
+                                                                .url!
+                                                            }
+                                                          />
+                                                        ) : (
+                                                          <Add />
+                                                        )}
+                                                      </Avatar>
+                                                    </label>
+                                                  </IconButton>
+                                                  <Box
+                                                    onClick={(event) =>
+                                                      event.stopPropagation()
+                                                    }
+                                                  >
+                                                    <Switch
+                                                      size="small"
+                                                      checked={
+                                                        (currentCatalogCategory.moaEnabled ??
+                                                          false) &&
+                                                        (itemInCategory.moaEnabled ??
+                                                          false)
+                                                      }
+                                                      disabled={
+                                                        !(
+                                                          currentCatalogCategory.moaEnabled ??
+                                                          false
+                                                        )
+                                                      }
+                                                      onChange={() => {
+                                                        patchItems.mutateAsync([
+                                                          {
+                                                            id: itemInCategory.id!,
+                                                            moaEnabled:
+                                                              !itemInCategory.moaEnabled,
+                                                          },
+                                                        ]);
+                                                      }}
+                                                    />
+                                                  </Box>
+                                                </Box>
+                                              </AccordionSummary>
+                                              <AccordionDetails>
+                                                <Paper elevation={3}>
+                                                  <List>
                                                     {(
-                                                      itemInCategory.images ??
+                                                      itemInCategory.variations ??
                                                       []
-                                                    ).length > 0 ? (
-                                                      <Image
-                                                        src={
-                                                          itemInCategory.images![0]
-                                                            .url!
-                                                        }
-                                                      />
-                                                    ) : (
-                                                      <Add />
-                                                    )}
-                                                  </Avatar>
-                                                </label>
-                                              </IconButton>
-                                              <Box
-                                                onClick={(event) =>
-                                                  event.stopPropagation()
-                                                }
-                                              >
-                                                <Switch
-                                                  size="small"
-                                                  checked={
-                                                    (currentCatalogCategory.moaEnabled ??
-                                                      false) &&
-                                                    (itemInCategory.moaEnabled ??
-                                                      false)
-                                                  }
-                                                  disabled={
-                                                    !(
-                                                      currentCatalogCategory.moaEnabled ??
-                                                      false
-                                                    )
-                                                  }
-                                                  onChange={() => {
-                                                    updateItemsMutation.mutateAsync(
-                                                      [
-                                                        {
-                                                          id: itemInCategory.id!,
-                                                          moaEnabled:
-                                                            !itemInCategory.moaEnabled,
-                                                        },
-                                                      ]
-                                                    );
-                                                  }}
-                                                />
-                                              </Box>
-                                            </Box>
-                                          </AccordionSummary>
-                                          <AccordionDetails>
-                                            <Paper elevation={3}>
-                                              <List>
-                                                {(
-                                                  itemInCategory.variations ??
-                                                  []
-                                                ).map(
-                                                  (
-                                                    variationInItemInCategory
-                                                  ) => {
-                                                    return (
-                                                      <ListItem
-                                                        key={
-                                                          variationInItemInCategory.id
-                                                        }
-                                                        sx={{ px: 3 }}
-                                                      >
-                                                        <ListItemText
-                                                          primary={
-                                                            variationInItemInCategory.name
-                                                          }
-                                                        />
-                                                        <Switch
-                                                          checked={
-                                                            (currentCatalogCategory.moaEnabled ??
-                                                              false) &&
-                                                            (itemInCategory.moaEnabled ??
-                                                              false) &&
-                                                            (variationInItemInCategory.moaEnabled ??
-                                                              false)
-                                                          }
-                                                          disabled={
-                                                            !(
-                                                              (currentCatalogCategory.moaEnabled ??
-                                                                false) &&
-                                                              (itemInCategory.moaEnabled ??
-                                                                false)
-                                                            )
-                                                          }
-                                                          size="small"
-                                                          onChange={() => {
-                                                            updateVariationMutation.mutateAsync(
-                                                              {
-                                                                id: variationInItemInCategory.id!,
-                                                                variationPatchBody:
-                                                                  {
-                                                                    moaEnabled:
-                                                                      !variationInItemInCategory.moaEnabled,
-                                                                  },
+                                                    ).map(
+                                                      (
+                                                        variationInItemInCategory
+                                                      ) => {
+                                                        return (
+                                                          <ListItem
+                                                            key={
+                                                              variationInItemInCategory.id
+                                                            }
+                                                            sx={{ px: 3 }}
+                                                          >
+                                                            <ListItemText
+                                                              primary={
+                                                                variationInItemInCategory.name
                                                               }
-                                                            );
-                                                          }}
-                                                        />
-                                                      </ListItem>
-                                                    );
-                                                  }
-                                                )}
-                                              </List>
-                                            </Paper>
-                                          </AccordionDetails>
-                                        </Accordion>
-                                      )}
-                                    </Draggable>
-                                  )
+                                                            />
+                                                            <Switch
+                                                              checked={
+                                                                (currentCatalogCategory.moaEnabled ??
+                                                                  false) &&
+                                                                (itemInCategory.moaEnabled ??
+                                                                  false) &&
+                                                                (variationInItemInCategory.moaEnabled ??
+                                                                  false)
+                                                              }
+                                                              disabled={
+                                                                !(
+                                                                  (currentCatalogCategory.moaEnabled ??
+                                                                    false) &&
+                                                                  (itemInCategory.moaEnabled ??
+                                                                    false)
+                                                                )
+                                                              }
+                                                              size="small"
+                                                              onChange={() => {
+                                                                patchVariation.mutateAsync(
+                                                                  {
+                                                                    id: variationInItemInCategory.id!,
+                                                                    variationPatchBody:
+                                                                      {
+                                                                        moaEnabled:
+                                                                          !variationInItemInCategory.moaEnabled,
+                                                                      },
+                                                                  }
+                                                                );
+                                                              }}
+                                                            />
+                                                          </ListItem>
+                                                        );
+                                                      }
+                                                    )}
+                                                  </List>
+                                                </Paper>
+                                              </AccordionDetails>
+                                            </Accordion>
+                                          )}
+                                        </Draggable>
+                                      )
+                                    )}
+                                    {provided.placeholder}
+                                  </List>
                                 )}
-                                {provided.placeholder}
-                              </List>
-                            )}
-                          </StrictModeDroppable>
-                        </AccordionDetails>
-                      </Accordion>
-                    </Paper>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </Box>
-          )}
-        </StrictModeDroppable>
-      </DragDropContext>
+                              </StrictModeDroppable>
+                            </AccordionDetails>
+                          </Accordion>
+                        </Paper>
+                      )}
+                    </Draggable>
+                  )
+                )}
+                {provided.placeholder}
+              </Box>
+            )}
+          </StrictModeDroppable>
+        </DragDropContext>
+      </Stack>
     </Fragment>
   );
 }

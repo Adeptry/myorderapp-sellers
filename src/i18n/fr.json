@@ -64,7 +64,9 @@
     "fileNotFoundError": "Fichier manquant. Réessayez ou contactez le support si le problème persiste.",
     "fileTooLargeError": "Le fichier dépasse la limite. Gardez-le sous 250 Mo.",
     "invalidFileError": "Type de fichier non pris en charge. Assurez-vous qu'il s'agisse de JPEG, PJPEG, PNG ou GIF.",
-    "switchTooltip": "Basculez pour activer ou désactiver dans l'application"
+    "switchTooltip": "Basculez pour activer ou désactiver dans l'application",
+    "syncButton": "Synchroniser",
+    "syncButtonTooltip": "Synchroniser manuellement avec Square dès maintenant"
   },
   "CatalogComponent": {
     "catalogTabLabel": "Catalogue",
