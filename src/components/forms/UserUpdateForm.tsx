@@ -19,6 +19,7 @@ import { useTranslations } from "use-intl";
 import * as yup from "yup";
 
 import { useDeleteMerchantMeMutation } from "@/networking/mutations/useDeleteMerchantMeMutation";
+import { SquareOauthButton } from "../buttons/SquareOauthButton";
 import DeleteMerchantMeDialog from "../dialogs/DeleteMerchantMeDialog";
 
 export type UserUpdateFormType = UserPatchBody;
@@ -236,6 +237,14 @@ export function UserUpdateForm() {
               </LoadingButton>
             )}
           </Grid>
+
+          <Grid item xs={12} textAlign="center">
+            {skeletonState ? (
+              <Skeleton height="58px" width="100%" />
+            ) : (
+              <SquareOauthButton />
+            )}
+          </Grid>
           <Grid item xs={12} textAlign="center">
             {skeletonState ? (
               <Skeleton height="58px" width="100%" />
@@ -245,7 +254,6 @@ export function UserUpdateForm() {
                 variant="contained"
                 startIcon={<Warning />}
                 onClick={() => setShowDeleteDialogState(true)}
-                sx={{ mt: 5 }}
               >
                 {t("deleteButton")}
               </Button>

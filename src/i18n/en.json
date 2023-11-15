@@ -250,7 +250,8 @@
     "text": "New here? Register"
   },
   "SquareOauthButton": {
-    "text": "Authorize Square"
+    "authorize": "Authorize Square",
+    "deauthorize": "Deauthorize Square"
   },
   "SquareOauthExplainerCard": {
     "catalogSyncPrimary": "Catalog Sync",

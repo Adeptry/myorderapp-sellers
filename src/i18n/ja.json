@@ -250,7 +250,8 @@
     "text": "初めての方ですか？登録する"
   },
   "SquareOauthButton": {
-    "text": "Squareを認証"
+    "authorize": "Squareを認証",
+    "deauthorize": "Deauthorize Square"
   },
   "SquareOauthExplainerCard": {
     "catalogSyncPrimary": "カタログ同期",

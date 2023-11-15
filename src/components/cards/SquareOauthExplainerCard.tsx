@@ -66,7 +66,7 @@ export function SquareOauthExplainerCard(props: { sx?: SxProps }) {
       </CardContent>
 
       <CardActions sx={{ justifyContent: "center", pb: 5 }}>
-        <SquareOauthButton />
+        <SquareOauthButton size="large" />
       </CardActions>
     </Card>
   );

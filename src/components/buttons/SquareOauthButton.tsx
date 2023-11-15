@@ -1,5 +1,6 @@
 import { routes } from "@/app/routes";
 import { moaEnv } from "@/moaEnv";
+import { useGetSquareLogoutMeMutation } from "@/networking/mutations/useGetSquareLogoutMeMutation";
 import { useGetMerchantMeQuery } from "@/networking/queries/useGetMerchantMeQuery";
 import { Button, Skeleton, SxProps } from "@mui/material";
 import { useTranslations } from "next-intl";
@@ -12,6 +13,7 @@ interface SquareOauthButtonProps {
   session?: boolean;
   code_challenge?: string;
   redirect_uri?: string;
+  size?: "small" | "large" | "medium";
   sx?: SxProps;
 }
 
@@ -22,9 +24,11 @@ export function SquareOauthButton(props: SquareOauthButtonProps) {
     session = true,
     code_challenge,
     redirect_uri,
+    size,
   } = props;
 
   const { data } = useGetMerchantMeQuery();
+  const logoutMutation = useGetSquareLogoutMeMutation();
 
   const t = useTranslations("SquareOauthButton");
 
@@ -54,18 +58,33 @@ export function SquareOauthButton(props: SquareOauthButtonProps) {
   if (!data?.id) {
     return <Skeleton height="56px" width={"192px"} />;
   } else {
-    return (
-      <Button
-        sx={props.sx}
-        href={urlString}
-        component={NextLink}
-        startIcon={<SiSquare />}
-        variant="contained"
-        color="secondary"
-        size="large"
-      >
-        {t("text")}
-      </Button>
-    );
+    if (!(data.squareConnected ?? false)) {
+      return (
+        <Button
+          sx={props.sx}
+          href={urlString}
+          component={NextLink}
+          startIcon={<SiSquare />}
+          variant="contained"
+          color="secondary"
+          size={size}
+        >
+          {t("authorize")}
+        </Button>
+      );
+    } else {
+      return (
+        <Button
+          sx={props.sx}
+          startIcon={<SiSquare />}
+          onClick={() => logoutMutation.mutateAsync()}
+          variant="contained"
+          color="error"
+          size={size}
+        >
+          {t("deauthorize")}
+        </Button>
+      );
+    }
   }
 }
