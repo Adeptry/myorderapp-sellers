@@ -20,6 +20,7 @@ export function SetupSquareOauthComponent() {
 
   const searchParams = useSearchParams();
   const oauthAccessCode = searchParams.get("code");
+  const oauthError = searchParams.get("error");
 
   const t = useTranslations("SetupSquareOauthComponent");
   const { status } = useSession();
@@ -53,11 +54,13 @@ export function SetupSquareOauthComponent() {
             setErrorString(t("fallbackError"));
           }
         }
+      } else if (oauthError) {
+        push(routes.setup.square.index);
       }
     }
 
     fetch();
-  }, [oauthAccessCode, status]);
+  }, [oauthAccessCode, status, oauthError]);
 
   return (
     <Container sx={{ minHeight: maxHeightCssString }}>
