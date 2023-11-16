@@ -35,6 +35,7 @@ export function OrdersDataGrid(props: {
       endDate: endDate?.toISOString(),
       customer: true,
       location: true,
+      closed: true,
       orderSort:
         sortModel.length > 0
           ? sortModel[0].sort === "asc"
