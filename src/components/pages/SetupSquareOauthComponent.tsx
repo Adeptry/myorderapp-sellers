@@ -60,7 +60,12 @@ export function SetupSquareOauthComponent() {
             setErrorString(t("fallbackError"));
           }
         }
-      } else if (oauthError || oauthState !== csrfToken) {
+      } else if (
+        oauthError ||
+        (oauthState != undefined &&
+          csrfToken != undefined &&
+          oauthState !== csrfToken)
+      ) {
         push(routes.setup.square.index);
       }
     }
