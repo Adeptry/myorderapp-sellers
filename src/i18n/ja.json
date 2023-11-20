@@ -101,6 +101,13 @@
     "orderCountTooltip": "選択した日付範囲内の総注文数。",
     "startDatePickerLabel": "開始"
   },
+  "DeauthorizeSquareDialog": {
+    "cancelButton": "キャンセル",
+    "content": "Squareの認証を解除してもよろしいですか？この取り返しのつかない行動は、お客様のアカウントを含むすべてのデータを消去します。法的な理由から最小限の記録は維持しますが、これらのデータを復元することは不可能になります。以下にメールアドレスを入力して、この最終ステップを確認してください。",
+    "deleteButton": "認証解除を確認",
+    "emailLabel": "メール確認",
+    "title": "Squareの認証解除"
+  },
   "DeleteMerchantMeDialog": {
     "cancelButton": "キャンセル",
     "content": "アカウントを削除してもよろしいですか？この取り返しのつかない行動は、顧客のアカウントや注文履歴を含むすべてのデータを消去します。法的な理由で最小限の記録を保持しますが、アカウントの復元は実現不可能です。以下にメールアドレスを入力して、この最終ステップを確認してください。",
@@ -113,29 +120,29 @@
     "fallbackTitle": "おっと、何かが間違っています。"
   },
   "FaqAccordion": {
-    "steps": {
-      "details": "<div class=\"wpb_wrapper\"><p>Once you\u2019ve customized your app and are ready to go live, the subsequent steps depend on the publishing plan you\u2019ve chosen.</p>\r\n<p>If your plan includes an Android app:</p>\r\n<ul>\r\n<li>\r\n<p><strong>Beta Invite</strong>: Within 48 hours of selecting an Android-inclusive plan and completing checkout, you will receive a beta invite for your application. This is an opportunity to test and experience the app before it goes public.</p>\r\n</li>\r\n<li>\r\n<p><strong>Store Page Coordination</strong>: Our team will collaborate with you to prepare the necessary screenshots and descriptions that will accompany your app on its Google Play Store page.</p>\r\n</li>\r\n<li>\r\n<p><strong>Google Play Submission</strong>: Following your approval of these materials, we will submit your app to the Google Play Store for review.</p>\r\n</li>\r\n</ul>\r\n<p>For plans that include an iOS app:</p>\r\n<ul>\r\n<li>\r\n<p><strong>Developer Account Options</strong>: Our team will contact you to discuss setting up your Apple Developer Account. You have the option to create it yourself\u2014and if you do, we\u2019ll credit back your first month\u2019s subscription\u2014or you can allow us to set it up using the email you\u2019ve provided. This step requires some coordination but is essential for the iOS app publication.</p>\r\n</li>\r\n<li>\r\n<p><strong>iOS Beta Build</strong>: After your Apple Developer Account is active, we aim to provide you with an iOS beta build within 48 hours. This gives you an early look and the ability to confirm that everything in the app meets your expectations.</p>\r\n</li>\r\n</ul>\r\n<p>For both Android and iOS:</p>\r\n<ul>\r\n<li>\r\n<p><strong>Review and Confirmation</strong>: Once you\u2019ve reviewed the beta version of your app and given us the green light, we\u2019ll proceed to send your app for review to both Apple and Google.</p>\r\n</li>\r\n<li>\r\n<p><strong>App Store Live</strong>: The review process typically takes about one to two weeks, although it\u2019s often completed within just one week. After approval by the app stores, your app will be live and available to your customers.</p>\r\n</li>\r\n</ul>\r\n<p>Throughout this process, we maintain transparent communication and guide you through each step to ensure your app\u2019s successful launch.</p>\r\n</div>",
-      "summary": "What are the steps to publish my app through MyOrderApp?"
+    "cancellation": {
+      "details": "<p>Your cancellation and plan change request can be managed directly through the MyOrderApp dashboard. If you decide to cancel a paid subscription, your account will revert to the free plan’s transaction fee structure. The transition is designed to be smooth, providing a one-month grace period where your app continues to operate, albeit with higher transaction fees corresponding to the free tier. This period allows for customer notifications and any necessary arrangements for a new service if you choose to migrate. Keep in mind that changes to your plan will take effect immediately, but any benefits or increased fees will only come into play after the one-month period following a downgrade.</p>",
+      "summary": "Can I cancel or change my plan?"
     },
     "personalize": {
-      "details": "<div class=\"wpb_wrapper\"><p>You can easily personalize your mobile app in MyOrderApp by heading to the customize section. There, you\u2019ll enter a name for your app that truly speaks to your brand\u2019s identity. Next, you\u2019ll upload an icon that captures your business visually. After that, pick a seed color which will dictate the primary color scheme of your app, ensuring it matches your brand\u2019s palette. Then, you can choose from a variety of font families to find the one that fits your brand\u2019s style.</p>\r\n<p>Further, you\u2019ll have the option to set the theme mode of your app\u2014either to match the system settings of the user\u2019s device or to stick with a light or dark theme consistently. Lastly, select an appearance for your app\u2014be it contemporary or modern\u2014to best present your business to customers. The great thing is, as you make these choices, you\u2019ll see a live preview of what your app will look like, giving you a real-time glimpse into the user experience before your app goes live.</p>\r\n</div>",
+      "details": "<div class=\"wpb_wrapper\"><p>You can easily personalize your mobile app in MyOrderApp by heading to the customize section. There, you’ll enter a name for your app that truly speaks to your brand’s identity. Next, you’ll upload an icon that captures your business visually. After that, pick a seed color which will dictate the primary color scheme of your app, ensuring it matches your brand’s palette. Then, you can choose from a variety of font families to find the one that fits your brand’s style.</p>\r\n<p>Further, you’ll have the option to set the theme mode of your app—either to match the system settings of the user’s device or to stick with a light or dark theme consistently. Lastly, select an appearance for your app—be it contemporary or modern—to best present your business to customers. The great thing is, as you make these choices, you’ll see a live preview of what your app will look like, giving you a real-time glimpse into the user experience before your app goes live.</p>\r\n</div>",
       "summary": "How can I personalize my mobile app with MyOrderApp?"
     },
     "pricing": {
       "details": "<div class=\"wpb_wrapper\"><p class=\"code-line\" dir=\"auto\" data-line=\"93\">MyOrderApp offers three main pricing plans, each designed to cater to different stages of business growth and platform needs:</p>\r\n<ol class=\"code-line\" dir=\"auto\" data-line=\"95\">\r\n<li class=\"code-line\" dir=\"auto\" data-line=\"95\">\r\n<p class=\"code-line\" dir=\"auto\" data-line=\"95\"><strong>Free Plan</strong>: This plan is geared towards small businesses just starting out with mobile ordering. It includes access to a personalized web app with a 5% transaction fee per order. Support for the Free plan is guaranteed within 72 hours.</p>\r\n</li>\r\n<li class=\"code-line\" dir=\"auto\" data-line=\"97\">\r\n<p class=\"code-line\" dir=\"auto\" data-line=\"97\"><strong>Starter Plan</strong>: Ideal for growing businesses that aim to establish an Android presence. This plan costs $29 per month with a reduced transaction fee of 2.5%. It includes everything in the Free plan plus the addition of an Android app. Support response times for the Starter plan are within 48 hours.</p>\r\n</li>\r\n<li class=\"code-line\" dir=\"auto\" data-line=\"99\">\r\n<p class=\"code-line\" dir=\"auto\" data-line=\"99\"><strong>Complete Plan</strong>: This plan is for businesses seeking a comprehensive, multi-platform mobile ordering experience. Priced at $99 per month, it completely eliminates transaction fees and includes the features of the Starter Plan plus an iOS app. Priority support with response times within 24 hours is also included.</p>\r\n</li>\r\n</ol>\r\n<p class=\"code-line\" dir=\"auto\" data-line=\"101\">The key differences lie in the supported platforms (web, Android, iOS), the transaction fees, and the speed of the support response times. Each subsequent tier provides additional value in terms of reduced transaction costs, broader reach to customers across different devices, and quicker access to customer service.</p>\r\n</div>",
       "summary": "What are the differences between the pricing plans offered by MyOrderApp?"
     },
-    "cancellation": {
-      "details": "<p>Your cancellation and plan change request can be managed directly through the MyOrderApp dashboard. If you decide to cancel a paid subscription, your account will revert to the free plan’s transaction fee structure. The transition is designed to be smooth, providing a one-month grace period where your app continues to operate, albeit with higher transaction fees corresponding to the free tier. This period allows for customer notifications and any necessary arrangements for a new service if you choose to migrate. Keep in mind that changes to your plan will take effect immediately, but any benefits or increased fees will only come into play after the one-month period following a downgrade.</p>",
-      "summary": "Can I cancel or change my plan?"
-    },
-    "sync": {
-      "details": "<p>Yes, any changes you make to your Square Catalog will automatically update in MyOrderApp. The system is designed for real-time synchronization with Square, so typically updates occur almost instantaneously. However, there might be rare occasions during periods of high demand when Square may not send out notifications or permit immediate information retrieval. In such cases, to ensure that your mobile app reflects the latest changes, MyOrderApp conducts a manual sync for every merchant at 4 AM each morning. This guarantees that, at most, your app will be updated with any catalog changes by the start of each new business day.</p>",
-      "summary": "Will changes in my Square Catalog automatically update in MyOrderApp?"
+    "steps": {
+      "details": "<div class=\"wpb_wrapper\"><p>Once you’ve customized your app and are ready to go live, the subsequent steps depend on the publishing plan you’ve chosen.</p>\r\n<p>If your plan includes an Android app:</p>\r\n<ul>\r\n<li>\r\n<p><strong>Beta Invite</strong>: Within 48 hours of selecting an Android-inclusive plan and completing checkout, you will receive a beta invite for your application. This is an opportunity to test and experience the app before it goes public.</p>\r\n</li>\r\n<li>\r\n<p><strong>Store Page Coordination</strong>: Our team will collaborate with you to prepare the necessary screenshots and descriptions that will accompany your app on its Google Play Store page.</p>\r\n</li>\r\n<li>\r\n<p><strong>Google Play Submission</strong>: Following your approval of these materials, we will submit your app to the Google Play Store for review.</p>\r\n</li>\r\n</ul>\r\n<p>For plans that include an iOS app:</p>\r\n<ul>\r\n<li>\r\n<p><strong>Developer Account Options</strong>: Our team will contact you to discuss setting up your Apple Developer Account. You have the option to create it yourself—and if you do, we’ll credit back your first month’s subscription—or you can allow us to set it up using the email you’ve provided. This step requires some coordination but is essential for the iOS app publication.</p>\r\n</li>\r\n<li>\r\n<p><strong>iOS Beta Build</strong>: After your Apple Developer Account is active, we aim to provide you with an iOS beta build within 48 hours. This gives you an early look and the ability to confirm that everything in the app meets your expectations.</p>\r\n</li>\r\n</ul>\r\n<p>For both Android and iOS:</p>\r\n<ul>\r\n<li>\r\n<p><strong>Review and Confirmation</strong>: Once you’ve reviewed the beta version of your app and given us the green light, we’ll proceed to send your app for review to both Apple and Google.</p>\r\n</li>\r\n<li>\r\n<p><strong>App Store Live</strong>: The review process typically takes about one to two weeks, although it’s often completed within just one week. After approval by the app stores, your app will be live and available to your customers.</p>\r\n</li>\r\n</ul>\r\n<p>Throughout this process, we maintain transparent communication and guide you through each step to ensure your app’s successful launch.</p>\r\n</div>",
+      "summary": "What are the steps to publish my app through MyOrderApp?"
     },
     "support": {
       "details": "<p>Support responsiveness varies with each MyOrderApp pricing plan. On the Free tier, you can expect support to be provided as it becomes available, with a response time guaranteed within 72 hours. For the Starter tier, the response time is faster, with support guaranteed within 48 hours. At the Pro level, which is the most comprehensive, the support is prioritized, with the fastest response time guaranteed within 24 hours. The commitment is to provide assistance as soon as possible within these time frames.</p>",
       "summary": "What kind of support can I expect with each MyOrderApp pricing plan?"
+    },
+    "sync": {
+      "details": "<p>Yes, any changes you make to your Square Catalog will automatically update in MyOrderApp. The system is designed for real-time synchronization with Square, so typically updates occur almost instantaneously. However, there might be rare occasions during periods of high demand when Square may not send out notifications or permit immediate information retrieval. In such cases, to ensure that your mobile app reflects the latest changes, MyOrderApp conducts a manual sync for every merchant at 4 AM each morning. This guarantees that, at most, your app will be updated with any catalog changes by the start of each new business day.</p>",
+      "summary": "Will changes in my Square Catalog automatically update in MyOrderApp?"
     }
   },
   "ForgotPasswordLink": {
@@ -150,9 +157,9 @@
   "LegalMenu": {
     "gdpr": "GDPR",
     "legal": "法的",
+    "licenses": "ライセンス",
     "privacy": "プライバシー",
-    "terms": "利用規約",
-    "licenses": "ライセンス"
+    "terms": "利用規約"
   },
   "LocationsComponent": {
     "title": "場所",
@@ -278,9 +285,9 @@
     "title": "支払いが中断されたことに気付きました"
   },
   "SupportComponent": {
+    "button": "もっと見る",
     "faqTitle": "よくある質問",
-    "formTitle": "サポート",
-    "button": "もっと見る"
+    "formTitle": "サポート"
   },
   "SupportRequestForm": {
     "buttonText": "送信する",

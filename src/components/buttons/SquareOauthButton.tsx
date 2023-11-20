@@ -6,7 +6,9 @@ import { useCsrfToken } from "@/utils/useCsrfToken";
 import { Button, Skeleton, SxProps } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { default as NextLink } from "next/link";
+import { Fragment, useState } from "react";
 import { SiSquare } from "react-icons/si";
+import DeauthorizeSquareDialog from "../dialogs/DeauthorizeSquareDialog";
 
 interface SquareOauthButtonProps {
   scope?: string;
@@ -29,7 +31,9 @@ export function SquareOauthButton(props: SquareOauthButtonProps) {
   } = props;
 
   const { data } = useGetMerchantMeQuery();
-  const logoutMutation = useGetSquareLogoutMeMutation();
+  const squareLogoutMeMutation = useGetSquareLogoutMeMutation();
+  const [showLogoutDialogState, setShowLogoutDialogState] =
+    useState<boolean>(false);
   const csrfToken = useCsrfToken();
 
   const t = useTranslations("SquareOauthButton");
@@ -76,16 +80,27 @@ export function SquareOauthButton(props: SquareOauthButtonProps) {
       );
     } else {
       return (
-        <Button
-          sx={props.sx}
-          startIcon={<SiSquare />}
-          onClick={() => logoutMutation.mutateAsync()}
-          variant="contained"
-          color="error"
-          size={size}
-        >
-          {t("deauthorize")}
-        </Button>
+        <Fragment>
+          <DeauthorizeSquareDialog
+            open={showLogoutDialogState}
+            onClose={(confirmed) => {
+              setShowLogoutDialogState(false);
+              if (confirmed) {
+                squareLogoutMeMutation.mutateAsync();
+              }
+            }}
+          />
+          <Button
+            sx={props.sx}
+            startIcon={<SiSquare />}
+            onClick={() => setShowLogoutDialogState(true)}
+            variant="contained"
+            color="error"
+            size={size}
+          >
+            {t("deauthorize")}
+          </Button>
+        </Fragment>
       );
     }
   }
