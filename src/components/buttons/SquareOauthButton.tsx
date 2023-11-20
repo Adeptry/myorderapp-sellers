@@ -2,6 +2,7 @@ import { routes } from "@/app/routes";
 import { moaEnv } from "@/moaEnv";
 import { useGetSquareLogoutMeMutation } from "@/networking/mutations/useGetSquareLogoutMeMutation";
 import { useGetMerchantMeQuery } from "@/networking/queries/useGetMerchantMeQuery";
+import { useCsrfToken } from "@/utils/useCsrfToken";
 import { Button, Skeleton, SxProps } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { default as NextLink } from "next/link";
@@ -29,10 +30,11 @@ export function SquareOauthButton(props: SquareOauthButtonProps) {
 
   const { data } = useGetMerchantMeQuery();
   const logoutMutation = useGetSquareLogoutMeMutation();
+  const csrfToken = useCsrfToken();
 
   const t = useTranslations("SquareOauthButton");
 
-  let urlString = `${moaEnv.square.baseUrl}/oauth2/authorize?client_id=${moaEnv.square.clientId}&scope=${scope}&state=${data?.id}`;
+  let urlString = `${moaEnv.square.baseUrl}/oauth2/authorize?client_id=${moaEnv.square.clientId}&scope=${scope}&state=${csrfToken}&session=false`;
 
   if (locale) {
     urlString += `&locale=${locale}`;
@@ -55,7 +57,7 @@ export function SquareOauthButton(props: SquareOauthButtonProps) {
     urlString = `${routes.setup.square.sync}?code=${moaEnv.square.testCode}`;
   }
 
-  if (!data?.id) {
+  if (!data?.id || !csrfToken) {
     return <Skeleton height="56px" width={"192px"} />;
   } else {
     if (!(data.squareConnected ?? false)) {

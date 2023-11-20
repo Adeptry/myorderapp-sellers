@@ -5,6 +5,7 @@ import { OnboardingStepper } from "@/components/steppers/OnboardingStepper";
 import { useGetSquareSyncMeMutation } from "@/networking/mutations/useGetSquareSyncMeMutation";
 import { usePostSquareOauthMeMutation } from "@/networking/mutations/usePostSquareOauthMeMutation";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
+import { useCsrfToken } from "@/utils/useCsrfToken";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { Alert, Box, CircularProgress, Container, Stack } from "@mui/material";
 import axios from "axios";
@@ -19,8 +20,10 @@ export function SetupSquareOauthComponent() {
   const maxHeightCssString = useMaxHeightCssString();
 
   const searchParams = useSearchParams();
+  const oauthState = searchParams.get("state");
   const oauthAccessCode = searchParams.get("code");
   const oauthError = searchParams.get("error");
+  const csrfToken = useCsrfToken();
 
   const t = useTranslations("SetupSquareOauthComponent");
   const { status } = useSession();
@@ -35,6 +38,9 @@ export function SetupSquareOauthComponent() {
     async function fetch() {
       if (
         oauthAccessCode &&
+        oauthState &&
+        csrfToken &&
+        oauthState === csrfToken &&
         status === "authenticated" &&
         !postSquareOauthMeMutation.isPending
       ) {
@@ -54,13 +60,13 @@ export function SetupSquareOauthComponent() {
             setErrorString(t("fallbackError"));
           }
         }
-      } else if (oauthError) {
+      } else if (oauthError || oauthState !== csrfToken) {
         push(routes.setup.square.index);
       }
     }
 
     fetch();
-  }, [oauthAccessCode, status, oauthError]);
+  }, [oauthAccessCode, status, oauthError, oauthState, csrfToken]);
 
   return (
     <Container sx={{ minHeight: maxHeightCssString }}>
