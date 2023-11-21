@@ -5,11 +5,17 @@ import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthe
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { Box, Container, Grid, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
+import { useEffect } from "react";
+import { useCookieContext } from "../providers/CookieContext";
 
 export function AccountComponent() {
   useRedirectUnauthenticatedSessions();
   const t = useTranslations("AccountComponent");
   const maxHeightCssString = useMaxHeightCssString();
+  const { setNewSquareCsrfTokenCookieValue } = useCookieContext();
+  useEffect(() => {
+    setNewSquareCsrfTokenCookieValue();
+  }, []);
   return (
     <Container sx={{ minHeight: maxHeightCssString }}>
       <Grid container justifyContent="center" py={2}>

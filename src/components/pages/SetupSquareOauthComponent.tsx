@@ -32,8 +32,7 @@ export function SetupSquareOauthComponent() {
   const squareSyncMutation = useGetSquareSyncMeMutation();
 
   const [errorString, setErrorString] = useState<string | null>(null);
-  const { squareCsrfTokenCookieValue, setNewSquareCsrfTokenCookieValue } =
-    useCookieContext();
+  const { squareCsrfTokenCookieValue } = useCookieContext();
 
   useEffect(() => {
     async function fetch() {
@@ -48,7 +47,7 @@ export function SetupSquareOauthComponent() {
         try {
           await postSquareOauthMeMutation.mutateAsync(oauthAccessCode);
           await squareSyncMutation.mutateAsync();
-          setNewSquareCsrfTokenCookieValue();
+
           push(routes.setup.catalog);
         } catch (error) {
           if (axios.isAxiosError(error) && error?.response?.status === 422) {
@@ -68,7 +67,6 @@ export function SetupSquareOauthComponent() {
           squareCsrfTokenCookieValue != undefined &&
           oauthState !== squareCsrfTokenCookieValue)
       ) {
-        setNewSquareCsrfTokenCookieValue();
         push(routes.setup.square.index);
       }
     }

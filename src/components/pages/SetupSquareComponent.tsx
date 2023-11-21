@@ -10,11 +10,16 @@ import { Container, Stack } from "@mui/material";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next-intl/client";
 import { useEffect } from "react";
+import { useCookieContext } from "../providers/CookieContext";
 
 export function SetupSquareComponent() {
   useRedirectUnauthenticatedSessions();
   const { push } = useRouter();
   const { data } = useGetMerchantMeQuery();
+  const { setNewSquareCsrfTokenCookieValue } = useCookieContext();
+  useEffect(() => {
+    setNewSquareCsrfTokenCookieValue();
+  }, []);
 
   const maxHeightCssString = useMaxHeightCssString();
 

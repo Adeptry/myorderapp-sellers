@@ -8,6 +8,7 @@ import { default as NextLink } from "next/link";
 import { Fragment, useState } from "react";
 import { SiSquare } from "react-icons/si";
 import DeauthorizeSquareDialog from "../dialogs/DeauthorizeSquareDialog";
+import { useCookieContext } from "../providers/CookieContext";
 
 interface SquareOauthButtonProps {
   scope?: string;
@@ -21,6 +22,7 @@ interface SquareOauthButtonProps {
 }
 
 export function SquareOauthButton(props: SquareOauthButtonProps) {
+  const { squareCsrfTokenCookieValue } = useCookieContext();
   const {
     scope = moaEnv.square.scope,
     locale,
@@ -28,7 +30,7 @@ export function SquareOauthButton(props: SquareOauthButtonProps) {
     code_challenge,
     redirect_uri,
     size,
-    csrfToken,
+    csrfToken = squareCsrfTokenCookieValue,
   } = props;
 
   const { data } = useGetMerchantMeQuery();

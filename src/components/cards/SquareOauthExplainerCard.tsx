@@ -12,11 +12,9 @@ import {
   Typography,
 } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { useCookieContext } from "../providers/CookieContext";
 
 export function SquareOauthExplainerCard(props: { sx?: SxProps }) {
   const t = useTranslations("SquareOauthExplainerCard");
-  const { squareCsrfTokenCookieValue } = useCookieContext();
   return (
     <Card sx={props.sx}>
       <CardContent>
@@ -68,10 +66,7 @@ export function SquareOauthExplainerCard(props: { sx?: SxProps }) {
       </CardContent>
 
       <CardActions sx={{ justifyContent: "center", pb: 5 }}>
-        <SquareOauthButton
-          size="large"
-          csrfToken={squareCsrfTokenCookieValue}
-        />
+        <SquareOauthButton size="large" />
       </CardActions>
     </Card>
   );

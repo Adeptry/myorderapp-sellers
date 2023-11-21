@@ -21,7 +21,6 @@ import * as yup from "yup";
 import { useDeleteMerchantMeMutation } from "@/networking/mutations/useDeleteMerchantMeMutation";
 import { SquareOauthButton } from "../buttons/SquareOauthButton";
 import DeleteMerchantMeDialog from "../dialogs/DeleteMerchantMeDialog";
-import { useCookieContext } from "../providers/CookieContext";
 
 export type UserUpdateFormType = UserPatchBody;
 
@@ -74,7 +73,6 @@ export function UserUpdateForm() {
   });
 
   const deleteMerchantMeMutation = useDeleteMerchantMeMutation();
-  const { squareCsrfTokenCookieValue } = useCookieContext();
 
   async function handleOnValidSubmit(data: UserUpdateFormType) {
     const dirtyFields = formState.dirtyFields;
@@ -244,7 +242,7 @@ export function UserUpdateForm() {
             {skeletonState ? (
               <Skeleton height="58px" width="100%" />
             ) : (
-              <SquareOauthButton csrfToken={squareCsrfTokenCookieValue} />
+              <SquareOauthButton />
             )}
           </Grid>
           <Grid item xs={12} textAlign="center">
