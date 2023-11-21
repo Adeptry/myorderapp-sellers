@@ -64,7 +64,7 @@ export function LocationsComponent() {
                     <StoreOutlined />
                   </ListItemIcon>
                   <ListItemText
-                    primary={location.name}
+                    primary={location.businessName ?? location.name}
                     secondary={location.address?.addressLine1}
                   />
                   <Switch
