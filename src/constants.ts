@@ -4,4 +4,5 @@ export const constants: MoaConstants = {
   currencyCookieName: "MOA_CURRENCY",
   colorModeCookieName: "MOA_COLOR_MODE",
   colorCookieName: "MOA_COLOR",
+  squareCsrfTokenCookieName: "MOA_SQUARE_CSRF_TOKEN",
 };

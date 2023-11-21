@@ -2,7 +2,6 @@ import { routes } from "@/app/routes";
 import { moaEnv } from "@/moaEnv";
 import { useGetSquareLogoutMeMutation } from "@/networking/mutations/useGetSquareLogoutMeMutation";
 import { useGetMerchantMeQuery } from "@/networking/queries/useGetMerchantMeQuery";
-import { useCsrfToken } from "@/utils/useCsrfToken";
 import { Button, Skeleton, SxProps } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { default as NextLink } from "next/link";
@@ -17,6 +16,7 @@ interface SquareOauthButtonProps {
   code_challenge?: string;
   redirect_uri?: string;
   size?: "small" | "large" | "medium";
+  csrfToken?: string;
   sx?: SxProps;
 }
 
@@ -28,23 +28,21 @@ export function SquareOauthButton(props: SquareOauthButtonProps) {
     code_challenge,
     redirect_uri,
     size,
+    csrfToken,
   } = props;
 
   const { data } = useGetMerchantMeQuery();
   const squareLogoutMeMutation = useGetSquareLogoutMeMutation();
   const [showLogoutDialogState, setShowLogoutDialogState] =
     useState<boolean>(false);
-  const csrfToken = useCsrfToken();
 
   const t = useTranslations("SquareOauthButton");
 
-  let urlString = `${moaEnv.square.baseUrl}/oauth2/authorize?client_id=${moaEnv.square.clientId}&scope=${scope}&state=${csrfToken}`;
+  let urlString = `${moaEnv.square.baseUrl}/oauth2/authorize?state=${csrfToken}&client_id=${moaEnv.square.clientId}&scope=${scope}&session=${session}`;
 
   if (locale) {
     urlString += `&locale=${locale}`;
   }
-
-  urlString += `&session=${session}`;
 
   if (code_challenge) {
     urlString += `&code_challenge=${code_challenge}`;

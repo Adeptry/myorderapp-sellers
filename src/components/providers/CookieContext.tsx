@@ -3,6 +3,7 @@
 import { constants } from "@/constants";
 import { Currency } from "@/types/next";
 import { getCookie, setCookie } from "cookies-next";
+import { nanoid } from "nanoid";
 import {
   ReactNode,
   createContext,
@@ -18,6 +19,9 @@ interface CookieContextProps {
   setColorModeCookieValue: (colorMode: "light" | "dark" | "system") => void;
   colorCookieValue: string | undefined;
   setColorCookieValue: (color: string) => void;
+  squareCsrfTokenCookieValue: string | undefined;
+  setNewSquareCsrfTokenCookieValue: () => void;
+  isValidSquareCsrfToken: (squareCsrfToken: string) => boolean;
 }
 
 export const CookieContext = createContext<CookieContextProps | undefined>(
@@ -38,6 +42,9 @@ export function CookieProvider({ children }: CookieProviderProps) {
   >(undefined);
 
   const [colorState, setColorState] = useState<string | undefined>(undefined);
+  const [squareCsrfTokenState, setSquareCsrfTokenState] = useState<
+    string | undefined
+  >(undefined);
 
   useEffect(() => {
     setCurrencyState(getCookie(constants.currencyCookieName)?.toLowerCase());
@@ -55,6 +62,17 @@ export function CookieProvider({ children }: CookieProviderProps) {
     }
 
     setColorState(getCookie(constants.colorCookieName));
+
+    const squareCsrfTokenCookie = getCookie(
+      constants.squareCsrfTokenCookieName
+    );
+    if (squareCsrfTokenCookie != undefined) {
+      setSquareCsrfTokenState(squareCsrfTokenCookie);
+    } else {
+      const newSquareCsrfToken = nanoid();
+      setCookie(constants.squareCsrfTokenCookieName, newSquareCsrfToken);
+      setSquareCsrfTokenState(newSquareCsrfToken);
+    }
   }, []);
 
   useEffect(() => {
@@ -92,6 +110,15 @@ export function CookieProvider({ children }: CookieProviderProps) {
         setColorModeCookieValue: setColorModeState,
         colorCookieValue: colorState,
         setColorCookieValue: setColorState,
+        squareCsrfTokenCookieValue: squareCsrfTokenState,
+        setNewSquareCsrfTokenCookieValue: () => {
+          const newSquareCsrfToken = nanoid();
+          setCookie(constants.squareCsrfTokenCookieName, newSquareCsrfToken);
+          setSquareCsrfTokenState(newSquareCsrfToken);
+        },
+        isValidSquareCsrfToken: (squareCsrfToken: string) => {
+          return squareCsrfToken === squareCsrfTokenState;
+        },
       }}
     >
       {children}

@@ -86,4 +86,5 @@ export interface MoaConstants {
   currencyCookieName: string;
   colorModeCookieName: string;
   colorCookieName: string;
+  squareCsrfTokenCookieName: string;
 }

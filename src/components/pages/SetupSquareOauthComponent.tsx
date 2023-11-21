@@ -5,7 +5,6 @@ import { OnboardingStepper } from "@/components/steppers/OnboardingStepper";
 import { useGetSquareSyncMeMutation } from "@/networking/mutations/useGetSquareSyncMeMutation";
 import { usePostSquareOauthMeMutation } from "@/networking/mutations/usePostSquareOauthMeMutation";
 import { useRedirectUnauthenticatedSessions } from "@/routing/useRedirectUnauthenticatedSessions";
-import { useCsrfToken } from "@/utils/useCsrfToken";
 import { useMaxHeightCssString } from "@/utils/useMaxHeight";
 import { Alert, Box, CircularProgress, Container, Stack } from "@mui/material";
 import axios from "axios";
@@ -14,6 +13,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next-intl/client";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useCookieContext } from "../providers/CookieContext";
 
 export function SetupSquareOauthComponent() {
   useRedirectUnauthenticatedSessions();
@@ -23,7 +23,6 @@ export function SetupSquareOauthComponent() {
   const oauthState = searchParams.get("state");
   const oauthAccessCode = searchParams.get("code");
   const oauthError = searchParams.get("error");
-  const csrfToken = useCsrfToken();
 
   const t = useTranslations("SetupSquareOauthComponent");
   const { status } = useSession();
@@ -33,20 +32,23 @@ export function SetupSquareOauthComponent() {
   const squareSyncMutation = useGetSquareSyncMeMutation();
 
   const [errorString, setErrorString] = useState<string | null>(null);
+  const { squareCsrfTokenCookieValue, setNewSquareCsrfTokenCookieValue } =
+    useCookieContext();
 
   useEffect(() => {
     async function fetch() {
       if (
         oauthAccessCode &&
         oauthState &&
-        csrfToken &&
-        oauthState === csrfToken &&
+        squareCsrfTokenCookieValue &&
+        oauthState === squareCsrfTokenCookieValue &&
         status === "authenticated" &&
         !postSquareOauthMeMutation.isPending
       ) {
         try {
           await postSquareOauthMeMutation.mutateAsync(oauthAccessCode);
           await squareSyncMutation.mutateAsync();
+          setNewSquareCsrfTokenCookieValue();
           push(routes.setup.catalog);
         } catch (error) {
           if (axios.isAxiosError(error) && error?.response?.status === 422) {
@@ -63,15 +65,22 @@ export function SetupSquareOauthComponent() {
       } else if (
         oauthError ||
         (oauthState != undefined &&
-          csrfToken != undefined &&
-          oauthState !== csrfToken)
+          squareCsrfTokenCookieValue != undefined &&
+          oauthState !== squareCsrfTokenCookieValue)
       ) {
+        setNewSquareCsrfTokenCookieValue();
         push(routes.setup.square.index);
       }
     }
 
     fetch();
-  }, [oauthAccessCode, status, oauthError, oauthState, csrfToken]);
+  }, [
+    oauthAccessCode,
+    status,
+    oauthError,
+    oauthState,
+    squareCsrfTokenCookieValue,
+  ]);
 
   return (
     <Container sx={{ minHeight: maxHeightCssString }}>
