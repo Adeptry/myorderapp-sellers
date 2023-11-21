@@ -24,7 +24,7 @@ export function SquareOauthButton(props: SquareOauthButtonProps) {
   const {
     scope = moaEnv.square.scope,
     locale,
-    session = true,
+    session = false,
     code_challenge,
     redirect_uri,
     size,
@@ -38,7 +38,7 @@ export function SquareOauthButton(props: SquareOauthButtonProps) {
 
   const t = useTranslations("SquareOauthButton");
 
-  let urlString = `${moaEnv.square.baseUrl}/oauth2/authorize?client_id=${moaEnv.square.clientId}&scope=${scope}&state=${csrfToken}&session=false`;
+  let urlString = `${moaEnv.square.baseUrl}/oauth2/authorize?client_id=${moaEnv.square.clientId}&scope=${scope}&state=${csrfToken}`;
 
   if (locale) {
     urlString += `&locale=${locale}`;
