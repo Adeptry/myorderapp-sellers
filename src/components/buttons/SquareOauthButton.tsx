@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import { default as NextLink } from "next/link";
 import { Fragment, useState } from "react";
 import { SiSquare } from "react-icons/si";
-import DeauthorizeSquareDialog from "../dialogs/DeauthorizeSquareDialog";
+import { DeauthorizeSquareDialog } from "../dialogs/DeauthorizeSquareDialog";
 import { useCookieContext } from "../providers/CookieContext";
 
 interface SquareOauthButtonProps {

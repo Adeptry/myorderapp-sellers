@@ -27,7 +27,7 @@ import { DatePicker } from "@mui/x-date-pickers";
 import { endOfMonth, startOfMonth } from "date-fns";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import OrderingEnabledFormControlLabel from "../form-control-labels/OrderingEnabledFormControlLabel";
+import { OrderingEnabledFormControlLabel } from "../form-control-labels/OrderingEnabledFormControlLabel";
 
 const headerHeight = 151 + 16 + 56 + 16 + 46; // 46 is a magic number
 

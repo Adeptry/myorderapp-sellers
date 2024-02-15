@@ -12,7 +12,7 @@ import {
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
-export default function DeleteMerchantMeDialog(props: {
+export function DeleteMerchantMeDialog(props: {
   open: boolean;
   onClose: (confirmed: boolean) => void;
 }) {

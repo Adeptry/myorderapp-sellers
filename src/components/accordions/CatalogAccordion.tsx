@@ -29,7 +29,7 @@ import { nanoid } from "nanoid";
 import { useTranslations } from "next-intl";
 import { Fragment, useState } from "react";
 import { DragDropContext, Draggable, DropResult } from "react-beautiful-dnd";
-import ErrorTextDialog from "../dialogs/TextDialog";
+import { ErrorTextDialog } from "../dialogs/TextDialog";
 
 export function CatalogAccordion() {
   const t = useTranslations("CatalogAccordion");
@@ -437,10 +437,10 @@ export function CatalogAccordion() {
                                                                   {
                                                                     id: variationInItemInCategory.id!,
                                                                     variationPatchBody:
-                                                                      {
-                                                                        moaEnabled:
-                                                                          !variationInItemInCategory.moaEnabled,
-                                                                      },
+                                                                    {
+                                                                      moaEnabled:
+                                                                        !variationInItemInCategory.moaEnabled,
+                                                                    },
                                                                   }
                                                                 );
                                                               }}

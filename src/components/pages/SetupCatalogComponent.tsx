@@ -30,7 +30,7 @@ import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next-intl/client";
 import { useState } from "react";
-import SetupCatalogDialog from "../dialogs/SetupCatalogDialog";
+import { SetupCatalogDialog } from "../dialogs/SetupCatalogDialog";
 
 export function SetupCatalogComponent() {
   useRedirectSetupSessions(routes.catalog);

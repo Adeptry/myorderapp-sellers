@@ -108,6 +108,12 @@
     "emailLabel": "Confirm Email",
     "title": "Deauthorize Square"
   },
+  "DeleteCustomerDialog": {
+    "cancelButton": "Cancel",
+    "content": "Are you certain you wish to delete this customer? This irreversible action will remove this customer from MyOrderApp and Square.",
+    "deleteButton": "Delete",
+    "title": "Delete Customer"
+  },
   "DeleteMerchantMeDialog": {
     "cancelButton": "Cancel",
     "content": "Are you certain you wish to delete your account? This irreversible action will erase all your data, including customer accounts and order history. While we'll maintain minimal records for legal reasons, restoring your account won't be feasible. Please confirm this final step by entering your email address below.",

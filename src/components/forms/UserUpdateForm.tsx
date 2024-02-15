@@ -17,10 +17,9 @@ import { Fragment, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslations } from "use-intl";
 import * as yup from "yup";
-
 import { useDeleteMerchantMeMutation } from "@/networking/mutations/useDeleteMerchantMeMutation";
 import { SquareOauthButton } from "../buttons/SquareOauthButton";
-import DeleteMerchantMeDialog from "../dialogs/DeleteMerchantMeDialog";
+import { DeleteMerchantMeDialog } from "../dialogs/DeleteMerchantMeDialog";
 
 export type UserUpdateFormType = UserPatchBody;
 

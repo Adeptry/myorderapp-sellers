@@ -108,6 +108,12 @@
     "emailLabel": "メール確認",
     "title": "Squareの認証解除"
   },
+  "DeleteCustomerDialog": {
+    "cancelButton": "キャンセル",
+    "content": "この顧客を削除してもよろしいですか？この取り返しのつかない行動は、MyOrderAppとSquareからこの顧客を削除します。",
+    "deleteButton": "削除",
+    "title": "顧客の削除"
+  },
   "DeleteMerchantMeDialog": {
     "cancelButton": "キャンセル",
     "content": "アカウントを削除してもよろしいですか？この取り返しのつかない行動は、顧客のアカウントや注文履歴を含むすべてのデータを消去します。法的な理由で最小限の記録を保持しますが、アカウントの復元は実現不可能です。以下にメールアドレスを入力して、この最終ステップを確認してください。",

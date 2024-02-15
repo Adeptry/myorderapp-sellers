@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { useTranslations } from "next-intl";
 
-export default function ErrorTextDialog(props: {
+export function ErrorTextDialog(props: {
   open: boolean;
   onClose: () => void;
   title?: string;

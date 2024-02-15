@@ -4,7 +4,7 @@ import { FormControlLabel, Switch, Typography } from "@mui/material";
 import { AppConfigsApiGetAppConfigMeRequest } from "myorderapp-square";
 import { useTranslations } from "next-intl";
 
-export default function OrderingEnabledFormControlLabel() {
+export function OrderingEnabledFormControlLabel() {
   const t = useTranslations("OrderingEnabledFormControlLabel");
   const params: AppConfigsApiGetAppConfigMeRequest = { actingAs: "merchant" };
   const { data: appConfig } = useGetAppConfigMeQuery();

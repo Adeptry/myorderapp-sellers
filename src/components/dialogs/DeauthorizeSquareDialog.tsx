@@ -12,7 +12,7 @@ import {
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
-export default function DeauthorizeSquareDialog(props: {
+export function DeauthorizeSquareDialog(props: {
   open: boolean;
   onClose: (confirmed: boolean) => void;
 }) {
